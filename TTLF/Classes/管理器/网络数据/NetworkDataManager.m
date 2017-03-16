@@ -339,6 +339,40 @@
     
 }
 
+#pragma mark - 获取功德值列表
+- (void)getPunaNumWithMonth:(NSString *)month Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Index/seach_punnanum";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:month.base64EncodedString forKey:@"month"];
+    
+//    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [PunaNumListModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+
+
+
 #pragma mark - 花名相关
 - (void)sharkActionSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {

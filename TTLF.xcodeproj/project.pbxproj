@@ -9,6 +9,25 @@
 /* Begin PBXBuildFile section */
 		0634E00CE7196E61DA9AE0C4 /* libPods-TTLFUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6951712420153646DB45C8 /* libPods-TTLFUITests.a */; };
 		177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */; };
+		3B1F05A91E7928A0005173B9 /* PhotoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F058A1E7928A0005173B9 /* PhotoShowViewController.m */; };
+		3B1F05AA1E7928A0005173B9 /* SelectLocaltionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */; };
+		3B1F05AB1E7928A0005173B9 /* SelectTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F058E1E7928A0005173B9 /* SelectTopicController.m */; };
+		3B1F05AC1E7928A0005173B9 /* SendDynViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05901E7928A0005173B9 /* SendDynViewController.m */; };
+		3B1F05AD1E7928A0005173B9 /* SendTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05931E7928A0005173B9 /* SendTopicModel.m */; };
+		3B1F05AE1E7928A0005173B9 /* SendDynHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05961E7928A0005173B9 /* SendDynHeadView.m */; };
+		3B1F05AF1E7928A0005173B9 /* SendDynTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05981E7928A0005173B9 /* SendDynTableCell.m */; };
+		3B1F05B01E7928A0005173B9 /* TopicCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F059A1E7928A0005173B9 /* TopicCollectionCell.m */; };
+		3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */; };
+		3B1F05B21E7928A0005173B9 /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05A41E7928A0005173B9 /* HomeViewController.m */; };
+		3B1F05B31E7928A0005173B9 /* FYQImgTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05A81E7928A0005173B9 /* FYQImgTableViewCell.m */; };
+		3B1F05C71E792BD2005173B9 /* AboutPunnaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05B61E792BD2005173B9 /* AboutPunnaViewController.m */; };
+		3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05B81E792BD2005173B9 /* PunnaListViewController.m */; };
+		3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05BA1E792BD2005173B9 /* PunnaNumViewController.m */; };
+		3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05BD1E792BD2005173B9 /* PunaNumListModel.m */; };
+		3B1F05CB1E792BD2005173B9 /* DrawCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05C01E792BD2005173B9 /* DrawCircleView.m */; };
+		3B1F05CC1E792BD2005173B9 /* PunaListHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05C21E792BD2005173B9 /* PunaListHeadView.m */; };
+		3B1F05CD1E792BD2005173B9 /* PunnaListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05C41E792BD2005173B9 /* PunnaListTableCell.m */; };
+		3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05C61E792BD2005173B9 /* YearMonthPickerView.m */; };
 		3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FAD1E6FDC8F0078379B /* SuperViewController.m */; };
 		3B266FCC1E6FDCB60078379B /* DeviceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FB21E6FDCB60078379B /* DeviceInfoModel.m */; };
 		3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FB91E6FDCB60078379B /* HTTPManager.m */; };
@@ -81,10 +100,6 @@
 		3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670A11E6FE2B40078379B /* CityInfoModel.m */; };
 		3B2670E31E6FE2B40078379B /* ProvinceCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670A31E6FE2B40078379B /* ProvinceCityModel.m */; };
 		3B2670E41E6FE2B40078379B /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B2670A41E6FE2B40078379B /* ProvincesAndCities.plist */; };
-		3B2670E51E6FE2B40078379B /* AboutPunnaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670A81E6FE2B40078379B /* AboutPunnaViewController.m */; };
-		3B2670E61E6FE2B40078379B /* DrawCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670AA1E6FE2B40078379B /* DrawCircleView.m */; };
-		3B2670E71E6FE2B40078379B /* PunnaListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670AC1E6FE2B40078379B /* PunnaListViewController.m */; };
-		3B2670E81E6FE2B40078379B /* PunnaNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670AE1E6FE2B40078379B /* PunnaNumViewController.m */; };
 		3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670B21E6FE2B40078379B /* PhotosViewController.m */; };
 		3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670B41E6FE2B40078379B /* UserInfoViewController.m */; };
 		3B2670EB1E6FE2B40078379B /* WoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670B61E6FE2B40078379B /* WoViewController.m */; };
@@ -104,9 +119,6 @@
 		3B2670FB1E6FE2F70078379B /* ZanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670FA1E6FE2F70078379B /* ZanViewController.m */; };
 		3B2671001E6FE3360078379B /* ChangePusaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670FD1E6FE3360078379B /* ChangePusaViewController.m */; };
 		3B2671011E6FE3360078379B /* LiFoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670FF1E6FE3360078379B /* LiFoViewController.m */; };
-		3B2671041E6FE3AB0078379B /* SendTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2671031E6FE3AB0078379B /* SendTopicModel.m */; };
-		3B2671071E6FE3D50078379B /* HomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2671061E6FE3D50078379B /* HomeViewController.m */; };
-		3B26710A1E6FEA370078379B /* SendDynViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2671091E6FEA370078379B /* SendDynViewController.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
 		3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCE9CC1E6EBB7600E2F8E0 /* Assets.xcassets */; };
@@ -134,6 +146,44 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B1F05891E7928A0005173B9 /* PhotoShowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoShowViewController.h; sourceTree = "<group>"; };
+		3B1F058A1E7928A0005173B9 /* PhotoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShowViewController.m; sourceTree = "<group>"; };
+		3B1F058B1E7928A0005173B9 /* SelectLocaltionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocaltionController.h; sourceTree = "<group>"; };
+		3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocaltionController.m; sourceTree = "<group>"; };
+		3B1F058D1E7928A0005173B9 /* SelectTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicController.h; sourceTree = "<group>"; };
+		3B1F058E1E7928A0005173B9 /* SelectTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicController.m; sourceTree = "<group>"; };
+		3B1F058F1E7928A0005173B9 /* SendDynViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDynViewController.h; sourceTree = "<group>"; };
+		3B1F05901E7928A0005173B9 /* SendDynViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDynViewController.m; sourceTree = "<group>"; };
+		3B1F05921E7928A0005173B9 /* SendTopicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTopicModel.h; sourceTree = "<group>"; };
+		3B1F05931E7928A0005173B9 /* SendTopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTopicModel.m; sourceTree = "<group>"; };
+		3B1F05951E7928A0005173B9 /* SendDynHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDynHeadView.h; sourceTree = "<group>"; };
+		3B1F05961E7928A0005173B9 /* SendDynHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDynHeadView.m; sourceTree = "<group>"; };
+		3B1F05971E7928A0005173B9 /* SendDynTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDynTableCell.h; sourceTree = "<group>"; };
+		3B1F05981E7928A0005173B9 /* SendDynTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDynTableCell.m; sourceTree = "<group>"; };
+		3B1F05991E7928A0005173B9 /* TopicCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicCollectionCell.h; sourceTree = "<group>"; };
+		3B1F059A1E7928A0005173B9 /* TopicCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicCollectionCell.m; sourceTree = "<group>"; };
+		3B1F059D1E7928A0005173B9 /* FoNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoNewsViewController.h; sourceTree = "<group>"; };
+		3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoNewsViewController.m; sourceTree = "<group>"; };
+		3B1F05A31E7928A0005173B9 /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
+		3B1F05A41E7928A0005173B9 /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
+		3B1F05A71E7928A0005173B9 /* FYQImgTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYQImgTableViewCell.h; sourceTree = "<group>"; };
+		3B1F05A81E7928A0005173B9 /* FYQImgTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYQImgTableViewCell.m; sourceTree = "<group>"; };
+		3B1F05B51E792BD2005173B9 /* AboutPunnaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPunnaViewController.h; sourceTree = "<group>"; };
+		3B1F05B61E792BD2005173B9 /* AboutPunnaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPunnaViewController.m; sourceTree = "<group>"; };
+		3B1F05B71E792BD2005173B9 /* PunnaListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunnaListViewController.h; sourceTree = "<group>"; };
+		3B1F05B81E792BD2005173B9 /* PunnaListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunnaListViewController.m; sourceTree = "<group>"; };
+		3B1F05B91E792BD2005173B9 /* PunnaNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunnaNumViewController.h; sourceTree = "<group>"; };
+		3B1F05BA1E792BD2005173B9 /* PunnaNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunnaNumViewController.m; sourceTree = "<group>"; };
+		3B1F05BC1E792BD2005173B9 /* PunaNumListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunaNumListModel.h; sourceTree = "<group>"; };
+		3B1F05BD1E792BD2005173B9 /* PunaNumListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunaNumListModel.m; sourceTree = "<group>"; };
+		3B1F05BF1E792BD2005173B9 /* DrawCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircleView.h; sourceTree = "<group>"; };
+		3B1F05C01E792BD2005173B9 /* DrawCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircleView.m; sourceTree = "<group>"; };
+		3B1F05C11E792BD2005173B9 /* PunaListHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunaListHeadView.h; sourceTree = "<group>"; };
+		3B1F05C21E792BD2005173B9 /* PunaListHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunaListHeadView.m; sourceTree = "<group>"; };
+		3B1F05C31E792BD2005173B9 /* PunnaListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunnaListTableCell.h; sourceTree = "<group>"; };
+		3B1F05C41E792BD2005173B9 /* PunnaListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunnaListTableCell.m; sourceTree = "<group>"; };
+		3B1F05C51E792BD2005173B9 /* YearMonthPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YearMonthPickerView.h; sourceTree = "<group>"; };
+		3B1F05C61E792BD2005173B9 /* YearMonthPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YearMonthPickerView.m; sourceTree = "<group>"; };
 		3B266FA71E6FDBD30078379B /* TTLF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TTLF.entitlements; sourceTree = "<group>"; };
 		3B266FAC1E6FDC8F0078379B /* SuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperViewController.h; sourceTree = "<group>"; };
 		3B266FAD1E6FDC8F0078379B /* SuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperViewController.m; sourceTree = "<group>"; };
@@ -279,14 +329,6 @@
 		3B2670A21E6FE2B40078379B /* ProvinceCityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceCityModel.h; sourceTree = "<group>"; };
 		3B2670A31E6FE2B40078379B /* ProvinceCityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceCityModel.m; sourceTree = "<group>"; };
 		3B2670A41E6FE2B40078379B /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
-		3B2670A71E6FE2B40078379B /* AboutPunnaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPunnaViewController.h; sourceTree = "<group>"; };
-		3B2670A81E6FE2B40078379B /* AboutPunnaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutPunnaViewController.m; sourceTree = "<group>"; };
-		3B2670A91E6FE2B40078379B /* DrawCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DrawCircleView.h; sourceTree = "<group>"; };
-		3B2670AA1E6FE2B40078379B /* DrawCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DrawCircleView.m; sourceTree = "<group>"; };
-		3B2670AB1E6FE2B40078379B /* PunnaListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunnaListViewController.h; sourceTree = "<group>"; };
-		3B2670AC1E6FE2B40078379B /* PunnaListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunnaListViewController.m; sourceTree = "<group>"; };
-		3B2670AD1E6FE2B40078379B /* PunnaNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PunnaNumViewController.h; sourceTree = "<group>"; };
-		3B2670AE1E6FE2B40078379B /* PunnaNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PunnaNumViewController.m; sourceTree = "<group>"; };
 		3B2670B11E6FE2B40078379B /* PhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosViewController.h; sourceTree = "<group>"; };
 		3B2670B21E6FE2B40078379B /* PhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosViewController.m; sourceTree = "<group>"; };
 		3B2670B31E6FE2B40078379B /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
@@ -324,12 +366,6 @@
 		3B2670FD1E6FE3360078379B /* ChangePusaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePusaViewController.m; sourceTree = "<group>"; };
 		3B2670FE1E6FE3360078379B /* LiFoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiFoViewController.h; sourceTree = "<group>"; };
 		3B2670FF1E6FE3360078379B /* LiFoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiFoViewController.m; sourceTree = "<group>"; };
-		3B2671021E6FE3AB0078379B /* SendTopicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTopicModel.h; sourceTree = "<group>"; };
-		3B2671031E6FE3AB0078379B /* SendTopicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendTopicModel.m; sourceTree = "<group>"; };
-		3B2671051E6FE3D50078379B /* HomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeViewController.h; sourceTree = "<group>"; };
-		3B2671061E6FE3D50078379B /* HomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeViewController.m; sourceTree = "<group>"; };
-		3B2671081E6FEA370078379B /* SendDynViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDynViewController.h; sourceTree = "<group>"; };
-		3B2671091E6FEA370078379B /* SendDynViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDynViewController.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDCE9C11E6EBB7600E2F8E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BDCE9C31E6EBB7600E2F8E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -394,6 +430,158 @@
 				EC978D0FBD303041FFE86125 /* Pods-TTLFUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3B1F05871E7928A0005173B9 /* 佛友圈 */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05881E7928A0005173B9 /* C */,
+				3B1F05911E7928A0005173B9 /* M */,
+				3B1F05941E7928A0005173B9 /* V */,
+			);
+			path = "佛友圈";
+			sourceTree = "<group>";
+		};
+		3B1F05881E7928A0005173B9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05891E7928A0005173B9 /* PhotoShowViewController.h */,
+				3B1F058A1E7928A0005173B9 /* PhotoShowViewController.m */,
+				3B1F058B1E7928A0005173B9 /* SelectLocaltionController.h */,
+				3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */,
+				3B1F058D1E7928A0005173B9 /* SelectTopicController.h */,
+				3B1F058E1E7928A0005173B9 /* SelectTopicController.m */,
+				3B1F058F1E7928A0005173B9 /* SendDynViewController.h */,
+				3B1F05901E7928A0005173B9 /* SendDynViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3B1F05911E7928A0005173B9 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05921E7928A0005173B9 /* SendTopicModel.h */,
+				3B1F05931E7928A0005173B9 /* SendTopicModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3B1F05941E7928A0005173B9 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05951E7928A0005173B9 /* SendDynHeadView.h */,
+				3B1F05961E7928A0005173B9 /* SendDynHeadView.m */,
+				3B1F05971E7928A0005173B9 /* SendDynTableCell.h */,
+				3B1F05981E7928A0005173B9 /* SendDynTableCell.m */,
+				3B1F05991E7928A0005173B9 /* TopicCollectionCell.h */,
+				3B1F059A1E7928A0005173B9 /* TopicCollectionCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		3B1F059B1E7928A0005173B9 /* 业界动态 */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F059C1E7928A0005173B9 /* C */,
+				3B1F059F1E7928A0005173B9 /* M */,
+				3B1F05A01E7928A0005173B9 /* V */,
+			);
+			path = "业界动态";
+			sourceTree = "<group>";
+		};
+		3B1F059C1E7928A0005173B9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F059D1E7928A0005173B9 /* FoNewsViewController.h */,
+				3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3B1F059F1E7928A0005173B9 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3B1F05A01E7928A0005173B9 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		3B1F05A11E7928A0005173B9 /* 主页 */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05A21E7928A0005173B9 /* C */,
+				3B1F05A51E7928A0005173B9 /* M */,
+				3B1F05A61E7928A0005173B9 /* V */,
+			);
+			path = "主页";
+			sourceTree = "<group>";
+		};
+		3B1F05A21E7928A0005173B9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05A31E7928A0005173B9 /* HomeViewController.h */,
+				3B1F05A41E7928A0005173B9 /* HomeViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3B1F05A51E7928A0005173B9 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3B1F05A61E7928A0005173B9 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05A71E7928A0005173B9 /* FYQImgTableViewCell.h */,
+				3B1F05A81E7928A0005173B9 /* FYQImgTableViewCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		3B1F05B41E792BD2005173B9 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05B91E792BD2005173B9 /* PunnaNumViewController.h */,
+				3B1F05BA1E792BD2005173B9 /* PunnaNumViewController.m */,
+				3B1F05B51E792BD2005173B9 /* AboutPunnaViewController.h */,
+				3B1F05B61E792BD2005173B9 /* AboutPunnaViewController.m */,
+				3B1F05B71E792BD2005173B9 /* PunnaListViewController.h */,
+				3B1F05B81E792BD2005173B9 /* PunnaListViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3B1F05BB1E792BD2005173B9 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05BC1E792BD2005173B9 /* PunaNumListModel.h */,
+				3B1F05BD1E792BD2005173B9 /* PunaNumListModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3B1F05BE1E792BD2005173B9 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				3B1F05BF1E792BD2005173B9 /* DrawCircleView.h */,
+				3B1F05C01E792BD2005173B9 /* DrawCircleView.m */,
+				3B1F05C11E792BD2005173B9 /* PunaListHeadView.h */,
+				3B1F05C21E792BD2005173B9 /* PunaListHeadView.m */,
+				3B1F05C31E792BD2005173B9 /* PunnaListTableCell.h */,
+				3B1F05C41E792BD2005173B9 /* PunnaListTableCell.m */,
+				3B1F05C51E792BD2005173B9 /* YearMonthPickerView.h */,
+				3B1F05C61E792BD2005173B9 /* YearMonthPickerView.m */,
+			);
+			path = V;
 			sourceTree = "<group>";
 		};
 		3B266FA21E6FDAA30078379B /* 系统文件 */ = {
@@ -716,12 +904,9 @@
 		3B2670721E6FE2660078379B /* 佛友圈 */ = {
 			isa = PBXGroup;
 			children = (
-				3B2671051E6FE3D50078379B /* HomeViewController.h */,
-				3B2671061E6FE3D50078379B /* HomeViewController.m */,
-				3B2671081E6FEA370078379B /* SendDynViewController.h */,
-				3B2671091E6FEA370078379B /* SendDynViewController.m */,
-				3B2671021E6FE3AB0078379B /* SendTopicModel.h */,
-				3B2671031E6FE3AB0078379B /* SendTopicModel.m */,
+				3B1F05871E7928A0005173B9 /* 佛友圈 */,
+				3B1F059B1E7928A0005173B9 /* 业界动态 */,
+				3B1F05A11E7928A0005173B9 /* 主页 */,
 			);
 			path = "佛友圈";
 			sourceTree = "<group>";
@@ -852,14 +1037,9 @@
 		3B2670A61E6FE2B40078379B /* 功德值 */ = {
 			isa = PBXGroup;
 			children = (
-				3B2670A71E6FE2B40078379B /* AboutPunnaViewController.h */,
-				3B2670A81E6FE2B40078379B /* AboutPunnaViewController.m */,
-				3B2670A91E6FE2B40078379B /* DrawCircleView.h */,
-				3B2670AA1E6FE2B40078379B /* DrawCircleView.m */,
-				3B2670AB1E6FE2B40078379B /* PunnaListViewController.h */,
-				3B2670AC1E6FE2B40078379B /* PunnaListViewController.m */,
-				3B2670AD1E6FE2B40078379B /* PunnaNumViewController.h */,
-				3B2670AE1E6FE2B40078379B /* PunnaNumViewController.m */,
+				3B1F05B41E792BD2005173B9 /* C */,
+				3B1F05BB1E792BD2005173B9 /* M */,
+				3B1F05BE1E792BD2005173B9 /* V */,
 			);
 			path = "功德值";
 			sourceTree = "<group>";
@@ -1349,8 +1529,7 @@
 			files = (
 				3B266FD11E6FDCB60078379B /* Account.m in Sources */,
 				3B2670571E6FDEBB0078379B /* XLZoomingScrollView.m in Sources */,
-				3B26710A1E6FEA370078379B /* SendDynViewController.m in Sources */,
-				3B2670E81E6FE2B40078379B /* PunnaNumViewController.m in Sources */,
+				3B1F05B01E7928A0005173B9 /* TopicCollectionCell.m in Sources */,
 				3B2670621E6FDFE40078379B /* RootTabbarController.m in Sources */,
 				3B2670511E6FDEBB0078379B /* TADotView.m in Sources */,
 				3B2670DE1E6FE2B40078379B /* WechatLoginViewController.m in Sources */,
@@ -1361,21 +1540,25 @@
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
+				3B1F05AB1E7928A0005173B9 /* SelectTopicController.m in Sources */,
+				3B1F05AF1E7928A0005173B9 /* SendDynTableCell.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
 				3B26703D1E6FDEBB0078379B /* KSPhotoView.m in Sources */,
 				3B26703F1E6FDEBB0078379B /* MBProgressHUD+MJ.m in Sources */,
 				3B2670481E6FDEBB0078379B /* WXMediaMessage+messageConstruct.m in Sources */,
+				3B1F05CD1E792BD2005173B9 /* PunnaListTableCell.m in Sources */,
 				3B2670871E6FE2930078379B /* PlaceListViewController.m in Sources */,
 				3B2670591E6FDEBB0078379B /* GifRefreshHeader.m in Sources */,
 				3B2670381E6FDEBB0078379B /* UIImage+Category.m in Sources */,
+				3B1F05B21E7928A0005173B9 /* HomeViewController.m in Sources */,
 				3B2670681E6FE0F30078379B /* TTLFManager.m in Sources */,
 				3B2670E31E6FE2B40078379B /* ProvinceCityModel.m in Sources */,
 				3B2670531E6FDEBB0078379B /* UIImage+XLExtension.m in Sources */,
 				3B2670881E6FE2930078379B /* DiscoverCollectionCell.m in Sources */,
 				3B2670501E6FDEBB0078379B /* TAAnimatedDotView.m in Sources */,
-				3B2671041E6FE3AB0078379B /* SendTopicModel.m in Sources */,
 				3B2670EF1E6FE2B40078379B /* NewFetherViewController.m in Sources */,
 				3B266FD41E6FDCB60078379B /* UserInfoModel.m in Sources */,
+				3B1F05CB1E792BD2005173B9 /* DrawCircleView.m in Sources */,
 				3B26704A1E6FDEBB0078379B /* FSActionSheetCell.m in Sources */,
 				3B2670891E6FE2930078379B /* DisCoverTableViewCell.m in Sources */,
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
@@ -1384,50 +1567,58 @@
 				3B26706E1E6FE1B20078379B /* TTLFSetManager.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
+				3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */,
+				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
 				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
 				3B2670471E6FDEBB0078379B /* WXApiResponseHandler.m in Sources */,
+				3B1F05CC1E792BD2005173B9 /* PunaListHeadView.m in Sources */,
 				3B2670611E6FDFE40078379B /* RootNavgationController.m in Sources */,
 				3B2670FB1E6FE2F70078379B /* ZanViewController.m in Sources */,
 				3B2670601E6FDFE40078379B /* NormalTableViewCell.m in Sources */,
 				3B2670581E6FDEBB0078379B /* GifRefreshFooter.m in Sources */,
 				3B26706B1E6FE14A0078379B /* HTTPLimiteCache.m in Sources */,
 				3B2670EE1E6FE2B40078379B /* NavigationView.m in Sources */,
-				3B2670E71E6FE2B40078379B /* PunnaListViewController.m in Sources */,
 				3B2670371E6FDEBB0078379B /* UIBarButtonItem+Extension.m in Sources */,
 				3B2670551E6FDEBB0078379B /* XLPhotoBrowser.m in Sources */,
 				3B2670F31E6FE2B40078379B /* StageInfoViewController.m in Sources */,
+				3B1F05B31E7928A0005173B9 /* FYQImgTableViewCell.m in Sources */,
 				3B2670561E6FDEBB0078379B /* XLProgressView.m in Sources */,
 				3B2670651E6FE0070078379B /* TTLFTabbar.m in Sources */,
 				3B26704B1E6FDEBB0078379B /* FSActionSheetConfig.m in Sources */,
 				3B2670351E6FDEBB0078379B /* Foundation+Log.m in Sources */,
 				3B2670491E6FDEBB0078379B /* FSActionSheet.m in Sources */,
 				3B266FDF1E6FDD740078379B /* TTLFConstKey.m in Sources */,
+				3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */,
+				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B266FD61E6FDCB60078379B /* WechatInfoModel.m in Sources */,
-				3B2670E51E6FE2B40078379B /* AboutPunnaViewController.m in Sources */,
 				3B266FCC1E6FDCB60078379B /* DeviceInfoModel.m in Sources */,
 				3B2670EB1E6FE2B40078379B /* WoViewController.m in Sources */,
-				3B2671071E6FE3D50078379B /* HomeViewController.m in Sources */,
+				3B1F05AC1E7928A0005173B9 /* SendDynViewController.m in Sources */,
 				3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */,
 				3B2670361E6FDEBB0078379B /* NSString+Category.m in Sources */,
 				3B2670851E6FE2930078379B /* DiscoverViewController.m in Sources */,
 				3B266FD21E6FDCB60078379B /* AccountTool.m in Sources */,
 				3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */,
 				3B2670461E6FDEBB0078379B /* WXApiRequestHandler.m in Sources */,
+				3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */,
 				3B2670441E6FDEBB0078379B /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				3B2670861E6FE2930078379B /* GoodsDetialController.m in Sources */,
 				3B2670F51E6FE2B40078379B /* SuggestViewController.m in Sources */,
+				3B1F05AD1E7928A0005173B9 /* SendTopicModel.m in Sources */,
+				3B1F05AA1E7928A0005173B9 /* SelectLocaltionController.m in Sources */,
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
-				3B2670E61E6FE2B40078379B /* DrawCircleView.m in Sources */,
 				3B26703C1E6FDEBB0078379B /* KSPhotoItem.m in Sources */,
 				3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
 				3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */,
+				3B1F05AE1E7928A0005173B9 /* SendDynHeadView.m in Sources */,
 				3B2670F01E6FE2B40078379B /* AboutUSViewController.m in Sources */,
 				3B266FD51E6FDCB60078379B /* WechatAuthModel.m in Sources */,
 				3B2670F41E6FE2B40078379B /* StageModel.m in Sources */,
 				3B26708A1E6FE2930078379B /* HomeReusableView.m in Sources */,
+				3B1F05C71E792BD2005173B9 /* AboutPunnaViewController.m in Sources */,
 				3B2670DA1E6FE2B40078379B /* ForgetPasswordViewController.m in Sources */,
 				3B26704C1E6FDEBB0078379B /* FSActionSheetItem.m in Sources */,
 				3B2670DB1E6FE2B40078379B /* PhoneLoginViewController.m in Sources */,
@@ -1436,6 +1627,7 @@
 				3B26703E1E6FDEBB0078379B /* KSProgressLayer.m in Sources */,
 				3B2670541E6FDEBB0078379B /* UIView+XLExtension.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,
+				3B1F05A91E7928A0005173B9 /* PhotoShowViewController.m in Sources */,
 				3B2670E01E6FE2B40078379B /* NickNameViewController.m in Sources */,
 				3B2670DF1E6FE2B40078379B /* CityViewController.m in Sources */,
 				3B26703B1E6FDEBB0078379B /* KSPhotoBrowser.m in Sources */,

@@ -80,7 +80,7 @@
         if (indexPath.row == 0) {
             //安全中心
             CATransition *animation = [CATransition animation];
-            animation.duration = 0.6;
+            animation.duration = 0.2;
             animation.timingFunction = UIViewAnimationCurveEaseInOut;
             animation.type = kCATransitionFade;
             animation.subtype = kCATransitionFromBottom;

@@ -1,8 +1,8 @@
 //
 //  SendDynViewController.h
-//  TTLF
+//  FYQ
 //
-//  Created by Chan_Sir on 2017/3/8.
+//  Created by Chan_Sir on 2017/2/28.
 //  Copyright © 2017年 陈振超. All rights reserved.
 //
 

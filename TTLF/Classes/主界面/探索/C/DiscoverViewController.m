@@ -80,6 +80,7 @@
 //    GoodsDetialController *place = [GoodsDetialController new];
 //    [self.navigationController pushViewController:place animated:YES];
     SVWebViewController *taobao = [[SVWebViewController alloc]initWithAddress:TaobaoGoodsURL];
+    taobao.title = @"饰品详情";
     [self.navigationController pushViewController:taobao animated:YES];
     
     

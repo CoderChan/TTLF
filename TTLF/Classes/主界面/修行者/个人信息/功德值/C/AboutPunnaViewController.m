@@ -14,6 +14,7 @@
 
 @implementation AboutPunnaViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"关于功德值";

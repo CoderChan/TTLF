@@ -13,6 +13,7 @@
 #import "RootTabbarController.h"
 #import "RootNavgationController.h"
 #import "WechatLoginViewController.h"
+#import "RootTabbarController.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 
@@ -39,14 +40,20 @@
 {
     if ([AccountTool account]) {
         
-        LiFoViewController *tabbar = [[LiFoViewController alloc] init];
-        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
-        self.window.rootViewController = nav;
+        // 礼佛界面
+//        LiFoViewController *tabbar = [[LiFoViewController alloc] init];
+//        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
+//        self.window.rootViewController = nav;
+        
+        // tabbar
+        RootTabbarController *tabbar = [[RootTabbarController alloc] init];
         self.window.rootViewController = tabbar;
+        
     }else{
         WechatLoginViewController *wechatLogin = [WechatLoginViewController new];
         RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:wechatLogin];
         self.window.rootViewController = nav;
+
     }
 }
 

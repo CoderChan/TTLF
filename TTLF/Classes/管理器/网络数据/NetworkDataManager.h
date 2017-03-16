@@ -14,6 +14,7 @@
 #import "WechatInfoModel.h"
 #import "StageModel.h"
 #import "SendTopicModel.h"
+#import "PunaNumListModel.h"
 
 
 
@@ -58,6 +59,9 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)sharkActionSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 更新花名
 - (void)updateStageInfo:(StageModel *)stageModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 查看功德值记录
+- (void)getPunaNumWithMonth:(NSString *)month Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+
 
 #pragma mark - 佛友圈板块
 // 获取话题列表
