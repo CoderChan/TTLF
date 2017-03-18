@@ -28,9 +28,6 @@
 - (void)setupSubViews
 {
     [self.view addSubview:self.tableView];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(Dismiss)];
-    [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
 }
 
 - (void)Dismiss
