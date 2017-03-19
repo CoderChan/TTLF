@@ -116,9 +116,9 @@
 		3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D51E6FE2B40078379B /* SetViewController.m */; };
 		3B2670F71E6FE2B40078379B /* SharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D71E6FE2B40078379B /* SharedView.m */; };
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
-		3BC1F9401E7D378200642023 /* ChangePusaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F93B1E7D378200642023 /* ChangePusaViewController.m */; };
-		3BC1F9411E7D378200642023 /* LiFoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F93D1E7D378200642023 /* LiFoViewController.m */; };
-		3BC1F9421E7D378200642023 /* ZanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F93F1E7D378200642023 /* ZanViewController.m */; };
+		3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F94E1E7E357A00642023 /* ZanViewController.m */; };
+		3BC1F95A1E7E35A600642023 /* ChangePusaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F9551E7E35A600642023 /* ChangePusaViewController.m */; };
+		3BC1F95B1E7E35A600642023 /* LiFoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F9571E7E35A600642023 /* LiFoViewController.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
 		3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCE9CC1E6EBB7600E2F8E0 /* Assets.xcassets */; };
@@ -360,12 +360,12 @@
 		3B2670D71E6FE2B40078379B /* SharedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedView.m; sourceTree = "<group>"; };
 		3B2670D81E6FE2B40078379B /* TitleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTableCell.h; sourceTree = "<group>"; };
 		3B2670D91E6FE2B40078379B /* TitleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTableCell.m; sourceTree = "<group>"; };
-		3BC1F93A1E7D378200642023 /* ChangePusaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePusaViewController.h; sourceTree = "<group>"; };
-		3BC1F93B1E7D378200642023 /* ChangePusaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePusaViewController.m; sourceTree = "<group>"; };
-		3BC1F93C1E7D378200642023 /* LiFoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiFoViewController.h; sourceTree = "<group>"; };
-		3BC1F93D1E7D378200642023 /* LiFoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiFoViewController.m; sourceTree = "<group>"; };
-		3BC1F93E1E7D378200642023 /* ZanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZanViewController.h; sourceTree = "<group>"; };
-		3BC1F93F1E7D378200642023 /* ZanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZanViewController.m; sourceTree = "<group>"; };
+		3BC1F94D1E7E357A00642023 /* ZanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZanViewController.h; sourceTree = "<group>"; };
+		3BC1F94E1E7E357A00642023 /* ZanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZanViewController.m; sourceTree = "<group>"; };
+		3BC1F9541E7E35A600642023 /* ChangePusaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePusaViewController.h; sourceTree = "<group>"; };
+		3BC1F9551E7E35A600642023 /* ChangePusaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePusaViewController.m; sourceTree = "<group>"; };
+		3BC1F9561E7E35A600642023 /* LiFoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiFoViewController.h; sourceTree = "<group>"; };
+		3BC1F9571E7E35A600642023 /* LiFoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiFoViewController.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDCE9C11E6EBB7600E2F8E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BDCE9C31E6EBB7600E2F8E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -891,12 +891,13 @@
 		3B26706F1E6FE2660078379B /* 禅道 */ = {
 			isa = PBXGroup;
 			children = (
-				3BC1F93A1E7D378200642023 /* ChangePusaViewController.h */,
-				3BC1F93B1E7D378200642023 /* ChangePusaViewController.m */,
-				3BC1F93C1E7D378200642023 /* LiFoViewController.h */,
-				3BC1F93D1E7D378200642023 /* LiFoViewController.m */,
-				3BC1F93E1E7D378200642023 /* ZanViewController.h */,
-				3BC1F93F1E7D378200642023 /* ZanViewController.m */,
+				3BC1F9431E7E357A00642023 /* 梵音 */,
+				3BC1F9441E7E357A00642023 /* 放生活动 */,
+				3BC1F9451E7E357A00642023 /* 佛典 */,
+				3BC1F9461E7E357A00642023 /* 礼佛 */,
+				3BC1F94B1E7E357A00642023 /* 素食生活 */,
+				3BC1F94C1E7E357A00642023 /* 主页 */,
+				3BC1F94F1E7E357A00642023 /* 坐禅冥想 */,
 			);
 			path = "禅道";
 			sourceTree = "<group>";
@@ -968,6 +969,8 @@
 		3B26708B1E6FE2B40078379B /* 登录注册 */ = {
 			isa = PBXGroup;
 			children = (
+				3B2670941E6FE2B40078379B /* WechatLoginViewController.h */,
+				3B2670951E6FE2B40078379B /* WechatLoginViewController.m */,
 				3B26708C1E6FE2B40078379B /* ForgetPasswordViewController.h */,
 				3B26708D1E6FE2B40078379B /* ForgetPasswordViewController.m */,
 				3B26708E1E6FE2B40078379B /* PhoneLoginViewController.h */,
@@ -976,8 +979,6 @@
 				3B2670911E6FE2B40078379B /* RegisterViewController.m */,
 				3B2670921E6FE2B40078379B /* UserProtocolController.h */,
 				3B2670931E6FE2B40078379B /* UserProtocolController.m */,
-				3B2670941E6FE2B40078379B /* WechatLoginViewController.h */,
-				3B2670951E6FE2B40078379B /* WechatLoginViewController.m */,
 			);
 			path = "登录注册";
 			sourceTree = "<group>";
@@ -1166,6 +1167,85 @@
 				3B2670D91E6FE2B40078379B /* TitleTableCell.m */,
 			);
 			path = "设置主页";
+			sourceTree = "<group>";
+		};
+		3BC1F9431E7E357A00642023 /* 梵音 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "梵音";
+			sourceTree = "<group>";
+		};
+		3BC1F9441E7E357A00642023 /* 放生活动 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "放生活动";
+			sourceTree = "<group>";
+		};
+		3BC1F9451E7E357A00642023 /* 佛典 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "佛典";
+			sourceTree = "<group>";
+		};
+		3BC1F9461E7E357A00642023 /* 礼佛 */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1F9531E7E35A600642023 /* C */,
+				3BC1F9581E7E35A600642023 /* M */,
+				3BC1F9591E7E35A600642023 /* V */,
+			);
+			path = "礼佛";
+			sourceTree = "<group>";
+		};
+		3BC1F94B1E7E357A00642023 /* 素食生活 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "素食生活";
+			sourceTree = "<group>";
+		};
+		3BC1F94C1E7E357A00642023 /* 主页 */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1F94D1E7E357A00642023 /* ZanViewController.h */,
+				3BC1F94E1E7E357A00642023 /* ZanViewController.m */,
+			);
+			path = "主页";
+			sourceTree = "<group>";
+		};
+		3BC1F94F1E7E357A00642023 /* 坐禅冥想 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "坐禅冥想";
+			sourceTree = "<group>";
+		};
+		3BC1F9531E7E35A600642023 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3BC1F9561E7E35A600642023 /* LiFoViewController.h */,
+				3BC1F9571E7E35A600642023 /* LiFoViewController.m */,
+				3BC1F9541E7E35A600642023 /* ChangePusaViewController.h */,
+				3BC1F9551E7E35A600642023 /* ChangePusaViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3BC1F9581E7E35A600642023 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3BC1F9591E7E35A600642023 /* V */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = V;
 			sourceTree = "<group>";
 		};
 		3BDCE9B41E6EBB7600E2F8E0 = {
@@ -1555,7 +1635,7 @@
 				3B2670531E6FDEBB0078379B /* UIImage+XLExtension.m in Sources */,
 				3B2670881E6FE2930078379B /* DiscoverCollectionCell.m in Sources */,
 				3B2670501E6FDEBB0078379B /* TAAnimatedDotView.m in Sources */,
-				3BC1F9411E7D378200642023 /* LiFoViewController.m in Sources */,
+				3BC1F95B1E7E35A600642023 /* LiFoViewController.m in Sources */,
 				3B2670EF1E6FE2B40078379B /* NewFetherViewController.m in Sources */,
 				3B266FD41E6FDCB60078379B /* UserInfoModel.m in Sources */,
 				3B1F05CB1E792BD2005173B9 /* DrawCircleView.m in Sources */,
@@ -1567,7 +1647,7 @@
 				3B26706E1E6FE1B20078379B /* TTLFSetManager.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
-				3BC1F9421E7D378200642023 /* ZanViewController.m in Sources */,
+				3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */,
 				3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */,
 				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
 				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
@@ -1604,7 +1684,6 @@
 				3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */,
 				3B2670441E6FDEBB0078379B /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				3B2670861E6FE2930078379B /* GoodsDetialController.m in Sources */,
-				3BC1F9401E7D378200642023 /* ChangePusaViewController.m in Sources */,
 				3B2670F51E6FE2B40078379B /* SuggestViewController.m in Sources */,
 				3B1F05AD1E7928A0005173B9 /* SendTopicModel.m in Sources */,
 				3B1F05AA1E7928A0005173B9 /* SelectLocaltionController.m in Sources */,
@@ -1625,6 +1704,7 @@
 				3B2670DB1E6FE2B40078379B /* PhoneLoginViewController.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
 				3B26703E1E6FDEBB0078379B /* KSProgressLayer.m in Sources */,
+				3BC1F95A1E7E35A600642023 /* ChangePusaViewController.m in Sources */,
 				3B2670541E6FDEBB0078379B /* UIView+XLExtension.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,
 				3B1F05A91E7928A0005173B9 /* PhotoShowViewController.m in Sources */,

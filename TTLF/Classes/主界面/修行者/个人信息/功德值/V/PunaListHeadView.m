@@ -7,6 +7,7 @@
 //
 
 #import "PunaListHeadView.h"
+#import <Masonry.h>
 
 
 @interface PunaListHeadView ()
@@ -40,8 +41,15 @@
 }
 - (void)setSumPunaNum:(NSString *)sumPunaNum
 {
+    LogFuncName
     _sumPunaNum = sumPunaNum;
-    _sumLabel.text = [NSString stringWithFormat:@"当月累计增长%@功德值",sumPunaNum];
+    NSString *sumStr = [NSString stringWithFormat:@"当月累计增长%@功德值",sumPunaNum];
+    NSRange range = [sumStr rangeOfString:sumPunaNum];
+    NSMutableAttributedString * graytext = [[NSMutableAttributedString alloc] initWithString:sumStr];
+    [graytext beginEditing];
+    [graytext addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],NSForegroundColorAttributeName:MainColor} range:range];
+    _sumLabel.attributedText =  graytext;
+    
 }
 
 - (void)setupSubViews
@@ -51,7 +59,7 @@
     [self addSubview:self.monthLabel];
     
     self.sumLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.monthLabel.frame), 200, 21)];
-//    self.sumLabel.text = @"当月累计增长0.00功德值";
+    self.sumLabel.text = @"kkkkkkkk";
     self.sumLabel.font = [UIFont systemFontOfSize:12];
     self.sumLabel.textColor = [UIColor lightGrayColor];
     [self addSubview:self.sumLabel];
@@ -68,6 +76,15 @@
         }
     }];
     [self addGestureRecognizer:tap];
+    
+    UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
+    [self addSubview:xian];
+    [xian mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.mas_left);
+        make.right.equalTo(self.mas_right);
+        make.bottom.equalTo(self.mas_bottom);
+        make.height.equalTo(@1);
+    }];
 }
 
 @end

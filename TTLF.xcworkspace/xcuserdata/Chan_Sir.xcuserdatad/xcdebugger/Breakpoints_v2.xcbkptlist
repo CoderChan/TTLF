@@ -2,22 +2,4 @@
 <Bucket
    type = "0"
    version = "2.0">
-   <Breakpoints>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "TTLF/Classes/&#x4e3b;&#x754c;&#x9762;/&#x4fee;&#x884c;&#x8005;/&#x4e2a;&#x4eba;&#x4fe1;&#x606f;/&#x529f;&#x5fb7;&#x503c;/V/PunaListHeadView.m"
-            timestampString = "511322246.468295"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "43"
-            endingLineNumber = "43"
-            landmarkName = "-setSumPunaNum:"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-   </Breakpoints>
 </Bucket>

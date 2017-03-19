@@ -14,7 +14,7 @@
 /** 年月 */
 @property (copy,nonatomic) NSString *yearMonth;
 /** 总计 */
-@property (copy,nonatomic) NSString *sumPunaNum;
+@property (strong,nonatomic) NSString *sumPunaNum;
 /** 点击弹出月份 */
 @property (copy,nonatomic) void (^ClickBlock)();
 

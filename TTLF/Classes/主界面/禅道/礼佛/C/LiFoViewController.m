@@ -31,6 +31,13 @@
 @property (strong,nonatomic) UIImageView *leftFruitV;
 /** 右侧果盘 */
 @property (strong,nonatomic) UIImageView *rightFruitV;
+/** 佛牌1 */
+@property (strong,nonatomic) UIImageView *fopaiImgV1;
+/** 佛牌1 */
+@property (strong,nonatomic) UIImageView *fopaiImgV2;
+/** 佛牌1 */
+@property (strong,nonatomic) UIImageView *fopaiImgV3;
+
 
 @end
 
@@ -66,7 +73,6 @@
         make.width.and.height.equalTo(@180);
     }];
     
-    //    [self.lightImageView.layer removeAnimationForKey:@"rotationAnimation"]//结束动画
     
     // 太阳
     UIImageView *loadingView2 = [[UIImageView alloc]init];
@@ -106,7 +112,7 @@
     [self.view addSubview:self.xiangImgV];
     [self.xiangImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.pusaImageView.mas_bottom).offset(3);
+        make.top.equalTo(self.pusaImageView.mas_bottom);
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
@@ -118,33 +124,45 @@
     [self.xiangImgV addGestureRecognizer:tapXiang];
     
     // 5、左侧花瓶
-    self.leftFlowerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"hehua"]];
+    self.leftFlowerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
     self.leftFlowerV.userInteractionEnabled = YES;
     [self.view addSubview:self.leftFlowerV];
     [self.leftFlowerV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.xiangImgV.mas_centerY).offset(-35);
-        make.right.equalTo(self.xiangImgV.mas_left).offset(-25);
+        make.centerY.equalTo(self.pusaImageView.mas_bottom);
+        make.right.equalTo(self.xiangImgV.mas_left).offset(-22*CKproportion);
         make.width.equalTo(@90);
         make.height.equalTo(@150);
     }];
     
     // 6、右侧花瓶
-    self.rightFloerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"hehua"]];
+    self.rightFloerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
     self.rightFloerV.userInteractionEnabled = YES;
     [self.view addSubview:self.rightFloerV];
     [self.rightFloerV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.xiangImgV.mas_centerY).offset(-35);
-        make.left.equalTo(self.xiangImgV.mas_right).offset(25);
+        make.centerY.equalTo(self.pusaImageView.mas_bottom);
+        make.left.equalTo(self.xiangImgV.mas_right).offset(22*CKproportion);
         make.width.equalTo(@90);
         make.height.equalTo(@150);
     }];
+    
+    CGFloat teaCupTop; // 茶杯距上距离
+    CGFloat fruitTop; // 果盘距上距离
+    if (SCREEN_WIDTH < 370) {
+        // 3.5寸和4.0寸的手机
+        teaCupTop = -25*CKproportion;
+        fruitTop = -12*CKproportion;
+    }else{
+        // 4.7寸以上
+        teaCupTop = -8*CKproportion;
+        fruitTop = -3;
+    }
     
     // 7、茶杯
     self.teaCupImgV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_bigCup"]];
     [self.view addSubview:self.teaCupImgV];
     [self.teaCupImgV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.xiangImgV.mas_bottom).offset(-10);
+        make.top.equalTo(self.xiangImgV.mas_bottom).offset(teaCupTop);
         make.width.and.height.equalTo(@80);
     }];
     
@@ -153,7 +171,7 @@
     self.leftFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.leftFruitV];
     [self.leftFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.teaCupImgV.mas_centerY).offset(1);
+        make.centerY.equalTo(self.teaCupImgV.mas_centerY).offset(fruitTop);
         make.centerX.equalTo(self.leftFlowerV.mas_centerX);
         make.width.equalTo(@100);
         make.height.equalTo(@100);
@@ -164,11 +182,32 @@
     self.rightFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.rightFruitV];
     [self.rightFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.teaCupImgV.mas_centerY).offset(1);
+        make.centerY.equalTo(self.teaCupImgV.mas_centerY).offset(fruitTop);
         make.centerX.equalTo(self.rightFloerV.mas_centerX);
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
+    
+    // 10、佛牌
+    CGFloat Fwidth = 40*CKproportion;
+    CGFloat Fheight = 80*CKproportion;
+    CGFloat Y = SCREEN_HEIGHT - 33 - Fheight;
+    CGFloat X1 = (SCREEN_WIDTH - Fwidth * 3) / 4;
+    CGFloat X2 = SCREEN_WIDTH/2 - Fwidth/2;
+    CGFloat X3 = SCREEN_WIDTH - X1 - Fwidth;
+    
+    
+    self.fopaiImgV1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV1.frame = CGRectMake(X1, Y, Fwidth, Fheight);
+    [self.view addSubview:self.fopaiImgV1];
+    
+    self.fopaiImgV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV2.frame = CGRectMake(X2, Y, Fwidth, Fheight);
+    [self.view addSubview:self.fopaiImgV2];
+    
+    self.fopaiImgV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV3.frame = CGRectMake(X3, Y, Fwidth, Fheight);
+    [self.view addSubview:self.fopaiImgV3];
     
     
 }

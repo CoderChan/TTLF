@@ -25,8 +25,8 @@
 #define MainColor RGBACOLOR(31, 160, 20, 1)
 // DisEnbled颜色
 #define DisAbledColor RGBACOLOR(108, 80, 77, 1)
-// 导航控制器颜色 贴吧夜间色：RGBACOLOR(43, 45, 50, 1)
-#define NavColor RGBACOLOR(17, 49, 73, 1)
+// 导航控制器颜色  RGBACOLOR(17, 49, 73, 1)
+#define NavColor RGBACOLOR(43, 45, 50, 1)
 // 文字颜色
 #define TitleColor RGBACOLOR(0, 0, 0, 1)
 // 警告的偏红颜色

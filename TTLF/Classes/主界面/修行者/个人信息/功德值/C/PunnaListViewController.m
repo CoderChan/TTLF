@@ -48,11 +48,10 @@
                 
             }];
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            
             [self.tableView.mj_header endRefreshing];
             self.array = array;
             [self.tableView reloadData];
-            self.headView.sumPunaNum = [self getSumPunaNum];
+            
             
         } Fail:^(NSString *errorMsg) {
             [self.tableView.mj_header endRefreshing];
@@ -87,10 +86,11 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 64;
+    return 70;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    LogFuncName
     self.headView = [[PunaListHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     __weak __block PunnaListViewController *copySelf = self;
     self.headView.ClickBlock = ^(){
@@ -98,7 +98,6 @@
         YearMonthPickerView *pickerView = [[YearMonthPickerView alloc]initWithFrame:keyWindow.bounds];
         pickerView.SelectMonthBlock = ^(NSString *year,NSString *month){
             NSString *yearMonth = [NSString stringWithFormat:@"%@-%@",year,month];
-            copySelf.headView.sumPunaNum = [copySelf getSumPunaNum];
             copySelf.headView.yearMonth = yearMonth;
             copySelf.yearMonth = yearMonth;
             [copySelf.tableView.mj_header beginRefreshing];
@@ -107,6 +106,7 @@
         [keyWindow addSubview:pickerView];
     };
     self.headView.yearMonth = self.yearMonth;
+    self.headView.sumPunaNum = [self getSumPunaNum];
     
     return self.headView;
 }
@@ -122,7 +122,7 @@
         _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 80;
+        _tableView.rowHeight = 70;
         _tableView.backgroundColor = self.view.backgroundColor;
     }
     return _tableView;
@@ -138,6 +138,7 @@
     }
     
     NSString *sum = [NSString stringWithFormat:@"%.2f",sumNum];
+    NSLog(@"sum = %@",sum);
     return sum;
 }
 

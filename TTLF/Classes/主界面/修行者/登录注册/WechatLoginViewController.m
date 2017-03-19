@@ -77,7 +77,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     [self.view addSubview:wechatView];
     
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
-    label.text = @"微信一键登录";
+    label.text = @"微信快速登录";
     label.textColor = [UIColor whiteColor];
     label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     label.textAlignment = NSTextAlignmentCenter;
@@ -100,7 +100,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     
     [wechatView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(copyLabel.mas_top).offset(-15);
-        make.left.equalTo(self.view.mas_left).offset(30);
+        make.left.equalTo(self.view.mas_left).offset(40);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.equalTo(@48);
     }];

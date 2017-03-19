@@ -355,7 +355,7 @@
 //    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"responseObject = %@",responseObject);
+//        KGLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {

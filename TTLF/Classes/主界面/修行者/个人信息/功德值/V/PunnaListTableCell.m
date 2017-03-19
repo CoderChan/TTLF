@@ -39,6 +39,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setupSubViews];
     }
     return self;
@@ -48,22 +49,28 @@
     _model = model;
     if ([model.option_type containsString:@"发动态"]) {
         _iconView.image = [UIImage imageNamed:@"punna_send_tips"];
+        _contentLabel.text = @"每日动态";
+    }else{
+        _contentLabel.text = model.option_type;
     }
-    _contentLabel.text = model.option_type;
+    NSDate *date = [NSDate dateWithISOFormatString:model.create_time];
+    
     _timeLabel.text = model.create_time;
     _valueLabel.text = model.option_value;
     
 }
+
+
 - (void)setupSubViews
 {
     self.iconView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
     self.iconView.layer.masksToBounds = YES;
-    self.iconView.layer.cornerRadius = 25;
+    self.iconView.layer.cornerRadius = 20;
     [self.contentView addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
         make.left.equalTo(self.contentView.mas_left).offset(15);
-        make.width.and.height.equalTo(@50);
+        make.width.and.height.equalTo(@40);
     }];
     
     self.contentLabel = [[UILabel alloc]init];
@@ -86,7 +93,7 @@
     }];
     
     self.valueLabel = [[UILabel alloc]init];
-    self.valueLabel.font = [UIFont boldSystemFontOfSize:20];
+    self.valueLabel.font = [UIFont boldSystemFontOfSize:25];
     self.valueLabel.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:self.valueLabel];
     [self.valueLabel mas_makeConstraints:^(MASConstraintMaker *make) {
