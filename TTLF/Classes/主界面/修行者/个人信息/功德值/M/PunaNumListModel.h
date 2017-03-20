@@ -13,7 +13,7 @@
 /** 变化值 */
 @property (copy,nonatomic) NSString *option_value;
 /** 时间 */
-@property (copy,nonatomic) NSString *create_time;
+@property (assign,nonatomic) NSTimeInterval create_time;
 /** 来源 */
 @property (copy,nonatomic) NSString *option_type;
 
