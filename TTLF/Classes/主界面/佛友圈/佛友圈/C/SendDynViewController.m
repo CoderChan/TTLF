@@ -270,6 +270,7 @@
             [self.tableView reloadData];
         };
         [self.navigationController pushViewController:vc animated:YES];
+        
     } else {
         if (indexPath.row == 0) {
             SelectLocaltionController *vc = [SelectLocaltionController new];

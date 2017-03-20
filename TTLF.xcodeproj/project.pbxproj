@@ -11,7 +11,6 @@
 		177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */; };
 		3B1F05A91E7928A0005173B9 /* PhotoShowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F058A1E7928A0005173B9 /* PhotoShowViewController.m */; };
 		3B1F05AA1E7928A0005173B9 /* SelectLocaltionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */; };
-		3B1F05AB1E7928A0005173B9 /* SelectTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F058E1E7928A0005173B9 /* SelectTopicController.m */; };
 		3B1F05AC1E7928A0005173B9 /* SendDynViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05901E7928A0005173B9 /* SendDynViewController.m */; };
 		3B1F05AD1E7928A0005173B9 /* SendTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05931E7928A0005173B9 /* SendTopicModel.m */; };
 		3B1F05AE1E7928A0005173B9 /* SendDynHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05961E7928A0005173B9 /* SendDynHeadView.m */; };
@@ -30,6 +29,8 @@
 		3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05C61E792BD2005173B9 /* YearMonthPickerView.m */; };
 		3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2231E71E7F7B8200B43322 /* WoViewController.m */; };
 		3B2231EC1E7F853700B43322 /* MineTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2231EB1E7F853700B43322 /* MineTableHeadView.m */; };
+		3B22322F1E7FDDDD00B43322 /* TBPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B22322E1E7FDDDD00B43322 /* TBPopViewController.m */; };
+		3B2232381E7FE08C00B43322 /* SelectTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2232371E7FE08C00B43322 /* SelectTopicController.m */; };
 		3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FAD1E6FDC8F0078379B /* SuperViewController.m */; };
 		3B266FCC1E6FDCB60078379B /* DeviceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FB21E6FDCB60078379B /* DeviceInfoModel.m */; };
 		3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FB91E6FDCB60078379B /* HTTPManager.m */; };
@@ -151,8 +152,6 @@
 		3B1F058A1E7928A0005173B9 /* PhotoShowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoShowViewController.m; sourceTree = "<group>"; };
 		3B1F058B1E7928A0005173B9 /* SelectLocaltionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectLocaltionController.h; sourceTree = "<group>"; };
 		3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectLocaltionController.m; sourceTree = "<group>"; };
-		3B1F058D1E7928A0005173B9 /* SelectTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicController.h; sourceTree = "<group>"; };
-		3B1F058E1E7928A0005173B9 /* SelectTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicController.m; sourceTree = "<group>"; };
 		3B1F058F1E7928A0005173B9 /* SendDynViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendDynViewController.h; sourceTree = "<group>"; };
 		3B1F05901E7928A0005173B9 /* SendDynViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendDynViewController.m; sourceTree = "<group>"; };
 		3B1F05921E7928A0005173B9 /* SendTopicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTopicModel.h; sourceTree = "<group>"; };
@@ -189,6 +188,10 @@
 		3B2231E71E7F7B8200B43322 /* WoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoViewController.m; sourceTree = "<group>"; };
 		3B2231EA1E7F853700B43322 /* MineTableHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableHeadView.h; sourceTree = "<group>"; };
 		3B2231EB1E7F853700B43322 /* MineTableHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableHeadView.m; sourceTree = "<group>"; };
+		3B22322D1E7FDDDD00B43322 /* TBPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPopViewController.h; sourceTree = "<group>"; };
+		3B22322E1E7FDDDD00B43322 /* TBPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPopViewController.m; sourceTree = "<group>"; };
+		3B2232361E7FE08C00B43322 /* SelectTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicController.h; sourceTree = "<group>"; };
+		3B2232371E7FE08C00B43322 /* SelectTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicController.m; sourceTree = "<group>"; };
 		3B266FA71E6FDBD30078379B /* TTLF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TTLF.entitlements; sourceTree = "<group>"; };
 		3B266FAC1E6FDC8F0078379B /* SuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperViewController.h; sourceTree = "<group>"; };
 		3B266FAD1E6FDC8F0078379B /* SuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperViewController.m; sourceTree = "<group>"; };
@@ -452,10 +455,12 @@
 				3B1F058A1E7928A0005173B9 /* PhotoShowViewController.m */,
 				3B1F058B1E7928A0005173B9 /* SelectLocaltionController.h */,
 				3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */,
-				3B1F058D1E7928A0005173B9 /* SelectTopicController.h */,
-				3B1F058E1E7928A0005173B9 /* SelectTopicController.m */,
+				3B2232361E7FE08C00B43322 /* SelectTopicController.h */,
+				3B2232371E7FE08C00B43322 /* SelectTopicController.m */,
 				3B1F058F1E7928A0005173B9 /* SendDynViewController.h */,
 				3B1F05901E7928A0005173B9 /* SendDynViewController.m */,
+				3B22322D1E7FDDDD00B43322 /* TBPopViewController.h */,
+				3B22322E1E7FDDDD00B43322 /* TBPopViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -623,10 +628,10 @@
 		3B266FA81E6FDC8F0078379B /* 管理器 */ = {
 			isa = PBXGroup;
 			children = (
+				3B266FC91E6FDCB60078379B /* HomeManager */,
 				3B266FB01E6FDCB60078379B /* 其他 */,
 				3B266FB51E6FDCB60078379B /* 网络数据 */,
 				3B266FBC1E6FDCB60078379B /* 用户信息 */,
-				3B266FC91E6FDCB60078379B /* HomeManager */,
 			);
 			path = "管理器";
 			sourceTree = "<group>";
@@ -1624,7 +1629,6 @@
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
-				3B1F05AB1E7928A0005173B9 /* SelectTopicController.m in Sources */,
 				3B1F05AF1E7928A0005173B9 /* SendDynTableCell.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
 				3B26703D1E6FDEBB0078379B /* KSPhotoView.m in Sources */,
@@ -1676,11 +1680,13 @@
 				3B266FDF1E6FDD740078379B /* TTLFConstKey.m in Sources */,
 				3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */,
 				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
+				3B22322F1E7FDDDD00B43322 /* TBPopViewController.m in Sources */,
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */,
 				3B266FD61E6FDCB60078379B /* WechatInfoModel.m in Sources */,
 				3B266FCC1E6FDCB60078379B /* DeviceInfoModel.m in Sources */,
 				3B1F05AC1E7928A0005173B9 /* SendDynViewController.m in Sources */,
+				3B2232381E7FE08C00B43322 /* SelectTopicController.m in Sources */,
 				3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */,
 				3B2670361E6FDEBB0078379B /* NSString+Category.m in Sources */,
 				3B2670851E6FE2930078379B /* DiscoverViewController.m in Sources */,

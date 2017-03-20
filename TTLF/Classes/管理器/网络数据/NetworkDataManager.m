@@ -530,4 +530,10 @@
     }];
 }
 
+#pragma mark - 禅修板块
+- (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    success();
+}
+
 @end

@@ -176,6 +176,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 {
     // 去tabbar
 //    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
+//    [TTLFManager sharedManager].tabbar = tabbar;
 //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
 //    CATransition *animation = [CATransition animation];
 //    animation.duration = 0.6;
@@ -186,8 +187,9 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 //    window.rootViewController = tabbar;
     
     // 去礼佛界面
-    LiFoViewController *tabbar = [[LiFoViewController alloc]init];
-    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
+    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
+    [TTLFManager sharedManager].lifoVC = lifoVC;
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     CATransition *animation = [CATransition animation];
     animation.duration = 0.6;

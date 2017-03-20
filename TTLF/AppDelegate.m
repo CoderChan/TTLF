@@ -41,19 +41,20 @@
     if ([AccountTool account]) {
         
         // 礼佛界面
-//        LiFoViewController *tabbar = [[LiFoViewController alloc] init];
-//        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
+//        LiFoViewController *lifoVC = [[LiFoViewController alloc] init];
+//        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+//        [TTLFManager sharedManager].lifoVC = lifoVC;
 //        self.window.rootViewController = nav;
         
         // tabbar
         RootTabbarController *tabbar = [[RootTabbarController alloc] init];
+        [TTLFManager sharedManager].tabbar = tabbar;
         self.window.rootViewController = tabbar;
         
     }else{
         WechatLoginViewController *wechatLogin = [WechatLoginViewController new];
         RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:wechatLogin];
         self.window.rootViewController = nav;
-
     }
 }
 
@@ -79,7 +80,10 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
-
-
+#pragma mark - 程序即将进入前台
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [[TTLFManager sharedManager].lifoVC beginLightingAction];
+}
 
 @end

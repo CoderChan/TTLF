@@ -15,6 +15,8 @@
 
 /** 菩萨图 */
 @property (strong,nonatomic) UIImageView *pusaImageView;
+/** 太阳光圈 */
+@property (strong,nonatomic) UIImageView *sunImageView;
 /** 发光图 */
 @property (strong,nonatomic) UIImageView *lightImageView;
 /** 发光动画 */
@@ -46,6 +48,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupSubViews];
+    
+    [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^{
+        self.lightImageView.hidden = YES;
+        self.sunImageView.hidden = YES;
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
+    }];
 }
 
 - (void)setupSubViews
@@ -75,23 +84,23 @@
     
     
     // 太阳
-    UIImageView *loadingView2 = [[UIImageView alloc]init];
-    loadingView2.image = [UIImage imageNamed:@"gy_lifo_light_02"];
-    [self.view addSubview:loadingView2];
+    self.sunImageView = [[UIImageView alloc]init];
+    self.sunImageView.image = [UIImage imageNamed:@"gy_lifo_light_02"];
+    [self.view addSubview:self.sunImageView];
     CABasicAnimation *rotationAnimation2 = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
     rotationAnimation2.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
     rotationAnimation2.duration = 6;
     rotationAnimation2.cumulative = YES;
     rotationAnimation2.repeatCount = 10;
-    [loadingView2.layer addAnimation:rotationAnimation2 forKey:@"rotationAnimation"];//开始动画
-    [loadingView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [self.sunImageView.layer addAnimation:rotationAnimation2 forKey:@"rotationAnimation"];//开始动画
+    [self.sunImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.lightImageView.mas_centerX);
         make.centerY.equalTo(self.lightImageView.mas_centerY);
         make.width.and.height.equalTo(@170);
     }];
     
     // 3、菩萨
-    self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_大日如来菩萨"]];
+    self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
     self.pusaImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.pusaImageView];
     [self.pusaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -167,7 +176,7 @@
     }];
     
     // 8、左侧果盘
-    self.leftFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_荔枝"]];
+    self.leftFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     self.leftFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.leftFruitV];
     [self.leftFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -178,7 +187,7 @@
     }];
     
     // 9、右侧果盘
-    self.rightFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_荔枝"]];
+    self.rightFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     self.rightFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.rightFruitV];
     [self.rightFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -215,8 +224,7 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    // 继续发光
-    [self.lightImageView.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];//开始动画
+    [self beginLightingAction];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -224,8 +232,16 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
     
+    [self beginLightingAction];
+    
+}
+- (void)beginLightingAction
+{
     // 继续发光
     [self.lightImageView.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];//开始动画
+    // 太阳光圈扩散
+    
+    
 }
 - (void)viewWillDisappear:(BOOL)animated
 {

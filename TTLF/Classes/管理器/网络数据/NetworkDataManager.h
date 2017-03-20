@@ -71,4 +71,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 发送无图动态
 - (void)sendTextDynWithTopic:(SendTopicModel *)topicModel Content:(NSString *)content LocationJson:(NSString *)locationJson IsNoname:(BOOL)isNoName Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
 
+
+#pragma mark - 禅修板块
+- (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail;
+
 @end

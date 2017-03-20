@@ -74,6 +74,7 @@
         if (indexPath.row == 0) {
             // 恭请礼佛
             LiFoViewController *lifo = [LiFoViewController new];
+            [TTLFManager sharedManager].lifoVC = lifo;
             [self.navigationController pushViewController:lifo animated:YES];
         }else{
             // 冥想

@@ -10,6 +10,9 @@
 #import "NetworkDataManager.h"
 #import "UserInfoManager.h"
 #import "TTLFSetManager.h"
+#import "LiFoViewController.h"
+#import "RootTabbarController.h"
+
 
 @interface TTLFManager : NSObject
 
@@ -21,5 +24,11 @@
 @property (strong,nonatomic) UserInfoManager *userManager;
 /** APP属性 */
 @property (strong,nonatomic) TTLFSetManager *setManager;
+
+/** 礼佛界面 */
+@property (weak,nonatomic) LiFoViewController *lifoVC;
+/** Tabbar */
+@property (weak,nonatomic) RootTabbarController *tabbar;
+
 
 @end

@@ -11,4 +11,7 @@
 
 @interface LiFoViewController : SuperViewController
 
+// 开始发光
+- (void)beginLightingAction;
+
 @end
