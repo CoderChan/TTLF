@@ -10,10 +10,14 @@
 
 @interface UIViewController (Category)
 
+/** AlertView提示 */
 - (void)sendAlertAction:(NSString *)message;
 
-#pragma mark -  将字典或数组转化为JSON串
+/** 将字典或数组转化为JSON串 */
 - (NSString *)toJsonStr:(id)object;
+
+/** 闪烁灯动画效果 */
+- (CABasicAnimation *)AlphaLight:(float)time;
 
 
 @end

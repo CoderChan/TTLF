@@ -9,6 +9,8 @@
 #import "ZanViewController.h"
 #import "NormalTableViewCell.h"
 #import "LiFoViewController.h"
+#import "MyBooksViewController.h"
+
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -67,7 +69,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        
+        if (indexPath.row == 0) {
+            MyBooksViewController *myBook = [MyBooksViewController new];
+            [self.navigationController pushViewController:myBook animated:YES];
+        }
     }else if (indexPath.section == 1){
         
     }else{

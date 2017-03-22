@@ -430,7 +430,7 @@
     }];
 }
 
-#pragma mark - 获取花名列表
+#pragma mark - 获取话题列表
 - (void)getTopicListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
     NSString *url = @"http://app.yangruyi.com/home/Index/topic";
@@ -458,6 +458,7 @@
     }];
     
 }
+#pragma mark - 发送动态
 - (void)sendImgDyn:(UIImage *)image Topic:(SendTopicModel *)topicModel Content:(NSString *)content LocationJson:(NSString *)locationJson IsNoname:(BOOL)isNoName Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];

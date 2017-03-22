@@ -118,9 +118,11 @@
 		3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D51E6FE2B40078379B /* SetViewController.m */; };
 		3B2670F71E6FE2B40078379B /* SharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D71E6FE2B40078379B /* SharedView.m */; };
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
+		3B2A18441E814F0900578A1E /* BookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18431E814F0900578A1E /* BookCollectionViewCell.m */; };
+		3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18541E8169E400578A1E /* PusaShowView.m */; };
 		3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F94E1E7E357A00642023 /* ZanViewController.m */; };
-		3BC1F95A1E7E35A600642023 /* ChangePusaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F9551E7E35A600642023 /* ChangePusaViewController.m */; };
 		3BC1F95B1E7E35A600642023 /* LiFoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F9571E7E35A600642023 /* LiFoViewController.m */; };
+		3BD250661E811B8000398CA4 /* MyBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD250651E811B8000398CA4 /* MyBooksViewController.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
 		3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCE9CC1E6EBB7600E2F8E0 /* Assets.xcassets */; };
@@ -366,12 +368,17 @@
 		3B2670D71E6FE2B40078379B /* SharedView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharedView.m; sourceTree = "<group>"; };
 		3B2670D81E6FE2B40078379B /* TitleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTableCell.h; sourceTree = "<group>"; };
 		3B2670D91E6FE2B40078379B /* TitleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTableCell.m; sourceTree = "<group>"; };
+		3B2A18421E814F0900578A1E /* BookCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCollectionViewCell.h; sourceTree = "<group>"; };
+		3B2A18431E814F0900578A1E /* BookCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCollectionViewCell.m; sourceTree = "<group>"; };
+		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3B2A18531E8169E400578A1E /* PusaShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaShowView.h; sourceTree = "<group>"; };
+		3B2A18541E8169E400578A1E /* PusaShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PusaShowView.m; sourceTree = "<group>"; };
 		3BC1F94D1E7E357A00642023 /* ZanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZanViewController.h; sourceTree = "<group>"; };
 		3BC1F94E1E7E357A00642023 /* ZanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZanViewController.m; sourceTree = "<group>"; };
-		3BC1F9541E7E35A600642023 /* ChangePusaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePusaViewController.h; sourceTree = "<group>"; };
-		3BC1F9551E7E35A600642023 /* ChangePusaViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePusaViewController.m; sourceTree = "<group>"; };
 		3BC1F9561E7E35A600642023 /* LiFoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiFoViewController.h; sourceTree = "<group>"; };
 		3BC1F9571E7E35A600642023 /* LiFoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiFoViewController.m; sourceTree = "<group>"; };
+		3BD250641E811B8000398CA4 /* MyBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksViewController.h; sourceTree = "<group>"; };
+		3BD250651E811B8000398CA4 /* MyBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBooksViewController.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDCE9C11E6EBB7600E2F8E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BDCE9C31E6EBB7600E2F8E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1196,6 +1203,10 @@
 		3BC1F9451E7E357A00642023 /* 佛典 */ = {
 			isa = PBXGroup;
 			children = (
+				3BD250641E811B8000398CA4 /* MyBooksViewController.h */,
+				3BD250651E811B8000398CA4 /* MyBooksViewController.m */,
+				3B2A18421E814F0900578A1E /* BookCollectionViewCell.h */,
+				3B2A18431E814F0900578A1E /* BookCollectionViewCell.m */,
 			);
 			path = "佛典";
 			sourceTree = "<group>";
@@ -1238,8 +1249,6 @@
 			children = (
 				3BC1F9561E7E35A600642023 /* LiFoViewController.h */,
 				3BC1F9571E7E35A600642023 /* LiFoViewController.m */,
-				3BC1F9541E7E35A600642023 /* ChangePusaViewController.h */,
-				3BC1F9551E7E35A600642023 /* ChangePusaViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1254,6 +1263,8 @@
 		3BC1F9591E7E35A600642023 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				3B2A18531E8169E400578A1E /* PusaShowView.h */,
+				3B2A18541E8169E400578A1E /* PusaShowView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1318,6 +1329,7 @@
 		AC977B15F99E39867E54D4DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3B2A18491E81650900578A1E /* libz.tbd */,
 				7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */,
 				97F19F1377E210EA5E748A30 /* libPods-TTLFTests.a */,
 				7C6951712420153646DB45C8 /* libPods-TTLFUITests.a */,
@@ -1622,6 +1634,7 @@
 				3B1F05B01E7928A0005173B9 /* TopicCollectionCell.m in Sources */,
 				3B2670621E6FDFE40078379B /* RootTabbarController.m in Sources */,
 				3B2670511E6FDEBB0078379B /* TADotView.m in Sources */,
+				3B2A18441E814F0900578A1E /* BookCollectionViewCell.m in Sources */,
 				3B2670DE1E6FE2B40078379B /* WechatLoginViewController.m in Sources */,
 				3B2670DC1E6FE2B40078379B /* RegisterViewController.m in Sources */,
 				3B26704F1E6FDEBB0078379B /* TAAbstractDotView.m in Sources */,
@@ -1678,6 +1691,7 @@
 				3B2670351E6FDEBB0078379B /* Foundation+Log.m in Sources */,
 				3B2670491E6FDEBB0078379B /* FSActionSheet.m in Sources */,
 				3B266FDF1E6FDD740078379B /* TTLFConstKey.m in Sources */,
+				3BD250661E811B8000398CA4 /* MyBooksViewController.m in Sources */,
 				3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */,
 				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
 				3B22322F1E7FDDDD00B43322 /* TBPopViewController.m in Sources */,
@@ -1701,6 +1715,7 @@
 				3B1F05AA1E7928A0005173B9 /* SelectLocaltionController.m in Sources */,
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
 				3B26703C1E6FDEBB0078379B /* KSPhotoItem.m in Sources */,
+				3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */,
 				3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
@@ -1716,7 +1731,6 @@
 				3B2670DB1E6FE2B40078379B /* PhoneLoginViewController.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
 				3B26703E1E6FDEBB0078379B /* KSProgressLayer.m in Sources */,
-				3BC1F95A1E7E35A600642023 /* ChangePusaViewController.m in Sources */,
 				3B2670541E6FDEBB0078379B /* UIView+XLExtension.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,
 				3B1F05A91E7928A0005173B9 /* PhotoShowViewController.m in Sources */,

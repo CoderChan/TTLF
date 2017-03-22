@@ -24,16 +24,14 @@
 
 // 官方网站
 #define OfficalWebURL @"http://www.yangruyi.com/"
-// 高德地图密钥
+// 高德地图key
 #define GaoDeMapKey @"856a135eaee5e2f00596886e74455237"
-// iOS友盟友盟AppKey
-#define UMeng_Share_AppKey @"587c8914c62dca6eb9001943"
-// Mob短信appkey、appsecret
-#define MobCode_AppKey @"1b1697bd31c74"
-#define MobCode_AppSecret @"b6da9384059a306a64f7779a36658491"
-// 阿里百川AppKey
-#define AliBaichuan_AppKey @"23632327"
-#define AliVaichuan_AppSecret @"00b421b5d4f793bc0357f3f68871c7e7"
+
+// 友盟推送
+#define UMPush_AppKey @"58d12a06c62dca22da001944"
+#define UMPush_AppSecret @"v0tzeuqjm3kaskykndwlb7rgxhc5byoo"
+
+
 // 淘宝店铺URL
 #define TaobaoShopURL @"http://c.b1za.com/h.2YSG4Q?cv=u68FSigZYp&sm=edfca7"
 // 淘宝某商品URL

@@ -10,6 +10,7 @@
 
 @implementation UIViewController (Category)
 
+#pragma mark - AlertView提示
 - (void)sendAlertAction:(NSString *)message
 {
     UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
@@ -40,7 +41,21 @@
     }
 }
 
-
+#pragma mark - 闪烁灯效果
+- (CABasicAnimation *)AlphaLight:(float)time
+{
+    CABasicAnimation *animation =[CABasicAnimation animationWithKeyPath:@"opacity"];
+    animation.fromValue = [NSNumber numberWithFloat:1.0f];
+    animation.toValue = [NSNumber numberWithFloat:0.2f];//这是透明度。
+    animation.autoreverses = YES;
+    animation.duration = time;
+    animation.repeatCount = MAXFLOAT;
+    animation.removedOnCompletion = NO;
+    animation.fillMode = kCAFillModeForwards;
+    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    // kCAMediaTimingFunctionEaseIn
+    return animation;
+}
 
 
 @end

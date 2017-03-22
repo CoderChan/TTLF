@@ -193,7 +193,6 @@
         {
             // 拍照
             UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-            
             if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
                 UIImagePickerController *imagePickerController = [[UIImagePickerController alloc]init];
                 imagePickerController.delegate = self;

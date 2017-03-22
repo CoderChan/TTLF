@@ -148,7 +148,6 @@
         _collectionView.showsVerticalScrollIndicator = NO;
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
-        self.view.backgroundColor = self.view.backgroundColor;
         _collectionView.backgroundColor = self.view.backgroundColor;
         [_collectionView registerClass:[DiscoverCollectionCell class] forCellWithReuseIdentifier:@"DiscoverCollectionCell"];
         _collectionView.contentInset = UIEdgeInsetsMake(topViewH, 0, 0, 0);

@@ -8,8 +8,9 @@
 
 #import "LiFoViewController.h"
 #import <Masonry.h>
-#import "ChangePusaViewController.h"
 #import "RootNavgationController.h"
+#import "PusaShowView.h"
+
 
 @interface LiFoViewController ()
 
@@ -50,8 +51,8 @@
     [self setupSubViews];
     
     [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^{
-        self.lightImageView.hidden = YES;
-        self.sunImageView.hidden = YES;
+//        self.lightImageView.hidden = YES;
+//        self.sunImageView.hidden = YES;
     } Fail:^(NSString *errorMsg) {
         [MBProgressHUD showError:errorMsg];
     }];
@@ -87,20 +88,15 @@
     self.sunImageView = [[UIImageView alloc]init];
     self.sunImageView.image = [UIImage imageNamed:@"gy_lifo_light_02"];
     [self.view addSubview:self.sunImageView];
-    CABasicAnimation *rotationAnimation2 = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation2.toValue = [NSNumber numberWithFloat: M_PI * 2.0 ];
-    rotationAnimation2.duration = 6;
-    rotationAnimation2.cumulative = YES;
-    rotationAnimation2.repeatCount = 10;
-    [self.sunImageView.layer addAnimation:rotationAnimation2 forKey:@"rotationAnimation"];//开始动画
     [self.sunImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.lightImageView.mas_centerX);
         make.centerY.equalTo(self.lightImageView.mas_centerY);
         make.width.and.height.equalTo(@170);
     }];
+    [self.sunImageView.layer addAnimation:[self AlphaLight:0.8] forKey:@"aAlpha"];
     
     // 3、菩萨
-    self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
+    self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_释迦牟尼佛"]];
     self.pusaImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.pusaImageView];
     [self.pusaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -110,8 +106,8 @@
         make.bottom.equalTo(self.view.mas_centerY);
     }];
     UITapGestureRecognizer *tapPusa = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        ChangePusaViewController *change = [ChangePusaViewController new];
-        [self.navigationController pushViewController:change animated:YES];
+        PusaShowView *showView = [[PusaShowView alloc]initWithFrame:self.view.bounds];
+        [self.view addSubview:showView];
     }];
     [self.pusaImageView addGestureRecognizer:tapPusa];
     
@@ -142,6 +138,10 @@
         make.width.equalTo(@90);
         make.height.equalTo(@150);
     }];
+    UITapGestureRecognizer *tapFlower = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        [self sendAlertAction:@"选择花瓶"];
+    }];
+    [self.leftFlowerV addGestureRecognizer:tapFlower];
     
     // 6、右侧花瓶
     self.rightFloerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
@@ -153,6 +153,8 @@
         make.width.equalTo(@90);
         make.height.equalTo(@150);
     }];
+    
+    [self.rightFloerV addGestureRecognizer:tapFlower];
     
     CGFloat teaCupTop; // 茶杯距上距离
     CGFloat fruitTop; // 果盘距上距离
@@ -176,7 +178,7 @@
     }];
     
     // 8、左侧果盘
-    self.leftFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_tray"]];
+    self.leftFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_橙子"]];
     self.leftFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.leftFruitV];
     [self.leftFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -185,9 +187,14 @@
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
+    UITapGestureRecognizer *tapFruit = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        [self sendAlertAction:@"选择果盘"];
+    }];
+    [self.leftFruitV addGestureRecognizer:tapFruit];
+    
     
     // 9、右侧果盘
-    self.rightFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_tray"]];
+    self.rightFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_橙子"]];
     self.rightFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.rightFruitV];
     [self.rightFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -196,8 +203,10 @@
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
+    [self.rightFruitV addGestureRecognizer:tapFruit];
     
     // 10、佛牌
+    
     CGFloat Fwidth = 40*CKproportion;
     CGFloat Fheight = 80*CKproportion;
     CGFloat Y = SCREEN_HEIGHT - 33 - Fheight;
@@ -207,17 +216,27 @@
     
     
     self.fopaiImgV1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV1.userInteractionEnabled = YES;
     self.fopaiImgV1.frame = CGRectMake(X1, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV1];
     
     self.fopaiImgV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV2.userInteractionEnabled = YES;
     self.fopaiImgV2.frame = CGRectMake(X2, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV2];
     
     self.fopaiImgV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV3.userInteractionEnabled = YES;
     self.fopaiImgV3.frame = CGRectMake(X3, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV3];
     
+    UITapGestureRecognizer *tapFopai = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        [self sendAlertAction:@"选择佛牌"];
+    }];
+    
+    [self.fopaiImgV1 addGestureRecognizer:tapFopai];
+    [self.fopaiImgV2 addGestureRecognizer:tapFopai];
+    [self.fopaiImgV3 addGestureRecognizer:tapFopai];
     
 }
 
