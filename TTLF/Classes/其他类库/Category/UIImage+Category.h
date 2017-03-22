@@ -23,4 +23,9 @@
  */
 + (UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur;
 
+/**
+ *  传入图片名称,返回拉伸好的图片
+ */
++ (UIImage *)resizeImage:(NSString *)imageName;
+
 @end

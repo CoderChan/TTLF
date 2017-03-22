@@ -12,7 +12,7 @@
 #import "PusaShowView.h"
 
 
-@interface LiFoViewController ()
+@interface LiFoViewController ()<PusaShowViewDelegate>
 
 /** 菩萨图 */
 @property (strong,nonatomic) UIImageView *pusaImageView;
@@ -107,6 +107,8 @@
     }];
     UITapGestureRecognizer *tapPusa = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         PusaShowView *showView = [[PusaShowView alloc]initWithFrame:self.view.bounds];
+        showView.array = @[@"2",@"3",@"4",@"5",@"6"];
+        showView.delegate = self;
         [self.view addSubview:showView];
     }];
     [self.pusaImageView addGestureRecognizer:tapPusa];
@@ -240,7 +242,13 @@
     
 }
 
+#pragma mark - 代理方法
+- (void)pusaDidSelect:(NSInteger)index
+{
+//    [MBProgressHUD showSuccess:[NSString stringWithFormat:@"%ld",(long)index]];
+}
 
+#pragma mark - 其他方法
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     [self beginLightingAction];

@@ -8,8 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol PusaShowViewDelegate <NSObject>
+
+- (void)pusaDidSelect:(NSInteger)index;
+
+@end
+
 @interface PusaShowView : UIView
 
 
+/** 代理 */
+@property (nonatomic, weak) id<PusaShowViewDelegate> delegate;
+
+/** 数据源 */
+@property (copy,nonatomic) NSArray *array;
 
 @end

@@ -8,32 +8,73 @@
 
 
 #import "PusaShowView.h"
+#import "HorizontalCollectionCell.h"
 
 
-@interface PusaShowView ()
+@interface PusaShowView ()<UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
-/** 佛像 */
-@property (strong,nonatomic) UIImageView *pusaImgView;
-/** 滚动视图 */
-@property (strong,nonatomic) UIScrollView *scrollView;
+/** collectionView */
+@property (strong, nonatomic) UICollectionView * collectionView;
 
 
 @end
 
 @implementation PusaShowView
 
-- (instancetype)initWithFrame:(CGRect)frame
+#pragma mark - 初始化
+- (void)layoutSubviews
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        self.backgroundColor = [UIColor clearColor];
-    }
-    return self;
+    [super layoutSubviews];
+    
+    self.backgroundColor = RGBACOLOR(0, 0, 0, 0.45);
+    [self addSubview:self.collectionView];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+
+#pragma mark - 代理方法
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    [self removeFromSuperview];
+    return 1;
 }
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return self.array.count;
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    HorizontalCollectionCell *cell = [HorizontalCollectionCell sharedCell:collectionView IndexPath:indexPath];
+    
+    return cell;
+}
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([self.delegate respondsToSelector:@selector(pusaDidSelect:)]) {
+        [_delegate pusaDidSelect:indexPath.row];
+        [self removeFromSuperview];
+    }
+}
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    return CGSizeMake(self.width, self.height);
+}
+#pragma mark - 其他方法
+- (UICollectionView *)collectionView
+{
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+    [flowLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
+    flowLayout.minimumLineSpacing = 0;
+    flowLayout.minimumInteritemSpacing = 0;
+    if (!_collectionView) {
+        _collectionView = [[UICollectionView alloc]initWithFrame:self.bounds collectionViewLayout:flowLayout];
+        _collectionView.dataSource = self;
+        _collectionView.delegate = self;
+        _collectionView.pagingEnabled = YES;
+        _collectionView.backgroundColor = self.backgroundColor;
+        [_collectionView registerClass:[HorizontalCollectionCell class] forCellWithReuseIdentifier:@"HorizontalCollectionCell"];
+        
+    }
+    return _collectionView;
+}
+
 
 @end

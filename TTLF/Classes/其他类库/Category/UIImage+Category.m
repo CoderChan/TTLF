@@ -31,6 +31,22 @@
     
 }
 
+/**
+ *  传入图片名称,返回拉伸好的图片
+ */
++ (UIImage *)resizeImage:(NSString *)imageName
+{
+    return [[UIImage imageNamed:imageName] resizeImage];
+}
+
+- (UIImage *)resizeImage
+{
+    CGFloat width = self.size.width * 0.5;
+    CGFloat height = self.size.height * 0.5;
+    return [self stretchableImageWithLeftCapWidth:width topCapHeight:height];
+}
+
+
 + (UIImage *)boxblurImage:(UIImage *)image withBlurNumber:(CGFloat)blur {
     
     if (blur < 0.f || blur > 1.f) {
