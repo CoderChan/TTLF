@@ -537,4 +537,39 @@
     success();
 }
 
+- (void)getPusaListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Index/pusa";
+    [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
+        NSLog(@"res = %@",responseObject);
+        NSError *error;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
+        if (!error) {
+            int code = [[[json objectForKey:@"code"] description] intValue];
+            NSString *message = [[json objectForKey:@"message"] description];
+            if (code == 1) {
+                NSArray *result = [json objectForKey:@"result"];
+                if (result.count >= 1) {
+                    NSArray *modelArray = [FoxiangModel mj_objectArrayWithKeyValuesArray:result];
+                    success(modelArray);
+                }else{
+                    fail(@"暂无佛像数据");
+                }
+            }else{
+                fail(message);
+            }
+        }else{
+            fail(@"解析失败");
+        }
+    } failure:^(NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+
 @end

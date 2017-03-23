@@ -15,6 +15,7 @@
 #import "StageModel.h"
 #import "SendTopicModel.h"
 #import "PunaNumListModel.h"
+#import "FoxiangModel.h"
 
 
 
@@ -73,6 +74,9 @@ typedef void (^SuccessStringBlock)(NSString *string);
 
 
 #pragma mark - 禅修板块
+// 查看当天礼佛信息
 - (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail;
+// 获取佛像数组
+- (void)getPusaListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 @end

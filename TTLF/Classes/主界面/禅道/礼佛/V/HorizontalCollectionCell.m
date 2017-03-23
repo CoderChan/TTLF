@@ -44,7 +44,9 @@
 - (void)setModel:(FoxiangModel *)model
 {
     _model = model;
-    
+    [_pusaImgView sd_setImageWithURL:[NSURL URLWithString:model.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_释迦牟尼佛"]];
+    _nameLabel.text = model.fa_ming;
+    _descTextView.text = model.desc;
 }
 - (void)setupSubViews
 {
@@ -89,7 +91,9 @@
     [selectButton setTitle:@"恭请礼佛" forState:UIControlStateNormal];
     selectButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [selectButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [MBProgressHUD showSuccess:@"恭  请"];
+        if (_SelectModelBlock) {
+            _SelectModelBlock(self.model);
+        }
     }];
     [self.contentView addSubview:selectButton];
     [selectButton mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -114,7 +118,7 @@
     self.descTextView = [[UITextView alloc]init];
     self.descTextView.editable = NO;
     self.descTextView.selectable = NO;
-    self.descTextView.text = @"药师佛全称为药师琉璃光如来,又有人称谓大医王佛,医王善逝或消灾延寿药师佛。为东方琉璃净土的教主。药师本用以比喻能治众生贪、瞋、痴的医师。在中国佛教一般用以祈求消灾延寿。药师佛全称为药师琉璃光如来,又有人称谓大医王佛,医王善逝或消灾延寿药师佛。为东方琉璃净土的教主。药师本用以比喻能治众生贪、瞋、痴的医师。在中国佛教一般用以祈求消灾延寿。";
+    self.descTextView.text = @"药师佛全称为药师琉璃光如来,又有人称谓大医王佛,医王善逝或消灾延寿药师佛。为东方琉璃净土的教主。药师本用以比喻能治众生贪、瞋、痴的医师。在中国佛教一般用以祈求消灾延寿。";
     self.descTextView.textColor = RGBACOLOR(247, 247, 247, 1);
     self.descTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.descTextView.showsVerticalScrollIndicator = NO;

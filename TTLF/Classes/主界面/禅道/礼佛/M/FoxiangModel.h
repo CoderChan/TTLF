@@ -12,11 +12,14 @@
 
 /** 佛像ID */
 @property (copy,nonatomic) NSString *f_id;
-/** 图标路径 */
-@property (copy,nonatomic) NSString *url;
 /** 名称 */
-@property (copy,nonatomic) NSString *name;
+@property (copy,nonatomic) NSString *fa_ming;
+/** 图标路径 */
+@property (copy,nonatomic) NSString *fa_xiang;
 /** 描述 */
 @property (copy,nonatomic) NSString *desc;
+
+/** 索引 */
+@property (assign,nonatomic) NSInteger index;
 
 @end

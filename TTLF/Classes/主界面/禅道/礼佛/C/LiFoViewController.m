@@ -42,6 +42,11 @@
 @property (strong,nonatomic) UIImageView *fopaiImgV3;
 
 
+/** 佛像数组 */
+@property (copy,nonatomic) NSArray *pusaArray;
+
+
+
 @end
 
 @implementation LiFoViewController
@@ -50,12 +55,19 @@
     [super viewDidLoad];
     [self setupSubViews];
     
-    [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^{
+//    [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^{
 //        self.lightImageView.hidden = YES;
 //        self.sunImageView.hidden = YES;
+//    } Fail:^(NSString *errorMsg) {
+//        [MBProgressHUD showError:errorMsg];
+//    }];
+    
+    [[TTLFManager sharedManager].networkManager getPusaListSuccess:^(NSArray *array) {
+        self.pusaArray = array;
     } Fail:^(NSString *errorMsg) {
-        [MBProgressHUD showError:errorMsg];
+        [self sendAlertAction:errorMsg];
     }];
+    
 }
 
 - (void)setupSubViews
@@ -107,7 +119,7 @@
     }];
     UITapGestureRecognizer *tapPusa = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         PusaShowView *showView = [[PusaShowView alloc]initWithFrame:self.view.bounds];
-        showView.array = @[@"2",@"3",@"4",@"5",@"6"];
+        showView.array = self.pusaArray;
         showView.delegate = self;
         [self.view addSubview:showView];
     }];
@@ -242,11 +254,14 @@
     
 }
 
-#pragma mark - 代理方法
-- (void)pusaDidSelect:(NSInteger)index
+#pragma mark - 选中组件的代理方法
+// 选中佛像
+- (void)pusaDidSelectFoxiangModel:(FoxiangModel *)foxiangModel
 {
-//    [MBProgressHUD showSuccess:[NSString stringWithFormat:@"%ld",(long)index]];
+    [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_释迦牟尼佛"]];
 }
+// 选中花瓶
+
 
 #pragma mark - 其他方法
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

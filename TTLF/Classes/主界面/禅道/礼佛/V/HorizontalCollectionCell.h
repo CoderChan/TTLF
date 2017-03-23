@@ -10,11 +10,16 @@
 #import "FoxiangModel.h"
 
 
+
 @interface HorizontalCollectionCell : UICollectionViewCell
 
+/** 佛像模型 */
 @property (strong,nonatomic) FoxiangModel *model;
-
+/** 回调 */
+@property (copy,nonatomic) void (^SelectModelBlock)(FoxiangModel *model);
+/** 初始化 */
 + (instancetype)sharedCell:(UICollectionView *)collectionView IndexPath:(NSIndexPath *)indexPath;
+
 
 
 @end

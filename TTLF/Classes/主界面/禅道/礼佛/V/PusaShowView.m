@@ -15,7 +15,8 @@
 
 /** collectionView */
 @property (strong, nonatomic) UICollectionView * collectionView;
-
+/** 选中的佛像 */
+//@property (strong,nonatomic) FoxiangModel *selectModel;
 
 @end
 
@@ -42,16 +43,22 @@
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    FoxiangModel *model = self.array[indexPath.item];
+    model.index = indexPath.item;
     HorizontalCollectionCell *cell = [HorizontalCollectionCell sharedCell:collectionView IndexPath:indexPath];
-    
+    cell.SelectModelBlock = ^(FoxiangModel *model){
+        if ([self.delegate respondsToSelector:@selector(pusaDidSelectFoxiangModel:)]) {
+            [_delegate pusaDidSelectFoxiangModel:model];
+            [self removeFromSuperview];
+        }
+    };
+    cell.model = model;
     return cell;
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.delegate respondsToSelector:@selector(pusaDidSelect:)]) {
-        [_delegate pusaDidSelect:indexPath.row];
-        [self removeFromSuperview];
-    }
+    [self removeFromSuperview];
 }
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {

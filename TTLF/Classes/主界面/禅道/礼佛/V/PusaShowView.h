@@ -11,7 +11,7 @@
 
 @protocol PusaShowViewDelegate <NSObject>
 
-- (void)pusaDidSelect:(NSInteger)index;
+- (void)pusaDidSelectFoxiangModel:(FoxiangModel *)foxiangModel;
 
 @end
 
