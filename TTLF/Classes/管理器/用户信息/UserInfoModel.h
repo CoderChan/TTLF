@@ -15,7 +15,7 @@
 /** 微信的标示ID */
 @property (copy,nonatomic) NSString *unionid;
 /** 在家还是出家 */
-@property (assign,nonatomic) BOOL isOutHome;
+@property (copy,nonatomic) NSString *isOutHome;
 /** 手机号码 */
 @property (copy,nonatomic) NSString *phoneNum;
 /** 昵称 */
@@ -25,9 +25,9 @@
 /** 城市 */
 @property (copy,nonatomic) NSString *city;
 /** 性别 男1女2 */
-@property (assign,nonatomic) int sex;
+@property (copy,nonatomic) NSString *sex;
 /** 功德值 */
-@property (assign,nonatomic) float punnaNum;
+@property (copy,nonatomic) NSString *punnaNum;
 /** 头像 */
 @property (copy,nonatomic) NSString *headUrl;
 /** 用户背景图片 */

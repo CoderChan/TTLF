@@ -25,29 +25,6 @@
     return _sharedManager;
 }
 
-#pragma mark - 手机号码注册
-- (void)registerWithPhone:(NSString *)phone Pass:(NSString *)pass Success:(SuccessBlock)success Fail:(FailBlock)fail
-{
-    NSString *url = @"http://app.yangruyi.com/home/Index/register";
-    NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    [dict setValue:phone.base64EncodedString forKey:@"PhoneNum"];
-    [dict setValue:pass.base64EncodedString forKey:@"PassWord"];
-    [dict setValue:@"8".base64EncodedString forKey:@"From"];
-    
-    [HTTPManager POST:url params:dict success:^(NSURLSessionDataTask *task, id responseObject) {
-        KGLog(@"responseObject = %@",responseObject);
-        int code = [[[responseObject objectForKey:@"code"] description] intValue];
-        NSString *message = [[responseObject objectForKey:@"message"] description];
-        if (code == 1) {
-            success();
-        }else{
-            fail(message);
-        }
-    } fail:^(NSURLSessionDataTask *task, NSError *error) {
-        fail(error.localizedDescription);
-    }];
-    
-}
 
 #pragma mark - 微信注册登录相关
 - (void)wechatLoginResponse:(SendAuthResp *)response Success:(SuccessBlock)success Fail:(FailBlock)fail
@@ -352,7 +329,7 @@
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:month.base64EncodedString forKey:@"month"];
     
-//    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
+    //NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
 //        KGLog(@"responseObject = %@",responseObject);
@@ -537,29 +514,25 @@
     success();
 }
 
-- (void)getPusaListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+- (void)getLifoResourceSuccess:(void (^)(LifoResourceModel *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
     if (!account) {
         fail(@"用户未登录");
         return;
     }
-    NSString *url = @"http://app.yangruyi.com/home/Index/pusa";
+    NSString *url = @"http://app.yangruyi.com/home/Index/qiancheng";
     [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
-        NSLog(@"res = %@",responseObject);
+        NSLog(@"礼佛资源 = %@",responseObject);
         NSError *error;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
         if (!error) {
             int code = [[[json objectForKey:@"code"] description] intValue];
             NSString *message = [[json objectForKey:@"message"] description];
             if (code == 1) {
-                NSArray *result = [json objectForKey:@"result"];
-                if (result.count >= 1) {
-                    NSArray *modelArray = [FoxiangModel mj_objectArrayWithKeyValuesArray:result];
-                    success(modelArray);
-                }else{
-                    fail(@"暂无佛像数据");
-                }
+                NSDictionary *result = [json objectForKey:@"result"];
+                LifoResourceModel *lifoModel = [LifoResourceModel mj_objectWithKeyValues:result];
+                success(lifoModel);
             }else{
                 fail(message);
             }
@@ -569,7 +542,7 @@
     } failure:^(NSError *error) {
         fail(error.localizedDescription);
     }];
-    
 }
+
 
 @end

@@ -39,7 +39,7 @@
     [self.view addSubview:circleView];
     
     self.punnaLabel = [[UILabel alloc]init];
-    self.punnaLabel.text = [NSString stringWithFormat:@"%g",[[TTLFManager sharedManager].userManager getUserInfo].punnaNum];
+    self.punnaLabel.text = [[TTLFManager sharedManager].userManager getUserInfo].punnaNum;
     self.punnaLabel.textColor = [UIColor whiteColor];
     self.punnaLabel.font = [UIFont boldSystemFontOfSize:30];
     self.punnaLabel.textAlignment = NSTextAlignmentCenter;

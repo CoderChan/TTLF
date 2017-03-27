@@ -47,7 +47,7 @@
 - (void)setUserModel:(UserInfoModel *)userModel
 {
     _userModel = userModel;
-    if (userModel.sex == 1) {
+    if ([userModel.sex intValue] == 1) {
         _nameLabel.text = [NSString stringWithFormat:@"%@♂",userModel.nickName];
     }else{
         _nameLabel.text = [NSString stringWithFormat:@"%@♀",userModel.nickName];

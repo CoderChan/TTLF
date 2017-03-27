@@ -15,7 +15,7 @@
 #import "StageModel.h"
 #import "SendTopicModel.h"
 #import "PunaNumListModel.h"
-#import "FoxiangModel.h"
+#import "LifoResourceModel.h"
 
 
 
@@ -32,8 +32,7 @@ typedef void (^SuccessStringBlock)(NSString *string);
 + (instancetype)sharedManager;
 
 #pragma mark - 用户板块
-// 手机号码注册
-- (void)registerWithPhone:(NSString *)phone Pass:(NSString *)pass Success:(SuccessBlock)success Fail:(FailBlock)fail;
+
 // 微信注册登录
 - (void)wechatLoginResponse:(SendAuthResp *)response Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 模拟器登录
@@ -76,7 +75,10 @@ typedef void (^SuccessStringBlock)(NSString *string);
 #pragma mark - 禅修板块
 // 查看当天礼佛信息
 - (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail;
-// 获取佛像数组
-- (void)getPusaListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 获取佛像、香、花瓶、果盘、佛牌资源
+- (void)getLifoResourceSuccess:(void (^)(LifoResourceModel *lifoModel))success Fail:(FailBlock)fail;
+
+
+
 
 @end

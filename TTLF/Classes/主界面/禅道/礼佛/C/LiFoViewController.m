@@ -10,9 +10,10 @@
 #import <Masonry.h>
 #import "RootNavgationController.h"
 #import "PusaShowView.h"
+#import "DecorationListView.h"
 
 
-@interface LiFoViewController ()<PusaShowViewDelegate>
+@interface LiFoViewController ()<PusaShowViewDelegate,DecorationListViewDelegate>
 
 /** 菩萨图 */
 @property (strong,nonatomic) UIImageView *pusaImageView;
@@ -44,7 +45,14 @@
 
 /** 佛像数组 */
 @property (copy,nonatomic) NSArray *pusaArray;
-
+/** 花瓶数组 */
+@property (copy,nonatomic) NSArray *flowerArray;
+/** 供香数组 */
+@property (copy,nonatomic) NSArray *xiangArray;
+/** 果盘数组 */
+@property (copy,nonatomic) NSArray *fruitArray;
+/** 佛牌数组 */
+@property (copy,nonatomic) NSArray *fopaiArray;
 
 
 @end
@@ -62,11 +70,17 @@
 //        [MBProgressHUD showError:errorMsg];
 //    }];
     
-    [[TTLFManager sharedManager].networkManager getPusaListSuccess:^(NSArray *array) {
-        self.pusaArray = array;
+    // 请求图片资源数组
+    [[TTLFManager sharedManager].networkManager getLifoResourceSuccess:^(LifoResourceModel *lifoModel) {
+        self.pusaArray = lifoModel.pusa;
+        self.xiangArray = lifoModel.xiang;
+        self.flowerArray = lifoModel.flowers;
+        self.fruitArray = lifoModel.furit;
+        self.fopaiArray = lifoModel.pai;
     } Fail:^(NSString *errorMsg) {
         [self sendAlertAction:errorMsg];
     }];
+    
     
 }
 
@@ -118,10 +132,12 @@
         make.bottom.equalTo(self.view.mas_centerY);
     }];
     UITapGestureRecognizer *tapPusa = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        PusaShowView *showView = [[PusaShowView alloc]initWithFrame:self.view.bounds];
-        showView.array = self.pusaArray;
-        showView.delegate = self;
-        [self.view addSubview:showView];
+        if (self.pusaArray.count >= 1) {
+            PusaShowView *showView = [[PusaShowView alloc]initWithFrame:self.view.bounds];
+            showView.array = self.pusaArray;
+            showView.delegate = self;
+            [self.view addSubview:showView];
+        }
     }];
     [self.pusaImageView addGestureRecognizer:tapPusa];
     
@@ -137,7 +153,13 @@
     }];
     UITapGestureRecognizer *tapXiang = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         
-        self.xiangImgV.image = [UIImage imageNamed:@"gy_智慧香"];
+        if (self.xiangArray.count >= 1) {
+            DecorationListView *decorationView = [[DecorationListView alloc]initWithFrame:self.view.bounds];
+            decorationView.delegate = self;
+            decorationView.decorationType = XiangType;
+            decorationView.array = self.xiangArray;
+            [self.view addSubview:decorationView];
+        }
         
     }];
     [self.xiangImgV addGestureRecognizer:tapXiang];
@@ -152,10 +174,18 @@
         make.width.equalTo(@90);
         make.height.equalTo(@150);
     }];
-    UITapGestureRecognizer *tapFlower = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        [self sendAlertAction:@"选择花瓶"];
+    UITapGestureRecognizer *tapFlower1 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        
+        if (self.flowerArray.count >= 1) {
+            DecorationListView *decorationView = [[DecorationListView alloc]initWithFrame:self.view.bounds];
+            decorationView.delegate = self;
+            decorationView.decorationType = FlowerType;
+            decorationView.array = self.flowerArray;
+            [self.view addSubview:decorationView];
+        }
+        
     }];
-    [self.leftFlowerV addGestureRecognizer:tapFlower];
+    [self.leftFlowerV addGestureRecognizer:tapFlower1];
     
     // 6、右侧花瓶
     self.rightFloerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
@@ -168,7 +198,18 @@
         make.height.equalTo(@150);
     }];
     
-    [self.rightFloerV addGestureRecognizer:tapFlower];
+    UITapGestureRecognizer *tapFlower2 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        
+        if (self.flowerArray.count >= 1) {
+            DecorationListView *decorationView = [[DecorationListView alloc]initWithFrame:self.view.bounds];
+            decorationView.delegate = self;
+            decorationView.decorationType = FlowerType;
+            decorationView.array = self.flowerArray;
+            [self.view addSubview:decorationView];
+        }
+        
+    }];
+    [self.rightFloerV addGestureRecognizer:tapFlower2];
     
     CGFloat teaCupTop; // 茶杯距上距离
     CGFloat fruitTop; // 果盘距上距离
@@ -201,10 +242,18 @@
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
-    UITapGestureRecognizer *tapFruit = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        [self sendAlertAction:@"选择果盘"];
+    UITapGestureRecognizer *tapFruit1 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        
+        if (self.fruitArray.count >= 1) {
+            DecorationListView *decorationView = [[DecorationListView alloc]initWithFrame:self.view.bounds];
+            decorationView.delegate = self;
+            decorationView.decorationType = FruitType;
+            decorationView.array = self.fruitArray;
+            [self.view addSubview:decorationView];
+        }
+        
     }];
-    [self.leftFruitV addGestureRecognizer:tapFruit];
+    [self.leftFruitV addGestureRecognizer:tapFruit1];
     
     
     // 9、右侧果盘
@@ -217,7 +266,19 @@
         make.width.equalTo(@100);
         make.height.equalTo(@100);
     }];
-    [self.rightFruitV addGestureRecognizer:tapFruit];
+    
+    UITapGestureRecognizer *tapFruit2 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        
+        if (self.fruitArray.count >= 1) {
+            DecorationListView *decorationView = [[DecorationListView alloc]initWithFrame:self.view.bounds];
+            decorationView.delegate = self;
+            decorationView.decorationType = FruitType;
+            decorationView.array = self.fruitArray;
+            [self.view addSubview:decorationView];
+        }
+        
+    }];
+    [self.rightFruitV addGestureRecognizer:tapFruit2];
     
     // 10、佛牌
     
@@ -260,7 +321,26 @@
 {
     [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_释迦牟尼佛"]];
 }
-// 选中花瓶
+// 选中花瓶、香、果盘
+- (void)decorationListViewWithType:(DecorationType)decorationType SelectModel:(id)selectModel
+{
+    NSLog(@"decorationType = %ld,selectModel = %@",(long)decorationType,selectModel);
+    if (decorationType == FlowerType) {
+        // 花瓶
+        FlowerVaseModel *flowerModel = selectModel;
+        [self.leftFlowerV sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
+        [self.rightFloerV sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
+    }else if (decorationType == XiangType){
+        // 贡香
+        XiangModel *xiangModel = selectModel;
+        [self.xiangImgV sd_setImageWithURL:[NSURL URLWithString:xiangModel.xiang_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_burner"]];
+    }else if (decorationType == FruitType){
+        // 果盘
+        FruitBowlModel *fruitModel = selectModel;
+        [self.leftFruitV sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_橙子"]];
+        [self.rightFruitV sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_橙子"]];
+    }
+}
 
 
 #pragma mark - 其他方法

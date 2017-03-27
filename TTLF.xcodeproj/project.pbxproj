@@ -121,10 +121,17 @@
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
 		3B2A18441E814F0900578A1E /* BookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18431E814F0900578A1E /* BookCollectionViewCell.m */; };
 		3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18541E8169E400578A1E /* PusaShowView.m */; };
+		3B5BC33A1E84035300EE2425 /* DecorationListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5BC3391E84035300EE2425 /* DecorationListView.m */; };
+		3B5BC33D1E84051D00EE2425 /* DecorationTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5BC33C1E84051D00EE2425 /* DecorationTableCell.m */; };
 		3B8BB2C61E82609100F7CAEA /* HorizontalCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8BB2C51E82609100F7CAEA /* HorizontalCollectionCell.m */; };
+		3BB4E0F51E83A2CE00707E75 /* FlowerVaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0F41E83A2CE00707E75 /* FlowerVaseModel.m */; };
+		3BB4E0F81E83A93900707E75 /* XiangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0F71E83A93900707E75 /* XiangModel.m */; };
+		3BB4E0FB1E83AC4200707E75 /* FruitBowlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0FA1E83AC4200707E75 /* FruitBowlModel.m */; };
+		3BB4E0FE1E83ACB100707E75 /* FopaiModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0FD1E83ACB100707E75 /* FopaiModel.m */; };
 		3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F94E1E7E357A00642023 /* ZanViewController.m */; };
 		3BC1F95B1E7E35A600642023 /* LiFoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F9571E7E35A600642023 /* LiFoViewController.m */; };
 		3BD250661E811B8000398CA4 /* MyBooksViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD250651E811B8000398CA4 /* MyBooksViewController.m */; };
+		3BD2CE7C1E84E87000758021 /* LifoResourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2CE7B1E84E87000758021 /* LifoResourceModel.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
 		3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCE9CC1E6EBB7600E2F8E0 /* Assets.xcassets */; };
@@ -377,14 +384,28 @@
 		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3B2A18531E8169E400578A1E /* PusaShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaShowView.h; sourceTree = "<group>"; };
 		3B2A18541E8169E400578A1E /* PusaShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PusaShowView.m; sourceTree = "<group>"; };
+		3B5BC3381E84035300EE2425 /* DecorationListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecorationListView.h; sourceTree = "<group>"; };
+		3B5BC3391E84035300EE2425 /* DecorationListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecorationListView.m; sourceTree = "<group>"; };
+		3B5BC33B1E84051D00EE2425 /* DecorationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecorationTableCell.h; sourceTree = "<group>"; };
+		3B5BC33C1E84051D00EE2425 /* DecorationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecorationTableCell.m; sourceTree = "<group>"; };
 		3B8BB2C41E82609100F7CAEA /* HorizontalCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalCollectionCell.h; sourceTree = "<group>"; };
 		3B8BB2C51E82609100F7CAEA /* HorizontalCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalCollectionCell.m; sourceTree = "<group>"; };
+		3BB4E0F31E83A2CE00707E75 /* FlowerVaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerVaseModel.h; sourceTree = "<group>"; };
+		3BB4E0F41E83A2CE00707E75 /* FlowerVaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowerVaseModel.m; sourceTree = "<group>"; };
+		3BB4E0F61E83A93900707E75 /* XiangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiangModel.h; sourceTree = "<group>"; };
+		3BB4E0F71E83A93900707E75 /* XiangModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XiangModel.m; sourceTree = "<group>"; };
+		3BB4E0F91E83AC4200707E75 /* FruitBowlModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FruitBowlModel.h; sourceTree = "<group>"; };
+		3BB4E0FA1E83AC4200707E75 /* FruitBowlModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FruitBowlModel.m; sourceTree = "<group>"; };
+		3BB4E0FC1E83ACB100707E75 /* FopaiModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FopaiModel.h; sourceTree = "<group>"; };
+		3BB4E0FD1E83ACB100707E75 /* FopaiModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FopaiModel.m; sourceTree = "<group>"; };
 		3BC1F94D1E7E357A00642023 /* ZanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZanViewController.h; sourceTree = "<group>"; };
 		3BC1F94E1E7E357A00642023 /* ZanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZanViewController.m; sourceTree = "<group>"; };
 		3BC1F9561E7E35A600642023 /* LiFoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiFoViewController.h; sourceTree = "<group>"; };
 		3BC1F9571E7E35A600642023 /* LiFoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiFoViewController.m; sourceTree = "<group>"; };
 		3BD250641E811B8000398CA4 /* MyBooksViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksViewController.h; sourceTree = "<group>"; };
 		3BD250651E811B8000398CA4 /* MyBooksViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyBooksViewController.m; sourceTree = "<group>"; };
+		3BD2CE7A1E84E87000758021 /* LifoResourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifoResourceModel.h; sourceTree = "<group>"; };
+		3BD2CE7B1E84E87000758021 /* LifoResourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifoResourceModel.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDCE9C11E6EBB7600E2F8E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BDCE9C31E6EBB7600E2F8E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -724,14 +745,14 @@
 		3B266FBC1E6FDCB60078379B /* 用户信息 */ = {
 			isa = PBXGroup;
 			children = (
-				3B266FBD1E6FDCB60078379B /* Account.h */,
-				3B266FBE1E6FDCB60078379B /* Account.m */,
-				3B266FBF1E6FDCB60078379B /* AccountTool.h */,
-				3B266FC01E6FDCB60078379B /* AccountTool.m */,
 				3B266FC11E6FDCB60078379B /* UserInfoManager.h */,
 				3B266FC21E6FDCB60078379B /* UserInfoManager.m */,
 				3B266FC31E6FDCB60078379B /* UserInfoModel.h */,
 				3B266FC41E6FDCB60078379B /* UserInfoModel.m */,
+				3B266FBD1E6FDCB60078379B /* Account.h */,
+				3B266FBE1E6FDCB60078379B /* Account.m */,
+				3B266FBF1E6FDCB60078379B /* AccountTool.h */,
+				3B266FC01E6FDCB60078379B /* AccountTool.m */,
 				3B266FC51E6FDCB60078379B /* WechatAuthModel.h */,
 				3B266FC61E6FDCB60078379B /* WechatAuthModel.m */,
 				3B266FC71E6FDCB60078379B /* WechatInfoModel.h */,
@@ -1262,8 +1283,18 @@
 		3BC1F9581E7E35A600642023 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3BD2CE7A1E84E87000758021 /* LifoResourceModel.h */,
+				3BD2CE7B1E84E87000758021 /* LifoResourceModel.m */,
 				3B22D8661E8298A500439A99 /* FoxiangModel.h */,
 				3B22D8671E8298A500439A99 /* FoxiangModel.m */,
+				3BB4E0F31E83A2CE00707E75 /* FlowerVaseModel.h */,
+				3BB4E0F41E83A2CE00707E75 /* FlowerVaseModel.m */,
+				3BB4E0F61E83A93900707E75 /* XiangModel.h */,
+				3BB4E0F71E83A93900707E75 /* XiangModel.m */,
+				3BB4E0F91E83AC4200707E75 /* FruitBowlModel.h */,
+				3BB4E0FA1E83AC4200707E75 /* FruitBowlModel.m */,
+				3BB4E0FC1E83ACB100707E75 /* FopaiModel.h */,
+				3BB4E0FD1E83ACB100707E75 /* FopaiModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1275,6 +1306,10 @@
 				3B2A18541E8169E400578A1E /* PusaShowView.m */,
 				3B8BB2C41E82609100F7CAEA /* HorizontalCollectionCell.h */,
 				3B8BB2C51E82609100F7CAEA /* HorizontalCollectionCell.m */,
+				3B5BC3381E84035300EE2425 /* DecorationListView.h */,
+				3B5BC3391E84035300EE2425 /* DecorationListView.m */,
+				3B5BC33B1E84051D00EE2425 /* DecorationTableCell.h */,
+				3B5BC33C1E84051D00EE2425 /* DecorationTableCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1641,17 +1676,20 @@
 			files = (
 				3B266FD11E6FDCB60078379B /* Account.m in Sources */,
 				3B2670571E6FDEBB0078379B /* XLZoomingScrollView.m in Sources */,
+				3BD2CE7C1E84E87000758021 /* LifoResourceModel.m in Sources */,
 				3B1F05B01E7928A0005173B9 /* TopicCollectionCell.m in Sources */,
 				3B2670621E6FDFE40078379B /* RootTabbarController.m in Sources */,
 				3B2670511E6FDEBB0078379B /* TADotView.m in Sources */,
 				3B2A18441E814F0900578A1E /* BookCollectionViewCell.m in Sources */,
 				3B22D8681E8298A500439A99 /* FoxiangModel.m in Sources */,
+				3BB4E0FE1E83ACB100707E75 /* FopaiModel.m in Sources */,
 				3B2670DE1E6FE2B40078379B /* WechatLoginViewController.m in Sources */,
 				3B2670DC1E6FE2B40078379B /* RegisterViewController.m in Sources */,
 				3B26704F1E6FDEBB0078379B /* TAAbstractDotView.m in Sources */,
 				3B2670ED1E6FE2B40078379B /* MineTableViewCell.m in Sources */,
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
+				3BB4E0F81E83A93900707E75 /* XiangModel.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
 				3B1F05AF1E7928A0005173B9 /* SendDynTableCell.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
@@ -1681,6 +1719,7 @@
 				3B26706E1E6FE1B20078379B /* TTLFSetManager.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
+				3B5BC33D1E84051D00EE2425 /* DecorationTableCell.m in Sources */,
 				3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */,
 				3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */,
 				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
@@ -1713,9 +1752,11 @@
 				3B1F05AC1E7928A0005173B9 /* SendDynViewController.m in Sources */,
 				3B2232381E7FE08C00B43322 /* SelectTopicController.m in Sources */,
 				3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */,
+				3BB4E0F51E83A2CE00707E75 /* FlowerVaseModel.m in Sources */,
 				3B2670361E6FDEBB0078379B /* NSString+Category.m in Sources */,
 				3B2670851E6FE2930078379B /* DiscoverViewController.m in Sources */,
 				3B266FD21E6FDCB60078379B /* AccountTool.m in Sources */,
+				3B5BC33A1E84035300EE2425 /* DecorationListView.m in Sources */,
 				3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */,
 				3B2670461E6FDEBB0078379B /* WXApiRequestHandler.m in Sources */,
 				3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */,
@@ -1727,6 +1768,7 @@
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
 				3B26703C1E6FDEBB0078379B /* KSPhotoItem.m in Sources */,
 				3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */,
+				3BB4E0FB1E83AC4200707E75 /* FruitBowlModel.m in Sources */,
 				3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,

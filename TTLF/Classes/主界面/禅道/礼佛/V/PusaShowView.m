@@ -15,8 +15,7 @@
 
 /** collectionView */
 @property (strong, nonatomic) UICollectionView * collectionView;
-/** 选中的佛像 */
-//@property (strong,nonatomic) FoxiangModel *selectModel;
+
 
 @end
 
