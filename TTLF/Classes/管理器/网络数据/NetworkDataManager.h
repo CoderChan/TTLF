@@ -77,6 +77,12 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail;
 // 获取佛像、香、花瓶、果盘、佛牌资源
 - (void)getLifoResourceSuccess:(void (^)(LifoResourceModel *lifoModel))success Fail:(FailBlock)fail;
+// 上传礼佛信息到当天
+- (void)everydayLifoWithPusa:(FoxiangModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)everydayLifoWithFlower:(FlowerVaseModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)everydayLifoWithXiang:(XiangModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)everydayLifoWithFruit:(FruitBowlModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)everydayLifoWithFopai:(FopaiModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 
 

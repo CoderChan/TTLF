@@ -27,17 +27,27 @@
     [self addSubview:self.tableView];
     
     // 底部视图
-    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, self.size.height - 80, self.size.width, 80)];
-    footView.backgroundColor = HWRandomColor;
+    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, self.height - 70, self.width, 70)];
+    footView.backgroundColor = [UIColor clearColor];
     footView.userInteractionEnabled = YES;
+    [self addSubview:footView];
+    
+    // 底部关闭按钮
+    UIImageView *closeBtnBgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lifo_gongqing_btn"]];
+    closeBtnBgView.frame = CGRectMake(footView.width/2 - 60, (70-45)/2, 120, 45);
+    closeBtnBgView.userInteractionEnabled = YES;
+    [footView addSubview:closeBtnBgView];
+    
+    
     UIButton *closeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         [self removeFromSuperview];
     }];
-    [closeButton setTitle:@"关闭" forState:UIControlStateNormal];
-    closeButton.frame = CGRectMake(100, (80 - 44)/2, footView.width - 200, 44);
-    [footView addSubview:closeButton];
-    self.tableView.tableFooterView = footView;
+    closeButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
+    [closeButton setTitle:@"关  闭" forState:UIControlStateNormal];
+    closeButton.frame = closeBtnBgView.bounds;
+    [closeBtnBgView addSubview:closeButton];
+    
 }
 
 #pragma mark - 代理方法
@@ -67,19 +77,54 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([self.delegate respondsToSelector:@selector(decorationListViewWithType:SelectModel:)]) {
-        
-        [_delegate decorationListViewWithType:self.decorationType SelectModel:self.array[indexPath.section]];
-        [self removeFromSuperview];
-        
+    
+    if (self.decorationType == FlowerType) {
+        FlowerVaseModel *model = self.array[indexPath.section];
+        [[TTLFManager sharedManager].networkManager everydayLifoWithFlower:model Success:^{
+            if ([self.delegate respondsToSelector:@selector(decorationListViewWithType:SelectModel:)]) {
+                
+                [_delegate decorationListViewWithType:self.decorationType SelectModel:model];
+                [self removeFromSuperview];
+                
+            }
+        } Fail:^(NSString *errorMsg) {
+            [MBProgressHUD showError:errorMsg];
+        }];
+    }else if (self.decorationType == FruitType){
+        FruitBowlModel *model = self.array[indexPath.section];
+        [[TTLFManager sharedManager].networkManager everydayLifoWithFruit:model Success:^{
+            if ([self.delegate respondsToSelector:@selector(decorationListViewWithType:SelectModel:)]) {
+                
+                [_delegate decorationListViewWithType:self.decorationType SelectModel:model];
+                [self removeFromSuperview];
+                
+            }
+        } Fail:^(NSString *errorMsg) {
+            [MBProgressHUD showError:errorMsg];
+        }];
+    }else if (self.decorationType == XiangType){
+        XiangModel *model = self.array[indexPath.section];
+        [[TTLFManager sharedManager].networkManager everydayLifoWithXiang:model Success:^{
+            if ([self.delegate respondsToSelector:@selector(decorationListViewWithType:SelectModel:)]) {
+                
+                [_delegate decorationListViewWithType:self.decorationType SelectModel:model];
+                [self removeFromSuperview];
+                
+            }
+        } Fail:^(NSString *errorMsg) {
+            [MBProgressHUD showError:errorMsg];
+        }];
     }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.decorationType == XiangType) {
         return 120;
-    }else{
+    }else if (self.decorationType == FlowerType){
         return 160;
+    }else{
+        return 130;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -101,7 +146,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:self.bounds style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height - 70) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.backgroundColor = [UIColor clearColor];
@@ -109,9 +154,6 @@
     return _tableView;
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self removeFromSuperview];
-}
+
 
 @end

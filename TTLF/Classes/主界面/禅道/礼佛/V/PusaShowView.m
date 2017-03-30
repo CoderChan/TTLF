@@ -8,7 +8,7 @@
 
 
 #import "PusaShowView.h"
-#import "HorizontalCollectionCell.h"
+#import "PusaCollectionViewCell.h"
 
 
 @interface PusaShowView ()<UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
@@ -44,12 +44,16 @@
 {
     FoxiangModel *model = self.array[indexPath.item];
     model.index = indexPath.item;
-    HorizontalCollectionCell *cell = [HorizontalCollectionCell sharedCell:collectionView IndexPath:indexPath];
+    PusaCollectionViewCell *cell = [PusaCollectionViewCell sharedCell:collectionView IndexPath:indexPath];
     cell.SelectModelBlock = ^(FoxiangModel *model){
-        if ([self.delegate respondsToSelector:@selector(pusaDidSelectFoxiangModel:)]) {
-            [_delegate pusaDidSelectFoxiangModel:model];
-            [self removeFromSuperview];
-        }
+        [[TTLFManager sharedManager].networkManager everydayLifoWithPusa:model Success:^{
+            if ([self.delegate respondsToSelector:@selector(pusaDidSelectFoxiangModel:)]) {
+                [_delegate pusaDidSelectFoxiangModel:model];
+                [self removeFromSuperview];
+            }
+        } Fail:^(NSString *errorMsg) {
+            [MBProgressHUD showError:errorMsg];
+        }];
     };
     cell.model = model;
     return cell;
@@ -76,7 +80,7 @@
         _collectionView.delegate = self;
         _collectionView.pagingEnabled = YES;
         _collectionView.backgroundColor = self.backgroundColor;
-        [_collectionView registerClass:[HorizontalCollectionCell class] forCellWithReuseIdentifier:@"HorizontalCollectionCell"];
+        [_collectionView registerClass:[PusaCollectionViewCell class] forCellWithReuseIdentifier:@"PusaCollectionViewCell"];
         
     }
     return _collectionView;

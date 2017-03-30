@@ -50,7 +50,10 @@
     _valueLabel.text = model.option_value;
     if ([model.option_type containsString:@"发动态"]) {
         _iconView.image = [UIImage imageNamed:@"punna_send_tips"];
-        _contentLabel.text = @"每日扩散您的动态";
+        _contentLabel.text = @"日行动态轨迹";
+    }else if([model.option_type containsString:@"礼佛一天"]){
+        _iconView.image = [UIImage imageNamed:@"puna_lifo_icon"];
+        _contentLabel.text = @"天天礼佛";
     }else{
         _contentLabel.text = model.option_type;
     }

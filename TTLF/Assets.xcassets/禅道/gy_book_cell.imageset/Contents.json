@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "gy_book_cell.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "gy_book_cell@2x.png",
       "scale" : "2x"
     },
     {

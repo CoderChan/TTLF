@@ -33,7 +33,6 @@
 		3B2232381E7FE08C00B43322 /* SelectTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2232371E7FE08C00B43322 /* SelectTopicController.m */; };
 		3B22D8681E8298A500439A99 /* FoxiangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B22D8671E8298A500439A99 /* FoxiangModel.m */; };
 		3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FAD1E6FDC8F0078379B /* SuperViewController.m */; };
-		3B266FCC1E6FDCB60078379B /* DeviceInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FB21E6FDCB60078379B /* DeviceInfoModel.m */; };
 		3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FB91E6FDCB60078379B /* HTTPManager.m */; };
 		3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FBB1E6FDCB60078379B /* NetworkDataManager.m */; };
 		3B266FD11E6FDCB60078379B /* Account.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FBE1E6FDCB60078379B /* Account.m */; };
@@ -86,7 +85,6 @@
 		3B2670651E6FE0070078379B /* TTLFTabbar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670641E6FE0070078379B /* TTLFTabbar.m */; };
 		3B2670681E6FE0F30078379B /* TTLFManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670671E6FE0F30078379B /* TTLFManager.m */; };
 		3B26706B1E6FE14A0078379B /* HTTPLimiteCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B26706A1E6FE14A0078379B /* HTTPLimiteCache.m */; };
-		3B26706E1E6FE1B20078379B /* TTLFSetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B26706D1E6FE1B20078379B /* TTLFSetManager.m */; };
 		3B2670851E6FE2930078379B /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670781E6FE2930078379B /* DiscoverViewController.m */; };
 		3B2670861E6FE2930078379B /* GoodsDetialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B26707A1E6FE2930078379B /* GoodsDetialController.m */; };
 		3B2670871E6FE2930078379B /* PlaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B26707C1E6FE2930078379B /* PlaceListViewController.m */; };
@@ -121,9 +119,13 @@
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
 		3B2A18441E814F0900578A1E /* BookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18431E814F0900578A1E /* BookCollectionViewCell.m */; };
 		3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18541E8169E400578A1E /* PusaShowView.m */; };
+		3B42DC971E8A9E080037F9A4 /* FopaiShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */; };
+		3B42DC9D1E8AA2460037F9A4 /* PusaCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC9C1E8AA2460037F9A4 /* PusaCollectionViewCell.m */; };
+		3B42DCA01E8AA2D80037F9A4 /* FopaiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC9F1E8AA2D80037F9A4 /* FopaiCollectionViewCell.m */; };
+		3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */; };
+		3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */; };
 		3B5BC33A1E84035300EE2425 /* DecorationListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5BC3391E84035300EE2425 /* DecorationListView.m */; };
 		3B5BC33D1E84051D00EE2425 /* DecorationTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5BC33C1E84051D00EE2425 /* DecorationTableCell.m */; };
-		3B8BB2C61E82609100F7CAEA /* HorizontalCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8BB2C51E82609100F7CAEA /* HorizontalCollectionCell.m */; };
 		3BB4E0F51E83A2CE00707E75 /* FlowerVaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0F41E83A2CE00707E75 /* FlowerVaseModel.m */; };
 		3BB4E0F81E83A93900707E75 /* XiangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0F71E83A93900707E75 /* XiangModel.m */; };
 		3BB4E0FB1E83AC4200707E75 /* FruitBowlModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0FA1E83AC4200707E75 /* FruitBowlModel.m */; };
@@ -208,8 +210,6 @@
 		3B266FA71E6FDBD30078379B /* TTLF.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TTLF.entitlements; sourceTree = "<group>"; };
 		3B266FAC1E6FDC8F0078379B /* SuperViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SuperViewController.h; sourceTree = "<group>"; };
 		3B266FAD1E6FDC8F0078379B /* SuperViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SuperViewController.m; sourceTree = "<group>"; };
-		3B266FB11E6FDCB60078379B /* DeviceInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeviceInfoModel.h; sourceTree = "<group>"; };
-		3B266FB21E6FDCB60078379B /* DeviceInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeviceInfoModel.m; sourceTree = "<group>"; };
 		3B266FB81E6FDCB60078379B /* HTTPManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPManager.h; sourceTree = "<group>"; };
 		3B266FB91E6FDCB60078379B /* HTTPManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPManager.m; sourceTree = "<group>"; };
 		3B266FBA1E6FDCB60078379B /* NetworkDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataManager.h; sourceTree = "<group>"; };
@@ -315,8 +315,6 @@
 		3B2670671E6FE0F30078379B /* TTLFManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLFManager.m; sourceTree = "<group>"; };
 		3B2670691E6FE14A0078379B /* HTTPLimiteCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTTPLimiteCache.h; sourceTree = "<group>"; };
 		3B26706A1E6FE14A0078379B /* HTTPLimiteCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTTPLimiteCache.m; sourceTree = "<group>"; };
-		3B26706C1E6FE1B20078379B /* TTLFSetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLFSetManager.h; sourceTree = "<group>"; };
-		3B26706D1E6FE1B20078379B /* TTLFSetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLFSetManager.m; sourceTree = "<group>"; };
 		3B2670771E6FE2930078379B /* DiscoverViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		3B2670781E6FE2930078379B /* DiscoverViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		3B2670791E6FE2930078379B /* GoodsDetialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetialController.h; sourceTree = "<group>"; };
@@ -384,12 +382,19 @@
 		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3B2A18531E8169E400578A1E /* PusaShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaShowView.h; sourceTree = "<group>"; };
 		3B2A18541E8169E400578A1E /* PusaShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PusaShowView.m; sourceTree = "<group>"; };
+		3B42DC951E8A9E080037F9A4 /* FopaiShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FopaiShowView.h; sourceTree = "<group>"; };
+		3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FopaiShowView.m; sourceTree = "<group>"; };
+		3B42DC9B1E8AA2460037F9A4 /* PusaCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaCollectionViewCell.h; sourceTree = "<group>"; };
+		3B42DC9C1E8AA2460037F9A4 /* PusaCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PusaCollectionViewCell.m; sourceTree = "<group>"; };
+		3B42DC9E1E8AA2D80037F9A4 /* FopaiCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FopaiCollectionViewCell.h; sourceTree = "<group>"; };
+		3B42DC9F1E8AA2D80037F9A4 /* FopaiCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FopaiCollectionViewCell.m; sourceTree = "<group>"; };
+		3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerManager.h; sourceTree = "<group>"; };
+		3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerManager.m; sourceTree = "<group>"; };
+		3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "消灾吉祥神咒.mp3"; sourceTree = "<group>"; };
 		3B5BC3381E84035300EE2425 /* DecorationListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecorationListView.h; sourceTree = "<group>"; };
 		3B5BC3391E84035300EE2425 /* DecorationListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecorationListView.m; sourceTree = "<group>"; };
 		3B5BC33B1E84051D00EE2425 /* DecorationTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DecorationTableCell.h; sourceTree = "<group>"; };
 		3B5BC33C1E84051D00EE2425 /* DecorationTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DecorationTableCell.m; sourceTree = "<group>"; };
-		3B8BB2C41E82609100F7CAEA /* HorizontalCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HorizontalCollectionCell.h; sourceTree = "<group>"; };
-		3B8BB2C51E82609100F7CAEA /* HorizontalCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HorizontalCollectionCell.m; sourceTree = "<group>"; };
 		3BB4E0F31E83A2CE00707E75 /* FlowerVaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerVaseModel.h; sourceTree = "<group>"; };
 		3BB4E0F41E83A2CE00707E75 /* FlowerVaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FlowerVaseModel.m; sourceTree = "<group>"; };
 		3BB4E0F61E83A93900707E75 /* XiangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XiangModel.h; sourceTree = "<group>"; };
@@ -662,8 +667,8 @@
 		3B266FA81E6FDC8F0078379B /* 管理器 */ = {
 			isa = PBXGroup;
 			children = (
+				3B494DC51E8BE6BB00D3679B /* 音乐播放器 */,
 				3B266FC91E6FDCB60078379B /* HomeManager */,
-				3B266FB01E6FDCB60078379B /* 其他 */,
 				3B266FB51E6FDCB60078379B /* 网络数据 */,
 				3B266FBC1E6FDCB60078379B /* 用户信息 */,
 			);
@@ -673,6 +678,7 @@
 		3B266FA91E6FDC8F0078379B /* 其他类库 */ = {
 			isa = PBXGroup;
 			children = (
+				3B494DC91E8BF72900D3679B /* Medio */,
 				3B266FE01E6FDEBB0078379B /* Category */,
 				3B266FEC1E6FDEBB0078379B /* Libs */,
 			);
@@ -716,17 +722,6 @@
 				3B266FDE1E6FDD740078379B /* TTLFConstKey.m */,
 			);
 			path = PCH;
-			sourceTree = "<group>";
-		};
-		3B266FB01E6FDCB60078379B /* 其他 */ = {
-			isa = PBXGroup;
-			children = (
-				3B266FB11E6FDCB60078379B /* DeviceInfoModel.h */,
-				3B266FB21E6FDCB60078379B /* DeviceInfoModel.m */,
-				3B26706C1E6FE1B20078379B /* TTLFSetManager.h */,
-				3B26706D1E6FE1B20078379B /* TTLFSetManager.m */,
-			);
-			path = "其他";
 			sourceTree = "<group>";
 		};
 		3B266FB51E6FDCB60078379B /* 网络数据 */ = {
@@ -1213,6 +1208,23 @@
 			path = "设置主页";
 			sourceTree = "<group>";
 		};
+		3B494DC51E8BE6BB00D3679B /* 音乐播放器 */ = {
+			isa = PBXGroup;
+			children = (
+				3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */,
+				3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */,
+			);
+			path = "音乐播放器";
+			sourceTree = "<group>";
+		};
+		3B494DC91E8BF72900D3679B /* Medio */ = {
+			isa = PBXGroup;
+			children = (
+				3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */,
+			);
+			path = Medio;
+			sourceTree = "<group>";
+		};
 		3BC1F9431E7E357A00642023 /* 梵音 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1304,10 +1316,14 @@
 			children = (
 				3B2A18531E8169E400578A1E /* PusaShowView.h */,
 				3B2A18541E8169E400578A1E /* PusaShowView.m */,
-				3B8BB2C41E82609100F7CAEA /* HorizontalCollectionCell.h */,
-				3B8BB2C51E82609100F7CAEA /* HorizontalCollectionCell.m */,
+				3B42DC951E8A9E080037F9A4 /* FopaiShowView.h */,
+				3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */,
 				3B5BC3381E84035300EE2425 /* DecorationListView.h */,
 				3B5BC3391E84035300EE2425 /* DecorationListView.m */,
+				3B42DC9B1E8AA2460037F9A4 /* PusaCollectionViewCell.h */,
+				3B42DC9C1E8AA2460037F9A4 /* PusaCollectionViewCell.m */,
+				3B42DC9E1E8AA2D80037F9A4 /* FopaiCollectionViewCell.h */,
+				3B42DC9F1E8AA2D80037F9A4 /* FopaiCollectionViewCell.m */,
 				3B5BC33B1E84051D00EE2425 /* DecorationTableCell.h */,
 				3B5BC33C1E84051D00EE2425 /* DecorationTableCell.m */,
 			);
@@ -1509,6 +1525,7 @@
 				3B26704D1E6FDEBB0078379B /* FSActionSheet_cancel@2x.png in Resources */,
 				3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */,
 				3B2670F11E6FE2B40078379B /* shark.mp3 in Resources */,
+				3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */,
 				3B2670401E6FDEBB0078379B /* MBProgressHUD.bundle in Resources */,
 				3B26704E1E6FDEBB0078379B /* FSActionSheet_cancel@3x.png in Resources */,
 				3B2670E41E6FE2B40078379B /* ProvincesAndCities.plist in Resources */,
@@ -1705,6 +1722,7 @@
 				3B2670681E6FE0F30078379B /* TTLFManager.m in Sources */,
 				3B2670E31E6FE2B40078379B /* ProvinceCityModel.m in Sources */,
 				3B2670531E6FDEBB0078379B /* UIImage+XLExtension.m in Sources */,
+				3B42DCA01E8AA2D80037F9A4 /* FopaiCollectionViewCell.m in Sources */,
 				3B2670881E6FE2930078379B /* DiscoverCollectionCell.m in Sources */,
 				3B2670501E6FDEBB0078379B /* TAAnimatedDotView.m in Sources */,
 				3BC1F95B1E7E35A600642023 /* LiFoViewController.m in Sources */,
@@ -1716,7 +1734,6 @@
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
 				3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */,
 				3B2670521E6FDEBB0078379B /* TAPageControl.m in Sources */,
-				3B26706E1E6FE1B20078379B /* TTLFSetManager.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
 				3B5BC33D1E84051D00EE2425 /* DecorationTableCell.m in Sources */,
@@ -1748,7 +1765,6 @@
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */,
 				3B266FD61E6FDCB60078379B /* WechatInfoModel.m in Sources */,
-				3B266FCC1E6FDCB60078379B /* DeviceInfoModel.m in Sources */,
 				3B1F05AC1E7928A0005173B9 /* SendDynViewController.m in Sources */,
 				3B2232381E7FE08C00B43322 /* SelectTopicController.m in Sources */,
 				3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */,
@@ -1759,14 +1775,17 @@
 				3B5BC33A1E84035300EE2425 /* DecorationListView.m in Sources */,
 				3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */,
 				3B2670461E6FDEBB0078379B /* WXApiRequestHandler.m in Sources */,
+				3B42DC971E8A9E080037F9A4 /* FopaiShowView.m in Sources */,
 				3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */,
 				3B2670441E6FDEBB0078379B /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				3B2670861E6FE2930078379B /* GoodsDetialController.m in Sources */,
+				3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */,
 				3B2670F51E6FE2B40078379B /* SuggestViewController.m in Sources */,
 				3B1F05AD1E7928A0005173B9 /* SendTopicModel.m in Sources */,
 				3B1F05AA1E7928A0005173B9 /* SelectLocaltionController.m in Sources */,
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
 				3B26703C1E6FDEBB0078379B /* KSPhotoItem.m in Sources */,
+				3B42DC9D1E8AA2460037F9A4 /* PusaCollectionViewCell.m in Sources */,
 				3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */,
 				3BB4E0FB1E83AC4200707E75 /* FruitBowlModel.m in Sources */,
 				3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */,
@@ -1781,7 +1800,6 @@
 				3B1F05C71E792BD2005173B9 /* AboutPunnaViewController.m in Sources */,
 				3B2670DA1E6FE2B40078379B /* ForgetPasswordViewController.m in Sources */,
 				3B26704C1E6FDEBB0078379B /* FSActionSheetItem.m in Sources */,
-				3B8BB2C61E82609100F7CAEA /* HorizontalCollectionCell.m in Sources */,
 				3B2670DB1E6FE2B40078379B /* PhoneLoginViewController.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
 				3B26703E1E6FDEBB0078379B /* KSProgressLayer.m in Sources */,

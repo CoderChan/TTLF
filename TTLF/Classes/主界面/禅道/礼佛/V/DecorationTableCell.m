@@ -54,7 +54,7 @@
 - (void)setXiangModel:(XiangModel *)xiangModel
 {
     _xiangModel = xiangModel;
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:xiangModel.xiang_img] placeholderImage:[UIImage imageNamed:@"icon_place"]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:xiangModel.xiang_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
     _nameLabel.text = xiangModel.xiang_ming;
 }
 

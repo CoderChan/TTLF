@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NetworkDataManager.h"
 #import "UserInfoManager.h"
-#import "TTLFSetManager.h"
+#import "MusicPlayerManager.h"
 #import "LiFoViewController.h"
 #import "RootTabbarController.h"
 
@@ -23,7 +23,7 @@
 /** 用户信息 */
 @property (strong,nonatomic) UserInfoManager *userManager;
 /** APP属性 */
-@property (strong,nonatomic) TTLFSetManager *setManager;
+@property (strong,nonatomic) MusicPlayerManager *musicManager;
 
 /** 礼佛界面 */
 @property (weak,nonatomic) LiFoViewController *lifoVC;

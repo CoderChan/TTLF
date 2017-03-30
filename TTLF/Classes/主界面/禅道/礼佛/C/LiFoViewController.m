@@ -10,10 +10,11 @@
 #import <Masonry.h>
 #import "RootNavgationController.h"
 #import "PusaShowView.h"
+#import "FopaiShowView.h"
 #import "DecorationListView.h"
 
 
-@interface LiFoViewController ()<PusaShowViewDelegate,DecorationListViewDelegate>
+@interface LiFoViewController ()<PusaShowViewDelegate,FopaiViewDelegate,DecorationListViewDelegate>
 
 /** 菩萨图 */
 @property (strong,nonatomic) UIImageView *pusaImageView;
@@ -23,6 +24,8 @@
 @property (strong,nonatomic) UIImageView *lightImageView;
 /** 发光动画 */
 @property (strong,nonatomic) CABasicAnimation *rotationAnimation;
+
+
 /** 香坛子 */
 @property (strong,nonatomic) UIImageView *xiangImgV;
 /** 左侧花瓶 */
@@ -41,6 +44,11 @@
 @property (strong,nonatomic) UIImageView *fopaiImgV2;
 /** 佛牌1 */
 @property (strong,nonatomic) UIImageView *fopaiImgV3;
+
+/** 音乐播放按钮 */
+@property (strong,nonatomic) UIButton *playButton;
+/** 添加在播放按钮上动画 */
+@property (strong,nonatomic) CABasicAnimation *playAnimation;
 
 
 /** 佛像数组 */
@@ -61,6 +69,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"礼佛";
     [self setupSubViews];
     
 //    [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^{
@@ -93,6 +102,22 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tiantianfo_bg"]];
     }
     
+    // 播放按钮
+    self.playButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.playButton setImage:[UIImage imageNamed:@"lifo_music"] forState:UIControlStateNormal];
+    [self.playButton setImage:[UIImage imageNamed:@"lifo_music"] forState:UIControlStateHighlighted];
+    [self.playButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        if ([TTLFManager sharedManager].musicManager.isPlaying) {
+            [[TTLFManager sharedManager].musicManager pause];
+        }else{
+            [[TTLFManager sharedManager].musicManager playLocalMusic];
+        }
+        
+    }];
+    self.playButton.frame = CGRectMake(self.view.width - 18 - 35, 18, 35, 35);
+    self.playButton.backgroundColor = [UIColor clearColor];
+    [self.view addSubview:self.playButton];
+    
     // 2、 发光
     self.lightImageView = [[UIImageView alloc]init];
     self.lightImageView.image = [UIImage imageNamed:@"gy_lifo_light_01"];
@@ -122,7 +147,7 @@
     [self.sunImageView.layer addAnimation:[self AlphaLight:0.8] forKey:@"aAlpha"];
     
     // 3、菩萨
-    self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_释迦牟尼佛"]];
+    self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
     self.pusaImageView.userInteractionEnabled = YES;
     [self.view addSubview:self.pusaImageView];
     [self.pusaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -233,7 +258,7 @@
     }];
     
     // 8、左侧果盘
-    self.leftFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_橙子"]];
+    self.leftFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     self.leftFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.leftFruitV];
     [self.leftFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -257,7 +282,7 @@
     
     
     // 9、右侧果盘
-    self.rightFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_橙子"]];
+    self.rightFruitV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     self.rightFruitV.userInteractionEnabled = YES;
     [self.view addSubview:self.rightFruitV];
     [self.rightFruitV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -291,27 +316,44 @@
     
     
     self.fopaiImgV1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV1.tag = 1;
     self.fopaiImgV1.userInteractionEnabled = YES;
     self.fopaiImgV1.frame = CGRectMake(X1, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV1];
+    UITapGestureRecognizer *paiTap1 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        FopaiShowView *fopaiView = [[FopaiShowView alloc]initWithFrame:self.view.bounds];
+        fopaiView.delegate = self;
+        fopaiView.array = self.fopaiArray;
+        [self.view addSubview:fopaiView];
+    }];
+    [self.fopaiImgV1 addGestureRecognizer:paiTap1];
     
     self.fopaiImgV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV2.tag = 2;
     self.fopaiImgV2.userInteractionEnabled = YES;
     self.fopaiImgV2.frame = CGRectMake(X2, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV2];
+    UITapGestureRecognizer *paiTap2 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        FopaiShowView *fopaiView = [[FopaiShowView alloc]initWithFrame:self.view.bounds];
+        fopaiView.delegate = self;
+        fopaiView.array = self.fopaiArray;
+        [self.view addSubview:fopaiView];
+    }];
+    [self.fopaiImgV2 addGestureRecognizer:paiTap2];
     
     self.fopaiImgV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV3.tag = 3;
     self.fopaiImgV3.userInteractionEnabled = YES;
     self.fopaiImgV3.frame = CGRectMake(X3, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV3];
-    
-    UITapGestureRecognizer *tapFopai = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        [self sendAlertAction:@"选择佛牌"];
+    UITapGestureRecognizer *paiTap3 = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        FopaiShowView *fopaiView = [[FopaiShowView alloc]initWithFrame:self.view.bounds];
+        fopaiView.delegate = self;
+        fopaiView.array = self.fopaiArray;
+        [self.view addSubview:fopaiView];
     }];
+    [self.fopaiImgV3 addGestureRecognizer:paiTap3];
     
-    [self.fopaiImgV1 addGestureRecognizer:tapFopai];
-    [self.fopaiImgV2 addGestureRecognizer:tapFopai];
-    [self.fopaiImgV3 addGestureRecognizer:tapFopai];
     
 }
 
@@ -319,7 +361,15 @@
 // 选中佛像
 - (void)pusaDidSelectFoxiangModel:(FoxiangModel *)foxiangModel
 {
-    [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_释迦牟尼佛"]];
+    [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
+}
+// 选中佛牌
+- (void)fopaiDidSelectFopaiModel:(FopaiModel *)fopaiModel
+{
+    [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+    [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+    [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+    
 }
 // 选中花瓶、香、果盘
 - (void)decorationListViewWithType:(DecorationType)decorationType SelectModel:(id)selectModel
