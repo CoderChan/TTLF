@@ -41,6 +41,7 @@
         [self setBackgroundColor:[UIColor whiteColor]];
         [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setAccessoryType:UITableViewCellAccessoryNone];
+        
         [self setupSubViews];
     }
     return self;

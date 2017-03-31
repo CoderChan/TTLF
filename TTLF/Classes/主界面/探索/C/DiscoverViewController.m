@@ -15,9 +15,10 @@
 #import <SVWebViewController.h>
 
 
-#define topViewH 210*CKproportion
+#define TopViewH 210*CKproportion
+#define SpaceNum 4
 
-@interface DiscoverViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface DiscoverViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
 
 
 
@@ -40,7 +41,7 @@
 
 - (void)setupSubViews
 {
-    
+    self.view.backgroundColor = RGBACOLOR(250, 246, 232, 1);
     [self.view addSubview:self.collectionView];
     
     [self.collectionView insertSubview:self.topView atIndex:0];
@@ -95,26 +96,17 @@
 // 定义每个UICollectionView 的大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat Width = (self.view.width - 24)/2;
-    return CGSizeMake(Width, Width + 42);
+    CGFloat Width = (self.view.width - SpaceNum * 3)/2;
+    return CGSizeMake(Width, Width + 45);
 }
 
 // 定义每个UICollectionView 的间距
 -(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(8, 8, 8, 8);
+    return UIEdgeInsetsMake(SpaceNum, SpaceNum, SpaceNum, SpaceNum);
 }
 
-// 定义每个UICollectionView 纵向的间距
 
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 1;
-}
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
-{
-    return 1;
-}
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView * reusableview = nil;
@@ -141,6 +133,8 @@
 - (UICollectionView *)collectionView
 {
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+    flowLayout.minimumLineSpacing = SpaceNum;
+    flowLayout.minimumInteritemSpacing = SpaceNum;
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
     if (!_collectionView) {
         _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, -21, self.view.width, self.view.height - 44) collectionViewLayout:flowLayout];
@@ -150,7 +144,7 @@
         _collectionView.dataSource = self;
         _collectionView.backgroundColor = self.view.backgroundColor;
         [_collectionView registerClass:[DiscoverCollectionCell class] forCellWithReuseIdentifier:@"DiscoverCollectionCell"];
-        _collectionView.contentInset = UIEdgeInsetsMake(topViewH, 0, 0, 0);
+        _collectionView.contentInset = UIEdgeInsetsMake(TopViewH, 0, 0, 0);
         [_collectionView registerClass:[HomeReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeReusableView"];
     }
     return _collectionView;
@@ -159,9 +153,9 @@
 - (UIImageView *)topView
 {
     if (!_topView) {
-        _topView = [[UIImageView alloc]initWithFrame:CGRectMake(0, -topViewH, self.view.width, topViewH)];
+        _topView = [[UIImageView alloc]initWithFrame:CGRectMake(0, -TopViewH, self.view.width, TopViewH)];
         _topView.userInteractionEnabled = YES;
-        [_topView sd_setImageWithURL:[NSURL URLWithString:@"http://dl.bizhi.sogou.com/images/2012/02/16/70554.jpg?f=download"] placeholderImage:[UIImage imageNamed:@"nian_sy_bg"]];
+        [_topView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490949352798&di=a1030c130b3757ed61f5b90916b9a375&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fw%253D580%2Fsign%3De6a4c004f01f3a295ac8d5c6a927bce3%2Fc2528c1001e939014bcfece47bec54e734d196a2.jpg"] placeholderImage:[UIImage imageNamed:@"nian_sy_bg"]];
         _topView.backgroundColor = MainColor;
         _topView.autoresizingMask = YES;
     }

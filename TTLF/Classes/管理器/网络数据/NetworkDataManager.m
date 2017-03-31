@@ -509,9 +509,32 @@
 }
 
 #pragma mark - 禅修板块
-- (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail
+- (void)getLifoInfoSuccess:(void (^)(TodayLifoInfoModel *))success Fail:(FailBlock)fail
 {
-    success();
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Index/showLf";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            TodayLifoInfoModel *lifoModel = [TodayLifoInfoModel mj_objectWithKeyValues:result];
+            success(lifoModel);
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
 
 - (void)getLifoResourceSuccess:(void (^)(LifoResourceModel *))success Fail:(FailBlock)fail
@@ -523,7 +546,7 @@
     }
     NSString *url = @"http://app.yangruyi.com/home/Index/qiancheng";
     [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
-        NSLog(@"礼佛资源 = %@",responseObject);
+//        NSLog(@"礼佛资源 = %@",responseObject);
         NSError *error;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
         if (!error) {
@@ -583,7 +606,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.flower_id.base64EncodedString forKey:@"flower_id"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&flower_id=%@",account.userID.base64EncodedString,model.flower_id.base64EncodedString];
+//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&flower_id=%@",account.userID.base64EncodedString,model.flower_id.base64EncodedString];
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
@@ -609,7 +632,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.x_id.base64EncodedString forKey:@"x_id"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&x_id=%@",account.userID.base64EncodedString,model.x_id.base64EncodedString];
+//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&x_id=%@",account.userID.base64EncodedString,model.x_id.base64EncodedString];
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
@@ -635,7 +658,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.fruit_id.base64EncodedString forKey:@"fruit_id"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&f_id=%@",account.userID.base64EncodedString,model.fruit_id.base64EncodedString];
+//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&f_id=%@",account.userID.base64EncodedString,model.fruit_id.base64EncodedString];
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
@@ -661,7 +684,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.pai_id.base64EncodedString forKey:@"pai_id"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&pai_id=%@",account.userID.base64EncodedString,model.pai_id.base64EncodedString];
+//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&pai_id=%@",account.userID.base64EncodedString,model.pai_id.base64EncodedString];
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);

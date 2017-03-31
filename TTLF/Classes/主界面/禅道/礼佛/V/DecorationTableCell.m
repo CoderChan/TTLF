@@ -42,25 +42,25 @@
 - (void)setFlowerModel:(FlowerVaseModel *)flowerModel
 {
     _flowerModel = flowerModel;
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"icon_place"]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
     _nameLabel.text = flowerModel.flower_name;
 }
 - (void)setFruitModel:(FruitBowlModel *)fruitModel
 {
     _fruitModel = fruitModel;
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"icon_place"]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     _nameLabel.text = fruitModel.fruit_name;
 }
 - (void)setXiangModel:(XiangModel *)xiangModel
 {
     _xiangModel = xiangModel;
-    [_iconView sd_setImageWithURL:[NSURL URLWithString:xiangModel.xiang_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [_iconView sd_setImageWithURL:[NSURL URLWithString:xiangModel.xiang_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_burner"]];
     _nameLabel.text = xiangModel.xiang_ming;
 }
 
 - (void)setupSubViews
 {
-    self.iconView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
+    self.iconView = [[UIImageView alloc]init];
     [self.contentView addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);

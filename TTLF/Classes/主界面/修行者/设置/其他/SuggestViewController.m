@@ -130,10 +130,10 @@
 }
 - (void)commitClick
 {
-    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"谢谢您的反馈，我们将在短期内给以您回复。对于积极的建议，我们将会纳入接下来的版本计划中。建议是你的，天天礼佛是大家的。" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"谢谢您的反馈，我们将在短期内给以您回复。对于有利于产品改进的建议，我们将会纳入接下来的版本更新中。" preferredStyle:UIAlertControllerStyleAlert];
     UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         [self.view endEditing:YES];
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     
     [alertC addAction:action];

@@ -16,6 +16,7 @@
 #import "SendTopicModel.h"
 #import "PunaNumListModel.h"
 #import "LifoResourceModel.h"
+#import "TodayLifoInfoModel.h"
 
 
 
@@ -74,7 +75,7 @@ typedef void (^SuccessStringBlock)(NSString *string);
 
 #pragma mark - 禅修板块
 // 查看当天礼佛信息
-- (void)getLifoInfoSuccess:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)getLifoInfoSuccess:(void (^)(TodayLifoInfoModel *lifoModel))success Fail:(FailBlock)fail;
 // 获取佛像、香、花瓶、果盘、佛牌资源
 - (void)getLifoResourceSuccess:(void (^)(LifoResourceModel *lifoModel))success Fail:(FailBlock)fail;
 // 上传礼佛信息到当天

@@ -72,12 +72,26 @@
     self.title = @"礼佛";
     [self setupSubViews];
     
-//    [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^{
-//        self.lightImageView.hidden = YES;
-//        self.sunImageView.hidden = YES;
-//    } Fail:^(NSString *errorMsg) {
-//        [MBProgressHUD showError:errorMsg];
-//    }];
+    [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^(TodayLifoInfoModel *lifoModel) {
+        if (lifoModel.pusa) {
+            self.lightImageView.hidden = NO;
+            self.sunImageView.hidden = NO;
+            [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:lifoModel.pusa] placeholderImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
+        }else{
+            self.lightImageView.hidden = YES;
+            self.sunImageView.hidden = YES;
+        }
+        [self.xiangImgV sd_setImageWithURL:[NSURL URLWithString:lifoModel.xiang] placeholderImage:[UIImage imageNamed:@"gy_lifo_burner"]];
+        [self.leftFlowerV sd_setImageWithURL:[NSURL URLWithString:lifoModel.flower] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
+        [self.rightFloerV sd_setImageWithURL:[NSURL URLWithString:lifoModel.flower] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
+        [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+        [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+        [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+        
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
+    }];
+    
     
     // 请求图片资源数组
     [[TTLFManager sharedManager].networkManager getLifoResourceSuccess:^(LifoResourceModel *lifoModel) {
@@ -133,6 +147,7 @@
         make.top.equalTo(self.view.mas_top);
         make.width.and.height.equalTo(@180);
     }];
+    self.lightImageView.hidden = YES;
     
     
     // 太阳
@@ -145,6 +160,7 @@
         make.width.and.height.equalTo(@170);
     }];
     [self.sunImageView.layer addAnimation:[self AlphaLight:0.8] forKey:@"aAlpha"];
+    self.sunImageView.hidden = YES;
     
     // 3、菩萨
     self.pusaImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
@@ -190,7 +206,7 @@
     [self.xiangImgV addGestureRecognizer:tapXiang];
     
     // 5、左侧花瓶
-    self.leftFlowerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
+    self.leftFlowerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lifo_flower_place"]];
     self.leftFlowerV.userInteractionEnabled = YES;
     [self.view addSubview:self.leftFlowerV];
     [self.leftFlowerV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -213,7 +229,7 @@
     [self.leftFlowerV addGestureRecognizer:tapFlower1];
     
     // 6、右侧花瓶
-    self.rightFloerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
+    self.rightFloerV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"lifo_flower_place"]];
     self.rightFloerV.userInteractionEnabled = YES;
     [self.view addSubview:self.rightFloerV];
     [self.rightFloerV mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -361,6 +377,8 @@
 // 选中佛像
 - (void)pusaDidSelectFoxiangModel:(FoxiangModel *)foxiangModel
 {
+    self.lightImageView.hidden = NO;
+    self.sunImageView.hidden = NO;
     [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
 }
 // 选中佛牌
@@ -378,8 +396,8 @@
     if (decorationType == FlowerType) {
         // 花瓶
         FlowerVaseModel *flowerModel = selectModel;
-        [self.leftFlowerV sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
-        [self.rightFloerV sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"gy_曼陀罗花"]];
+        [self.leftFlowerV sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
+        [self.rightFloerV sd_setImageWithURL:[NSURL URLWithString:flowerModel.flower_img] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
     }else if (decorationType == XiangType){
         // 贡香
         XiangModel *xiangModel = selectModel;
@@ -387,8 +405,8 @@
     }else if (decorationType == FruitType){
         // 果盘
         FruitBowlModel *fruitModel = selectModel;
-        [self.leftFruitV sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_橙子"]];
-        [self.rightFruitV sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_橙子"]];
+        [self.leftFruitV sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
+        [self.rightFruitV sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     }
 }
 

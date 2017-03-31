@@ -9,12 +9,14 @@
 #import "HomeViewController.h"
 #import <MJRefresh/MJRefresh.h>
 #import "FYQImgTableViewCell.h"
+#import "CommentViewController.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+/** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
-
+/** 数据源 */
 @property (copy,nonatomic) NSArray *array;
 
 @end
@@ -58,7 +60,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    CommentViewController *comment = [CommentViewController new];
+    [self.navigationController pushViewController:comment animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

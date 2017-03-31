@@ -18,6 +18,7 @@
 #import "XLPhotoBrowser.h"
 #import "PhoneViewController.h"
 #import "AccountTool.h"
+#import "RootNavgationController.h"
 
 
 
@@ -210,6 +211,7 @@
         {
             // 从相册中选择
             UIImagePickerController *imagepicker = [[UIImagePickerController alloc] init];
+            [imagepicker.navigationController.navigationBar setTranslucent:NO];
             imagepicker.delegate = self;
             imagepicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
             imagepicker.allowsEditing = YES;

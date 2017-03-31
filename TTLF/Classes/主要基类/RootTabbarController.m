@@ -89,4 +89,11 @@
     }];
 }
 
+#pragma mark - 设置tabbar只支持竖屏
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    NSLog(@"W = %g,H = %g",size.width,size.height);
+}
+
+
 @end

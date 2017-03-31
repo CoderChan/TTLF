@@ -51,6 +51,7 @@
         [TTLFManager sharedManager].tabbar = tabbar;
         self.window.rootViewController = tabbar;
         
+        
     }else{
         WechatLoginViewController *wechatLogin = [WechatLoginViewController new];
         RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:wechatLogin];
@@ -85,5 +86,9 @@
 {
     [[TTLFManager sharedManager].lifoVC beginLightingAction];
 }
+
+
+
+
 
 @end
