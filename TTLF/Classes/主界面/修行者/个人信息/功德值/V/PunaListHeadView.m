@@ -32,6 +32,7 @@
     return self;
 }
 
+
 - (void)setYearMonth:(NSString *)yearMonth
 {
     _yearMonth = yearMonth;

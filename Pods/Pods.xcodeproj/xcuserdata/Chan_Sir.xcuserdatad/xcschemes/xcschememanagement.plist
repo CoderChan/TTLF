@@ -9,12 +9,12 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>FMDB.xcscheme</key>
+		<key>FDFullscreenPopGesture.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>IQKeyboardManager.xcscheme</key>
+		<key>FMDB.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -74,6 +74,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>YYKeyboardManager.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>YYKit.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -92,7 +97,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>22CBE014BECA2A001288A6B64DD61AC8</key>
+		<key>24BA0010A6DDD40CBB5536FB5979E278</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -102,17 +107,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2FE4745F581B4A05B64F7B045304E472</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>32D63AD0963F8E2E761ECAA440D95483</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>35F9D467E62ACDE0CB57EFCED5DB4976</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -122,7 +117,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>82F121EE5DAC521F31ED862B62EC0120</key>
+		<key>57F50D3C6E2F03F72B15C72F150D7B69</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,17 +127,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9650B5ADCE86F1A055FAFC635284BDB5</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9DB4E6D38C8D9EEE6859CB75FFF70359</key>
+		<key>94D4179E20179E2A771D6B309520F3FA</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>9E033EDB5EC0819481B0546434FA577B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>A2E6AB1DFB59CAB3189FBBA1D7E75DEC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -153,6 +148,21 @@
 			<true/>
 		</dict>
 		<key>B6494C8EAD57343FDAC7E6D588B28712</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C132158B430C1F5BF836DA3F248A9FC0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DCA7ABA6659494FF8D53CE9F59F55DA7</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>EE366E1E6962F82E6AEC8AE66FA66CBF</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -69,7 +69,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"礼佛";
+    self.title = @"天天礼佛";
     [self setupSubViews];
     
     [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^(TodayLifoInfoModel *lifoModel) {
@@ -84,6 +84,8 @@
         [self.xiangImgV sd_setImageWithURL:[NSURL URLWithString:lifoModel.xiang] placeholderImage:[UIImage imageNamed:@"gy_lifo_burner"]];
         [self.leftFlowerV sd_setImageWithURL:[NSURL URLWithString:lifoModel.flower] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
         [self.rightFloerV sd_setImageWithURL:[NSURL URLWithString:lifoModel.flower] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
+        [self.leftFruitV sd_setImageWithURL:[NSURL URLWithString:lifoModel.fruit] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
+        [self.rightFruitV sd_setImageWithURL:[NSURL URLWithString:lifoModel.fruit] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
         [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
         [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
         [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];

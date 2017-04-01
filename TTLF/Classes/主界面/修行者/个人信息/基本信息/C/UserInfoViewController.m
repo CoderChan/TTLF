@@ -228,7 +228,8 @@
 }
 
 #pragma mark -UIImagePickerControllerDelegate
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info {
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
     
     UIImage * orgImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -260,10 +261,9 @@
 }
 
 #pragma mark - 取消上传
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
 }
 
 

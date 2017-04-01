@@ -90,7 +90,7 @@
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    LogFuncName
+    
     self.headView = [[PunaListHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
     __weak __block PunnaListViewController *copySelf = self;
     self.headView.ClickBlock = ^(){

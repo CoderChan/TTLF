@@ -10,4 +10,7 @@
 
 @interface CommentFootView : UIView
 
+/** 点击弹出评论视图 */
+@property (copy,nonatomic) void (^CommentBlock)();
+
 @end

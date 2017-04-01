@@ -10,6 +10,7 @@
 #import "NormalTableViewCell.h"
 #import "LiFoViewController.h"
 #import "MyBooksViewController.h"
+#import "ZuoCanViewController.h"
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -31,7 +32,7 @@
 - (void)setupSubViews
 {
     
-    self.array = @[@[@"佛典",@"梵音"],@[@"素食生活",@"放生活动"],@[@"恭请礼佛",@"坐禅冥想"]];
+    self.array = @[@[@"佛典",@"梵音"],@[@"素食生活",@"放生活动"],@[@"天天礼佛",@"坐禅冥想"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 108) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.dataSource = self;
@@ -77,13 +78,14 @@
         
     }else{
         if (indexPath.row == 0) {
-            // 恭请礼佛
+            // 天天礼佛
             LiFoViewController *lifo = [LiFoViewController new];
             [TTLFManager sharedManager].lifoVC = lifo;
             [self.navigationController pushViewController:lifo animated:YES];
         }else{
             // 冥想
-            
+            ZuoCanViewController *zuocan = [ZuoCanViewController new];
+            [self.navigationController pushViewController:zuocan animated:YES];
         }
     }
 }

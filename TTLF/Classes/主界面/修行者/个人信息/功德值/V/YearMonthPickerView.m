@@ -62,7 +62,7 @@
     [self.array addObject:self.monthArray];
     
     mengButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    mengButton.backgroundColor = RGBACOLOR(0, 0, 0, 0.2);
+    mengButton.backgroundColor = CoverColor;
     __weak YearMonthPickerView *copySelf = self;
     [mengButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         [copySelf removeSubViews];
@@ -72,6 +72,7 @@
     
     // 中部
     middleView = [[UIView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - PickerHeight - 40, SCREEN_WIDTH, 40)];
+//    middleView.alpha = 0.2;
     middleView.backgroundColor = [UIColor whiteColor];
     middleView.userInteractionEnabled = YES;
     [self addSubview:middleView];
@@ -107,9 +108,12 @@
     self.pickerView = [[UIPickerView alloc]initWithFrame:CGRectMake(0, SCREEN_HEIGHT - PickerHeight, SCREEN_WIDTH, PickerHeight)];
     self.pickerView.delegate = self;
     self.pickerView.dataSource = self;
+    self.pickerView.alpha = 1;
     self.pickerView.showsSelectionIndicator = YES;
     self.pickerView.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.pickerView];
+    
+    
     
     [self.pickerView reloadAllComponents];
 }

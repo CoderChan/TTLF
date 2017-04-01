@@ -68,6 +68,7 @@
     self.headView = [[SendDynHeadView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200)];
     __weak SendDynViewController *copySelf = self;
     self.headView.ImgClickBlock = ^(){
+        [copySelf.view endEditing:YES];
         if (copySelf.isSendIMG) {
             PhotoShowViewController *photoShow = [[PhotoShowViewController alloc]initWithImages:@[copySelf.headView.imageView.image]];
             photoShow.DeleteIMGBlock = ^(){
@@ -76,7 +77,7 @@
             };
             [copySelf.navigationController pushViewController:photoShow animated:YES];
         }else{
-            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil delegate:copySelf cancelButtonTitle:@"取消" otherButtonTitles:@"从相册中选择",@"拍照", nil];
+            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil delegate:copySelf cancelButtonTitle:@"取消" otherButtonTitles:@"拍照",@"从相册中选择", nil];
             [sheet show];
         }
     };
@@ -119,9 +120,8 @@
         [[TTLFManager sharedManager].networkManager sendImgDyn:self.headView.imageView.image Topic:self.topicModel Content:self.headView.textView.text LocationJson:locationJson IsNoname:!self.switchView.on Progress:^(NSProgress *progress) {
 //            NSLog(@"progress = %f",progress.fractionCompleted);
         } Success:^(NSString *string) {
-            
+            [self.view endEditing:YES];
             [MBProgressHUD hideHUD];
-            [MBProgressHUD showSuccess:string];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 
             }];
@@ -135,6 +135,7 @@
         [[TTLFManager sharedManager].networkManager sendTextDynWithTopic:self.topicModel Content:self.headView.textView.text LocationJson:locationJson IsNoname:!self.switchView.on Success:^(NSString *string) {
             
             [MBProgressHUD hideHUD];
+            [self.view endEditing:YES];
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
                 
             }];
@@ -152,20 +153,6 @@
     switch (buttonIndex) {
         case 1:
         {
-            // 从相册中选择
-            UIImagePickerController *imagepicker = [[UIImagePickerController alloc] init];
-            imagepicker.delegate = self;
-            imagepicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-            imagepicker.allowsEditing = YES;
-            imagepicker.modalPresentationStyle= UIModalPresentationPageSheet;
-            imagepicker.modalTransitionStyle = UIModalPresentationPageSheet;
-            imagepicker.navigationBar.barStyle = UIBarStyleBlackTranslucent;
-            [imagepicker.navigationBar setBarTintColor:NavColor];
-            [self presentViewController:imagepicker animated:YES completion:nil];
-            break;
-        }
-        case 2:
-        {
             // 拍照
             UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
             
@@ -180,6 +167,22 @@
                 }];
                 
             }
+            
+        }
+        case 2:
+        {
+            // 从相册中选择
+            UIImagePickerController *imagepicker = [[UIImagePickerController alloc] init];
+            imagepicker.delegate = self;
+            imagepicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            imagepicker.allowsEditing = YES;
+            [imagepicker.navigationController.navigationBar setTranslucent:NO];
+            imagepicker.modalPresentationStyle= UIModalPresentationPageSheet;
+            imagepicker.modalTransitionStyle = UIModalPresentationPageSheet;
+            imagepicker.navigationBar.barStyle = UIBarStyleBlackTranslucent;
+            [imagepicker.navigationBar setBarTintColor:NavColor];
+            [self presentViewController:imagepicker animated:YES completion:nil];
+            break;
             
             break;
         }
@@ -263,6 +266,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.view endEditing:YES];
     if (indexPath.section == 0) {
         SelectTopicController *vc = [SelectTopicController new];
         vc.SelectModelBlock = ^(SendTopicModel *topicModel){

@@ -9,6 +9,8 @@
 #import "SuggestViewController.h"
 #import <Masonry.h>
 
+#define PlaceText @"输入您的反馈，我们将为您不断改进产品质量。"
+
 @interface SuggestViewController ()<UITextViewDelegate>
 {
     NSMutableArray *buttonArray;
@@ -93,7 +95,7 @@
 }
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if ([self.textView.text isEqualToString:@"输入您的反馈，我们将为您不断改进产品质量。"]) {
+    if ([self.textView.text isEqualToString:PlaceText]) {
         self.textView.text = @"";
     }else{
         textView.font = [UIFont systemFontOfSize:15];
@@ -104,7 +106,7 @@
 {
     textView.textColor = [UIColor blackColor];
     textView.font = [UIFont systemFontOfSize:15];
-    NSLog(@"%@",textView.text);
+    
 }
 - (void)didSelected:(UIButton *)sender
 {
@@ -116,7 +118,7 @@
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if ([self.textView.text isEqualToString:@""]) {
-        self.textView.text = @"输入您的反馈，我们将为您不断改进产品质量。";
+        self.textView.text = PlaceText;
         textView.font = [UIFont systemFontOfSize:13];
         textView.textColor = [UIColor lightGrayColor];
     }else{

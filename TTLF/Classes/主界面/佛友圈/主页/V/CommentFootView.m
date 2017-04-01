@@ -68,7 +68,9 @@
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
     clickButton.backgroundColor = [UIColor clearColor];
     [clickButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [MBProgressHUD showSuccess:@"评论"];
+        if (self.CommentBlock) {
+            _CommentBlock();
+        }
     }];
     [self addSubview:clickButton];
     [clickButton mas_makeConstraints:^(MASConstraintMaker *make) {

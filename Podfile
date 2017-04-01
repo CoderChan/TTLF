@@ -12,9 +12,10 @@ target 'TTLF' do
     pod 'MJExtension'
     pod 'MJRefresh', '~> 3.1.12'
     pod 'YYKit'
+    pod 'FDFullscreenPopGesture'
     pod 'SDAutoLayout'
     pod 'LCActionSheet'
-    pod 'IQKeyboardManager'
+    pod 'YYKeyboardManager'
     pod 'SVWebViewController'
     pod 'AMapLocation-NO-IDFA' #无IDFA版定位 SDK
     pod 'AMap2DMap-NO-IDFA'

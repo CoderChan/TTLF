@@ -43,7 +43,7 @@
     [self addSubview:self.titleLabel];
     
     UIImageView *detialV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cm2_login_arr_gray_night_prs"]];
-    [detialV setFrame:CGRectMake(self.width - 30, 5, 32, 30)];
+    [detialV setFrame:CGRectMake(self.width - 36, 5, 32, 30)];
     [self addSubview:detialV];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {

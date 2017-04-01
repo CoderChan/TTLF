@@ -469,6 +469,8 @@
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
+            NSString *result = [[responseObject objectForKey:@"result"] description];
+            [[TTLFManager sharedManager].userManager updateWithKey:result Value:UheadUrl];
             success(message);
         }else{
             fail(message);
@@ -494,11 +496,14 @@
         [param setValue:locationJson.base64EncodedString forKey:@"location"];
     }
     [param setValue:[NSString stringWithFormat:@"%d",isNoName].base64EncodedString forKey:@"nameType"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/create_dynamics?userID=%@&topic_id=%@&contentText=%@location=%@&isNoName=%@",account.userID.base64EncodedString,topicModel.topic_id.base64EncodedString,content.base64EncodedString,locationJson.base64EncodedString,[NSString stringWithFormat:@"%d",isNoName].base64EncodedString];
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
+            NSString *result = [[responseObject objectForKey:@"result"] description];
+            [[TTLFManager sharedManager].userManager updateWithKey:result Value:UheadUrl];
             success(message);
         }else{
             fail(message);
