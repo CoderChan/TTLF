@@ -497,6 +497,7 @@
     }
     [param setValue:[NSString stringWithFormat:@"%d",isNoName].base64EncodedString forKey:@"nameType"];
     NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/create_dynamics?userID=%@&topic_id=%@&contentText=%@location=%@&isNoName=%@",account.userID.base64EncodedString,topicModel.topic_id.base64EncodedString,content.base64EncodedString,locationJson.base64EncodedString,[NSString stringWithFormat:@"%d",isNoName].base64EncodedString];
+    NSLog(@"发送文字动态URL = %@",allurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];

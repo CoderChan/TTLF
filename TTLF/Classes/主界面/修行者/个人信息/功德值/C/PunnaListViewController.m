@@ -130,7 +130,7 @@
 
 - (NSString *)getSumPunaNum
 {
-    double sumNum;
+    double sumNum = 0.0;
     for (int i = 0; i < self.array.count; i++) {
         PunaNumListModel *model = self.array[i];
         double value = [model.option_value doubleValue];

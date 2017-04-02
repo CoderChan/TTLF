@@ -55,14 +55,20 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     UILabel *copyLabel = [[UILabel alloc]init];
     copyLabel.text = @"Copyright ©2017 天天礼佛";
     copyLabel.textColor = MainColor;
+    copyLabel.userInteractionEnabled = YES;
     copyLabel.textAlignment = NSTextAlignmentCenter;
     copyLabel.font = [UIFont systemFontOfSize:13];
+//    NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:copyLabel.text];
+//    NSRange range = NSMakeRange(0, content.length);
+//    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
+//    copyLabel.attributedText = content;
     [self.view addSubview:copyLabel];
     [copyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-15);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-18);
         make.height.equalTo(@25);
     }];
+    
     
     // 微信快速登录
     UIView *wechatView = [[UIView alloc]initWithFrame:CGRectZero];
@@ -99,7 +105,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     
     
     [wechatView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(copyLabel.mas_top).offset(-15);
+        make.bottom.equalTo(copyLabel.mas_top).offset(-20);
         make.left.equalTo(self.view.mas_left).offset(40);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.equalTo(@48);
