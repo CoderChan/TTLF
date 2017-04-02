@@ -11,6 +11,7 @@
 #import "LiFoViewController.h"
 #import "MyBooksViewController.h"
 #import "ZuoCanViewController.h"
+#import "MusicPlayingController.h"
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -73,6 +74,9 @@
         if (indexPath.row == 0) {
             MyBooksViewController *myBook = [MyBooksViewController new];
             [self.navigationController pushViewController:myBook animated:YES];
+        }else{
+            MusicPlayingController *music = [MusicPlayingController new];
+            [self.navigationController pushViewController:music animated:YES];
         }
     }else if (indexPath.section == 1){
         
@@ -91,6 +95,11 @@
 }
 
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setBarTintColor:NavColor];
+}
 
 
 @end

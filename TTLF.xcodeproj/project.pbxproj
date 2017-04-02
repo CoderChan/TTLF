@@ -143,6 +143,8 @@
 		3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F94E1E7E357A00642023 /* ZanViewController.m */; };
 		3BC1F95B1E7E35A600642023 /* LiFoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC1F9571E7E35A600642023 /* LiFoViewController.m */; };
 		3BD2CE7C1E84E87000758021 /* LifoResourceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD2CE7B1E84E87000758021 /* LifoResourceModel.m */; };
+		3BD310951E90DD42002B643D /* MusicPlayingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD310941E90DD42002B643D /* MusicPlayingController.m */; };
+		3BD310981E90F345002B643D /* PlayingRightBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD310971E90F345002B643D /* PlayingRightBarView.m */; };
 		3BD642E41E8FDCFF00AB0BF1 /* ReportDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD642E31E8FDCFF00AB0BF1 /* ReportDetialViewController.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
@@ -439,6 +441,10 @@
 		3BC1F9571E7E35A600642023 /* LiFoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiFoViewController.m; sourceTree = "<group>"; };
 		3BD2CE7A1E84E87000758021 /* LifoResourceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LifoResourceModel.h; sourceTree = "<group>"; };
 		3BD2CE7B1E84E87000758021 /* LifoResourceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LifoResourceModel.m; sourceTree = "<group>"; };
+		3BD310931E90DD42002B643D /* MusicPlayingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayingController.h; sourceTree = "<group>"; };
+		3BD310941E90DD42002B643D /* MusicPlayingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayingController.m; sourceTree = "<group>"; };
+		3BD310961E90F345002B643D /* PlayingRightBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayingRightBarView.h; sourceTree = "<group>"; };
+		3BD310971E90F345002B643D /* PlayingRightBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayingRightBarView.m; sourceTree = "<group>"; };
 		3BD642E21E8FDCFF00AB0BF1 /* ReportDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportDetialViewController.h; sourceTree = "<group>"; };
 		3BD642E31E8FDCFF00AB0BF1 /* ReportDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportDetialViewController.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1299,6 +1305,8 @@
 		3BC1F9431E7E357A00642023 /* 梵音 */ = {
 			isa = PBXGroup;
 			children = (
+				3BD310931E90DD42002B643D /* MusicPlayingController.h */,
+				3BD310941E90DD42002B643D /* MusicPlayingController.m */,
 			);
 			path = "梵音";
 			sourceTree = "<group>";
@@ -1342,6 +1350,8 @@
 			children = (
 				3BC1F94D1E7E357A00642023 /* ZanViewController.h */,
 				3BC1F94E1E7E357A00642023 /* ZanViewController.m */,
+				3BD310961E90F345002B643D /* PlayingRightBarView.h */,
+				3BD310971E90F345002B643D /* PlayingRightBarView.m */,
 			);
 			path = "主页";
 			sourceTree = "<group>";
@@ -1833,6 +1843,7 @@
 				3B2670651E6FE0070078379B /* TTLFTabbar.m in Sources */,
 				3B26704B1E6FDEBB0078379B /* FSActionSheetConfig.m in Sources */,
 				3B2670351E6FDEBB0078379B /* Foundation+Log.m in Sources */,
+				3BD310951E90DD42002B643D /* MusicPlayingController.m in Sources */,
 				3B3FB2251E8D53CB00194643 /* CommentFootView.m in Sources */,
 				3B2670491E6FDEBB0078379B /* FSActionSheet.m in Sources */,
 				3B266FDF1E6FDD740078379B /* TTLFConstKey.m in Sources */,
@@ -1874,6 +1885,7 @@
 				3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
 				3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */,
+				3BD310981E90F345002B643D /* PlayingRightBarView.m in Sources */,
 				3B1F05AE1E7928A0005173B9 /* SendDynHeadView.m in Sources */,
 				3B2670F01E6FE2B40078379B /* AboutUSViewController.m in Sources */,
 				3B266FD51E6FDCB60078379B /* WechatAuthModel.m in Sources */,

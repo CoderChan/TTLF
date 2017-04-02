@@ -329,8 +329,8 @@
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:month.base64EncodedString forKey:@"month"];
     
-    //NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
+    NSLog(@"功德值增长列表 = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
 //        KGLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -496,8 +496,8 @@
         [param setValue:locationJson.base64EncodedString forKey:@"location"];
     }
     [param setValue:[NSString stringWithFormat:@"%d",isNoName].base64EncodedString forKey:@"nameType"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/create_dynamics?userID=%@&topic_id=%@&contentText=%@location=%@&isNoName=%@",account.userID.base64EncodedString,topicModel.topic_id.base64EncodedString,content.base64EncodedString,locationJson.base64EncodedString,[NSString stringWithFormat:@"%d",isNoName].base64EncodedString];
-    NSLog(@"发送文字动态URL = %@",allurl);
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/create_dynamics?userID=%@&topic_id=%@&contentText=%@location=%@&isNoName=%@",account.userID.base64EncodedString,topicModel.topic_id.base64EncodedString,content.base64EncodedString,locationJson.base64EncodedString,[NSString stringWithFormat:@"%d",isNoName].base64EncodedString];
+    NSLog(@"发送文字动态URL = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -525,7 +525,8 @@
     NSString *url = @"http://app.yangruyi.com/home/Index/showLf";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/showLf?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"功德值增长列表 = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -585,8 +586,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.f_id.base64EncodedString forKey:@"f_id"];
-//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&f_id=%@",account.userID.base64EncodedString,model.f_id.base64EncodedString];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&f_id=%@",account.userID.base64EncodedString,model.f_id.base64EncodedString];
+    NSLog(@"选择佛像 url = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -612,8 +613,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.flower_id.base64EncodedString forKey:@"flower_id"];
-//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&flower_id=%@",account.userID.base64EncodedString,model.flower_id.base64EncodedString];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&flower_id=%@",account.userID.base64EncodedString,model.flower_id.base64EncodedString];
+    NSLog(@"选择花瓶 url = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -638,8 +639,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.x_id.base64EncodedString forKey:@"x_id"];
-//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&x_id=%@",account.userID.base64EncodedString,model.x_id.base64EncodedString];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&x_id=%@",account.userID.base64EncodedString,model.x_id.base64EncodedString];
+    NSLog(@"选择贡香 url = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -664,8 +665,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.fruit_id.base64EncodedString forKey:@"fruit_id"];
-//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&f_id=%@",account.userID.base64EncodedString,model.fruit_id.base64EncodedString];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&fruit_id=%@",account.userID.base64EncodedString,model.fruit_id.base64EncodedString];
+    NSLog(@"选择果盘 url = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -690,8 +691,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:model.pai_id.base64EncodedString forKey:@"pai_id"];
-//    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&pai_id=%@",account.userID.base64EncodedString,model.pai_id.base64EncodedString];
-    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/lifo?userID=%@&pai_id=%@",account.userID.base64EncodedString,model.pai_id.base64EncodedString];
+    NSLog(@"选择佛牌 url = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         NSLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
