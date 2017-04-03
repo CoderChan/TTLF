@@ -25,7 +25,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    self.backgroundColor = RGBACOLOR(0, 0, 0, 0.45);
+    self.backgroundColor = RGBACOLOR(0, 0, 0, 0.75);
     [self addSubview:self.collectionView];
 }
 

@@ -23,7 +23,7 @@
 {
     [super layoutSubviews];
     
-    self.backgroundColor = RGBACOLOR(0, 0, 0, 0.45);
+    self.backgroundColor = RGBACOLOR(0, 0, 0, 0.75);
     [self addSubview:self.tableView];
     
     // 底部视图
@@ -146,9 +146,10 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height - 70) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height - 70)];
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        _tableView.contentInset = UIEdgeInsetsMake(30, 0, 0, 0);
         _tableView.backgroundColor = [UIColor clearColor];
     }
     return _tableView;

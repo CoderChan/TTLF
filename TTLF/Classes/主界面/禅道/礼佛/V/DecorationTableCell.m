@@ -50,32 +50,41 @@
     _fruitModel = fruitModel;
     [_iconView sd_setImageWithURL:[NSURL URLWithString:fruitModel.fruit_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
     _nameLabel.text = fruitModel.fruit_name;
+    [_iconView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.equalTo(@90);
+        make.height.equalTo(@80);
+    }];
 }
 - (void)setXiangModel:(XiangModel *)xiangModel
 {
     _xiangModel = xiangModel;
     [_iconView sd_setImageWithURL:[NSURL URLWithString:xiangModel.xiang_img] placeholderImage:[UIImage imageNamed:@"gy_lifo_burner"]];
     _nameLabel.text = xiangModel.xiang_ming;
+    [_iconView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.width.height.equalTo(@80);
+    }];
 }
 
 - (void)setupSubViews
 {
+    // 图标
     self.iconView = [[UIImageView alloc]init];
     [self.contentView addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(self.mas_left).offset(20);
+        make.right.equalTo(self.mas_centerX);
         make.width.equalTo(@80);
         make.height.equalTo(@130);
     }];
     
+    // 饰品名称
     self.nameLabel = [[UILabel alloc]init];
     self.nameLabel.textColor = [UIColor whiteColor];
     self.nameLabel.font = [UIFont systemFontOfSize:22];
     [self.contentView addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY);
-        make.left.equalTo(self.iconView.mas_right).offset(20);
+        make.left.equalTo(self.iconView.mas_right).offset(16);
         make.height.equalTo(@30);
     }];
 }
