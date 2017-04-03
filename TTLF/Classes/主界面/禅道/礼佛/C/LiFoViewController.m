@@ -20,10 +20,14 @@
 @property (strong,nonatomic) UIImageView *pusaImageView;
 /** 太阳光圈 */
 @property (strong,nonatomic) UIImageView *sunImageView;
-/** 发光图 */
-@property (strong,nonatomic) UIImageView *lightImageView;
-/** 发光动画 */
-@property (strong,nonatomic) CABasicAnimation *rotationAnimation;
+/** 发光图1 */
+@property (strong,nonatomic) UIImageView *lightImageView1;
+/** 发光动画1 */
+@property (strong,nonatomic) CABasicAnimation *rotationAnimation1;
+/** 发光图2 */
+@property (strong,nonatomic) UIImageView *lightImageView2;
+/** 发光动画2 */
+@property (strong,nonatomic) CABasicAnimation *rotationAnimation2;
 
 
 /** 香坛子 */
@@ -45,10 +49,6 @@
 /** 佛牌1 */
 @property (strong,nonatomic) UIImageView *fopaiImgV3;
 
-/** 音乐播放按钮 */
-@property (strong,nonatomic) UIButton *playButton;
-/** 添加在播放按钮上动画 */
-@property (strong,nonatomic) CABasicAnimation *playAnimation;
 
 
 /** 佛像数组 */
@@ -74,11 +74,15 @@
     
     [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^(TodayLifoInfoModel *lifoModel) {
         if (lifoModel.pusa) {
-            self.lightImageView.hidden = NO;
+            self.lightImageView1.hidden = NO;
+            self.lightImageView2.hidden = NO;
             self.sunImageView.hidden = NO;
-            [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:lifoModel.pusa] placeholderImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
+            [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:lifoModel.pusa] placeholderImage:[UIImage imageNamed:@"lifo_no_pusa"]];
+//            self.pusaImageView.image = [UIImage imageNamed:@"gy"];
         }else{
-            self.lightImageView.hidden = YES;
+            self.pusaImageView.image = [UIImage imageNamed:@"gy_lifo_god_none"];
+            self.lightImageView1.hidden = YES;
+            self.lightImageView2.hidden = YES;
             self.sunImageView.hidden = YES;
         }
         [self.xiangImgV sd_setImageWithURL:[NSURL URLWithString:lifoModel.xiang] placeholderImage:[UIImage imageNamed:@"gy_lifo_burner"]];
@@ -97,6 +101,7 @@
     
     // 请求图片资源数组
     [[TTLFManager sharedManager].networkManager getLifoResourceSuccess:^(LifoResourceModel *lifoModel) {
+        // 佛像数组随机排序
         self.pusaArray = lifoModel.pusa;
         self.xiangArray = lifoModel.xiang;
         self.flowerArray = lifoModel.flowers;
@@ -118,47 +123,47 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tiantianfo_bg"]];
     }
     
-    // 播放按钮
-    self.playButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.playButton setImage:[UIImage imageNamed:@"lifo_music"] forState:UIControlStateNormal];
-    [self.playButton setImage:[UIImage imageNamed:@"lifo_music"] forState:UIControlStateHighlighted];
-    [self.playButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        if ([TTLFManager sharedManager].musicManager.isPlaying) {
-            [[TTLFManager sharedManager].musicManager pause];
-        }else{
-            [[TTLFManager sharedManager].musicManager playLocalMusic];
-        }
-        
-    }];
-    self.playButton.frame = CGRectMake(self.view.width - 18 - 35, 18, 35, 35);
-    self.playButton.backgroundColor = [UIColor clearColor];
-    [self.view addSubview:self.playButton];
     
     // 2、 发光
-    self.lightImageView = [[UIImageView alloc]init];
-    self.lightImageView.image = [UIImage imageNamed:@"gy_lifo_light_01"];
-    [self.view addSubview:self.lightImageView];
-    self.rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    self.rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
-    self.rotationAnimation.duration = 6;
-    self.rotationAnimation.cumulative = YES;
-    self.rotationAnimation.repeatCount = 100000;
-    [self.lightImageView.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];//开始动画
-    [self.lightImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.lightImageView1 = [[UIImageView alloc]init];
+    self.lightImageView1.image = [UIImage imageNamed:@"gy_lifo_light_01"];
+    [self.view addSubview:self.lightImageView1];
+    self.rotationAnimation1 = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    self.rotationAnimation1.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
+    self.rotationAnimation1.duration = 6;
+    self.rotationAnimation1.cumulative = YES;
+    self.rotationAnimation1.repeatCount = 100000;
+    [self.lightImageView1.layer addAnimation:self.rotationAnimation1 forKey:@"rotationAnimation"];//开始动画
+    [self.lightImageView1 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX).offset(-3);
         make.top.equalTo(self.view.mas_top);
         make.width.and.height.equalTo(@180);
     }];
-    self.lightImageView.hidden = YES;
+    self.lightImageView1.hidden = YES;
     
+    self.lightImageView2 = [[UIImageView alloc]init];
+    self.lightImageView2.image = [UIImage imageNamed:@"gy_lifo_light_01"];
+    [self.view addSubview:self.lightImageView2];
+    self.rotationAnimation2 = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    self.rotationAnimation2.toValue = [NSNumber numberWithFloat: -M_PI * 2.0];
+    self.rotationAnimation2.duration = 6;
+    self.rotationAnimation2.cumulative = YES;
+    self.rotationAnimation2.repeatCount = 100000;
+    [self.lightImageView2.layer addAnimation:self.rotationAnimation2 forKey:@"rotationAnimation"];//开始动画
+    [self.lightImageView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX).offset(-3);
+        make.top.equalTo(self.view.mas_top);
+        make.width.and.height.equalTo(@180);
+    }];
+    self.lightImageView2.hidden = YES;
     
     // 太阳
     self.sunImageView = [[UIImageView alloc]init];
     self.sunImageView.image = [UIImage imageNamed:@"gy_lifo_light_02"];
     [self.view addSubview:self.sunImageView];
     [self.sunImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.lightImageView.mas_centerX);
-        make.centerY.equalTo(self.lightImageView.mas_centerY);
+        make.centerX.equalTo(self.lightImageView1.mas_centerX);
+        make.centerY.equalTo(self.lightImageView1.mas_centerY);
         make.width.and.height.equalTo(@170);
     }];
     [self.sunImageView.layer addAnimation:[self AlphaLight:0.8] forKey:@"aAlpha"];
@@ -170,14 +175,14 @@
     [self.view addSubview:self.pusaImageView];
     [self.pusaImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.lightImageView.mas_centerY).offset(-20);
+        make.top.equalTo(self.lightImageView1.mas_centerY).offset(-20);
         make.width.equalTo(@(270*CKproportion));
         make.bottom.equalTo(self.view.mas_centerY);
     }];
     UITapGestureRecognizer *tapPusa = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if (self.pusaArray.count >= 1) {
             PusaShowView *showView = [[PusaShowView alloc]initWithFrame:self.view.bounds];
-            showView.array = self.pusaArray;
+            showView.array = [self randomizedArrayWithArray:self.pusaArray];
             showView.delegate = self;
             [self.view addSubview:showView];
         }
@@ -379,9 +384,10 @@
 // 选中佛像
 - (void)pusaDidSelectFoxiangModel:(FoxiangModel *)foxiangModel
 {
-    self.lightImageView.hidden = NO;
+    self.lightImageView1.hidden = NO;
+    self.lightImageView2.hidden = NO;
     self.sunImageView.hidden = NO;
-    [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"gy_lifo_god_none"]];
+    [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:foxiangModel.fa_xiang] placeholderImage:[UIImage imageNamed:@"lifo_no_pusa"]];
 }
 // 选中佛牌
 - (void)fopaiDidSelectFopaiModel:(FopaiModel *)fopaiModel
@@ -430,7 +436,8 @@
 - (void)beginLightingAction
 {
     // 继续发光
-    [self.lightImageView.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];//开始动画
+    [self.lightImageView1.layer addAnimation:self.rotationAnimation1 forKey:@"rotationAnimation"];//开始动画
+    [self.lightImageView2.layer addAnimation:self.rotationAnimation2 forKey:@"rotationAnimation"];
     // 太阳光圈扩散
     
     

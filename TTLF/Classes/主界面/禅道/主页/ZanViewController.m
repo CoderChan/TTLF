@@ -79,7 +79,11 @@
             [self.navigationController pushViewController:music animated:YES];
         }
     }else if (indexPath.section == 1){
-        
+        if (indexPath.row == 0) {
+            [MBProgressHUD showError:@"非常成功"];
+        }else{
+            [MBProgressHUD showWarn:@"我在南山南"];
+        }
     }else{
         if (indexPath.row == 0) {
             // 天天礼佛

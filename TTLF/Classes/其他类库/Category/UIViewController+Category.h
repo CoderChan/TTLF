@@ -19,5 +19,8 @@
 /** 闪烁灯动画效果 */
 - (CABasicAnimation *)AlphaLight:(float)time;
 
+/** 数组随机排序 */
+- (NSArray *)randomizedArrayWithArray:(NSArray *)array;
+
 
 @end

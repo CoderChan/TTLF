@@ -8,18 +8,29 @@
 #import "MBProgressHUD.h"
 
 @interface MBProgressHUD (MJ)
+
+// 普通样式
++ (void)showNormal:(NSString *)tips;
+// 成功
++ (void)showSuccess:(NSString *)success;
+// 错误
++ (void)showError:(NSString *)error;
+// 警告
++ (void)showWarn:(NSString *)warn;
+// 收藏、不收藏
++ (void)showStore:(NSString *)store Type:(BOOL)isStore;
+// 取消收藏
+
+// 加载中
++ (MBProgressHUD *)showMessage:(NSString *)message;
+// 隐藏
++ (void)hideHUD;
+
+///其他
 + (void)showSuccess:(NSString *)success toView:(UIView *)view;
 + (void)showError:(NSString *)error toView:(UIView *)view;
-
 + (MBProgressHUD *)showMessage:(NSString *)message toView:(UIView *)view;
-
-
-+ (void)showSuccess:(NSString *)success;
-+ (void)showError:(NSString *)error;
-
-+ (MBProgressHUD *)showMessage:(NSString *)message;
-
 + (void)hideHUDForView:(UIView *)view;
-+ (void)hideHUD;
+
 
 @end

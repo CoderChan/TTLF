@@ -53,7 +53,6 @@
 		3B26703D1E6FDEBB0078379B /* KSPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FF31E6FDEBB0078379B /* KSPhotoView.m */; };
 		3B26703E1E6FDEBB0078379B /* KSProgressLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FF51E6FDEBB0078379B /* KSProgressLayer.m */; };
 		3B26703F1E6FDEBB0078379B /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FF81E6FDEBB0078379B /* MBProgressHUD+MJ.m */; };
-		3B2670401E6FDEBB0078379B /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B266FF91E6FDEBB0078379B /* MBProgressHUD.bundle */; };
 		3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FFB1E6FDEBB0078379B /* MBProgressHUD.m */; };
 		3B2670421E6FDEBB0078379B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B266FFE1E6FDEBB0078379B /* libWeChatSDK.a */; };
 		3B2670431E6FDEBB0078379B /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670041E6FDEBB0078379B /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m */; };
@@ -263,7 +262,6 @@
 		3B266FF51E6FDEBB0078379B /* KSProgressLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KSProgressLayer.m; sourceTree = "<group>"; };
 		3B266FF71E6FDEBB0078379B /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		3B266FF81E6FDEBB0078379B /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
-		3B266FF91E6FDEBB0078379B /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		3B266FFA1E6FDEBB0078379B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		3B266FFB1E6FDEBB0078379B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		3B266FFE1E6FDEBB0078379B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -856,7 +854,6 @@
 			children = (
 				3B266FF71E6FDEBB0078379B /* MBProgressHUD+MJ.h */,
 				3B266FF81E6FDEBB0078379B /* MBProgressHUD+MJ.m */,
-				3B266FF91E6FDEBB0078379B /* MBProgressHUD.bundle */,
 				3B266FFA1E6FDEBB0078379B /* MBProgressHUD.h */,
 				3B266FFB1E6FDEBB0078379B /* MBProgressHUD.m */,
 			);
@@ -1610,7 +1607,6 @@
 				3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */,
 				3B2670F11E6FE2B40078379B /* shark.mp3 in Resources */,
 				3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */,
-				3B2670401E6FDEBB0078379B /* MBProgressHUD.bundle in Resources */,
 				3B26704E1E6FDEBB0078379B /* FSActionSheet_cancel@3x.png in Resources */,
 				3B2670E41E6FE2B40078379B /* ProvincesAndCities.plist in Resources */,
 			);
