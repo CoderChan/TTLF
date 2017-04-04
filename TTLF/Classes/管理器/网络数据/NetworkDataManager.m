@@ -526,7 +526,7 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/showLf?userID=%@",account.userID.base64EncodedString];
-    NSLog(@"功德值增长列表 = %@",uuurl);
+    NSLog(@"查看今日礼佛信息 = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         
         int code = [[[responseObject objectForKey:@"code"] description] intValue];

@@ -73,17 +73,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-//    if (indexPath.section == 0) {
-//        MineTableViewCell *cell = [MineTableViewCell sharedMineCell:tableView];
-//        cell.userModel = self.userModel;
-//        return cell;
-//    }else{
-        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
-        return cell;
-//    }
-    
+    NSArray *iconArray = @[@[@"wo_gongde"],@[@"wo_photo",@"wo_message",@"wo_group",@"wo_store"],@[@"wo_set"]];;
+    NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+    cell.iconView.image = [UIImage imageNamed:iconArray[indexPath.section][indexPath.row]];
+    cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+    return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

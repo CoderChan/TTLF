@@ -112,7 +112,7 @@
     UICollectionReusableView * reusableview = nil;
     if(kind == UICollectionElementKindSectionHeader){
         
-        NSArray *titleArr = @[@"宗教胜地",@"精品佛饰"];
+        NSArray *titleArr = @[@"佛教胜地",@"精品佛饰"];
         HomeReusableView * headerview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeReusableView" forIndexPath:indexPath];
         headerview.DidClickBlock = ^(){
             PlaceListViewController *place = [PlaceListViewController new];

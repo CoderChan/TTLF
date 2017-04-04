@@ -2,17 +2,16 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "tab_discover_highted.png",
+      "filename" : "wo_group.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tab_discover_highted@2x.png",
+      "filename" : "wo_group@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tab_discover_highted@3x.png",
       "scale" : "3x"
     }
   ],

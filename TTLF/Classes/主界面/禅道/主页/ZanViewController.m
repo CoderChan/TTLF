@@ -80,7 +80,7 @@
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            [MBProgressHUD showError:@"非常成功"];
+            [MBProgressHUD showStore:@"非常成功" Type:YES];
         }else{
             [MBProgressHUD showWarn:@"我在南山南"];
         }

@@ -2,17 +2,17 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "tab_discover_normal.png",
+      "filename" : "discover_more.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tab_discover_normal@2x.png",
+      "filename" : "discover_more@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "tab_discover_normal@3x.png",
+      "filename" : "discover_more@3x.png",
       "scale" : "3x"
     }
   ],

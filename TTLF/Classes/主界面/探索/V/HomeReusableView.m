@@ -42,8 +42,8 @@
     self.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [self addSubview:self.titleLabel];
     
-    UIImageView *detialV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"cm2_login_arr_gray_night_prs"]];
-    [detialV setFrame:CGRectMake(self.width - 36, 5, 32, 30)];
+    UIImageView *detialV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"discover_more"]];
+    [detialV setFrame:CGRectMake(self.width - 36, 7, 30, 26)];
     [self addSubview:detialV];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
