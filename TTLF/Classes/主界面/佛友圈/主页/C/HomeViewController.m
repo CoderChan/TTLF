@@ -10,6 +10,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "FYQImgTableViewCell.h"
 #import "CommentViewController.h"
+#import "NewsHeadView.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -18,6 +19,8 @@
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
+/** 今日头条 */
+@property (strong,nonatomic) NewsHeadView *headView;
 
 @end
 
@@ -40,6 +43,10 @@
             [self.tableView.mj_header endRefreshing];
         });
     }];
+    
+    self.headView = [[NewsHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220)];
+    self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
+    self.tableView.tableHeaderView = self.headView;
 }
 
 
@@ -85,12 +92,15 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = self.view.backgroundColor;
-        _tableView.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
     }
     return _tableView;
 }
 
-
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
+}
 
 
 @end

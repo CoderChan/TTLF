@@ -12,6 +12,7 @@
 #import "MyBooksViewController.h"
 #import "ZuoCanViewController.h"
 #import "MusicPlayingController.h"
+#import "VegeViewController.h"
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -33,7 +34,7 @@
 - (void)setupSubViews
 {
     
-    self.array = @[@[@"佛典",@"梵音"],@[@"素食生活",@"放生活动"],@[@"天天礼佛",@"坐禅冥想"]];
+    self.array = @[@[@"佛典",@"梵音"],@[@"天天礼佛",@"坐禅冥想"],@[@"素食生活",@"放生活动"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 108) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.dataSource = self;
@@ -52,7 +53,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *imageArr = @[@[@"zen_book",@"zen_music"],@[@"zen_vangen",@"zen_smile"],@[@"zen_heart",@"zen_think"]];
+    NSArray *imageArr = @[@[@"zen_book",@"zen_music"],@[@"zen_heart",@"zen_think"],@[@"zen_vangen",@"zen_smile"]];
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
     cell.iconView.image = [UIImage imageNamed:imageArr[indexPath.section][indexPath.row]];
@@ -80,12 +81,6 @@
         }
     }else if (indexPath.section == 1){
         if (indexPath.row == 0) {
-            [MBProgressHUD showStore:@"非常成功" Type:YES];
-        }else{
-            [MBProgressHUD showWarn:@"我在南山南"];
-        }
-    }else{
-        if (indexPath.row == 0) {
             // 天天礼佛
             LiFoViewController *lifo = [LiFoViewController new];
             [TTLFManager sharedManager].lifoVC = lifo;
@@ -94,6 +89,14 @@
             // 冥想
             ZuoCanViewController *zuocan = [ZuoCanViewController new];
             [self.navigationController pushViewController:zuocan animated:YES];
+        }
+        
+    }else{
+        if (indexPath.row == 0) {
+            VegeViewController *vegeVC = [VegeViewController new];
+            [self.navigationController pushViewController:vegeVC animated:YES];
+        }else{
+            [MBProgressHUD showWarn:@"我在南山南"];
         }
     }
 }
