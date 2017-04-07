@@ -45,10 +45,67 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"laugh"]];
     }
     
-    [self createWechatView];
+//    if ([WXApi isWXAppInstalled]) {
+        [self createWechatView];
+//    }else{
+        // 没有安装微信，游客登录
+//        [self createTouristView];
+//    }
     
 }
 
+#pragma mark - 游客登录样式
+- (void)createTouristView
+{
+    // 版权声明
+    UILabel *copyLabel = [[UILabel alloc]init];
+    copyLabel.text = @"Copyright ©2017 天天礼佛";
+    copyLabel.textColor = MainColor;
+    copyLabel.userInteractionEnabled = YES;
+    copyLabel.textAlignment = NSTextAlignmentCenter;
+    copyLabel.font = [UIFont systemFontOfSize:13];
+    [self.view addSubview:copyLabel];
+    [copyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.equalTo(self.view.mas_bottom).offset(-18);
+        make.height.equalTo(@25);
+    }];
+    
+    // 游客登录
+    UIView *touristView = [[UIView alloc]initWithFrame:CGRectZero];
+    touristView.backgroundColor = MainColor;
+    touristView.userInteractionEnabled = YES;
+    touristView.layer.masksToBounds = YES;
+    touristView.layer.cornerRadius = 24;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        [WXApiRequestHandler sendAuthRequestScope:kAuthScope
+                                            State:kAuthState
+                                           OpenID:kAuthOpenID
+                                 InViewController:self];
+    }];
+    [touristView addGestureRecognizer:tap];
+    [self.view addSubview:touristView];
+    [touristView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(copyLabel.mas_top).offset(-20);
+        make.left.equalTo(self.view.mas_left).offset(60);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.height.equalTo(@48);
+    }];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
+    label.text = @"微信登录";
+    label.textColor = [UIColor whiteColor];
+    label.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    label.textAlignment = NSTextAlignmentCenter;
+    [touristView addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(touristView.mas_centerX);
+        make.centerY.equalTo(touristView.mas_centerY);
+        make.height.equalTo(@30);
+    }];
+}
+
+#pragma mark - 微信登录样式
 - (void)createWechatView
 {
     // 版权声明
@@ -58,15 +115,34 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     copyLabel.userInteractionEnabled = YES;
     copyLabel.textAlignment = NSTextAlignmentCenter;
     copyLabel.font = [UIFont systemFontOfSize:13];
-//    NSMutableAttributedString *content = [[NSMutableAttributedString alloc]initWithString:copyLabel.text];
-//    NSRange range = NSMakeRange(0, content.length);
-//    [content addAttribute:NSUnderlineStyleAttributeName value:[NSNumber numberWithInteger:NSUnderlineStyleSingle] range:range];
-//    copyLabel.attributedText = content;
     [self.view addSubview:copyLabel];
     [copyLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
         make.bottom.equalTo(self.view.mas_bottom).offset(-18);
         make.height.equalTo(@25);
+    }];
+    
+    
+    
+    // 手机号码登录
+    UIButton *otherButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [otherButton setTitle:@"手机号码登录" forState:UIControlStateNormal];
+    [otherButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        PhoneLoginViewController *registerVC = [PhoneLoginViewController new];
+        [self.navigationController pushViewController:registerVC animated:YES];
+    }];
+    otherButton.layer.masksToBounds = YES;
+    otherButton.layer.cornerRadius = 24;
+    otherButton.layer.borderColor = MainColor.CGColor;
+    otherButton.layer.borderWidth = 1.f;
+    otherButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    [otherButton setTitleColor:MainColor forState:UIControlStateNormal];
+    [self.view addSubview:otherButton];
+    [otherButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(copyLabel.mas_top).offset(-12);
+        make.left.equalTo(self.view.mas_left).offset(40*CKproportion);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.height.equalTo(@48);
     }];
     
     
@@ -105,32 +181,11 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     
     
     [wechatView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(copyLabel.mas_top).offset(-20);
-        make.left.equalTo(self.view.mas_left).offset(40);
+        make.bottom.equalTo(otherButton.mas_top).offset(-10);
+        make.left.equalTo(otherButton.mas_left);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.equalTo(@48);
     }];
-    
-//    UIButton *otherButton = [UIButton buttonWithType:UIButtonTypeCustom];
-//    [otherButton setTitle:@"其他方式" forState:UIControlStateNormal];
-//    [otherButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-//        PhoneLoginViewController *registerVC = [PhoneLoginViewController new];
-//        [self.navigationController pushViewController:registerVC animated:YES];
-//    }];
-//    otherButton.layer.masksToBounds = YES;
-//    otherButton.layer.cornerRadius = 24;
-//    otherButton.layer.borderColor = MainColor.CGColor;
-//    otherButton.layer.borderWidth = 1.f;
-//    otherButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-//    [otherButton setTitleColor:MainColor forState:UIControlStateNormal];
-//    [self.view addSubview:otherButton];
-//    [otherButton mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.equalTo(wechatView.mas_bottom).offset(15);
-//        make.left.equalTo(wechatView.mas_left);
-//        make.centerX.equalTo(self.view.mas_centerX);
-//        make.height.equalTo(@48);
-//    }];
-    
     
 }
 
@@ -138,14 +193,31 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 - (void)WechatLoginAction
 {
     if (![WXApi isWXAppInstalled]) {
-#ifdef DEBUG // 处于开发阶段
+#ifdef DEBUG 
+        // 处于开发阶段
         [[TTLFManager sharedManager].networkManager simulatorLoginSuccess:^{
             [self loginSuccess];
         } Fail:^(NSString *errorMsg) {
             [self sendAlertAction:errorMsg];
         }];
-#else // 处于发布阶段
-        [self sendAlertAction:@"您还没有安装微信"];
+#else 
+        // 处于发布阶段
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您尚未安装微信，使用测试账号登录？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];;
+        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [[TTLFManager sharedManager].networkManager simulatorLoginSuccess:^{
+                [self loginSuccess];
+            } Fail:^(NSString *errorMsg) {
+                [self sendAlertAction:errorMsg];
+            }];
+        }];
+        [alertC addAction:action1];
+        [alertC addAction:action2];
+        [self presentViewController:alertC animated:YES completion:^{
+            
+        }];
 #endif
         return;
     }

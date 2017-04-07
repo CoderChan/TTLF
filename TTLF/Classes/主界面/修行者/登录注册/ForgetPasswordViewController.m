@@ -49,8 +49,8 @@
 - (void)setupSubViews
 {
     // 手机号码
-    self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(20, 25, self.view.width - 40, 40)];
-    self.phoneField.tintColor = MainColor;
+    self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(30, 25, self.view.width - 60, 40)];
+    self.phoneField.tintColor = [UIColor blackColor];
     self.phoneField.placeholder = @"注册手机号";
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
@@ -69,8 +69,8 @@
     [self.view addSubview:self.phoneField];
     
     // 验证码
-    self.codeField = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 40) * 0.7, 40)];
-    self.codeField.tintColor = MainColor;
+    self.codeField = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 60) * 0.7, 40)];
+    self.codeField.tintColor = [UIColor blackColor];
     self.codeField.keyboardType = UIKeyboardTypeNumberPad;
     self.codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.codeField.textAlignment = NSTextAlignmentCenter;
@@ -85,7 +85,7 @@
     // 获取验证码
     self.codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.codeButton.backgroundColor = [UIColor whiteColor];
-    self.codeButton.frame = CGRectMake(CGRectGetMaxX(self.codeField.frame) + 10, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 40) * 0.3 - 10, 40);
+    self.codeButton.frame = CGRectMake(CGRectGetMaxX(self.codeField.frame) + 10, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 60) * 0.3 - 10, 40);
     [self.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.codeButton setTitleColor:MainColor forState:UIControlStateNormal];
     self.codeButton.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -95,11 +95,11 @@
     [self.view addSubview:self.codeButton];
     
     // 密码1
-    self.passWord1 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.codeField.frame) + 15, self.view.width - 40, 40)];
+    self.passWord1 = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.codeField.frame) + 15, self.view.width - 60, 40)];
     self.passWord1.secureTextEntry = YES;
     self.passWord1.placeholder = @"输入新密码";
     self.passWord1.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passWord1.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    self.passWord1.tintColor = MainColor;
+    self.passWord1.tintColor = [UIColor blackColor];
     self.passWord1.clearButtonMode = UITextFieldViewModeWhileEditing;
     UIView *leftV2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
     UIImageView *phoneV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_pass"]];
@@ -115,11 +115,11 @@
     [self.view addSubview:self.passWord1];
     
     // 密码2
-    self.passWord2 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.passWord1.frame) + 15, self.view.width - 40, 40)];
+    self.passWord2 = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.passWord1.frame) + 15, self.view.width - 60, 40)];
     self.passWord2.secureTextEntry = YES;
     self.passWord2.placeholder = @"确认新密码";
     self.passWord2.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passWord2.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    self.passWord2.tintColor = MainColor;
+    self.passWord2.tintColor = [UIColor blackColor];
     self.passWord2.clearButtonMode = UITextFieldViewModeWhileEditing;
     UIView *leftV3 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
     UIImageView *phoneV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_pass"]];
@@ -150,8 +150,8 @@
     [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.passWord2.mas_left);
         make.right.equalTo(self.passWord2.mas_right);
-        make.top.equalTo(self.passWord2.mas_bottom).offset(45);
-        make.height.equalTo(@40);
+        make.top.equalTo(self.passWord2.mas_bottom).offset(50);
+        make.height.equalTo(@44);
     }];
 }
 

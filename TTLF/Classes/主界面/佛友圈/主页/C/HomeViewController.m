@@ -11,6 +11,10 @@
 #import "FYQImgTableViewCell.h"
 #import "CommentViewController.h"
 #import "NewsHeadView.h"
+#import "FoNewsViewController.h"
+#import "UserInfoViewController.h"
+#import "PunnaNumViewController.h"
+#import "FoNewsViewController.h"
 
 
 @interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -44,8 +48,21 @@
         });
     }];
     
-    self.headView = [[NewsHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220)];
+    __weak HomeViewController *copySelf = self;
+    self.headView = [[NewsHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 240)];
     self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
+    self.headView.ClickBlock = ^(ClickType type) {
+        if (type == UserClickType) {
+            UserInfoViewController *userInfo = [UserInfoViewController new];
+            [copySelf.navigationController pushViewController:userInfo animated:YES];
+        }else if (type == GongdeClickType){
+            PunnaNumViewController *punna = [PunnaNumViewController new];
+            [copySelf.navigationController pushViewController:punna animated:YES];
+        }else if(type == NewsClickType){
+            FoNewsViewController *news = [FoNewsViewController new];
+            [copySelf.navigationController pushViewController:news animated:YES];
+        }
+    };
     self.tableView.tableHeaderView = self.headView;
 }
 
@@ -99,8 +116,13 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    // 恢复那条线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefaultPrompt];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"xian"]];
+    
     self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
 }
+
 
 
 @end

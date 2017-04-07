@@ -54,9 +54,7 @@
     UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [dismissBtn setImage:[UIImage imageNamed:@"dismiss"] forState:UIControlStateNormal];
     [dismissBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+        [self.navigationController popViewControllerAnimated:YES];
     }];
     [dismissBtn setFrame:CGRectMake(18, 36, 20, 20)];
     [backImage addSubview:dismissBtn];
@@ -85,7 +83,7 @@
     self.accountField.textAlignment = NSTextAlignmentCenter;
     self.accountField.placeholder = @"手机号码";
     self.accountField.tag = 43;
-    self.accountField.tintColor = MainColor;
+    self.accountField.tintColor = [UIColor whiteColor];
     self.accountField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.accountField.keyboardType = UIKeyboardTypeNumberPad;
     self.accountField.textColor = [UIColor whiteColor];
@@ -109,7 +107,7 @@
     self.passField.secureTextEntry = YES;
     self.passField.tag = 44;
     self.passField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.passField.tintColor = MainColor;
+    self.passField.tintColor = [UIColor whiteColor];
     self.passField.textColor = [UIColor whiteColor];
     self.passField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passField.placeholder attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1],NSForegroundColorAttributeName:[UIColor whiteColor]}];
     self.passField.attributedText = [[NSAttributedString alloc]initWithString:self.passField.text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
@@ -134,7 +132,7 @@
     [clickButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(backImage.mas_left).offset(40);
         make.right.equalTo(backImage.mas_right).offset(-40);
-        make.height.equalTo(@40);
+        make.height.equalTo(@44);
         make.top.equalTo(self.passField.mas_bottom).offset(50*CKproportion);
     }];
     
@@ -172,7 +170,6 @@
     self.accountField.text = nil;
     self.passField.text = nil;
 #endif
-    
     
 }
 

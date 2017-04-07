@@ -25,4 +25,12 @@
     [self.view endEditing:YES];
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    // 恢复那条线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefaultPrompt];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
 @end

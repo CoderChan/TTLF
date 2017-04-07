@@ -10,7 +10,7 @@
 #import "UserProtocolController.h"
 #import "NSString+Category.h"
 #import <Masonry.h>
-//#import <SMS_SDK/SMSSDK.h>
+#import <SMS_SDK/SMSSDK.h>
 
 
 
@@ -58,8 +58,8 @@
 -(void)setupSubViews{
     
     // 手机号码
-    self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(20, 25, self.view.width - 40, 40)];
-    self.phoneField.tintColor = MainColor;
+    self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(30, 25, self.view.width - 60, 40)];
+    self.phoneField.tintColor = [UIColor blackColor];
     self.phoneField.placeholder = @"手机号码";
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
@@ -78,8 +78,8 @@
     [self.view addSubview:self.phoneField];
     
     // 验证码
-    self.codeField = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 40) * 0.7, 40)];
-    self.codeField.tintColor = MainColor;
+    self.codeField = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 60) * 0.7, 40)];
+    self.codeField.tintColor = [UIColor blackColor];
     self.codeField.keyboardType = UIKeyboardTypeNumberPad;
     self.codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
     self.codeField.textAlignment = NSTextAlignmentCenter;
@@ -94,7 +94,7 @@
     // 获取验证码
     self.codeButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.codeButton.backgroundColor = [UIColor whiteColor];
-    self.codeButton.frame = CGRectMake(CGRectGetMaxX(self.codeField.frame) + 10, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 40) * 0.3 - 10, 40);
+    self.codeButton.frame = CGRectMake(CGRectGetMaxX(self.codeField.frame) + 10, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 60) * 0.3 - 10, 40);
     [self.codeButton setTitle:@"获取验证码" forState:UIControlStateNormal];
     [self.codeButton setTitleColor:MainColor forState:UIControlStateNormal];
     self.codeButton.titleLabel.font = [UIFont systemFontOfSize:13];
@@ -104,11 +104,11 @@
     [self.view addSubview:self.codeButton];
     
     // 密码1
-    self.passWord1 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.codeField.frame) + 15, self.view.width - 40, 40)];
+    self.passWord1 = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.codeField.frame) + 15, self.view.width - 60, 40)];
     self.passWord1.secureTextEntry = YES;
     self.passWord1.placeholder = @"输入密码";
     self.passWord1.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passWord1.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    self.passWord1.tintColor = MainColor;
+    self.passWord1.tintColor = [UIColor blackColor];
     self.passWord1.clearButtonMode = UITextFieldViewModeWhileEditing;
     UIView *leftV2 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
     UIImageView *phoneV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_pass"]];
@@ -124,11 +124,11 @@
     [self.view addSubview:self.passWord1];
     
     // 密码2
-    self.passWord2 = [[UITextField alloc]initWithFrame:CGRectMake(20, CGRectGetMaxY(self.passWord1.frame) + 15, self.view.width - 40, 40)];
+    self.passWord2 = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.passWord1.frame) + 15, self.view.width - 60, 40)];
     self.passWord2.secureTextEntry = YES;
     self.passWord2.placeholder = @"确认密码";
     self.passWord2.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passWord2.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-    self.passWord2.tintColor = MainColor;
+    self.passWord2.tintColor = [UIColor blackColor];
     self.passWord2.clearButtonMode = UITextFieldViewModeWhileEditing;
     UIView *leftV3 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
     UIImageView *phoneV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_pass"]];
@@ -143,29 +143,29 @@
     self.passWord2.leftViewMode = UITextFieldViewModeAlways;
     [self.view addSubview:self.passWord2];
     
-    NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"注册账号默认认同并遵守《天天礼佛用户协议》"];
-    text.font = [UIFont systemFontOfSize:11];
-    text.color = RGBACOLOR(67, 67, 67, 1);
-    [text setTextHighlightRange:NSMakeRange(11, 9) color:MainColor backgroundColor:NavColor userInfo:nil];
-    
-    // 用户协议
-    YYLabel *bottomLabel = [[YYLabel alloc]init];
-    bottomLabel.attributedText = text;
-    bottomLabel.backgroundColor = [UIColor clearColor];
-    bottomLabel.userInteractionEnabled = YES;
-    bottomLabel.textAlignment = NSTextAlignmentRight;
-    [self.view addSubview:bottomLabel];
-    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.passWord2.mas_left);
-        make.right.equalTo(self.passWord2.mas_right);
-        make.top.equalTo(self.passWord2.mas_bottom).offset(10);
-        make.height.equalTo(@30);
-    }];
-    UITapGestureRecognizer *tapp = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        UserProtocolController *userProtocol = [UserProtocolController new];
-        [self.navigationController pushViewController:userProtocol animated:YES];
-    }];
-    [bottomLabel addGestureRecognizer:tapp];
+//    NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"注册账号默认认同并遵守《天天礼佛用户协议》"];
+//    text.font = [UIFont systemFontOfSize:11];
+//    text.color = RGBACOLOR(67, 67, 67, 1);
+//    [text setTextHighlightRange:NSMakeRange(11, 9) color:MainColor backgroundColor:NavColor userInfo:nil];
+//    
+//    // 用户协议
+//    YYLabel *bottomLabel = [[YYLabel alloc]init];
+//    bottomLabel.attributedText = text;
+//    bottomLabel.backgroundColor = [UIColor clearColor];
+//    bottomLabel.userInteractionEnabled = YES;
+//    bottomLabel.textAlignment = NSTextAlignmentRight;
+//    [self.view addSubview:bottomLabel];
+//    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.passWord2.mas_left);
+//        make.right.equalTo(self.passWord2.mas_right);
+//        make.top.equalTo(self.passWord2.mas_bottom).offset(10);
+//        make.height.equalTo(@30);
+//    }];
+//    UITapGestureRecognizer *tapp = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+//        UserProtocolController *userProtocol = [UserProtocolController new];
+//        [self.navigationController pushViewController:userProtocol animated:YES];
+//    }];
+//    [bottomLabel addGestureRecognizer:tapp];
     
     
     // 注册按钮
@@ -181,8 +181,8 @@
     [registerButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.passWord2.mas_left);
         make.right.equalTo(self.passWord2.mas_right);
-        make.top.equalTo(bottomLabel.mas_bottom).offset(45);
-        make.height.equalTo(@40);
+        make.top.equalTo(self.passWord2.mas_bottom).offset(50);
+        make.height.equalTo(@44);
     }];
 }
 

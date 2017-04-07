@@ -297,6 +297,7 @@
     NSData *data = UIImageJPEGRepresentation(image, 0.5);
     NSString *name = @"file";
     NSString *fileName = @"head.jpeg";
+    
     [HTTPManager uploadWithURL:url params:param fileData:data name:name fileName:fileName mimeType:@"jpeg" progress:^(NSProgress *progress) {
         progressBlock(progress);
     } success:^(NSURLSessionDataTask *task, id responseObject) {

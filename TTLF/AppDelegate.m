@@ -17,6 +17,7 @@
 #import <AMapFoundationKit/AMapFoundationKit.h>
 
 
+
 @interface AppDelegate ()
 
 @end
@@ -71,6 +72,9 @@
     // 高德地图
     [[AMapServices sharedServices] setEnableHTTPS:YES];
     [AMapServices sharedServices].apiKey = GaoDeMapKey;
+    
+    // MOB短信验证码
+    
     
 }
 

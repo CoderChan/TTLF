@@ -60,7 +60,7 @@
     
     NSDate *dateStr = [NSDate dateWithTimeIntervalSince1970:model.create_time];
     NSInteger hour = dateStr.hour;
-    NSString *hourStr = [NSString stringWithFormat:@"%ld",hour];
+    NSString *hourStr = [NSString stringWithFormat:@"%ld",(long)hour];
     if (hourStr.length == 1) {
         if (hour <= 5) {
             hourStr = [NSString stringWithFormat:@"凌晨 0%@",hourStr];
@@ -72,7 +72,7 @@
     }
     
     NSInteger minite = dateStr.minute;
-    NSString *miniteStr = [NSString stringWithFormat:@"%ld",minite];
+    NSString *miniteStr = [NSString stringWithFormat:@"%ld",(long)minite];
     if (miniteStr.length == 1) {
         miniteStr = [NSString stringWithFormat:@"0%@",miniteStr];
     }
@@ -84,7 +84,7 @@
     }else if([dateStr isYesterday]){
         date = @"昨天";
     }else{
-        date = [NSString stringWithFormat:@"%ld日",dateStr.day];
+        date = [NSString stringWithFormat:@"%ld日",(long)dateStr.day];
     }
     _timeLabel.text = [NSString stringWithFormat:@"%@ %@",date,hourMinite];
     

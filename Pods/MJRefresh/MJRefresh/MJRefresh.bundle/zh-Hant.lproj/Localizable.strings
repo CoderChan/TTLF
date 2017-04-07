@@ -1,6 +1,6 @@
 "MJRefreshHeaderIdleText" = "下拉可以刷新";
 "MJRefreshHeaderPullingText" = "鬆開立即刷新";
-"MJRefreshHeaderRefreshingText" = "🎄🎄🎄🎄🎄";
+"MJRefreshHeaderRefreshingText" = "🌲🌲🌲🌲";
 
 "MJRefreshAutoFooterIdleText" = "點擊或上拉加載更多";
 "MJRefreshAutoFooterRefreshingText" = "正在加載...";
@@ -8,7 +8,7 @@
 
 "MJRefreshBackFooterIdleText" = "上拉加載更多";
 "MJRefreshBackFooterPullingText" = "鬆開加載更多";
-"MJRefreshBackFooterRefreshingText" = "🎄🎄🎄🎄🎄";
+"MJRefreshBackFooterRefreshingText" = "🌲🌲🌲🌲";
 "MJRefreshBackFooterNoMoreDataText" = "全部加載完畢";
 
 "MJRefreshHeaderLastTimeText" = "最後更新：";

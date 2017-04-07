@@ -136,6 +136,7 @@
 		3B8627831E8F7328007B5742 /* BookCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8627821E8F7328007B5742 /* BookCollectionViewCell.m */; };
 		3B8627861E8F7390007B5742 /* BookTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8627851E8F7390007B5742 /* BookTableViewCell.m */; };
 		3B8627891E8FAC50007B5742 /* ReportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8627881E8FAC50007B5742 /* ReportViewController.m */; };
+		3B8983BE1E95E5C70012882C /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B8983BD1E95E5C70012882C /* NewsTableViewCell.m */; };
 		3B9886AC1E93EE230051F245 /* NewsHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B9886AB1E93EE230051F245 /* NewsHeadView.m */; };
 		3BB4E0F51E83A2CE00707E75 /* FlowerVaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0F41E83A2CE00707E75 /* FlowerVaseModel.m */; };
 		3BB4E0F81E83A93900707E75 /* XiangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB4E0F71E83A93900707E75 /* XiangModel.m */; };
@@ -429,6 +430,8 @@
 		3B8627851E8F7390007B5742 /* BookTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookTableViewCell.m; sourceTree = "<group>"; };
 		3B8627871E8FAC50007B5742 /* ReportViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReportViewController.h; sourceTree = "<group>"; };
 		3B8627881E8FAC50007B5742 /* ReportViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReportViewController.m; sourceTree = "<group>"; };
+		3B8983BC1E95E5C70012882C /* NewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewsTableViewCell.h; path = "TTLF/Classes/主界面/佛友圈/主页/V/NewsTableViewCell.h"; sourceTree = SOURCE_ROOT; };
+		3B8983BD1E95E5C70012882C /* NewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewsTableViewCell.m; path = "TTLF/Classes/主界面/佛友圈/主页/V/NewsTableViewCell.m"; sourceTree = SOURCE_ROOT; };
 		3B9886AA1E93EE230051F245 /* NewsHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsHeadView.h; sourceTree = "<group>"; };
 		3B9886AB1E93EE230051F245 /* NewsHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsHeadView.m; sourceTree = "<group>"; };
 		3BB4E0F31E83A2CE00707E75 /* FlowerVaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FlowerVaseModel.h; sourceTree = "<group>"; };
@@ -595,6 +598,8 @@
 		3B1F05A01E7928A0005173B9 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				3B8983BC1E95E5C70012882C /* NewsTableViewCell.h */,
+				3B8983BD1E95E5C70012882C /* NewsTableViewCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1822,6 +1827,7 @@
 				3B266FD41E6FDCB60078379B /* UserInfoModel.m in Sources */,
 				3B1F05CB1E792BD2005173B9 /* DrawCircleView.m in Sources */,
 				3B26704A1E6FDEBB0078379B /* FSActionSheetCell.m in Sources */,
+				3B8983BE1E95E5C70012882C /* NewsTableViewCell.m in Sources */,
 				3B2670891E6FE2930078379B /* DisCoverTableViewCell.m in Sources */,
 				3B8627831E8F7328007B5742 /* BookCollectionViewCell.m in Sources */,
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
@@ -2055,6 +2061,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TTLF/TTLF.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y9A76R3UZY;
 				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
@@ -2066,6 +2073,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangruyi.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};
@@ -2075,6 +2084,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TTLF/TTLF.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y9A76R3UZY;
 				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
@@ -2086,6 +2096,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.yangruyi.www;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Release;
 		};
