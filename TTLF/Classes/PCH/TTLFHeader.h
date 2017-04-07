@@ -31,6 +31,9 @@
 #define UMPush_AppKey @"58d12a06c62dca22da001944"
 #define UMPush_AppSecret @"v0tzeuqjm3kaskykndwlb7rgxhc5byoo"
 
+// MOb短信验证码
+#define Mob_AppKey @"1b1697bd31c74"
+#define Mob_Secret @"b6da9384059a306a64f7779a36658491"
 
 // 淘宝店铺URL
 #define TaobaoShopURL @"http://c.b1za.com/h.2YSG4Q?cv=u68FSigZYp&sm=edfca7"

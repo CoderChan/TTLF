@@ -8,9 +8,9 @@
 
 #import "RegisterViewController.h"
 #import "UserProtocolController.h"
-#import "NSString+Category.h"
 #import <Masonry.h>
 #import <SMS_SDK/SMSSDK.h>
+#import <LCActionSheet.h>
 
 
 
@@ -21,6 +21,8 @@
     int ReGetCodeNum; // 重新获取验证码时间间隔
     dispatch_source_t _timer;
 }
+
+@property (strong,nonatomic) UIButton *areaButton;
 
 /** 手机号码 */
 @property (strong,nonatomic) UITextField *phoneField;
@@ -57,6 +59,35 @@
 
 -(void)setupSubViews{
     
+    
+    self.areaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.areaButton.frame = CGRectMake(0, 0, 50, 40);
+    self.areaButton.backgroundColor = [UIColor whiteColor];
+    [self.areaButton setTitle:@"86" forState:UIControlStateNormal];
+    [self.areaButton setTitleColor:NavColor forState:UIControlStateNormal];
+    self.areaButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.areaButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
+        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"选择号码区域" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [sender setTitle:@"86" forState:UIControlStateNormal];
+            }else if (buttonIndex == 2){
+                [sender setTitle:@"852" forState:UIControlStateNormal];
+            }else if (buttonIndex == 3){
+                [sender setTitle:@"853" forState:UIControlStateNormal];
+            }else if (buttonIndex == 4){
+                [sender setTitle:@"886" forState:UIControlStateNormal];
+            }else if (buttonIndex == 5){
+                [sender setTitle:@"1" forState:UIControlStateNormal];
+            }
+        } otherButtonTitles:@"中国大陆 86",@"香港 852",@"澳门 853",@"台湾 886",@"USA 1", nil];
+        [sheet show];
+    }];
+    
+    UIView *xian = [[UIView alloc]initWithFrame:CGRectMake(45.5, 5, 0.5, 30)];
+    xian.backgroundColor = [UIColor lightGrayColor];
+    xian.alpha = 0.6;
+    [self.areaButton addSubview:xian];
+    
     // 手机号码
     self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(30, 25, self.view.width - 60, 40)];
     self.phoneField.tintColor = [UIColor blackColor];
@@ -64,11 +95,8 @@
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    UIView *leftV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
-    UIImageView *phoneV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_phone"]];
-    phoneV.frame = CGRectMake(12, 7, 30, 30);
-    [leftV1 addSubview:phoneV];
-    self.phoneField.leftView = leftV1;
+    
+    self.phoneField.leftView = self.areaButton;
     self.phoneField.backgroundColor = [UIColor whiteColor];
     self.phoneField.layer.masksToBounds = YES;
     self.phoneField.layer.cornerRadius = 4;
@@ -143,30 +171,6 @@
     self.passWord2.leftViewMode = UITextFieldViewModeAlways;
     [self.view addSubview:self.passWord2];
     
-//    NSMutableAttributedString *text = [[NSMutableAttributedString alloc]initWithString:@"注册账号默认认同并遵守《天天礼佛用户协议》"];
-//    text.font = [UIFont systemFontOfSize:11];
-//    text.color = RGBACOLOR(67, 67, 67, 1);
-//    [text setTextHighlightRange:NSMakeRange(11, 9) color:MainColor backgroundColor:NavColor userInfo:nil];
-//    
-//    // 用户协议
-//    YYLabel *bottomLabel = [[YYLabel alloc]init];
-//    bottomLabel.attributedText = text;
-//    bottomLabel.backgroundColor = [UIColor clearColor];
-//    bottomLabel.userInteractionEnabled = YES;
-//    bottomLabel.textAlignment = NSTextAlignmentRight;
-//    [self.view addSubview:bottomLabel];
-//    [bottomLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.equalTo(self.passWord2.mas_left);
-//        make.right.equalTo(self.passWord2.mas_right);
-//        make.top.equalTo(self.passWord2.mas_bottom).offset(10);
-//        make.height.equalTo(@30);
-//    }];
-//    UITapGestureRecognizer *tapp = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-//        UserProtocolController *userProtocol = [UserProtocolController new];
-//        [self.navigationController pushViewController:userProtocol animated:YES];
-//    }];
-//    [bottomLabel addGestureRecognizer:tapp];
-    
     
     // 注册按钮
     UIButton *registerButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -191,17 +195,16 @@
 {
     [self.view endEditing:YES];
     
-    if (![self.phoneField.text isPhoneNum]) {
+    if (self.phoneField.text.length < 3) {
         [MBProgressHUD showError:@"手机号码不正确"];
         return;
     }
     
-    
     self.codeButton.enabled = NO;
     [self openCountdown];
     
-    /**
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.phoneField.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+    
+    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.phoneField.text zone:self.areaButton.titleLabel.text customIdentifier:nil result:^(NSError *error) {
         if (!error) {
             [MBProgressHUD showSuccess:@"已发送至您的手机"];
             [self.codeField becomeFirstResponder];
@@ -223,7 +226,7 @@
             });
         }
     }];
-    */
+    
 }
 
 // 开启倒计时效果
@@ -268,27 +271,38 @@
 -(void)RegisterAction{
     
     [self.view endEditing:YES];
+    if (self.phoneField.text.length <= 3) {
+        [MBProgressHUD showError:@"手机号码不正确"];
+        return;
+    }
+    if (self.codeField.text.length <= 3) {
+        [MBProgressHUD showError:@"验证码不正确"];
+        return;
+    }
+    if (self.passWord1.text.length < 6 || self.passWord2.text.length != 6) {
+        [MBProgressHUD showError:@"密码最少6位长度"];
+        return;
+    }
+    if (![self.passWord1.text isEqualToString:self.passWord2.text]) {
+        [MBProgressHUD showError:@"两次密码不一致"];
+        return;
+    }
     
-    /**
-    [SMSSDK commitVerificationCode:self.codeField.text phoneNumber:self.phoneField.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+    [SMSSDK commitVerificationCode:self.codeField.text phoneNumber:self.phoneField.text zone:self.areaButton.titleLabel.text result:^(SMSSDKUserInfo *userInfo, NSError *error) {
         if (!error) {
-            if ([self.passWord1.text isEqualToString:self.passWord2.text]) {
-                // 开始注册账号
-                [[TTLFManager sharedManager].networkManager registerWithPhone:self.passWord1.text Pass:self.passWord2.text Success:^{
-                    [self sendAlertAction:@"注册成功"];
-                } Fail:^(NSString *errorMsg) {
-                    [self sendAlertAction:errorMsg];
-                }];
-                
-            }else{
-                [MBProgressHUD showError:@"两次密码不一致"];
-            }
+            
+            // 开始注册账号
+            [[TTLFManager sharedManager].networkManager registerByPhone:self.phoneField.text Pass:self.passWord2.text Success:^{
+                [self sendAlertAction:@"注册成功"];
+            } Fail:^(NSString *errorMsg) {
+                [self sendAlertAction:errorMsg];
+            }];
             
         }else{
             [self sendAlertAction:error.localizedDescription];
         }
     }];
-     */
+     
     
 }
 

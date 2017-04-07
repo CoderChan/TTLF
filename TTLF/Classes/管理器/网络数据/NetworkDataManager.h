@@ -34,6 +34,9 @@ typedef void (^SuccessStringBlock)(NSString *string);
 
 #pragma mark - 用户板块
 
+
+// 手机号码注册
+- (void)registerByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 微信注册登录
 - (void)wechatLoginResponse:(SendAuthResp *)response Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 模拟器登录

@@ -26,6 +26,11 @@
 }
 
 
+#pragma mark - 手机号码注册
+- (void)registerByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    success();
+}
 #pragma mark - 微信注册登录相关
 - (void)wechatLoginResponse:(SendAuthResp *)response Success:(SuccessBlock)success Fail:(FailBlock)fail
 {

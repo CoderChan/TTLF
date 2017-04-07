@@ -15,7 +15,7 @@
 #import "WechatLoginViewController.h"
 #import "RootTabbarController.h"
 #import <AMapFoundationKit/AMapFoundationKit.h>
-
+#import <SMS_SDK/SMSSDK.h>
 
 
 @interface AppDelegate ()
@@ -74,7 +74,7 @@
     [AMapServices sharedServices].apiKey = GaoDeMapKey;
     
     // MOB短信验证码
-    
+    [SMSSDK registerApp:Mob_AppKey withSecret:Mob_Secret];
     
 }
 

@@ -40,7 +40,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UserInfoModel *model = [[TTLFManager sharedManager].userManager getUserInfo];
     
-    if ([model.phoneNum isPhoneNum]) {
+    if (model.phoneNum.length > 3) {
         self.phoneStr = model.phoneNum;
         [self setupPhoneVies];
     }else{
@@ -65,7 +65,6 @@
     self.textField = [[UITextField alloc]init];
     self.textField.leftView = [[UIView alloc]initWithFrame:CGRectMake(20, 0, 0, 40)];
     [self.textField becomeFirstResponder];
-//    self.textField.background = [UIImage imageNamed:@""];
     self.textField.leftViewMode = UITextFieldViewModeAlways;
     self.textField.keyboardType = UIKeyboardTypeNumberPad;
     self.textField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -112,7 +111,7 @@
 #pragma mark - 点击绑定手机号
 - (void)sendNewPhone:(UIButton *)sender
 {
-    if (![self.textField.text isPhoneNum]) {
+    if (self.textField.text.length <= 3) {
         [MBProgressHUD showError:@"手机号码不正确"];
         return;
     }
@@ -122,7 +121,6 @@
     }
     
     [self.view endEditing:YES];
-    
     
     /************ 上传到自己的服务器 ************/
     [sender setTitle:@"" forState:UIControlStateNormal];

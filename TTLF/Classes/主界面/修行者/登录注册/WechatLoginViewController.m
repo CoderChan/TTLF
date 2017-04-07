@@ -142,7 +142,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
         make.bottom.equalTo(copyLabel.mas_top).offset(-12);
         make.left.equalTo(self.view.mas_left).offset(40*CKproportion);
         make.centerX.equalTo(self.view.mas_centerX);
-        make.height.equalTo(@48);
+        make.height.equalTo(@46);
     }];
     
     
@@ -181,7 +181,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     
     
     [wechatView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(otherButton.mas_top).offset(-10);
+        make.bottom.equalTo(otherButton.mas_top).offset(-15);
         make.left.equalTo(otherButton.mas_left);
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.equalTo(@48);
@@ -202,16 +202,13 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
         }];
 #else 
         // 处于发布阶段
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您尚未安装微信，使用测试账号登录？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您尚未安装微信，建议使用手机号登录" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             
         }];;
         UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [[TTLFManager sharedManager].networkManager simulatorLoginSuccess:^{
-                [self loginSuccess];
-            } Fail:^(NSString *errorMsg) {
-                [self sendAlertAction:errorMsg];
-            }];
+            PhoneLoginViewController *phone = [PhoneLoginViewController new];
+            [self.navigationController pushViewController:phone animated:YES];
         }];
         [alertC addAction:action1];
         [alertC addAction:action2];
