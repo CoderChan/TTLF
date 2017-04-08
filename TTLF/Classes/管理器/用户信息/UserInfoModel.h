@@ -14,10 +14,10 @@
 @property (copy,nonatomic) NSString *userID;
 /** 微信的标示ID */
 @property (copy,nonatomic) NSString *unionid;
-/** 在家还是出家 */
-@property (copy,nonatomic) NSString *isOutHome;
 /** 手机号码 */
 @property (copy,nonatomic) NSString *phoneNum;
+/** 在家还是出家 */
+@property (copy,nonatomic) NSString *isOutHome;
 /** 昵称 */
 @property (copy,nonatomic) NSString *nickName;
 /** 生肖 */

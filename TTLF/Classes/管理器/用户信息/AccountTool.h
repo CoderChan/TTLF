@@ -21,7 +21,7 @@
 /**
  *  返回账号信息
  *
- *  @return 账号模型（如果账号过期，返回nil）
+ *  @return 账号模型
  */
 + (Account *)account;
 

@@ -16,7 +16,6 @@
 
 @interface RegisterViewController ()
 
-
 {
     int ReGetCodeNum; // 重新获取验证码时间间隔
     dispatch_source_t _timer;
@@ -66,7 +65,9 @@
     [self.areaButton setTitle:@"86" forState:UIControlStateNormal];
     [self.areaButton setTitleColor:NavColor forState:UIControlStateNormal];
     self.areaButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    __weak RegisterViewController *copySelf = self;
     [self.areaButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
+        [copySelf.view endEditing:YES];
         LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"选择号码区域" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
                 [sender setTitle:@"86" forState:UIControlStateNormal];
@@ -79,7 +80,7 @@
             }else if (buttonIndex == 5){
                 [sender setTitle:@"1" forState:UIControlStateNormal];
             }
-        } otherButtonTitles:@"中国大陆 86",@"香港 852",@"澳门 853",@"台湾 886",@"USA 1", nil];
+        } otherButtonTitles:@"中国大陆 +86",@"香港 +852",@"澳门 +853",@"台湾 +886",@"USA +1", nil];
         [sheet show];
     }];
     
@@ -95,7 +96,6 @@
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    
     self.phoneField.leftView = self.areaButton;
     self.phoneField.backgroundColor = [UIColor whiteColor];
     self.phoneField.layer.masksToBounds = YES;

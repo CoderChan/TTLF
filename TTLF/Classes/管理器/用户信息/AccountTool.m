@@ -9,20 +9,20 @@
 #import "AccountTool.h"
 
 
-#define accountPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"account.archive"]
+#define AccountPath [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"account.archive"]
 
 @implementation AccountTool
 
 + (void)saveAccount:(Account *)account
 {
     // 自定义对象的存储必须用NSKeyedArchiver，不再有什么writeToFile方法
-    [NSKeyedArchiver archiveRootObject:account toFile:accountPath];
+    [NSKeyedArchiver archiveRootObject:account toFile:AccountPath];
 }
 #pragma mark - 返回账号信息
 + (Account *)account
 {
     //  加载模型
-    Account *account = [NSKeyedUnarchiver unarchiveObjectWithFile:accountPath];
+    Account *account = [NSKeyedUnarchiver unarchiveObjectWithFile:AccountPath];
     return account;
 }
 

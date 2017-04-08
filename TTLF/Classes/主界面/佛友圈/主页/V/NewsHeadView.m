@@ -12,11 +12,14 @@
 
 @interface NewsHeadView ()
 
+/** 个人头像 */
 @property (strong,nonatomic) UIImageView *headImgView;
-
+/** 我的名字 */
 @property (strong,nonatomic) UILabel *nameLabel;
-
+/** 功德值 */
 @property (strong,nonatomic) UILabel *gongdeLabel;
+/** xxx，已为您定制了业界头条 */
+@property (strong,nonatomic) UILabel *label;
 
 @end
 
@@ -39,6 +42,8 @@
     _userModel = userModel;
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:userModel.headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
     _nameLabel.text = userModel.nickName;
+    
+    _label.text = [NSString stringWithFormat:@"%@，为您定制了头条",userModel.nickName];
     
     NSString *tempStr = [NSString stringWithFormat:@"功德值 %@",self.userModel.punnaNum];
     NSRange range = [tempStr rangeOfString:self.userModel.punnaNum];
@@ -104,7 +109,7 @@
     gongdeView.userInteractionEnabled = YES;
     gongdeView.backgroundColor = RGBACOLOR(50, 107, 80, 1);
     gongdeView.layer.masksToBounds = YES;
-    gongdeView.layer.cornerRadius = 23;
+    gongdeView.layer.cornerRadius = 20;
     gongdeView.layer.shadowColor = [UIColor purpleColor].CGColor;
     gongdeView.layer.shadowOpacity = 0.8f;
     gongdeView.layer.shadowRadius = 4.f;
@@ -112,9 +117,9 @@
     [userView addSubview:gongdeView];
     [gongdeView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(userView.mas_right);
-        make.width.equalTo(@200);
+        make.width.equalTo(@180);
         make.centerY.equalTo(self.headImgView.mas_centerY);
-        make.height.equalTo(@46);
+        make.height.equalTo(@40);
     }];
     
     UITapGestureRecognizer *gongdeTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -125,7 +130,7 @@
     [gongdeView addGestureRecognizer:gongdeTap];
     
     // 功德值
-    self.gongdeLabel = [[UILabel alloc]initWithFrame:CGRectMake(1, 8, 100 - 2, 30)];
+    self.gongdeLabel = [[UILabel alloc]initWithFrame:CGRectMake(1, 5, 100 - 2, 30)];
     self.gongdeLabel.textAlignment = NSTextAlignmentCenter;
     self.gongdeLabel.text = [NSString stringWithFormat:@"功德值 %@",self.userModel.punnaNum];
     self.gongdeLabel.textColor = [UIColor whiteColor];
@@ -150,10 +155,23 @@
     }];
     [newsView addGestureRecognizer:newsTap];
     
-    // 线
-    UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
-    [self addSubview:xian];
-    [xian mas_makeConstraints:^(MASConstraintMaker *make) {
+    // xxx，定制了头条
+    self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 4, newsView.width, 30)];
+    self.label.text = [NSString stringWithFormat:@"%@，为您定制了头条",self.userModel.nickName];
+    self.label.font = [UIFont boldSystemFontOfSize:14];
+    self.label.textAlignment = NSTextAlignmentCenter;
+    [newsView addSubview:self.label];
+    
+    // 线1
+    UIImageView *xian1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xuxian"]];
+    xian1.frame = CGRectMake(15, 38, newsView.width - 30, 2);
+    [newsView addSubview:xian1];
+    
+    
+    // 线3
+    UIImageView *xian3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
+    [self addSubview:xian3];
+    [xian3 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);
         make.bottom.equalTo(self.mas_bottom);
         make.right.equalTo(self.mas_right);

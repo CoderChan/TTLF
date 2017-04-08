@@ -8,6 +8,7 @@
 
 #import "ForgetPasswordViewController.h"
 #import <Masonry.h>
+#import <LCActionSheet.h>
 
 
 @interface ForgetPasswordViewController ()
@@ -16,6 +17,8 @@
     int ReGetCodeNum; // 重新获取验证码时间间隔
     dispatch_source_t _timer;
 }
+
+@property (strong,nonatomic) UIButton *areaButton;
 
 /** 手机号码 */
 @property (strong,nonatomic) UITextField *phoneField;
@@ -48,6 +51,35 @@
 
 - (void)setupSubViews
 {
+    
+    self.areaButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    self.areaButton.frame = CGRectMake(0, 0, 50, 40);
+    self.areaButton.backgroundColor = [UIColor whiteColor];
+    [self.areaButton setTitle:@"86" forState:UIControlStateNormal];
+    [self.areaButton setTitleColor:NavColor forState:UIControlStateNormal];
+    self.areaButton.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.areaButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
+        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"选择号码区域" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
+            if (buttonIndex == 1) {
+                [sender setTitle:@"86" forState:UIControlStateNormal];
+            }else if (buttonIndex == 2){
+                [sender setTitle:@"852" forState:UIControlStateNormal];
+            }else if (buttonIndex == 3){
+                [sender setTitle:@"853" forState:UIControlStateNormal];
+            }else if (buttonIndex == 4){
+                [sender setTitle:@"886" forState:UIControlStateNormal];
+            }else if (buttonIndex == 5){
+                [sender setTitle:@"1" forState:UIControlStateNormal];
+            }
+        } otherButtonTitles:@"中国大陆 +86",@"香港 +852",@"澳门 +853",@"台湾 +886",@"USA +1", nil];
+        [sheet show];
+    }];
+    
+    UIView *xian = [[UIView alloc]initWithFrame:CGRectMake(45.5, 5, 0.5, 30)];
+    xian.backgroundColor = [UIColor lightGrayColor];
+    xian.alpha = 0.6;
+    [self.areaButton addSubview:xian];
+    
     // 手机号码
     self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(30, 25, self.view.width - 60, 40)];
     self.phoneField.tintColor = [UIColor blackColor];
@@ -55,11 +87,7 @@
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    UIView *leftV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
-    UIImageView *phoneV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_phone"]];
-    phoneV.frame = CGRectMake(12, 7, 30, 30);
-    [leftV1 addSubview:phoneV];
-    self.phoneField.leftView = leftV1;
+    self.phoneField.leftView = self.areaButton;
     self.phoneField.backgroundColor = [UIColor whiteColor];
     self.phoneField.layer.masksToBounds = YES;
     self.phoneField.layer.cornerRadius = 4;

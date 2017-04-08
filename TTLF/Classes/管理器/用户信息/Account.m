@@ -16,7 +16,6 @@
     account.unionid = dict[@"unionid"];
     account.userID = dict[@"userID"];
     
-    
     return account;
 }
 /**
@@ -27,7 +26,6 @@
 {
     [aCoder encodeObject:self.unionid forKey:@"unionid"];
     [aCoder encodeObject:self.userID forKey:@"userID"];
-    
 }
 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -35,7 +33,6 @@
     if (self = [super init]) {
         self.unionid = [aDecoder decodeObjectForKey:@"unionid"];
         self.userID = [aDecoder decodeObjectForKey:@"userID"];
-        
     }
     return self;
 }
