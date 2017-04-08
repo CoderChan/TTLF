@@ -7,12 +7,10 @@
 //
 
 #import "SuperViewController.h"
-#import <MAMapKit/MAMapKit.h>
-#import <AMapLocationKit/AMapLocationKit.h>
-#import <AMapSearchKit/AMapSearchKit.h>
+
 
 @interface SelectLocaltionController : SuperViewController
 
-@property (copy,nonatomic) void (^SelectPOIBlock)(AMapPOI *poiModel);
+
 
 @end

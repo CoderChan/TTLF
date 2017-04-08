@@ -25,7 +25,7 @@
 /** 话题模型 */
 @property (strong,nonatomic) SendTopicModel *topicModel;
 /** 坐标 */
-@property (strong,nonatomic) AMapPOI *poiModel;
+//@property (strong,nonatomic) AMapPOI *poiModel;
 /** 头部 */
 @property (strong,nonatomic) SendDynHeadView *headView;
 
@@ -51,13 +51,12 @@
 - (void)setupSubViews
 {
     self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(sendAction)];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:MainColor} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"right_send"] style:UIBarButtonItemStylePlain target:self action:@selector(sendAction)];
     
     self.isSendIMG = NO;
     self.isSendLocation = NO;
     
-    self.array = @[@[@"#话题#"],@[@"发送位置",@"匿名发送"]];
+    self.array = @[@[@"选择话题"],@[@"所在位置",@"匿名发送"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT - 64)];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.rowHeight = 50;
@@ -104,12 +103,12 @@
     
     NSString *locationJson;
     if (self.isSendLocation) {
-        
-        NSMutableDictionary *locationDict = [NSMutableDictionary dictionary];
-        [locationDict setValue:@"address" forKey:self.poiModel.address];
-        [locationDict setValue:@"latitude" forKey:[NSString stringWithFormat:@"%f",self.poiModel.location.latitude]];
-        [locationDict setValue:@"longitude" forKey:[NSString stringWithFormat:@"%f",self.poiModel.location.longitude]];
-        locationJson = [self toJsonStr:locationDict];
+#warning 格式化地理信息
+//        NSMutableDictionary *locationDict = [NSMutableDictionary dictionary];
+//        [locationDict setValue:@"address" forKey:self.poiModel.address];
+//        [locationDict setValue:@"latitude" forKey:[NSString stringWithFormat:@"%f",self.poiModel.location.latitude]];
+//        [locationDict setValue:@"longitude" forKey:[NSString stringWithFormat:@"%f",self.poiModel.location.longitude]];
+//        locationJson = [self toJsonStr:locationDict];
     }else{
         locationJson = @"";
     }
@@ -231,6 +230,7 @@
     NSArray *iconArray = @[@[@"send_topic"],@[@"send_location_normal",@"send_noname_normal"]];
     if (indexPath.section == 0) {
         SendDynTableCell *cell = [SendDynTableCell sharedSendDynTableCell:tableView];
+        
         cell.contentLabel.text = self.topicModel.topic_name;
         cell.iconView.image = [UIImage imageNamed:iconArray[indexPath.section][indexPath.row]];
         cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
@@ -244,7 +244,7 @@
                 cell.iconView.image = [UIImage imageNamed:iconArray[indexPath.section][indexPath.row]];
             }
             cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
-            cell.contentLabel.text = self.poiModel.name;
+            cell.contentLabel.text = @"中南海";
             return cell;
         }else{
             SendDynTableCell *cell = [SendDynTableCell sharedSendDynTableCell:tableView];
@@ -278,11 +278,7 @@
     } else {
         if (indexPath.row == 0) {
             SelectLocaltionController *vc = [SelectLocaltionController new];
-            vc.SelectPOIBlock = ^(AMapPOI *poiModel){
-                self.isSendLocation = YES;
-                self.poiModel = poiModel;
-                [self.tableView reloadData];
-            };
+            
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -302,6 +298,7 @@
 {
     if (!_switchView) {
         _switchView = [[UISwitch alloc]initWithFrame:CGRectMake(self.view.xl_width - 65, 8.5, 30, 40)];
+        _switchView.onTintColor = RGBACOLOR(11, 128, 214, 1);
         __weak SendDynViewController *cself = self;
         [_switchView addBlockForControlEvents:UIControlEventValueChanged block:^(UISwitch  *sender) {
             [cself.tableView reloadData];

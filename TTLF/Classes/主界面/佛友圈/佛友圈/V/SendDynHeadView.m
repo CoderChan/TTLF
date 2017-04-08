@@ -41,7 +41,6 @@
     self.textView.text = PlaceText;
     self.textView.textColor = [UIColor lightGrayColor];
     self.textView.font = [UIFont systemFontOfSize:13];
-    self.textView.tintColor = MainColor;
     self.textView.delegate = self;
     self.backgroundColor = [UIColor whiteColor];
     [self addSubview:self.textView];

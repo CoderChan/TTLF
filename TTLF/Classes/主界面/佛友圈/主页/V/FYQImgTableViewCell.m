@@ -7,7 +7,7 @@
 //
 
 #import "FYQImgTableViewCell.h"
-#import <SDAutoLayout.h>
+#import <Masonry.h>
 
 
 @interface FYQImgTableViewCell ()
@@ -61,96 +61,102 @@
     self.headIMGView.backgroundColor = [UIColor purpleColor];
     self.headIMGView.userInteractionEnabled = YES;
     [self.contentView addSubview:self.headIMGView];
+    [self.headIMGView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.contentView.mas_left).offset(12);
+        make.top.equalTo(self.contentView.mas_top).offset(12);
+        make.width.and.height.equalTo(@(50*CKproportion));
+    }];
     
     // 昵称
     self.nameLabel = [[UILabel alloc]init];
-    self.nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.nameLabel.backgroundColor = HWRandomColor;
+    self.nameLabel.font = [UIFont boldSystemFontOfSize:16];
+    self.nameLabel.textColor = RGBACOLOR(54, 108, 132, 1);
     self.nameLabel.text = @"我在南山南边";
     [self.contentView addSubview:self.nameLabel];
-    
-    // 时间
-    self.timeLabel = [[UILabel alloc]init];
-    self.timeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    self.timeLabel.backgroundColor = HWRandomColor;
-    self.timeLabel.text = @"一天前";
-    [self.contentView addSubview:self.timeLabel];
+    [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.headIMGView.mas_right).offset(13);
+        make.top.equalTo(self.headIMGView.mas_top);
+        make.height.equalTo(@21);
+    }];
     
     // 话题
     self.topicButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.topicButton setTitle:@"#十万个为什么#" forState:UIControlStateNormal];
-    [self.topicButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    self.topicButton.backgroundColor = HWRandomColor;
-    self.topicButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.topicButton setTitle:@"#因果故事#" forState:UIControlStateNormal];
+    [self.topicButton setTitleColor:self.nameLabel.textColor forState:UIControlStateNormal];
+    [self.topicButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
+        [MBProgressHUD showSuccess:sender.titleLabel.text];
+    }];
+    self.topicButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:self.topicButton];
-    
-    // 内容
-    self.contentLabel = [[UILabel alloc]init];
-    self.contentLabel.numberOfLines = 0;
-    self.contentLabel.text = @"孙女士空空荡荡当年的可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看我去看望少年时代看得懂看情况问问可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看看女士空空荡荡当年的可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看我去看望少年时代看得懂看情况问问可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看";
-    self.contentLabel.font = [UIFont systemFontOfSize:14];
-    [self.contentView addSubview:self.contentLabel];
-    
-    // 配图
-    self.contentIMGV = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
-    self.contentIMGV.userInteractionEnabled = YES;
-    [self.contentView addSubview:self.contentIMGV];
+    [self.topicButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView.mas_right).offset(-12);
+        make.centerY.equalTo(self.nameLabel.mas_centerY);
+        make.height.equalTo(@21);
+    }];
     
     // 底部视图
     self.bottomView = [[UIView alloc]init];
     self.bottomView.backgroundColor = RGBACOLOR(188, 65, 76, 1);
     [self.contentView addSubview:self.bottomView];
-    
-    
-    // 头像
-    self.headIMGView.sd_layout
-    .widthIs(48)
-    .heightIs(48)
-    .topSpaceToView(self.contentView,10)
-    .leftSpaceToView(self.contentView,15);
-    
-    // 昵称
-    self.nameLabel.sd_layout
-    .heightIs(30)
-    .leftSpaceToView(self.headIMGView,15)
-    .rightSpaceToView(self.contentView,150)
-    .topEqualToView(self.headIMGView);
+    [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.contentView.mas_bottom);
+        make.left.equalTo(self.contentView.mas_left);
+        make.right.equalTo(self.contentView.mas_right);
+        make.height.equalTo(@38);
+    }];
     
     // 时间
-    self.timeLabel.sd_layout
-    .leftEqualToView(self.nameLabel)
-    .bottomEqualToView(self.headIMGView)
-    .heightIs(18);
+    self.timeLabel = [[UILabel alloc]init];
+    self.timeLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
+    self.timeLabel.textColor = RGBACOLOR(87, 87, 87, 1);
+    self.timeLabel.text = @"15分钟前";
+    [self.contentView addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.bottomView.mas_top).offset(-5);
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.height.equalTo(@21);
+    }];
     
-    // 话题
-    self.topicButton.sd_layout
-    .rightSpaceToView(self.contentView,15)
-    .centerYEqualToView(self.nameLabel)
-    .widthIs(130)
-    .heightIs(30);
+    // 地理位置
+    self.locationButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.locationButton setTitle:@"北京市·长安大街中南海" forState:UIControlStateNormal];
+    self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [self.locationButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        [MBProgressHUD showError:@"地理位置"];
+    }];
+    self.locationButton.titleLabel.font = self.timeLabel.font;
+    [self.locationButton setTitleColor:self.nameLabel.textColor forState:UIControlStateNormal];
+    [self.contentView addSubview:self.locationButton];
+    [self.locationButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.timeLabel.mas_top);
+        make.left.equalTo(self.timeLabel.mas_left);
+        make.height.equalTo(@21);
+    }];
     
-    // 文字内容
-    self.contentLabel.sd_layout
-    .topSpaceToView(self.timeLabel,0)
-    .leftEqualToView(self.nameLabel)
-    .rightSpaceToView(self.contentView,30)
-    .autoHeightRatio(0);
     
-    // 底部
-    self.bottomView.sd_layout
-    .leftEqualToView(self.contentView)
-    .rightEqualToView(self.contentView)
-    .bottomEqualToView(self.contentView)
-    .heightIs(40);
     
     // 配图
-    self.contentIMGV.sd_layout
-    .leftEqualToView(self.contentLabel)
-    .bottomSpaceToView(self.bottomView,10)
-    .widthIs(80)
-    .heightIs(80);
+    self.contentIMGV = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
+    self.contentIMGV.userInteractionEnabled = YES;
+    [self.contentView addSubview:self.contentIMGV];
+    [self.contentIMGV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.locationButton.mas_top).offset(-5);
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.width.and.height.equalTo(@80);
+    }];
     
-    //
+    // 内容
+    self.contentLabel = [[UILabel alloc]init];
+    self.contentLabel.numberOfLines = 0;
+    self.contentLabel.text = @"孙女士空空荡荡当年的可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看我去看望少年时代看得懂看情况问问可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看看女士空空荡荡当年的可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看我去看望少年时代看得懂看情况问问可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看";
+    self.contentLabel.font = [UIFont systemFontOfSize:15];
+    [self.contentView addSubview:self.contentLabel];
+    [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.nameLabel.mas_left);
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(8);
+        make.right.equalTo(self.contentView.mas_right).offset(-35);
+        make.bottom.equalTo(self.contentIMGV.mas_top).offset(-5);
+    }];
     
 }
 

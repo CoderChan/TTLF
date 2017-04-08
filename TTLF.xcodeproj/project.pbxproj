@@ -29,7 +29,6 @@
 		3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05C61E792BD2005173B9 /* YearMonthPickerView.m */; };
 		3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2231E71E7F7B8200B43322 /* WoViewController.m */; };
 		3B2231EC1E7F853700B43322 /* MineTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2231EB1E7F853700B43322 /* MineTableHeadView.m */; };
-		3B22322F1E7FDDDD00B43322 /* TBPopViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B22322E1E7FDDDD00B43322 /* TBPopViewController.m */; };
 		3B2232381E7FE08C00B43322 /* SelectTopicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2232371E7FE08C00B43322 /* SelectTopicController.m */; };
 		3B22D8681E8298A500439A99 /* FoxiangModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B22D8671E8298A500439A99 /* FoxiangModel.m */; };
 		3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FAD1E6FDC8F0078379B /* SuperViewController.m */; };
@@ -120,6 +119,7 @@
 		3B3FB21E1E8D4E1F00194643 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */; };
 		3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2201E8D52E100194643 /* CommentHeadView.m */; };
 		3B3FB2251E8D53CB00194643 /* CommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2241E8D53CB00194643 /* CommentFootView.m */; };
+		3B4295AC1E98EE95001374F2 /* SelectTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295AB1E98EE95001374F2 /* SelectTopicView.m */; };
 		3B42DC971E8A9E080037F9A4 /* FopaiShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */; };
 		3B42DC9D1E8AA2460037F9A4 /* PusaCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC9C1E8AA2460037F9A4 /* PusaCollectionViewCell.m */; };
 		3B42DCA01E8AA2D80037F9A4 /* FopaiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC9F1E8AA2D80037F9A4 /* FopaiCollectionViewCell.m */; };
@@ -215,8 +215,6 @@
 		3B2231E71E7F7B8200B43322 /* WoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WoViewController.m; sourceTree = "<group>"; };
 		3B2231EA1E7F853700B43322 /* MineTableHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableHeadView.h; sourceTree = "<group>"; };
 		3B2231EB1E7F853700B43322 /* MineTableHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableHeadView.m; sourceTree = "<group>"; };
-		3B22322D1E7FDDDD00B43322 /* TBPopViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBPopViewController.h; sourceTree = "<group>"; };
-		3B22322E1E7FDDDD00B43322 /* TBPopViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBPopViewController.m; sourceTree = "<group>"; };
 		3B2232361E7FE08C00B43322 /* SelectTopicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicController.h; sourceTree = "<group>"; };
 		3B2232371E7FE08C00B43322 /* SelectTopicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicController.m; sourceTree = "<group>"; };
 		3B22D8661E8298A500439A99 /* FoxiangModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoxiangModel.h; sourceTree = "<group>"; };
@@ -399,6 +397,8 @@
 		3B3FB2201E8D52E100194643 /* CommentHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentHeadView.m; sourceTree = "<group>"; };
 		3B3FB2231E8D53CB00194643 /* CommentFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentFootView.h; sourceTree = "<group>"; };
 		3B3FB2241E8D53CB00194643 /* CommentFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentFootView.m; sourceTree = "<group>"; };
+		3B4295AA1E98EE95001374F2 /* SelectTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicView.h; sourceTree = "<group>"; };
+		3B4295AB1E98EE95001374F2 /* SelectTopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicView.m; sourceTree = "<group>"; };
 		3B42DC951E8A9E080037F9A4 /* FopaiShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FopaiShowView.h; sourceTree = "<group>"; };
 		3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FopaiShowView.m; sourceTree = "<group>"; };
 		3B42DC9B1E8AA2460037F9A4 /* PusaCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaCollectionViewCell.h; sourceTree = "<group>"; };
@@ -541,8 +541,6 @@
 				3B1F058C1E7928A0005173B9 /* SelectLocaltionController.m */,
 				3B2232361E7FE08C00B43322 /* SelectTopicController.h */,
 				3B2232371E7FE08C00B43322 /* SelectTopicController.m */,
-				3B22322D1E7FDDDD00B43322 /* TBPopViewController.h */,
-				3B22322E1E7FDDDD00B43322 /* TBPopViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -559,6 +557,8 @@
 		3B1F05941E7928A0005173B9 /* V */ = {
 			isa = PBXGroup;
 			children = (
+				3B4295AA1E98EE95001374F2 /* SelectTopicView.h */,
+				3B4295AB1E98EE95001374F2 /* SelectTopicView.m */,
 				3B1F05951E7928A0005173B9 /* SendDynHeadView.h */,
 				3B1F05961E7928A0005173B9 /* SendDynHeadView.m */,
 				3B1F05971E7928A0005173B9 /* SendDynTableCell.h */,
@@ -1863,7 +1863,7 @@
 				3B8627891E8FAC50007B5742 /* ReportViewController.m in Sources */,
 				3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */,
 				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
-				3B22322F1E7FDDDD00B43322 /* TBPopViewController.m in Sources */,
+				3B4295AC1E98EE95001374F2 /* SelectTopicView.m in Sources */,
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */,
 				3B266FD61E6FDCB60078379B /* WechatInfoModel.m in Sources */,

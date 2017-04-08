@@ -24,8 +24,7 @@
 
 // 官方网站
 #define OfficalWebURL @"http://www.yangruyi.com/"
-// 高德地图key
-#define GaoDeMapKey @"856a135eaee5e2f00596886e74455237"
+
 
 // 友盟推送
 #define UMPush_AppKey @"58d12a06c62dca22da001944"
@@ -39,7 +38,7 @@
 #define TaobaoShopURL @"http://c.b1za.com/h.2YSG4Q?cv=u68FSigZYp&sm=edfca7"
 // 淘宝某商品URL
 #define TaobaoGoodsURL @"http://c.b5yq.com/h.W3Vcb6?cv=nB1w9Gp721&sm=78e104"
-//   微信SDK 天天礼佛：wx817d7d973e5cdca8  aa9e6fd088a1e2db1964034083efa60c
+//   微信SDK
 #define WeChatAppID @"wx817d7d973e5cdca8"
 #define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"
 

@@ -14,7 +14,6 @@
 #import "RootNavgationController.h"
 #import "WechatLoginViewController.h"
 #import "RootTabbarController.h"
-#import <AMapFoundationKit/AMapFoundationKit.h>
 #import <SMS_SDK/SMSSDK.h>
 
 
@@ -69,9 +68,8 @@
     UInt64 typeFlag = MMAPP_SUPPORT_TEXT | MMAPP_SUPPORT_PICTURE | MMAPP_SUPPORT_LOCATION | MMAPP_SUPPORT_VIDEO |MMAPP_SUPPORT_AUDIO | MMAPP_SUPPORT_WEBPAGE | MMAPP_SUPPORT_DOC | MMAPP_SUPPORT_DOCX | MMAPP_SUPPORT_PPT | MMAPP_SUPPORT_PPTX | MMAPP_SUPPORT_XLS | MMAPP_SUPPORT_XLSX | MMAPP_SUPPORT_PDF;
     [WXApi registerAppSupportContentFlag:typeFlag];
     
-    // 高德地图
-    [[AMapServices sharedServices] setEnableHTTPS:YES];
-    [AMapServices sharedServices].apiKey = GaoDeMapKey;
+    // 百度地图
+    
     
     // MOB短信验证码
     [SMSSDK registerApp:Mob_AppKey withSecret:Mob_Secret];

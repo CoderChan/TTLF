@@ -41,7 +41,7 @@
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(15);
         make.centerY.equalTo(self.mas_centerY);
-        make.width.and.height.equalTo(@35);
+        make.width.and.height.equalTo(@28);
     }];
     
     self.titleLabel = [[UILabel alloc]init];
