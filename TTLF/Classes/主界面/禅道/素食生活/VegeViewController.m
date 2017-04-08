@@ -79,8 +79,10 @@
     [self.view addSubview:bottomView];
     
     
-    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"vege_guo"]];
-    imageView.frame = CGRectMake(self.view.width/2 - 90*CKproportion, bottomView.height/2 - 90*CKproportion, 180*CKproportion, 180*CKproportion);
+    UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"vege_new_guo"]];
+    imageView.frame = CGRectMake(self.view.width/2 - 105*CKproportion, bottomView.height/2 - 95*CKproportion, 210*CKproportion, 190*CKproportion);
+//    imageView.frame = bottomView.bounds;
+    imageView.contentMode = UIViewContentModeScaleAspectFill;
     [bottomView addSubview:imageView];
     
     

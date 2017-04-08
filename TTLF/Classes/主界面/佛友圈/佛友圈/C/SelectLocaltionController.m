@@ -8,9 +8,10 @@
 
 #import "SelectLocaltionController.h"
 #import "NormalTableViewCell.h"
+#import <BaiduMapKit/BaiduMapAPI_Map/BMKMapView.h>
 
 
-@interface SelectLocaltionController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SelectLocaltionController ()<UITableViewDelegate,UITableViewDataSource,BMKMapViewDelegate>
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
@@ -23,6 +24,8 @@
 @property (strong,nonatomic) CLLocation *myLocation;
 /** 我的城市 */
 @property (copy,nonatomic) NSString *myCity;
+/** 百度地图 */
+@property (strong,nonatomic) BMKMapView *mapView;
 
 
 @end
@@ -53,9 +56,9 @@
     [self.tableView insertSubview:insertView atIndex:0];
     
     // 地图
-    UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64) * 0.38)];
-    topView.userInteractionEnabled = YES;
-    self.tableView.tableHeaderView = topView;
+    self.mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64) * 0.38)];
+    self.mapView.delegate = self;
+    self.tableView.tableHeaderView = self.mapView;
     
     
 }
@@ -105,6 +108,18 @@
         _array = [NSMutableArray array];
     }
     return _array;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    _mapView.delegate = self;
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    _mapView.delegate = nil;
 }
 
 @end

@@ -30,6 +30,9 @@
 #define UMPush_AppKey @"58d12a06c62dca22da001944"
 #define UMPush_AppSecret @"v0tzeuqjm3kaskykndwlb7rgxhc5byoo"
 
+// 百度地图
+#define BaiduMap_AK @"rrQe26RdbuFGqXNPAG6MeSkeLC10hM8w"
+
 // MOb短信验证码
 #define Mob_AppKey @"1b1697bd31c74"
 #define Mob_Secret @"b6da9384059a306a64f7779a36658491"

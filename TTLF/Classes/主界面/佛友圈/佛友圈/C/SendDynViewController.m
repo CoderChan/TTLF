@@ -7,13 +7,13 @@
 //
 
 #import "SendDynViewController.h"
-#import "SelectLocaltionController.h"
 #import "SendDynTableCell.h"
 #import "SendDynHeadView.h"
-#import "SelectTopicController.h"
 #import <LCActionSheet.h>
+#import "SelectLocaltionController.h"
 #import "PhotoShowViewController.h"
 #import "XLProgressView.h"
+#import "SelectTopicView.h"
 
 
 
@@ -268,18 +268,17 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.view endEditing:YES];
     if (indexPath.section == 0) {
-        SelectTopicController *vc = [SelectTopicController new];
-        vc.SelectModelBlock = ^(SendTopicModel *topicModel){
+        SelectTopicView *topicView = [[SelectTopicView alloc]initWithFrame:self.view.bounds];
+        topicView.SelectModelBlock = ^(SendTopicModel *topicModel) {
             self.topicModel = topicModel;
             [self.tableView reloadData];
         };
-        [self.navigationController pushViewController:vc animated:YES];
+        [self.view addSubview:topicView];
         
     } else {
         if (indexPath.row == 0) {
-            SelectLocaltionController *vc = [SelectLocaltionController new];
-            
-            [self.navigationController pushViewController:vc animated:YES];
+            SelectLocaltionController *local = [SelectLocaltionController new];
+            [self.navigationController pushViewController:local animated:YES];
         }
     }
 }

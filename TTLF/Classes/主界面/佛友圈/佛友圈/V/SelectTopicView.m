@@ -9,6 +9,10 @@
 #import "SelectTopicView.h"
 
 
+@interface SelectTopicView ()
+
+@end
+
 @implementation SelectTopicView
 
 - (instancetype)initWithFrame:(CGRect)frame
@@ -25,6 +29,13 @@
 {
     [super layoutSubviews];
     
+    
+}
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self removeFromSuperview];
 }
 
 @end
