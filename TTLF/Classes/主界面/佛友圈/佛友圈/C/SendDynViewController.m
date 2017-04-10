@@ -17,6 +17,7 @@
 
 
 
+
 @interface SendDynViewController ()<UITableViewDelegate,UITableViewDataSource,LCActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
@@ -25,7 +26,7 @@
 /** 话题模型 */
 @property (strong,nonatomic) SendTopicModel *topicModel;
 /** 坐标 */
-//@property (strong,nonatomic) AMapPOI *poiModel;
+@property (strong,nonatomic) LocationModel *localModel;
 /** 头部 */
 @property (strong,nonatomic) SendDynHeadView *headView;
 
@@ -103,12 +104,11 @@
     
     NSString *locationJson;
     if (self.isSendLocation) {
-#warning 格式化地理信息
-//        NSMutableDictionary *locationDict = [NSMutableDictionary dictionary];
-//        [locationDict setValue:@"address" forKey:self.poiModel.address];
-//        [locationDict setValue:@"latitude" forKey:[NSString stringWithFormat:@"%f",self.poiModel.location.latitude]];
-//        [locationDict setValue:@"longitude" forKey:[NSString stringWithFormat:@"%f",self.poiModel.location.longitude]];
-//        locationJson = [self toJsonStr:locationDict];
+        NSMutableDictionary *locationDict = [NSMutableDictionary dictionary];
+        [locationDict setValue:self.localModel.address forKey:@"address"];
+        [locationDict setValue:[NSString stringWithFormat:@"%@",self.localModel.latitude] forKey:@"latitude"];
+        [locationDict setValue:[NSString stringWithFormat:@"%@",self.localModel.longitude] forKey:@"longitude"];
+        locationJson = [self toJsonStr:locationDict];
     }else{
         locationJson = @"";
     }
@@ -244,7 +244,7 @@
                 cell.iconView.image = [UIImage imageNamed:iconArray[indexPath.section][indexPath.row]];
             }
             cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
-            cell.contentLabel.text = @"中南海";
+            cell.contentLabel.text = self.localModel.address;
             return cell;
         }else{
             SendDynTableCell *cell = [SendDynTableCell sharedSendDynTableCell:tableView];
@@ -278,6 +278,11 @@
     } else {
         if (indexPath.row == 0) {
             SelectLocaltionController *local = [SelectLocaltionController new];
+            local.LocationBlock = ^(LocationModel *locationModel) {
+                self.isSendLocation = YES;
+                self.localModel = locationModel;
+                [self.tableView reloadData];
+            };
             [self.navigationController pushViewController:local animated:YES];
         }
     }

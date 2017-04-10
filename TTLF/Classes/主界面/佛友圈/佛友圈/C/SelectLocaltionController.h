@@ -7,10 +7,11 @@
 //
 
 #import "SuperViewController.h"
+#import "LocationModel.h"
 
 
 @interface SelectLocaltionController : SuperViewController
 
-
+@property (copy,nonatomic) void (^LocationBlock)(LocationModel *locationModel);
 
 @end

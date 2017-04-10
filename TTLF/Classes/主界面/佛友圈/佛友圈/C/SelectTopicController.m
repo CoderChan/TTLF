@@ -30,6 +30,7 @@
 
 @implementation SelectTopicController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"选择话题";
@@ -173,8 +174,6 @@
     }
     return _whyLabel;
 }
-
-
 
 
 @end

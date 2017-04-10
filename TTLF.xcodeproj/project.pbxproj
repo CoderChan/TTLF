@@ -120,6 +120,7 @@
 		3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2201E8D52E100194643 /* CommentHeadView.m */; };
 		3B3FB2251E8D53CB00194643 /* CommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2241E8D53CB00194643 /* CommentFootView.m */; };
 		3B4295AC1E98EE95001374F2 /* SelectTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295AB1E98EE95001374F2 /* SelectTopicView.m */; };
+		3B4295AF1E9B227B001374F2 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295AE1E9B227B001374F2 /* LocationModel.m */; };
 		3B42DC971E8A9E080037F9A4 /* FopaiShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */; };
 		3B42DC9D1E8AA2460037F9A4 /* PusaCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC9C1E8AA2460037F9A4 /* PusaCollectionViewCell.m */; };
 		3B42DCA01E8AA2D80037F9A4 /* FopaiCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B42DC9F1E8AA2D80037F9A4 /* FopaiCollectionViewCell.m */; };
@@ -399,6 +400,8 @@
 		3B3FB2241E8D53CB00194643 /* CommentFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentFootView.m; sourceTree = "<group>"; };
 		3B4295AA1E98EE95001374F2 /* SelectTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicView.h; sourceTree = "<group>"; };
 		3B4295AB1E98EE95001374F2 /* SelectTopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicView.m; sourceTree = "<group>"; };
+		3B4295AD1E9B227B001374F2 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
+		3B4295AE1E9B227B001374F2 /* LocationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationModel.m; sourceTree = "<group>"; };
 		3B42DC951E8A9E080037F9A4 /* FopaiShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FopaiShowView.h; sourceTree = "<group>"; };
 		3B42DC961E8A9E080037F9A4 /* FopaiShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FopaiShowView.m; sourceTree = "<group>"; };
 		3B42DC9B1E8AA2460037F9A4 /* PusaCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaCollectionViewCell.h; sourceTree = "<group>"; };
@@ -550,6 +553,8 @@
 			children = (
 				3B1F05921E7928A0005173B9 /* SendTopicModel.h */,
 				3B1F05931E7928A0005173B9 /* SendTopicModel.m */,
+				3B4295AD1E9B227B001374F2 /* LocationModel.h */,
+				3B4295AE1E9B227B001374F2 /* LocationModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1894,6 +1899,7 @@
 				3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */,
 				3BB4E0FB1E83AC4200707E75 /* FruitBowlModel.m in Sources */,
 				3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */,
+				3B4295AF1E9B227B001374F2 /* LocationModel.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
 				3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,

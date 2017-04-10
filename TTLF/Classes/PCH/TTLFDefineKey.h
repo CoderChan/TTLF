@@ -13,7 +13,7 @@
 // RGB
 #define RGBACOLOR(R,G,B,A) [UIColor colorWithRed:(R)/255.0f green:(G)/255.0f blue:(B)/255.0f alpha:(A)]
 // 蒙蒙的图层
-#define CoverColor RGBACOLOR(79, 79, 100, 0.8)
+#define CoverColor RGBACOLOR(79, 79, 100, 0.4)
 // 随机颜色
 #define HWRandomColor RGBACOLOR(arc4random_uniform(256), arc4random_uniform(256), arc4random_uniform(256),1)
 
@@ -30,7 +30,7 @@
 // 文字颜色
 #define TitleColor RGBACOLOR(0, 0, 0, 1)
 // 警告的偏红颜色
-#define WarningColor RGBACOLOR(227, 69, 69, 1)
+#define WarningColor RGBACOLOR(242, 73, 78, 1)
 // 控制器背景颜色 RGBACOLOR(250, 246, 232, 1)
 #define BackColor RGBACOLOR(239, 239, 249, 1)
 
