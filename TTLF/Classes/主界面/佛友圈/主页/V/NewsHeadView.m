@@ -8,9 +8,10 @@
 
 #import "NewsHeadView.h"
 #import <Masonry.h>
+#import "NewsListTableCell.h"
 
 
-@interface NewsHeadView ()
+@interface NewsHeadView ()<UITableViewDelegate,UITableViewDataSource>
 
 /** 个人头像 */
 @property (strong,nonatomic) UIImageView *headImgView;
@@ -20,6 +21,9 @@
 @property (strong,nonatomic) UILabel *gongdeLabel;
 /** xxx，已为您定制了业界头条 */
 @property (strong,nonatomic) UILabel *label;
+
+@property (strong,nonatomic) UITableView *newsTableView;
+@property (copy,nonatomic) NSArray *array;
 
 @end
 
@@ -59,7 +63,7 @@
     
     // 240
     // 1、个人信息的底部视图
-    UIView *userView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height * 0.35)];
+    UIView *userView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.width, self.height * 0.33)];
     userView.userInteractionEnabled = YES;
     userView.backgroundColor = NavColor;
     [self addSubview:userView];
@@ -72,7 +76,7 @@
     self.headImgView.layer.cornerRadius = 20;
     [userView addSubview:self.headImgView];
     [self.headImgView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(userView.mas_top).offset(12);
+        make.top.equalTo(userView.mas_top).offset(16);
         make.left.equalTo(userView.mas_left).offset(15);
         make.width.and.height.equalTo(@40);
     }];
@@ -139,7 +143,7 @@
     
     
     // 2、新闻节目
-    UIView *newsView = [[UIView alloc]initWithFrame:CGRectMake(20, self.height * 0.27, self.width - 40, self.height * 0.73 - 15)];
+    UIView *newsView = [[UIView alloc]initWithFrame:CGRectMake(20, self.height * 0.24, self.width - 40, self.height * 0.76 - 15)];
     newsView.backgroundColor = [UIColor whiteColor];
     newsView.userInteractionEnabled = YES;
     newsView.layer.shadowColor = [UIColor blackColor].CGColor;
@@ -163,9 +167,18 @@
     [newsView addSubview:self.label];
     
     // 线1
-    UIImageView *xian1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xuxian"]];
-    xian1.frame = CGRectMake(15, 38, newsView.width - 30, 2);
-    [newsView addSubview:xian1];
+//    UIImageView *xian1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
+//    xian1.frame = CGRectMake(15, 38, newsView.width - 30, 2);
+//    [newsView addSubview:xian1];
+    
+    self.newsTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 30, newsView.width, newsView.height - 32)];
+    self.newsTableView.backgroundColor = self.backgroundColor;
+    self.newsTableView.scrollEnabled = NO;
+    self.newsTableView.showsVerticalScrollIndicator = NO;
+    self.newsTableView.showsHorizontalScrollIndicator = NO;
+    self.newsTableView.delegate = self;
+    self.newsTableView.dataSource = self;
+    [newsView addSubview:self.newsTableView];
     
     
     // 线3
@@ -178,10 +191,60 @@
         make.height.equalTo(@1);
     }];
     
-    
-    
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return 4;
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        NewsArticleModel *model = [[NewsArticleModel alloc]init];
+        model.isNewest = YES;
+        model.title = @"中泰两国佛教领袖相聚曼谷，一脉相承共创未来";
+        model.coverUrl = @"https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2056808312,2400449481&fm=23&gp=0.jpg";
+        NewsListTableCell *cell = [NewsListTableCell sharedNewsListTableCell:tableView];
+        cell.model = model;
+        return cell;
+    }else{
+        NewsArticleModel *model = [[NewsArticleModel alloc]init];
+        model.isNewest = NO;
+        model.title = @"中泰两国佛教领袖相聚曼谷，一脉相承共创未来";
+        NewsListTableCell *cell = [NewsListTableCell sharedNewsListTableCell:tableView];
+        cell.model = model;
+        return cell;
+    }
+}
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        return 70;
+    }else{
+        return 30;
+    }
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, tableView.width, 40)];
+    UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
+    xian.frame = CGRectMake(0, 6, tableView.width, 1);
+    [footView addSubview:xian];
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(0, 13, tableView.width, 21)];
+    label.text = @"查看更多";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:13];
+    label.textColor = [UIColor grayColor];
+    [footView addSubview:label];
+    return footView;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 40;
+}
 
 @end

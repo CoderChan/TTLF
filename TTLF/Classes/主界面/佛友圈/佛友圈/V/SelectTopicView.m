@@ -81,7 +81,7 @@
         [button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
             if (self.SelectModelBlock) {
                 _SelectModelBlock(topicModel);
-                [self removeSubViewsFromSuperview:0.1];
+                [self removeSubViewsFromSuperview:0.2];
             }
         }];
         button.layer.masksToBounds = YES;
@@ -102,7 +102,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.backgroundColor = [UIColor clearColor];
     [button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self removeSubViewsFromSuperview:0.1];
+        [self removeSubViewsFromSuperview:0.2];
     }];
     button.frame = CGRectMake(0, 0, self.width, self.height - BottomViewHeight);
     [self addSubview:button];
@@ -143,7 +143,7 @@
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.backgroundColor = [UIColor clearColor];
     [button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self removeSubViewsFromSuperview:0.1];
+        [self removeSubViewsFromSuperview:0.2];
     }];
     button.frame = CGRectMake(0, 0, self.width, self.height - BottomViewHeight);
     [self addSubview:button];

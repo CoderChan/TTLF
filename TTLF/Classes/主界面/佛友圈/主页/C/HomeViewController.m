@@ -49,7 +49,7 @@
     }];
     
     __weak HomeViewController *copySelf = self;
-    self.headView = [[NewsHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 240)];
+    self.headView = [[NewsHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 320)];
     self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
     self.headView.ClickBlock = ^(ClickType type) {
         if (type == UserClickType) {
