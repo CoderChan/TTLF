@@ -56,6 +56,8 @@
 
 - (void)setupSubViews
 {
+    
+    __weak __block FYQImgTableViewCell *copySelf = self;
     // 头像
     self.headIMGView = [[UIImageView alloc]init];
     self.headIMGView.backgroundColor = [UIColor purpleColor];
@@ -66,9 +68,16 @@
         make.top.equalTo(self.contentView.mas_top).offset(12);
         make.width.and.height.equalTo(@(50*CKproportion));
     }];
+    UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if ([self.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+            [_delegate fyqTableCellClickType:UserClickType Model:self.model];
+        }
+    }];
+    [self.headIMGView addGestureRecognizer:headTap];
     
     // 昵称
     self.nameLabel = [[UILabel alloc]init];
+    self.nameLabel.userInteractionEnabled = YES;
     self.nameLabel.font = [UIFont boldSystemFontOfSize:16];
     self.nameLabel.textColor = RGBACOLOR(54, 108, 132, 1);
     self.nameLabel.text = @"我在南山南边";
@@ -78,13 +87,21 @@
         make.top.equalTo(self.headIMGView.mas_top);
         make.height.equalTo(@21);
     }];
+    UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if ([self.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+            [_delegate fyqTableCellClickType:UserClickType Model:self.model];
+        }
+    }];
+    [self.nameLabel addGestureRecognizer:nameTap];
     
     // 话题
     self.topicButton = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.topicButton setTitle:@"#因果故事#" forState:UIControlStateNormal];
     [self.topicButton setTitleColor:self.nameLabel.textColor forState:UIControlStateNormal];
     [self.topicButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
-        [MBProgressHUD showSuccess:sender.titleLabel.text];
+        if ([copySelf.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+            [copySelf.delegate fyqTableCellClickType:TopicClickType Model:copySelf.model];
+        }
     }];
     self.topicButton.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:self.topicButton];
@@ -94,8 +111,10 @@
         make.height.equalTo(@21);
     }];
     
+    
     // 底部视图
     self.bottomView = [[UIView alloc]init];
+    self.bottomView.userInteractionEnabled = YES;
     self.bottomView.backgroundColor = RGBACOLOR(188, 65, 76, 1);
     [self.contentView addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -104,6 +123,8 @@
         make.right.equalTo(self.contentView.mas_right);
         make.height.equalTo(@38);
     }];
+    
+    
     
     // 时间
     self.timeLabel = [[UILabel alloc]init];
@@ -122,7 +143,9 @@
     [self.locationButton setTitle:@"北京市·长安大街中南海" forState:UIControlStateNormal];
     self.locationButton.titleLabel.textAlignment = NSTextAlignmentLeft;
     [self.locationButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [MBProgressHUD showError:@"地理位置"];
+        if ([copySelf.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+            [copySelf.delegate fyqTableCellClickType:LocationClickType Model:copySelf.model];
+        }
     }];
     self.locationButton.titleLabel.font = self.timeLabel.font;
     [self.locationButton setTitleColor:self.nameLabel.textColor forState:UIControlStateNormal];
@@ -144,11 +167,17 @@
         make.left.equalTo(self.nameLabel.mas_left);
         make.width.and.height.equalTo(@80);
     }];
+    UITapGestureRecognizer *imgTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if ([self.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+            [_delegate fyqTableCellClickType:PhotoClickType Model:self.model];
+        }
+    }];
+    [self.contentIMGV addGestureRecognizer:imgTap];
     
     // 内容
     self.contentLabel = [[UILabel alloc]init];
     self.contentLabel.numberOfLines = 0;
-    self.contentLabel.text = @"孙女士空空荡荡当年的可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看我去看望少年时代看得懂看情况问问可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看看女士空空荡荡当年的可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看我去看望少年时代看得懂看情况问问可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看";
+    self.contentLabel.text = @"孙女士空空荡荡当年的，可多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我。看我去看望少年时代看得懂看情况问问，可丁可卯我看完快点快点书你看打卡打卡我看看十五年我肯定哇卡。哇卡上网看看女士空空荡荡当年的可。多可少什么什么上课没快点快点打卡上课你看情况是我看我看我看我看。我去看望少年时代看得懂看情况问问可丁可卯我看。完快点快点书你看打卡打卡我看看十五年我肯定哇卡哇卡上网看";
     self.contentLabel.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:self.contentLabel];
     [self.contentLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -158,6 +187,9 @@
         make.bottom.equalTo(self.contentIMGV.mas_top).offset(-5);
     }];
     
+    
+    
 }
+
 
 @end

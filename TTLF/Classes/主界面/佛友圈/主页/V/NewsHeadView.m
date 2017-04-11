@@ -83,7 +83,7 @@
     
     UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if (self.ClickBlock) {
-            _ClickBlock(UserClickType);
+            _ClickBlock(HeadUserClickType);
         }
     }];
     [self.headImgView addGestureRecognizer:headTap];
@@ -103,7 +103,7 @@
     
     UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if (self.ClickBlock) {
-            _ClickBlock(UserClickType);
+            _ClickBlock(HeadUserClickType);
         }
     }];
     [self.nameLabel addGestureRecognizer:nameTap];
@@ -128,7 +128,7 @@
     
     UITapGestureRecognizer *gongdeTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if (self.ClickBlock) {
-            _ClickBlock(GongdeClickType);
+            _ClickBlock(HeadGongdeClickType);
         }
     }];
     [gongdeView addGestureRecognizer:gongdeTap];
@@ -154,7 +154,7 @@
     
     UITapGestureRecognizer *newsTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if (self.ClickBlock) {
-            _ClickBlock(NewsClickType);
+            _ClickBlock(HeadNewsClickType);
         }
     }];
     [newsView addGestureRecognizer:newsTap];

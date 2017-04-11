@@ -115,6 +115,9 @@
 		3B2670F71E6FE2B40078379B /* SharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D71E6FE2B40078379B /* SharedView.m */; };
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
 		3B2A18551E8169E400578A1E /* PusaShowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2A18541E8169E400578A1E /* PusaShowView.m */; };
+		3B2E44C91E9C6C8E00C13F3A /* DynamicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E44C81E9C6C8E00C13F3A /* DynamicModel.m */; };
+		3B2E44CC1E9C788100C13F3A /* TopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E44CB1E9C788100C13F3A /* TopicsViewController.m */; };
+		3B2E44CF1E9C798800C13F3A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E44CE1E9C798800C13F3A /* LocationViewController.m */; };
 		3B3FB21E1E8D4E1F00194643 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */; };
 		3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2201E8D52E100194643 /* CommentHeadView.m */; };
 		3B3FB2251E8D53CB00194643 /* CommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2241E8D53CB00194643 /* CommentFootView.m */; };
@@ -391,6 +394,12 @@
 		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		3B2A18531E8169E400578A1E /* PusaShowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PusaShowView.h; sourceTree = "<group>"; };
 		3B2A18541E8169E400578A1E /* PusaShowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PusaShowView.m; sourceTree = "<group>"; };
+		3B2E44C71E9C6C8E00C13F3A /* DynamicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DynamicModel.h; sourceTree = "<group>"; };
+		3B2E44C81E9C6C8E00C13F3A /* DynamicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DynamicModel.m; sourceTree = "<group>"; };
+		3B2E44CA1E9C788100C13F3A /* TopicsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopicsViewController.h; sourceTree = "<group>"; };
+		3B2E44CB1E9C788100C13F3A /* TopicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicsViewController.m; sourceTree = "<group>"; };
+		3B2E44CD1E9C798800C13F3A /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
+		3B2E44CE1E9C798800C13F3A /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
 		3B3FB21C1E8D4E1F00194643 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		3B3FB21F1E8D52E100194643 /* CommentHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentHeadView.h; sourceTree = "<group>"; };
@@ -609,6 +618,10 @@
 			children = (
 				3B1F05A31E7928A0005173B9 /* HomeViewController.h */,
 				3B1F05A41E7928A0005173B9 /* HomeViewController.m */,
+				3B2E44CA1E9C788100C13F3A /* TopicsViewController.h */,
+				3B2E44CB1E9C788100C13F3A /* TopicsViewController.m */,
+				3B2E44CD1E9C798800C13F3A /* LocationViewController.h */,
+				3B2E44CE1E9C798800C13F3A /* LocationViewController.m */,
 				3B3FB21C1E8D4E1F00194643 /* CommentViewController.h */,
 				3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */,
 				3B8627871E8FAC50007B5742 /* ReportViewController.h */,
@@ -730,8 +743,8 @@
 		3B266FAA1E6FDC8F0078379B /* 主界面 */ = {
 			isa = PBXGroup;
 			children = (
-				3B26706F1E6FE2660078379B /* 禅道 */,
 				3B2670721E6FE2660078379B /* 佛友圈 */,
+				3B26706F1E6FE2660078379B /* 禅道 */,
 				3B2670731E6FE2660078379B /* 探索 */,
 				3B2670741E6FE2660078379B /* 修行者 */,
 			);
@@ -1252,6 +1265,8 @@
 		3B3FB2221E8D530400194643 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3B2E44C71E9C6C8E00C13F3A /* DynamicModel.h */,
+				3B2E44C81E9C6C8E00C13F3A /* DynamicModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1845,12 +1860,14 @@
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
 				3B5BC33D1E84051D00EE2425 /* DecorationTableCell.m in Sources */,
+				3B2E44C91E9C6C8E00C13F3A /* DynamicModel.m in Sources */,
 				3BC1F9521E7E357A00642023 /* ZanViewController.m in Sources */,
 				3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */,
 				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
 				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
 				3B2670471E6FDEBB0078379B /* WXApiResponseHandler.m in Sources */,
 				3B1F05CC1E792BD2005173B9 /* PunaListHeadView.m in Sources */,
+				3B2E44CC1E9C788100C13F3A /* TopicsViewController.m in Sources */,
 				3B2670611E6FDFE40078379B /* RootNavgationController.m in Sources */,
 				3B2670601E6FDFE40078379B /* NormalTableViewCell.m in Sources */,
 				3B2670581E6FDEBB0078379B /* GifRefreshFooter.m in Sources */,
@@ -1873,6 +1890,7 @@
 				3B8627891E8FAC50007B5742 /* ReportViewController.m in Sources */,
 				3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */,
 				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
+				3B2E44CF1E9C798800C13F3A /* LocationViewController.m in Sources */,
 				3B4295AC1E98EE95001374F2 /* SelectTopicView.m in Sources */,
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */,

@@ -15,9 +15,13 @@
 #import "UserInfoViewController.h"
 #import "PunnaNumViewController.h"
 #import "FoNewsViewController.h"
+#import "PhotosViewController.h"
+#import "TopicsViewController.h"
+#import "XLPhotoBrowser.h"
+#import "LocationViewController.h"
 
 
-@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface HomeViewController ()<UITableViewDelegate,UITableViewDataSource,FYQTableCellDelegate>
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
@@ -35,10 +39,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"佛友圈";
-    
+    NSString *she = @"蛇".base64EncodedString;
     [self setupSubViews];
 }
 
+#pragma mark - 绘制表格
 - (void)setupSubViews
 {
     [self.view addSubview:self.tableView];
@@ -52,13 +57,13 @@
     self.headView = [[NewsHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 320)];
     self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
     self.headView.ClickBlock = ^(ClickType type) {
-        if (type == UserClickType) {
+        if (type == HeadUserClickType) {
             UserInfoViewController *userInfo = [UserInfoViewController new];
             [copySelf.navigationController pushViewController:userInfo animated:YES];
-        }else if (type == GongdeClickType){
+        }else if (type == HeadGongdeClickType){
             PunnaNumViewController *punna = [PunnaNumViewController new];
             [copySelf.navigationController pushViewController:punna animated:YES];
-        }else if(type == NewsClickType){
+        }else if(type == HeadNewsClickType){
             FoNewsViewController *news = [FoNewsViewController new];
             [copySelf.navigationController pushViewController:news animated:YES];
         }
@@ -78,7 +83,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FYQImgTableViewCell *cell = [FYQImgTableViewCell sharedFYQImgTableViewCell:tableView];
-    
+    cell.delegate = self;
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,6 +128,35 @@
     self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
 }
 
+#pragma mark - 其他代理
+- (void)fyqTableCellClickType:(FYQCellClickType)clickType Model:(DynamicModel *)model
+{
+    
+    if (clickType == UserClickType) {
+        // 查看发帖人
+        PhotosViewController *photos = [[PhotosViewController alloc]init];
+        [self.navigationController pushViewController:photos animated:YES];
+    }else if (clickType == TopicClickType){
+        // 话题
+        TopicsViewController *topic = [[TopicsViewController alloc]init];
+        [self.navigationController pushViewController:topic animated:YES];
+    }else if (clickType == PhotoClickType){
+        // 查看大图
+        UIImage *testImg = [UIImage imageNamed:@"user_place"];
+        [XLPhotoBrowser showPhotoBrowserWithImages:@[testImg] currentImageIndex:0];
+    }else if (clickType == LocationClickType){
+        // 查看地理位置
+        LocationViewController *location = [[LocationViewController alloc]init];
+        [self.navigationController pushViewController:location animated:YES];
+    }else if (clickType == ZanClickType){
+        // 点赞
+        [MBProgressHUD showSuccess:@"点赞"];
+    }else if (clickType == DiscussClickType){
+        // 评论
+        CommentViewController *comment = [[CommentViewController alloc]init];
+        [self.navigationController pushViewController:comment animated:YES];
+    }
+}
 
 
 @end

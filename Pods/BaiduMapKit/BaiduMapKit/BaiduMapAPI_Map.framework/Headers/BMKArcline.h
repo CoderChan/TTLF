@@ -39,8 +39,7 @@
 
 /**
  *重新设置圆弧坐标
- *@param coords 指定的经纬度坐标点数组(需传入3个点)
- *@param count 坐标点的个数
+ *@param coords 指定的经纬度坐标点数组(需传入3个点) 坐标点的个数
  *@return 是否设置成功
  */
 - (BOOL)setArclineWithCoordinates:(CLLocationCoordinate2D *)coords;

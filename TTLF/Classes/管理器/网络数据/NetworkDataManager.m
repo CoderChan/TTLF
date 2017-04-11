@@ -74,7 +74,7 @@
     [param setValue:[NSString stringWithFormat:@"%d",wechatInfoModel.sex].base64EncodedString forKey:@"sex"];
     [param setValue:wechatInfoModel.headimgurl.base64EncodedString forKey:@"headUrl"];
     [param setValue:wechatInfoModel.city.base64EncodedString forKey:@"city"];
-    [param setValue:@"7".base64EncodedString forKey:@"from"];
+    [param setValue:@"8".base64EncodedString forKey:@"from"];
     
     NSString *getUrl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/register?nickName=%@&unionid=%@&sex=%@&headUrl=%@&city=%@&from=%@",wechatInfoModel.nickname.base64EncodedString,wechatInfoModel.unionid.base64EncodedString,[NSString stringWithFormat:@"%d",wechatInfoModel.sex].base64EncodedString,wechatInfoModel.headimgurl.base64EncodedString,wechatInfoModel.city.base64EncodedString,@"7".base64EncodedString];
     NSLog(@"登录url = %@",getUrl);
