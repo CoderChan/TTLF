@@ -39,6 +39,7 @@
 	<string>1.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>baidumap</string>
 		<string>taobao</string>
 		<string>alipayauth</string>
 		<string>wechat</string>

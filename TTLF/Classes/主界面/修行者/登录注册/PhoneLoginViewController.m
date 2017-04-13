@@ -10,6 +10,7 @@
 #import "RegisterViewController.h"
 #import <Masonry.h>
 #import "ForgetPasswordViewController.h"
+#import "RootNavgationController.h"
 
 @interface PhoneLoginViewController ()<UITextFieldDelegate>
 {
@@ -178,15 +179,46 @@
 {
     [self.view endEditing:YES];
     
-    [MBProgressHUD showMessage:@"登录中···"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+    [MBProgressHUD showMessage:nil];
+    [[TTLFManager sharedManager].networkManager loginByPhone:self.passField.text Pass:self.passField.text Success:^{
         [MBProgressHUD hideHUD];
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            
-        }];
-    });
+        [self loginSuccessAction];
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD hideHUD];
+        [self sendAlertAction:errorMsg];
+    }];
     
 }
+
+- (void)loginSuccessAction
+{
+    // 去tabbar
+    //    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
+    //    [TTLFManager sharedManager].tabbar = tabbar;
+    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    CATransition *animation = [CATransition animation];
+    //    animation.duration = 0.6;
+    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    //    animation.type = kCATransitionFade;
+    //    animation.subtype = kCATransitionFromBottom;
+    //    [self.view.window.layer addAnimation:animation forKey:nil];
+    //    window.rootViewController = tabbar;
+    
+    // 去礼佛界面
+    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
+    [TTLFManager sharedManager].lifoVC = lifoVC;
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.6;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionFade;
+    animation.subtype = kCATransitionFromBottom;
+    [self.view.window.layer addAnimation:animation forKey:nil];
+    window.rootViewController = nav;
+}
+
+
 
 - (void)forgetPassAction
 {
@@ -197,11 +229,6 @@
 - (void)registerAction
 {
     RegisterViewController *registerVC = [RegisterViewController new];
-    registerVC.AccountBlock = ^(NSString *phone,NSString *pass){
-        self.accountField.text = phone;
-        self.passField.text = pass;
-        [self loginSuccess];
-    };
     [self.navigationController pushViewController:registerVC animated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated

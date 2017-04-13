@@ -11,7 +11,7 @@
 #import <Masonry.h>
 #import <SMS_SDK/SMSSDK.h>
 #import <LCActionSheet.h>
-
+#import "RootNavgationController.h"
 
 
 @interface RegisterViewController ()
@@ -77,10 +77,8 @@
                 [sender setTitle:@"853" forState:UIControlStateNormal];
             }else if (buttonIndex == 4){
                 [sender setTitle:@"886" forState:UIControlStateNormal];
-            }else if (buttonIndex == 5){
-                [sender setTitle:@"1" forState:UIControlStateNormal];
             }
-        } otherButtonTitles:@"中国大陆 +86",@"香港 +852",@"澳门 +853",@"台湾 +886",@"USA +1", nil];
+        } otherButtonTitles:@"中国大陆 +86",@"香港 +852",@"澳门 +853",@"台湾 +886", nil];
         [sheet show];
     }];
     
@@ -293,19 +291,117 @@
             
             // 开始注册账号
             [[TTLFManager sharedManager].networkManager registerByPhone:self.phoneField.text Pass:self.passWord2.text Success:^{
-                [self sendAlertAction:@"注册成功"];
+                [self registerSuccess];
             } Fail:^(NSString *errorMsg) {
                 [self sendAlertAction:errorMsg];
             }];
             
         }else{
-            [self sendAlertAction:error.localizedDescription];
+            [self mobErrorAction:error Completion:^(NSString *errorTip) {
+                [self sendAlertAction:errorTip];
+            }];
+            
         }
     }];
      
     
 }
 
+- (void)registerSuccess
+{
+    // 去tabbar
+    //    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
+    //    [TTLFManager sharedManager].tabbar = tabbar;
+    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    //    CATransition *animation = [CATransition animation];
+    //    animation.duration = 0.6;
+    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    //    animation.type = kCATransitionFade;
+    //    animation.subtype = kCATransitionFromBottom;
+    //    [self.view.window.layer addAnimation:animation forKey:nil];
+    //    window.rootViewController = tabbar;
+    
+    // 去礼佛界面
+    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
+    [TTLFManager sharedManager].lifoVC = lifoVC;
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    CATransition *animation = [CATransition animation];
+    animation.duration = 0.6;
+    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+    animation.type = kCATransitionFade;
+    animation.subtype = kCATransitionFromBottom;
+    [self.view.window.layer addAnimation:animation forKey:nil];
+    window.rootViewController = nav;
+}
 
+
+- (void)mobErrorAction:(NSError *)mobError Completion:(void (^)(NSString *errorTip))completion
+{
+    NSInteger code = mobError.code;
+    switch (code) {
+        case 468:
+            completion(@"验证码错误");
+            break;
+        case 400:
+            completion(@"手机端请求不能被识别");
+            break;
+        case 405:
+            completion(@"请求的AppKey为空");
+            break;
+        case 406:
+            completion(@"请求的AppKey不存在");
+            break;
+        case 407:
+            completion(@"请求提交的数据缺少必要的数据");
+            break;
+        case 408:
+            completion(@"无效的请求参数");
+            break;
+        case 418:
+            completion(@"内部接口调用失败");
+            break;
+        case 450:
+            completion(@"无权执行该操作");
+            break;
+        case 454:
+            completion(@"请求传递的数据格式错误，服务器无法转换为JSON格式的数据");
+            break;
+        case 457:
+            completion(@"提交的手机号格式不正确（包括手机的区号）");
+            break;
+        case 456:
+            completion(@"提交的手机号码或者区号为空");
+            break;
+        case 458:
+            completion(@"手机号码在黑名单中");
+            break;
+        case 470:
+            completion(@"账户的短信余额不足");
+            break;
+        case 467:
+            completion(@"校验验证码请求频繁	5分钟内校验错误超过3次，验证码失效");
+            break;
+        case 465:
+            completion(@"手机号码在APP中每天发送短信的数量超限");
+            break;
+        case 464:
+            completion(@"每台手机每天发送短信的次数超限");
+            break;
+        case 463:
+            completion(@"手机号码在当前APP内每天发送短信的次数超出限制");
+            break;
+        case 472:
+            completion(@"客户端请求发送短信验证过于频繁");
+            break;
+        case 475:
+            completion(@"appKey的应用信息不存在");
+            break;
+            
+        default:
+            completion(mobError.localizedDescription);
+            break;
+    }
+}
 
 @end

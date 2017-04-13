@@ -8,10 +8,10 @@
 
 #import "SuperViewController.h"
 
-typedef void (^CompletionVlock)();
+
 
 @interface RegisterViewController : SuperViewController
 
-@property (copy,nonatomic) void (^AccountBlock)(NSString *phone,NSString *pass);
+
 
 @end

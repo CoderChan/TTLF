@@ -12,9 +12,9 @@
 
 /** 地理位置 */
 @property (copy,nonatomic) NSString *address;
-/** 经度 */
-@property (copy,nonatomic) NSString *latitude;
 /** 维度 */
+@property (copy,nonatomic) NSString *latitude;
+/** 经度 */
 @property (copy,nonatomic) NSString *longitude;
 
 @end

@@ -73,5 +73,25 @@
     NSArray *resultArray = results;
     return resultArray;
 }
+#pragma mark - 查看APP权限设置
+- (void)openSettingWithTips:(NSString *)tips
+{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:tips preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (UIApplicationOpenSettingsURLString != NULL) {
+            NSURL *appSettings = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+            [[UIApplication sharedApplication] openURL:appSettings];
+        }
+    }];
+    
+    [alertC addAction:action1];
+    [alertC addAction:action2];
+    [self presentViewController:alertC animated:YES completion:^{
+        
+    }];
+}
 
 @end

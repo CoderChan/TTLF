@@ -29,6 +29,9 @@
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:userModel.userID forKey:@"userID"];
+    if (userModel.unionid) {
+        userModel.unionid = @"phoneRegister";
+    }
     [dict setValue:userModel.unionid forKey:@"unionid"];
     Account *account = [Account accountWithDict:dict];
     [AccountTool saveAccount:account];

@@ -32,10 +32,12 @@
 @property (strong,nonatomic) BMKLocationService *locaServer;
 /** POI检索 */
 @property (strong,nonatomic) BMKPoiSearch *poiSearch;
-/** 定位管理者 */
+/** 定位GEO管理者 */
 @property (strong,nonatomic) BMKGeoCodeSearch *geoSearch;
 /** 我的位置信息 */
 @property (strong,nonatomic) LocationModel *locationModel;
+/** 大头针 */
+@property (strong,nonatomic) BMKPointAnnotation *annotation;
 
 
 @end
@@ -64,6 +66,7 @@
     UIView *insertView = [[UIView alloc]initWithFrame:CGRectMake(0, -SCREEN_HEIGHT, SCREEN_WIDTH, SCREEN_HEIGHT)];
     insertView.backgroundColor = RGBACOLOR(87, 87, 87, 1);
     [self.tableView insertSubview:insertView atIndex:0];
+    
     
     // 地图
     self.mapView = [[BMKMapView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, (SCREEN_HEIGHT - 64) * 0.34)];
@@ -104,6 +107,12 @@
     CLLocationDegrees longtude = userLocation.location.coordinate.longitude;
     _mapView.showsUserLocation = YES;
     [_mapView updateLocationData:userLocation];
+    // 设置大头针
+    CLLocationCoordinate2D coor;
+    coor.latitude = latitude;
+    coor.longitude = longtude;
+    self.annotation.coordinate = coor;
+    [_mapView addAnnotation:self.annotation];
     
     CLLocationCoordinate2D local2D = CLLocationCoordinate2DMake(latitude,longtude);
     [_mapView setCenterCoordinate:local2D animated:YES];
@@ -117,12 +126,11 @@
     BOOL flag = [_geoSearch reverseGeoCode:reverseGeoCodeSearchOption];
     
     if(flag){
-        KGLog(@"反geo检索发送成功");
-        self.locationModel.latitude = [NSString stringWithFormat:@"%f",latitude];;
+        self.locationModel.latitude = [NSString stringWithFormat:@"%f",latitude];
         self.locationModel.longitude = [NSString stringWithFormat:@"%f",longtude];
         
     }else{
-        [MBProgressHUD showError:@"检索失败"];
+        [self openSettingWithTips:@"位置信息检索失败，请检查您是否授权'天天礼佛'地理位置访问权限。"];
     }
     
 }
@@ -136,7 +144,7 @@
         [self.tableView reloadData];
         
     }else {
-        [MBProgressHUD showError:@"定位失败"];
+        [self openSettingWithTips:@"定位失败，请检查您是否授权'天天礼佛'地理位置访问权限。"];
     }
 }
 
@@ -182,7 +190,13 @@
     footView.backgroundColor = [UIColor clearColor];
     return footView;
 }
-
+- (BMKPointAnnotation *)annotation
+{
+    if (!_annotation) {
+        _annotation = [[BMKPointAnnotation alloc]init];
+    }
+    return _annotation;
+}
 - (UIActivityIndicatorView *)indicatorV
 {
     if (!_indicatorV) {

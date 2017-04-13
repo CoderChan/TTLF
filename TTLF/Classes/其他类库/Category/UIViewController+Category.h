@@ -22,5 +22,8 @@
 /** 数组随机排序 */
 - (NSArray *)randomizedArrayWithArray:(NSArray *)array;
 
+/** 前往权限设置 */
+- (void)openSettingWithTips:(NSString *)tips;
+
 
 @end

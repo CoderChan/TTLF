@@ -7,7 +7,10 @@
 //
 
 #import "SuperViewController.h"
+#import "LocationModel.h"
 
 @interface LocationViewController : SuperViewController
+
+- (instancetype)initWithLocation:(LocationModel *)localModel;
 
 @end

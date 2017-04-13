@@ -95,7 +95,7 @@
         [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
         
     } Fail:^(NSString *errorMsg) {
-        [MBProgressHUD showError:errorMsg];
+        [self sendAlertAction:errorMsg];
     }];
     
     

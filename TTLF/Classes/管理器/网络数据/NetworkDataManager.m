@@ -26,12 +26,66 @@
 }
 
 
-#pragma mark - 手机号码注册
+#pragma mark - 手机号码、微信注册登录
+// 手机注册
 - (void)registerByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail
 {
-    success();
+    NSString *url = @"http://app.yangruyi.com/home/Index/phoneRegister";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:phoneNum.base64EncodedString forKey:@"phone"];
+    [param setValue:passNum.base64EncodedString forKey:@"pass"];
+    [param setValue:@"8".base64EncodedString forKey:@"from"];
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        NSLog(@"注册后的信息 = %@",responseObject);
+        if (code == 1) {
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
+            [self saveUserInfo:userModel Success:^{
+                success();
+            } Fail:^(NSString *errorMsg) {
+                fail(errorMsg);
+            }];
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
-#pragma mark - 微信注册登录相关
+// 手机登录
+- (void)loginByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    NSString *url = @"http://app.yangruyi.com/home/Index/phoneLogin";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:phoneNum.base64EncodedString forKey:@"phone"];
+    [param setValue:passNum.base64EncodedString forKey:@"pass"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/phoneLogin?phone=%@&pass=%@",phoneNum.base64EncodedString,passNum.base64EncodedString];
+    NSLog(@"手机登录url = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        NSLog(@"手机登录的信息 = %@",responseObject);
+        if (code == 1) {
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
+            [self saveUserInfo:userModel Success:^{
+                success();
+            } Fail:^(NSString *errorMsg) {
+                fail(errorMsg);
+            }];
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+// 微信注册登录相关
 - (void)wechatLoginResponse:(SendAuthResp *)response Success:(SuccessBlock)success Fail:(FailBlock)fail
 {
     if (response.errCode == 0) {
@@ -67,7 +121,7 @@
 
 - (void)registerWithWechatInfoModel:(WechatInfoModel *)wechatInfoModel Success:(SuccessBlock)success Fail:(FailBlock)fail
 {
-    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/register"];
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/wechatRegister"];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:wechatInfoModel.nickname.base64EncodedString forKey:@"nickName"];
     [param setValue:wechatInfoModel.unionid.base64EncodedString forKey:@"unionid"];
@@ -102,7 +156,7 @@
 }
 - (void)simulatorLoginSuccess:(SuccessBlock)success Fail:(FailBlock)fail
 {
-    NSString *getUrl = @"http://app.yangruyi.com/home/Index/register?nickName=T2JqY0NoaW5h&unionid=b0tEY3Z3ekh2VTQ2RVhwNjd1S0xVWGJfd21Gdw==&sex=MQ==&headUrl=aHR0cDovL3d4LnFsb2dvLmNuL21tb3Blbi9GTHZocFp3QnhoNzZzMFU5V2M0ZGwzMEFvT1lmeXBRSjduckNvMlpoZ1AxbURuaWF3T0VKVjNRbzJzN25SdzdpYmFPWDJiUUNvYTFDek9GV2F1SHhkYVRrRjVaZEpsRldpY2wvMA==&city=SGFpZGlhbg==&from=Nw==";
+    NSString *getUrl = @"http://app.yangruyi.com/home/Index/wechatRegister?nickName=T2JqY0NoaW5h&unionid=b0tEY3Z3ekh2VTQ2RVhwNjd1S0xVWGJfd21Gdw==&sex=MQ==&headUrl=aHR0cDovL3d4LnFsb2dvLmNuL21tb3Blbi9GTHZocFp3QnhoNzZzMFU5V2M0ZGwzMEFvT1lmeXBRSjduckNvMlpoZ1AxbURuaWF3T0VKVjNRbzJzN25SdzdpYmFPWDJiUUNvYTFDek9GV2F1SHhkYVRrRjVaZEpsRldpY2wvMA==&city=SGFpZGlhbg==&from=Nw==";
     [HTTPManager GET:getUrl params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         KGLog(@"模拟器微信登录返回的信息 = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];

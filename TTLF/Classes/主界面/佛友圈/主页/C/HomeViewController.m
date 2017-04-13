@@ -39,7 +39,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"佛友圈";
-    NSString *she = @"蛇".base64EncodedString;
     [self setupSubViews];
 }
 
@@ -48,7 +47,7 @@
 {
     [self.view addSubview:self.tableView];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [self.tableView.mj_header endRefreshing];
         });
     }];
@@ -146,7 +145,11 @@
         [XLPhotoBrowser showPhotoBrowserWithImages:@[testImg] currentImageIndex:0];
     }else if (clickType == LocationClickType){
         // 查看地理位置
-        LocationViewController *location = [[LocationViewController alloc]init];
+        LocationModel *model = [LocationModel new];
+        model.latitude = @"46.284681";
+        model.longitude = @"114.158177";
+        model.address = @"北京市海淀区中观村大街";
+        LocationViewController *location = [[LocationViewController alloc]initWithLocation:model];
         [self.navigationController pushViewController:location animated:YES];
     }else if (clickType == ZanClickType){
         // 点赞

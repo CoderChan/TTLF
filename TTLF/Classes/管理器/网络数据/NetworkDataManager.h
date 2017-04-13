@@ -37,6 +37,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 
 // 手机号码注册
 - (void)registerByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 手机号码登录
+- (void)loginByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 微信注册登录
 - (void)wechatLoginResponse:(SendAuthResp *)response Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 模拟器登录
