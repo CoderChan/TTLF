@@ -90,7 +90,7 @@
 
 - (void)addVegeAction
 {
-    [MBProgressHUD showStore:@"美食秘诀" Type:YES];
+    [MBProgressHUD showSuccess:@"添加收藏"];
 }
 
 @end

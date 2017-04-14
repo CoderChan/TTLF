@@ -341,7 +341,7 @@
     NSInteger code = mobError.code;
     switch (code) {
         case 468:
-            completion(@"验证码错误");
+            completion(@"验证码错误或验证间隔时间太短，请重新获取。");
             break;
         case 400:
             completion(@"手机端请求不能被识别");

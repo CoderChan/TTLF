@@ -153,11 +153,13 @@
         [self.navigationController pushViewController:location animated:YES];
     }else if (clickType == ZanClickType){
         // 点赞
-        [MBProgressHUD showSuccess:@"点赞"];
+        [MBProgressHUD showSuccess:@"疯狂点赞"];
     }else if (clickType == DiscussClickType){
         // 评论
         CommentViewController *comment = [[CommentViewController alloc]init];
         [self.navigationController pushViewController:comment animated:YES];
+    }else if (clickType == ShareClickType){
+        [MBProgressHUD showError:@"分享到朋友圈"];
     }
 }
 

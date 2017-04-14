@@ -39,7 +39,8 @@
 /** 初始化主界面 */
 - (void)chooseRootViewControllerWithVersion
 {
-    if ([AccountTool account]) {
+    UserInfoModel *model = [[TTLFManager sharedManager].userManager getUserInfo];
+    if ([AccountTool account] && model.userID) {
         
         // 礼佛界面
 //        LiFoViewController *lifoVC = [[LiFoViewController alloc] init];

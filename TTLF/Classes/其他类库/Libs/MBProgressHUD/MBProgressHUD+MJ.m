@@ -35,15 +35,6 @@
     [self showError:error toView:nil];
 }
 
-+ (void)showWarn:(NSString *)warn
-{
-    [self showWarn:warn toView:nil];
-}
-
-+ (void)showStore:(NSString *)store Type:(BOOL)isStore
-{
-    [self showStore:store Type:isStore toView:nil];
-}
 
 + (MBProgressHUD *)showMessage:(NSString *)message
 {

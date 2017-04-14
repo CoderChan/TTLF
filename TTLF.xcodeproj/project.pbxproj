@@ -118,6 +118,7 @@
 		3B2E44C91E9C6C8E00C13F3A /* DynamicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E44C81E9C6C8E00C13F3A /* DynamicModel.m */; };
 		3B2E44CC1E9C788100C13F3A /* TopicsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E44CB1E9C788100C13F3A /* TopicsViewController.m */; };
 		3B2E44CF1E9C798800C13F3A /* LocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2E44CE1E9C798800C13F3A /* LocationViewController.m */; };
+		3B3E33281EA0824B00DB8CE6 /* FYQCellBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3E33271EA0824B00DB8CE6 /* FYQCellBottomView.m */; };
 		3B3FB21E1E8D4E1F00194643 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */; };
 		3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2201E8D52E100194643 /* CommentHeadView.m */; };
 		3B3FB2251E8D53CB00194643 /* CommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2241E8D53CB00194643 /* CommentFootView.m */; };
@@ -400,6 +401,8 @@
 		3B2E44CB1E9C788100C13F3A /* TopicsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopicsViewController.m; sourceTree = "<group>"; };
 		3B2E44CD1E9C798800C13F3A /* LocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationViewController.h; sourceTree = "<group>"; };
 		3B2E44CE1E9C798800C13F3A /* LocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationViewController.m; sourceTree = "<group>"; };
+		3B3E33261EA0824B00DB8CE6 /* FYQCellBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FYQCellBottomView.h; sourceTree = "<group>"; };
+		3B3E33271EA0824B00DB8CE6 /* FYQCellBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FYQCellBottomView.m; sourceTree = "<group>"; };
 		3B3FB21C1E8D4E1F00194643 /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		3B3FB21F1E8D52E100194643 /* CommentHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentHeadView.h; sourceTree = "<group>"; };
@@ -639,6 +642,8 @@
 				3B9886AB1E93EE230051F245 /* NewsHeadView.m */,
 				3B1F05A71E7928A0005173B9 /* FYQImgTableViewCell.h */,
 				3B1F05A81E7928A0005173B9 /* FYQImgTableViewCell.m */,
+				3B3E33261EA0824B00DB8CE6 /* FYQCellBottomView.h */,
+				3B3E33271EA0824B00DB8CE6 /* FYQCellBottomView.m */,
 				3B3FB21F1E8D52E100194643 /* CommentHeadView.h */,
 				3B3FB2201E8D52E100194643 /* CommentHeadView.m */,
 				3B3FB2231E8D53CB00194643 /* CommentFootView.h */,
@@ -1831,6 +1836,7 @@
 				3BB4E0F81E83A93900707E75 /* XiangModel.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
 				3B1F05AF1E7928A0005173B9 /* SendDynTableCell.m in Sources */,
+				3B3E33281EA0824B00DB8CE6 /* FYQCellBottomView.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
 				3B26703D1E6FDEBB0078379B /* KSPhotoView.m in Sources */,
 				3B26703F1E6FDEBB0078379B /* MBProgressHUD+MJ.m in Sources */,

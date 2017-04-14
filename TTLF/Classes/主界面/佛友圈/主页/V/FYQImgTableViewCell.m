@@ -8,6 +8,8 @@
 
 #import "FYQImgTableViewCell.h"
 #import <Masonry.h>
+#import "FYQCellBottomView.h"
+
 
 
 @interface FYQImgTableViewCell ()
@@ -26,7 +28,7 @@
 /** 配置的图片 */
 @property (strong,nonatomic) UIImageView *contentIMGV;
 /** 底部view */
-@property (strong,nonatomic) UIView *bottomView;
+@property (strong,nonatomic) FYQCellBottomView *bottomView;
 
 @end
 
@@ -36,6 +38,7 @@
 {
     static NSString *ID = @"FYQImgTableViewCell";
     FYQImgTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     if (!cell) {
         cell = [[FYQImgTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
@@ -113,9 +116,22 @@
     
     
     // 底部视图
-    self.bottomView = [[UIView alloc]init];
-    self.bottomView.userInteractionEnabled = YES;
-    self.bottomView.backgroundColor = RGBACOLOR(188, 65, 76, 1);
+    self.bottomView = [[FYQCellBottomView alloc]init];
+    self.bottomView.ClickBlock = ^(CellClickType type) {
+        if (type == ShareType) {
+            if ([copySelf.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+                [copySelf.delegate fyqTableCellClickType:ShareClickType Model:copySelf.model];
+            }
+        } else if (type == CommentType){
+            if ([copySelf.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+                [copySelf.delegate fyqTableCellClickType:DiscussClickType Model:copySelf.model];
+            }
+        }else if (type == ZanType){
+            if ([copySelf.delegate respondsToSelector:@selector(fyqTableCellClickType:Model:)]) {
+                [copySelf.delegate fyqTableCellClickType:ZanClickType Model:copySelf.model];
+            }
+        }
+    };
     [self.contentView addSubview:self.bottomView];
     [self.bottomView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(self.contentView.mas_bottom);

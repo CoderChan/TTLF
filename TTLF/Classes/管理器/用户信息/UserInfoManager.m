@@ -26,15 +26,17 @@
 #pragma mark - 保存数据
 - (void)saveUserInfo:(UserInfoModel *)userModel Success:(void (^)())success Fail:(FailBlock)fail
 {
+    [self removeDataSave];
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     [dict setValue:userModel.userID forKey:@"userID"];
-    if (userModel.unionid) {
+    if (!userModel.unionid) {
         userModel.unionid = @"phoneRegister";
     }
     [dict setValue:userModel.unionid forKey:@"unionid"];
     Account *account = [Account accountWithDict:dict];
     [AccountTool saveAccount:account];
+    
     
     NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
     [UD setObject:userModel.userID forKey:UuserID];
@@ -53,11 +55,13 @@
     [UD setObject:userModel.from forKey:Ufrom];
     [UD setObject:userModel.userBgImg forKey:UuserBgImg];
     
-    BOOL isSave = [UD synchronize];
-    if (isSave) {
+    [UD synchronize];
+    
+    UserInfoModel *checkModel = [self getUserInfo];
+    if (checkModel.userID) {
         success();
     }else{
-        fail(@"信息保存失败");
+        fail(@"信息缓存失败，请重新登录");
     }
     
 }
@@ -94,7 +98,8 @@
 #pragma mark - 获取用户模型
 - (UserInfoModel *)getUserInfo
 {
-    UserInfoModel *userModel = [UserInfoModel new];
+    UserInfoModel *userModel = [[UserInfoModel alloc]init];
+    
     NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
     NSString *userID = [UD objectForKey:UuserID];
     NSString *unionid = [UD objectForKey:Uunionid];

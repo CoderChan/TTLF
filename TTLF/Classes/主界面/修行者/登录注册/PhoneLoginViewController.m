@@ -55,9 +55,11 @@
     UIButton *dismissBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [dismissBtn setImage:[UIImage imageNamed:@"dismiss"] forState:UIControlStateNormal];
     [dismissBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            
+        }];
     }];
-    [dismissBtn setFrame:CGRectMake(18, 36, 20, 20)];
+    [dismissBtn setFrame:CGRectMake(18, 30, 40, 40)];
     [backImage addSubview:dismissBtn];
     
     

@@ -129,7 +129,10 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     [otherButton setTitle:@"手机号码登录" forState:UIControlStateNormal];
     [otherButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         PhoneLoginViewController *registerVC = [PhoneLoginViewController new];
-        [self.navigationController pushViewController:registerVC animated:YES];
+        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:registerVC];
+        [self presentViewController:nav animated:YES completion:^{
+            
+        }];
     }];
     otherButton.layer.masksToBounds = YES;
     otherButton.layer.cornerRadius = 24;

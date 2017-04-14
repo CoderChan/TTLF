@@ -96,7 +96,7 @@
             VegeViewController *vegeVC = [VegeViewController new];
             [self.navigationController pushViewController:vegeVC animated:YES];
         }else{
-            [MBProgressHUD showWarn:@"我在南山南"];
+            [MBProgressHUD showSuccess:@"我在南山南"];
         }
     }
 }

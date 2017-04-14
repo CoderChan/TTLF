@@ -15,11 +15,7 @@
 + (void)showSuccess:(NSString *)success;
 // 错误
 + (void)showError:(NSString *)error;
-// 警告
-+ (void)showWarn:(NSString *)warn;
-// 收藏、不收藏
-+ (void)showStore:(NSString *)store Type:(BOOL)isStore;
-// 取消收藏
+
 
 // 加载中
 + (MBProgressHUD *)showMessage:(NSString *)message;

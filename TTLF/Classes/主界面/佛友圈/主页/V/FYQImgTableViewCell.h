@@ -15,8 +15,9 @@ typedef NS_ENUM(NSInteger,FYQCellClickType) {
     TopicClickType = 2,     // 点击查看话题列表
     PhotoClickType = 3,     // 点击查看大图
     LocationClickType = 4,  // 点击查看地理位置
-    ZanClickType = 5,       // 点赞
-    DiscussClickType = 6    // 点击发表评论
+    ShareClickType = 5,     // 转发分享
+    DiscussClickType = 6,   // 点击发表评论
+    ZanClickType = 7        // 点赞
 };
 
 @protocol FYQTableCellDelegate <NSObject>

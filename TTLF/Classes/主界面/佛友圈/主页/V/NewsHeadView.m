@@ -48,7 +48,6 @@
     _nameLabel.text = userModel.nickName;
     
     _label.text = [NSString stringWithFormat:@"%@，为您定制了头条",userModel.nickName];
-    
     NSString *tempStr = [NSString stringWithFormat:@"功德值 %@",self.userModel.punnaNum];
     NSRange range = [tempStr rangeOfString:self.userModel.punnaNum];
     NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:tempStr];
