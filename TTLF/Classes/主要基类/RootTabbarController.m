@@ -15,7 +15,9 @@
 #import "SendDynViewController.h"
 #import "RootNavgationController.h"
 
-@interface RootTabbarController ()<TTLFTabbarDelegate>
+@interface RootTabbarController ()<TTLFTabbarDelegate,UITabBarControllerDelegate>
+
+@property (assign,nonatomic) int i;
 
 @end
 
@@ -23,12 +25,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.delegate = self;
     [self setupOptions];
     [self addChildControllers];
     
 }
 - (void)setupOptions
 {
+    self.i = 0;
     self.view.backgroundColor = [UIColor clearColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.tabBar setTranslucent:NO];
@@ -94,6 +98,26 @@
 {
     NSLog(@"W = %g,H = %g",size.width,size.height);
 }
-
+#pragma mark - 双击
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
+{
+    
+    //双击处理
+    RootNavgationController *navdid = tabBarController.selectedViewController;
+    RootNavgationController *nav = (RootNavgationController *)viewController;
+    if (![navdid.topViewController isEqual:self]) {
+        self.i--;
+    }
+    
+    if ([nav.topViewController isEqual:self]) {
+        self.i++;
+    }
+    if (self.i == 2) {
+        self.i = 0;
+        NSLog(@"点击两次");
+        //这里做逻辑处理就行了
+    }
+    return YES;
+}
 
 @end

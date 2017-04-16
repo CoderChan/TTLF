@@ -35,6 +35,8 @@
     [param setValue:phoneNum.base64EncodedString forKey:@"phone"];
     [param setValue:passNum.base64EncodedString forKey:@"pass"];
     [param setValue:@"8".base64EncodedString forKey:@"from"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/phoneRegister?phone=%@&pass=%@&from=%@",phoneNum.base64EncodedString,passNum.base64EncodedString,@"8".base64EncodedString];
+    NSLog(@"手机注册url = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -55,6 +57,7 @@
         fail(error.localizedDescription);
     }];
 }
+
 // 手机登录
 - (void)loginByPhone:(NSString *)phoneNum Pass:(NSString *)passNum Success:(SuccessBlock)success Fail:(FailBlock)fail
 {
@@ -62,7 +65,9 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:phoneNum.base64EncodedString forKey:@"phone"];
     [param setValue:passNum.base64EncodedString forKey:@"pass"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/phoneLogin?phone=%@&pass=%@",phoneNum.base64EncodedString,passNum.base64EncodedString];
+    [param setValue:@"8".base64EncodedString forKey:@"from"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/phoneLogin?phone=%@&pass=%@&from=%@",phoneNum.base64EncodedString,passNum.base64EncodedString,@"8".base64EncodedString];
     NSLog(@"手机登录url = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -77,6 +82,32 @@
             } Fail:^(NSString *errorMsg) {
                 fail(errorMsg);
             }];
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+// 忘记密码，设置新密码
+- (void)setNewPassWord:(NSString *)phoneNum Pass:(NSString *)newPass Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    
+    NSString *url = @"http://app.yangruyi.com/home/Index/forgetPass";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:phoneNum.base64EncodedString forKey:@"phone"];
+    [param setValue:newPass.base64EncodedString forKey:@"newPass"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/forgetPass?phone=%@&newPass=%@",phoneNum.base64EncodedString,newPass.base64EncodedString];
+    NSLog(@"忘记密码的url = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        NSLog(@"忘记密码的返回 = %@",responseObject);
+        if (code == 1) {
+            success();
         }else{
             fail(message);
         }
@@ -154,6 +185,65 @@
     }];
     
 }
+// 退出登录
+- (void)returnAccountSuccess:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/phoneLogOut"];
+    [HTTPManager POST:url params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            [self reloginCompletion:^{
+               success();
+            }];
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+// 退出登录，清除一些缓存
+- (void)reloginCompletion:(void (^)())completion
+{
+    [[SDImageCache sharedImageCache] cleanDisk];
+    [[TTLFManager sharedManager].userManager removeDataSave];
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    
+    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *fileName in childerFiles) {
+            //如有需要，加入条件，过滤掉不想删除的文件
+            
+            if ([fileName isEqualToString:@"t_user.sqlite"]) {
+                // 不删除这些。用户信息、离线订单、归档
+                
+                completion();
+                
+            }else{
+                NSError *error;
+                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                [fileManager removeItemAtPath:absolutePath error:&error];
+                completion();
+            }
+        }
+    }
+    
+}
+- (void)clearCacheCompletion:(void (^)())completion
+{
+    completion();
+}
+
+// 模拟器微信登录
 - (void)simulatorLoginSuccess:(SuccessBlock)success Fail:(FailBlock)fail
 {
     NSString *getUrl = @"http://app.yangruyi.com/home/Index/wechatRegister?nickName=T2JqY0NoaW5h&unionid=b0tEY3Z3ekh2VTQ2RVhwNjd1S0xVWGJfd21Gdw==&sex=MQ==&headUrl=aHR0cDovL3d4LnFsb2dvLmNuL21tb3Blbi9GTHZocFp3QnhoNzZzMFU5V2M0ZGwzMEFvT1lmeXBRSjduckNvMlpoZ1AxbURuaWF3T0VKVjNRbzJzN25SdzdpYmFPWDJiUUNvYTFDek9GV2F1SHhkYVRrRjVaZEpsRldpY2wvMA==&city=SGFpZGlhbg==&from=Nw==";
@@ -187,39 +277,7 @@
     }];
 }
 
-#pragma mark - 退出登录
-- (void)reloginCompletion:(void (^)())completion
-{
-    [[SDImageCache sharedImageCache] cleanDisk];
-    [[TTLFManager sharedManager].userManager removeDataSave];
-    NSFileManager *fileManager=[NSFileManager defaultManager];
-    
-    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *path = [paths firstObject];
-    if ([fileManager fileExistsAtPath:path]) {
-        NSArray *childerFiles=[fileManager subpathsAtPath:path];
-        for (NSString *fileName in childerFiles) {
-            //如有需要，加入条件，过滤掉不想删除的文件
-            
-            if ([fileName isEqualToString:@"t_user.sqlite"]) {
-                // 不删除这些。用户信息、离线订单、归档
-                
-                completion();
-                
-            }else{
-                NSError *error;
-                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
-                [fileManager removeItemAtPath:absolutePath error:&error];
-                completion();
-            }
-        }
-    }
-    
-}
-- (void)clearCacheCompletion:(void (^)())completion
-{
-    completion();
-}
+
 
 #pragma mark - 修改信息
 // 改昵称
@@ -413,9 +471,16 @@
 #pragma mark - 花名相关
 - (void)sharkActionSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
     NSString *url = @"http://app.yangruyi.com/home/Index/shock";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     
-    [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
+    [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
         NSError *error;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
         if (!error) {
@@ -470,9 +535,16 @@
 #pragma mark - 获取话题列表
 - (void)getTopicListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
     NSString *url = @"http://app.yangruyi.com/home/Index/topic";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     
-    [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
+    [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
         
         NSError *error;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
@@ -585,6 +657,7 @@
     NSString *url = @"http://app.yangruyi.com/home/Index/showLf";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
     NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/showLf?userID=%@",account.userID.base64EncodedString];
     NSLog(@"查看今日礼佛信息 = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -611,8 +684,13 @@
         fail(@"用户未登录");
         return;
     }
+    
     NSString *url = @"http://app.yangruyi.com/home/Index/qiancheng";
-    [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    
+    [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
 //        NSLog(@"礼佛资源 = %@",responseObject);
         NSError *error;
         NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];

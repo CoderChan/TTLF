@@ -10,7 +10,6 @@
 #import "UserProtocolController.h"
 #import <Masonry.h>
 #import <SMS_SDK/SMSSDK.h>
-#import <LCActionSheet.h>
 #import "RootNavgationController.h"
 
 
@@ -21,7 +20,6 @@
     dispatch_source_t _timer;
 }
 
-@property (strong,nonatomic) UIButton *areaButton;
 
 /** 手机号码 */
 @property (strong,nonatomic) UITextField *phoneField;
@@ -58,34 +56,12 @@
 
 -(void)setupSubViews{
     
+    UIView *leftV1 = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 50, 40)];
     
-    self.areaButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.areaButton.frame = CGRectMake(0, 0, 50, 40);
-    self.areaButton.backgroundColor = [UIColor whiteColor];
-    [self.areaButton setTitle:@"86" forState:UIControlStateNormal];
-    [self.areaButton setTitleColor:NavColor forState:UIControlStateNormal];
-    self.areaButton.titleLabel.font = [UIFont systemFontOfSize:14];
-    __weak RegisterViewController *copySelf = self;
-    [self.areaButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
-        [copySelf.view endEditing:YES];
-        LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"选择号码区域" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
-            if (buttonIndex == 1) {
-                [sender setTitle:@"86" forState:UIControlStateNormal];
-            }else if (buttonIndex == 2){
-                [sender setTitle:@"852" forState:UIControlStateNormal];
-            }else if (buttonIndex == 3){
-                [sender setTitle:@"853" forState:UIControlStateNormal];
-            }else if (buttonIndex == 4){
-                [sender setTitle:@"886" forState:UIControlStateNormal];
-            }
-        } otherButtonTitles:@"中国大陆 +86",@"香港 +852",@"澳门 +853",@"台湾 +886", nil];
-        [sheet show];
-    }];
-    
-    UIView *xian = [[UIView alloc]initWithFrame:CGRectMake(45.5, 5, 0.5, 30)];
-    xian.backgroundColor = [UIColor lightGrayColor];
-    xian.alpha = 0.6;
-    [self.areaButton addSubview:xian];
+    UIImageView *phoneIcon = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"login_phone"]];
+    phoneIcon.backgroundColor = [UIColor whiteColor];
+    phoneIcon.frame = CGRectMake(12, 7, 30, 30);
+    [leftV1 addSubview:phoneIcon];
     
     // 手机号码
     self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(30, 25, self.view.width - 60, 40)];
@@ -94,7 +70,7 @@
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
     self.phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.phoneField.leftView = self.areaButton;
+    self.phoneField.leftView = leftV1;
     self.phoneField.backgroundColor = [UIColor whiteColor];
     self.phoneField.layer.masksToBounds = YES;
     self.phoneField.layer.cornerRadius = 4;
@@ -193,7 +169,7 @@
 {
     [self.view endEditing:YES];
     
-    if (self.phoneField.text.length < 3) {
+    if (![self.phoneField.text isPhoneNum]) {
         [MBProgressHUD showError:@"手机号码不正确"];
         return;
     }
@@ -202,7 +178,7 @@
     [self openCountdown];
     
     
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.phoneField.text zone:self.areaButton.titleLabel.text customIdentifier:nil result:^(NSError *error) {
+    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.phoneField.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (!error) {
             [MBProgressHUD showSuccess:@"已发送至您的手机"];
             [self.codeField becomeFirstResponder];
@@ -269,7 +245,7 @@
 -(void)RegisterAction{
     
     [self.view endEditing:YES];
-    if (self.phoneField.text.length <= 3) {
+    if (![self.phoneField.text isPhoneNum]) {
         [MBProgressHUD showError:@"手机号码不正确"];
         return;
     }
@@ -286,13 +262,16 @@
         return;
     }
     
-    [SMSSDK commitVerificationCode:self.codeField.text phoneNumber:self.phoneField.text zone:self.areaButton.titleLabel.text result:^(SMSSDKUserInfo *userInfo, NSError *error) {
+    [SMSSDK commitVerificationCode:self.codeField.text phoneNumber:self.phoneField.text zone:@"86" result:^(SMSSDKUserInfo *userInfo, NSError *error) {
         if (!error) {
             
             // 开始注册账号
+            [MBProgressHUD showMessage:@""];
             [[TTLFManager sharedManager].networkManager registerByPhone:self.phoneField.text Pass:self.passWord2.text Success:^{
+                [MBProgressHUD hideHUD];
                 [self registerSuccess];
             } Fail:^(NSString *errorMsg) {
+                [MBProgressHUD hideHUD];
                 [self sendAlertAction:errorMsg];
             }];
             
@@ -303,7 +282,7 @@
             
         }
     }];
-     
+    
     
 }
 

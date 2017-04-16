@@ -21,7 +21,7 @@
 /** 头像 */
 @property (strong,nonatomic) UIImageView *headImageV;
 /** 账号 */
-@property (strong,nonatomic) UITextField *accountField;
+@property (strong,nonatomic) UITextField *phoneField;
 /** 密码 */
 @property (strong,nonatomic) UITextField *passField;
 
@@ -78,22 +78,22 @@
     }];
     
     
-    self.accountField = [[UITextField alloc]init];
-    self.accountField.delegate = self;
-    self.accountField.clearButtonMode = UITextFieldViewModeWhileEditing;
-    self.accountField.borderStyle = UITextBorderStyleNone;
-    self.accountField.background = [UIImage imageNamed:@"userImage"];
-    self.accountField.textAlignment = NSTextAlignmentCenter;
-    self.accountField.placeholder = @"手机号码";
-    self.accountField.tag = 43;
-    self.accountField.tintColor = [UIColor whiteColor];
-    self.accountField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.accountField.keyboardType = UIKeyboardTypeNumberPad;
-    self.accountField.textColor = [UIColor whiteColor];
-    self.accountField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.accountField.placeholder attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1],NSForegroundColorAttributeName:[UIColor whiteColor]}];
-    self.accountField.attributedText = [[NSAttributedString alloc]initWithString:self.accountField.text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
-    [backImage addSubview:self.accountField];
-    [self.accountField mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.phoneField = [[UITextField alloc]init];
+    self.phoneField.delegate = self;
+    self.phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
+    self.phoneField.borderStyle = UITextBorderStyleNone;
+    self.phoneField.background = [UIImage imageNamed:@"userImage"];
+    self.phoneField.textAlignment = NSTextAlignmentCenter;
+    self.phoneField.placeholder = @"手机号码";
+    self.phoneField.tag = 43;
+    self.phoneField.tintColor = [UIColor whiteColor];
+    self.phoneField.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
+    self.phoneField.keyboardType = UIKeyboardTypeNumberPad;
+    self.phoneField.textColor = [UIColor whiteColor];
+    self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1],NSForegroundColorAttributeName:[UIColor whiteColor]}];
+    self.phoneField.attributedText = [[NSAttributedString alloc]initWithString:self.phoneField.text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
+    [backImage addSubview:self.phoneField];
+    [self.phoneField mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.headImageV.mas_bottom).offset(50*CKproportion);
         make.left.equalTo(backImage.mas_left).offset(40);
         make.right.equalTo(backImage.mas_right).offset(-40);
@@ -116,7 +116,7 @@
     self.passField.attributedText = [[NSAttributedString alloc]initWithString:self.passField.text attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     [backImage addSubview:self.passField];
     [self.passField mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.accountField.mas_bottom).offset(10);
+        make.top.equalTo(self.phoneField.mas_bottom).offset(10);
         make.left.equalTo(backImage.mas_left).offset(40);
         make.right.equalTo(backImage.mas_right).offset(-40);
         make.height.equalTo(@40);
@@ -167,10 +167,10 @@
     }];
     
 #ifdef DEBUG // 处于开发阶段
-    self.accountField.text = @"13522705114";
-    self.passField.text = @"888888";
+    self.phoneField.text = @"13522705114";
+    self.passField.text = @"555555";
 #else // 处于发布阶段
-    self.accountField.text = nil;
+    self.phoneField.text = nil;
     self.passField.text = nil;
 #endif
     
@@ -179,10 +179,19 @@
 #pragma mark - 登录注册
 - (void)loginSuccess
 {
+    
     [self.view endEditing:YES];
+    if (![self.phoneField.text isPhoneNum]) {
+        [MBProgressHUD showError:@"号码有误"];
+        return;
+    }
+    if (self.passField.text.length < 6) {
+        [MBProgressHUD showError:@"密码有误"];
+        return;
+    }
     
     [MBProgressHUD showMessage:nil];
-    [[TTLFManager sharedManager].networkManager loginByPhone:self.passField.text Pass:self.passField.text Success:^{
+    [[TTLFManager sharedManager].networkManager loginByPhone:self.phoneField.text Pass:self.passField.text Success:^{
         [MBProgressHUD hideHUD];
         [self loginSuccessAction];
     } Fail:^(NSString *errorMsg) {

@@ -23,6 +23,37 @@
         
     }];
 }
+#pragma mark - 单个alertView的回调提示
+- (void)showOneAlertWithMessage:(NSString *)message ConfirmClick:(void (^)())clickBlock
+{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        clickBlock();
+    }];
+    
+    [alertC addAction:action];
+    [self presentViewController:alertC animated:YES completion:^{
+        
+    }];
+}
+
+#pragma mark - 双按钮的alertView
+- (void)showTwoAlertWithMessage:(NSString *)message ConfirmClick:(void (^)())clickBlock
+{
+    UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        
+    }];
+    UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        clickBlock();
+    }];
+    
+    [alertC addAction:action1];
+    [alertC addAction:action2];
+    [self presentViewController:alertC animated:YES completion:^{
+        
+    }];
+}
 
 #pragma mark -  将字典或数组转化为JSON串
 - (NSString *)toJsonStr:(id)object

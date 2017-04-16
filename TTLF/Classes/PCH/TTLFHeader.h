@@ -16,6 +16,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "UIView+Extension.h"
 #import "UIImage+Category.h"
+#import "NSString+Category.h"
 #import <UIImageView+WebCache.h>
 #import "NSString+Category.h"
 #import "UIViewController+Category.h"

@@ -70,6 +70,7 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         [self setAccessoryType:UITableViewCellAccessoryNone];
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setupSubViews];
     }
     return self;

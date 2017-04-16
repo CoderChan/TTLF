@@ -116,8 +116,10 @@
         // 退出当前账号
         LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"确定退出，换号登录？" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
             if (buttonIndex == 1) {
-                [[TTLFManager sharedManager].networkManager reloginCompletion:^{
+                [[TTLFManager sharedManager].networkManager returnAccountSuccess:^{
                     [self reloginSuccess];
+                } Fail:^(NSString *errorMsg) {
+                    [self sendAlertAction:errorMsg];
                 }];
             }
         } otherButtonTitles:@"确定退出", nil];

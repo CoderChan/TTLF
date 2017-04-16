@@ -38,14 +38,14 @@
     
     __weak __block FYQCellBottomView *copySelf = self;
     
-    UIImageView *topXian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xuxian"]];
-    [self addSubview:topXian];
-    [topXian mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.mas_left).offset(15);
-        make.right.equalTo(self.mas_right).offset(-15);
-        make.top.equalTo(self.mas_top);
-        make.height.equalTo(@2);
-    }];
+//    UIImageView *topXian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
+//    [self addSubview:topXian];
+//    [topXian mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.mas_left).offset(15);
+//        make.right.equalTo(self.mas_right).offset(-15);
+//        make.top.equalTo(self.mas_top);
+//        make.height.equalTo(@2);
+//    }];
     
     UIImageView *bottomXian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
     [self addSubview:bottomXian];
@@ -70,7 +70,7 @@
     self.reshareButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self addSubview:self.reshareButton];
     [self.reshareButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topXian.mas_bottom);
+        make.top.equalTo(self.mas_top);
         make.bottom.equalTo(bottomXian.mas_top);
         make.left.equalTo(self.mas_left);
         make.width.equalTo(@(SCREEN_WIDTH/3));
@@ -90,7 +90,7 @@
     self.commentButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self addSubview:self.commentButton];
     [self.commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topXian.mas_bottom);
+        make.top.equalTo(self.mas_top);
         make.bottom.equalTo(bottomXian.mas_top);
         make.left.equalTo(self.reshareButton.mas_right);
         make.width.equalTo(@(SCREEN_WIDTH/3));
@@ -110,7 +110,7 @@
     self.zanButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [self addSubview:self.zanButton];
     [self.zanButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(topXian.mas_bottom);
+        make.top.equalTo(self.mas_top);
         make.bottom.equalTo(bottomXian.mas_top);
         make.left.equalTo(self.commentButton.mas_right);
         make.width.equalTo(@(SCREEN_WIDTH/3));

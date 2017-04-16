@@ -12,6 +12,10 @@
 
 /** AlertView提示 */
 - (void)sendAlertAction:(NSString *)message;
+/** 单个AlertView带回调的提示 */
+- (void)showOneAlertWithMessage:(NSString *)message ConfirmClick:(void (^)())clickBlock;
+/** 双AlertView带回调的提示 */
+- (void)showTwoAlertWithMessage:(NSString *)message ConfirmClick:(void (^)())clickBlock;
 
 /** 将字典或数组转化为JSON串 */
 - (NSString *)toJsonStr:(id)object;

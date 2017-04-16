@@ -45,7 +45,7 @@
     
     // 头像
     self.headIMGView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
-    self.headIMGView.backgroundColor = [UIColor whiteColor];
+    self.headIMGView.backgroundColor = [UIColor clearColor];
     self.headIMGView.layer.masksToBounds = YES;
     self.headIMGView.layer.cornerRadius = 45*CKproportion;
     self.headIMGView.contentMode = UIViewContentModeScaleAspectFill;
