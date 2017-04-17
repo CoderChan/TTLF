@@ -168,7 +168,7 @@
     
 #ifdef DEBUG // 处于开发阶段
     self.phoneField.text = @"13522705114";
-    self.passField.text = @"555555";
+    self.passField.text = @"888888";
 #else // 处于发布阶段
     self.phoneField.text = nil;
     self.passField.text = nil;

@@ -196,6 +196,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 - (void)WechatLoginAction
 {
     if (![WXApi isWXAppInstalled]) {
+        
 #ifdef DEBUG 
         // 处于开发阶段
         [[TTLFManager sharedManager].networkManager simulatorLoginSuccess:^{
@@ -205,18 +206,12 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
         }];
 #else 
         // 处于发布阶段
-        UIAlertController *alertC = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"您尚未安装微信，建议使用手机号登录" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *action1 = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];;
-        UIAlertAction *action2 = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            PhoneLoginViewController *phone = [PhoneLoginViewController new];
-            [self.navigationController pushViewController:phone animated:YES];
-        }];
-        [alertC addAction:action1];
-        [alertC addAction:action2];
-        [self presentViewController:alertC animated:YES completion:^{
-            
+        [self showTwoAlertWithMessage:@"您尚未安装微信，建议使用手机号登录" ConfirmClick:^{
+            PhoneLoginViewController *registerVC = [PhoneLoginViewController new];
+            RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:registerVC];
+            [self presentViewController:nav animated:YES completion:^{
+                
+            }];
         }];
 #endif
         return;
