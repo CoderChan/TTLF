@@ -40,9 +40,9 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 - (void)setupSubViews
 {
     if ([UIScreen mainScreen].bounds.size.width == 375) {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"laugh_ip6"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"login_bg_ip6"]];
     }else{
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"laugh"]];
+        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"login_bg"]];
     }
     
 //    if ([WXApi isWXAppInstalled]) {

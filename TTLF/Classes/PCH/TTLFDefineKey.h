@@ -21,8 +21,8 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
-// 主色调
-#define MainColor RGBACOLOR(31, 160, 20, 1)
+// 主色调 RGBACOLOR(31, 160, 20, 1)
+#define MainColor RGBACOLOR(250, 80, 60, 1)
 // DisEnbled颜色
 #define DisAbledColor RGBACOLOR(108, 80, 77, 1)
 // 导航控制器颜色  RGBACOLOR(17, 49, 73, 1)
