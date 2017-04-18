@@ -162,7 +162,7 @@
     [param setValue:@"8".base64EncodedString forKey:@"from"];
     
     NSString *getUrl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/register?nickName=%@&unionid=%@&sex=%@&headUrl=%@&city=%@&from=%@",wechatInfoModel.nickname.base64EncodedString,wechatInfoModel.unionid.base64EncodedString,[NSString stringWithFormat:@"%d",wechatInfoModel.sex].base64EncodedString,wechatInfoModel.headimgurl.base64EncodedString,wechatInfoModel.city.base64EncodedString,@"7".base64EncodedString];
-    NSLog(@"登录url = %@",getUrl);
+    NSLog(@"微信注册登录url = %@",getUrl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         KGLog(@"微信登录返回的信息 = %@",responseObject);
@@ -185,6 +185,7 @@
     }];
     
 }
+
 // 退出登录
 - (void)returnAccountSuccess:(SuccessBlock)success Fail:(FailBlock)fail
 {
@@ -194,6 +195,7 @@
         return;
     }
     NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/phoneLogOut"];
+    
     [HTTPManager POST:url params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
@@ -450,7 +452,6 @@
     NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/seach_punnanum?userID=%@&month=%@",account.userID.base64EncodedString,month.base64EncodedString];
     NSLog(@"功德值增长列表 = %@",uuurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
-//        KGLog(@"responseObject = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
@@ -467,7 +468,6 @@
 }
 
 
-
 #pragma mark - 花名相关
 - (void)sharkActionSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
@@ -479,6 +479,8 @@
     NSString *url = @"http://app.yangruyi.com/home/Index/shock";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/shock?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"全部花名资源url = %@",allurl);
     
     [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
         NSError *error;
@@ -516,6 +518,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:stageModel.stage_id.base64EncodedString forKey:@"stage_id"];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/updata_stage?userID=%@&stage_id=%@",account.userID.base64EncodedString,stageModel.stage_id.base64EncodedString];
+    NSLog(@"修改我的花名url = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -543,6 +547,8 @@
     NSString *url = @"http://app.yangruyi.com/home/Index/topic";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/topic?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"获取话题列表url = %@",allurl);
     
     [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
         
@@ -602,7 +608,7 @@
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
             NSString *result = [[responseObject objectForKey:@"result"] description];
-            [[TTLFManager sharedManager].userManager updateWithKey:result Value:UheadUrl];
+            [[TTLFManager sharedManager].userManager updateWithKey:result Value:UpunnaNum];
             success(message);
         }else{
             fail(message);
@@ -636,7 +642,7 @@
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
             NSString *result = [[responseObject objectForKey:@"result"] description];
-            [[TTLFManager sharedManager].userManager updateWithKey:result Value:UheadUrl];
+            [[TTLFManager sharedManager].userManager updateWithKey:result Value:UpunnaNum];
             success(message);
         }else{
             fail(message);

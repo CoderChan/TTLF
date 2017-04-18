@@ -103,6 +103,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
         make.centerY.equalTo(touristView.mas_centerY);
         make.height.equalTo(@30);
     }];
+    
 }
 
 #pragma mark - 微信登录样式
@@ -230,13 +231,13 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 
 - (void)managerDidRecvAuthResponse:(SendAuthResp *)response
 {
-    MBProgressHUD *progress = [MBProgressHUD showMessage:nil];
+    [MBProgressHUD showMessage:nil];
     
     [[TTLFManager sharedManager].networkManager wechatLoginResponse:response Success:^{
         [MBProgressHUD hideHUD];
         [self loginSuccess];
     } Fail:^(NSString *errorMsg) {
-        [progress hide:YES];
+        [MBProgressHUD hideHUD];
         [self performSelector:@selector(showMessage:) withObject:errorMsg afterDelay:0.3];
     }];
 }
@@ -248,21 +249,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 - (void)loginSuccess
 {
     // 去tabbar
-//    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
-//    [TTLFManager sharedManager].tabbar = tabbar;
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-//    CATransition *animation = [CATransition animation];
-//    animation.duration = 0.6;
-//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-//    animation.type = kCATransitionFade;
-//    animation.subtype = kCATransitionFromBottom;
-//    [self.view.window.layer addAnimation:animation forKey:nil];
-//    window.rootViewController = tabbar;
-    
-    // 去礼佛界面
-    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
-    [TTLFManager sharedManager].lifoVC = lifoVC;
-    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     CATransition *animation = [CATransition animation];
     animation.duration = 0.6;
@@ -270,7 +257,20 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     animation.type = kCATransitionFade;
     animation.subtype = kCATransitionFromBottom;
     [self.view.window.layer addAnimation:animation forKey:nil];
-    window.rootViewController = nav;
+    window.rootViewController = tabbar;
+    
+    // 去礼佛界面
+//    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
+//    [TTLFManager sharedManager].lifoVC = lifoVC;
+//    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    CATransition *animation = [CATransition animation];
+//    animation.duration = 0.6;
+//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+//    animation.type = kCATransitionFade;
+//    animation.subtype = kCATransitionFromBottom;
+//    [self.view.window.layer addAnimation:animation forKey:nil];
+//    window.rootViewController = nav;
 }
 
 #pragma mark - 其他

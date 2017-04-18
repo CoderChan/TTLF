@@ -122,6 +122,8 @@
 		3B3FB21E1E8D4E1F00194643 /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB21D1E8D4E1F00194643 /* CommentViewController.m */; };
 		3B3FB2211E8D52E100194643 /* CommentHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2201E8D52E100194643 /* CommentHeadView.m */; };
 		3B3FB2251E8D53CB00194643 /* CommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FB2241E8D53CB00194643 /* CommentFootView.m */; };
+		3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B422DAA1EA5B573005F0762 /* DetialNewsViewController.m */; };
+		3B422DAE1EA5C784005F0762 /* CommentRightBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B422DAD1EA5C784005F0762 /* CommentRightBarView.m */; };
 		3B4295AC1E98EE95001374F2 /* SelectTopicView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295AB1E98EE95001374F2 /* SelectTopicView.m */; };
 		3B4295AF1E9B227B001374F2 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295AE1E9B227B001374F2 /* LocationModel.m */; };
 		3B4295BA1E9B7255001374F2 /* NewsArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295B81E9B7255001374F2 /* NewsArticleModel.m */; };
@@ -409,6 +411,10 @@
 		3B3FB2201E8D52E100194643 /* CommentHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentHeadView.m; sourceTree = "<group>"; };
 		3B3FB2231E8D53CB00194643 /* CommentFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentFootView.h; sourceTree = "<group>"; };
 		3B3FB2241E8D53CB00194643 /* CommentFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentFootView.m; sourceTree = "<group>"; };
+		3B422DA91EA5B573005F0762 /* DetialNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetialNewsViewController.h; sourceTree = "<group>"; };
+		3B422DAA1EA5B573005F0762 /* DetialNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetialNewsViewController.m; sourceTree = "<group>"; };
+		3B422DAC1EA5C784005F0762 /* CommentRightBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentRightBarView.h; sourceTree = "<group>"; };
+		3B422DAD1EA5C784005F0762 /* CommentRightBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentRightBarView.m; sourceTree = "<group>"; };
 		3B4295AA1E98EE95001374F2 /* SelectTopicView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectTopicView.h; sourceTree = "<group>"; };
 		3B4295AB1E98EE95001374F2 /* SelectTopicView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectTopicView.m; sourceTree = "<group>"; };
 		3B4295AD1E9B227B001374F2 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
@@ -590,9 +596,9 @@
 		3B1F059B1E7928A0005173B9 /* 业界动态 */ = {
 			isa = PBXGroup;
 			children = (
+				3B1F059C1E7928A0005173B9 /* C */,
 				3B4295B61E9B7255001374F2 /* M */,
 				3B4295B91E9B7255001374F2 /* V */,
-				3B1F059C1E7928A0005173B9 /* C */,
 			);
 			path = "业界动态";
 			sourceTree = "<group>";
@@ -602,6 +608,8 @@
 			children = (
 				3B1F059D1E7928A0005173B9 /* FoNewsViewController.h */,
 				3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */,
+				3B422DA91EA5B573005F0762 /* DetialNewsViewController.h */,
+				3B422DAA1EA5B573005F0762 /* DetialNewsViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1292,6 +1300,8 @@
 				3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */,
 				3B4295BB1E9B775C001374F2 /* NewsListTableCell.h */,
 				3B4295BC1E9B775C001374F2 /* NewsListTableCell.m */,
+				3B422DAC1EA5C784005F0762 /* CommentRightBarView.h */,
+				3B422DAD1EA5C784005F0762 /* CommentRightBarView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1862,6 +1872,7 @@
 				3B8627831E8F7328007B5742 /* BookCollectionViewCell.m in Sources */,
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
 				3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */,
+				3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */,
 				3B2670521E6FDEBB0078379B /* TAPageControl.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
@@ -1947,6 +1958,7 @@
 				3B86277C1E8F71F1007B5742 /* MyBooksViewController.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
 				3B26703E1E6FDEBB0078379B /* KSProgressLayer.m in Sources */,
+				3B422DAE1EA5C784005F0762 /* CommentRightBarView.m in Sources */,
 				3B2670541E6FDEBB0078379B /* UIView+XLExtension.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,
 				3B1F05A91E7928A0005173B9 /* PhotoShowViewController.m in Sources */,

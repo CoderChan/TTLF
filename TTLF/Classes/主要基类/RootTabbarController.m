@@ -17,7 +17,6 @@
 
 @interface RootTabbarController ()<TTLFTabbarDelegate,UITabBarControllerDelegate>
 
-@property (assign,nonatomic) int i;
 
 @end
 
@@ -30,9 +29,10 @@
     [self addChildControllers];
     
 }
+#pragma mark - 初始化设置
 - (void)setupOptions
 {
-    self.i = 0;
+    
     self.view.backgroundColor = [UIColor clearColor];
     self.automaticallyAdjustsScrollViewInsets = NO;
     [self.tabBar setTranslucent:NO];
@@ -42,38 +42,45 @@
 {
     
     HomeViewController *vc1 = [[HomeViewController alloc] init];
-    [self addChildVC:vc1 Title:@"佛友圈" image:@"tree_normal" selectedImage:@"tree_highted" Tag:1];
+    [self addChildVC:vc1 Title:@"佛友圈" image:@"tree_normal" selectedImage:@"tree_normal" Tag:1];
     
     ZanViewController *vc2 = [[ZanViewController alloc] init];
-    [self addChildVC:vc2 Title:@"禅道" image:@"tree_normal" selectedImage:@"tree_highted" Tag:2];
+    [self addChildVC:vc2 Title:@"禅道" image:@"tree_normal" selectedImage:@"tree_normal" Tag:2];
     
     DiscoverViewController *vc3 = [[DiscoverViewController alloc] init];
     vc3.tabBarItem.badgeValue = @"12";
-    [self addChildVC:vc3 Title:@"发现" image:@"tree_normal" selectedImage:@"tree_highted" Tag:3];
+    [self addChildVC:vc3 Title:@"发现" image:@"tree_normal" selectedImage:@"tree_normal" Tag:3];
     
     WoViewController *vc4 = [[WoViewController alloc]init];
-    [self addChildVC:vc4 Title:@"修行者" image:@"tree_normal" selectedImage:@"tree_highted" Tag:4];
+    [self addChildVC:vc4 Title:@"修行者" image:@"tree_normal" selectedImage:@"tree_normal" Tag:4];
     
     TTLFTabbar *cusTabbar = [[TTLFTabbar alloc]init];
     cusTabbar.sendDelegate = self;
     [self setValue:cusTabbar forKeyPath:@"tabBar"];
+    
+    // 设置一些被控制的控制器
+    [TTLFManager sharedManager].homeVC = vc1;
+    [TTLFManager sharedManager].tabbar = self;
+    
 }
 #pragma mark - 添加子控制器
 - (void)addChildVC:(UIViewController *)childVC Title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage Tag:(NSInteger)tag
 {
     childVC.title = title;
-    childVC.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     childVC.tabBarItem.tag = tag;
     
-    //    childVC.tabBarItem.imag
+    // 普通图标
+    childVC.tabBarItem.image = [[UIImage imageNamed:image] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    
+    // 高亮图标
     childVC.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     NSMutableDictionary *textAttres = [NSMutableDictionary dictionary];
     textAttres[NSFontAttributeName] = [UIFont systemFontOfSize:9];
-    textAttres[NSForegroundColorAttributeName] = [UIColor whiteColor];
+    textAttres[NSForegroundColorAttributeName] = [UIColor lightGrayColor];
     
     NSMutableDictionary *selectTextAttres = [NSMutableDictionary dictionary];
-    selectTextAttres[NSForegroundColorAttributeName] = MainColor;
+    selectTextAttres[NSForegroundColorAttributeName] = [UIColor whiteColor];
     selectTextAttres[NSFontAttributeName] = [UIFont systemFontOfSize:9];
     
     [childVC.tabBarItem setTitleTextAttributes:textAttres forState:UIControlStateNormal];
@@ -98,25 +105,41 @@
 {
     NSLog(@"W = %g,H = %g",size.width,size.height);
 }
-#pragma mark - 双击
+#pragma mark - 双击事件处理
 - (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController
 {
     
-    //双击处理
-    RootNavgationController *navdid = tabBarController.selectedViewController;
-    RootNavgationController *nav = (RootNavgationController *)viewController;
-    if (![navdid.topViewController isEqual:self]) {
-        self.i--;
+    if (tabBarController.selectedIndex != 0) {
+        return YES;
+    }else{
+        //双击处理
+        if ([self checkIsDoubleClick:[tabBarController.viewControllers firstObject]]) {
+            // 告诉第一个界面双击了，刷新界面
+            [[TTLFManager sharedManager].homeVC douleClickReloadAction];
+        }
+        return YES;
+    }
+}
+
+- (BOOL)checkIsDoubleClick:(UIViewController *)viewController
+{
+    static UIViewController *lastViewController = nil;
+    static NSTimeInterval lastClickTime = 0;
+    
+    if (lastViewController != viewController) {
+        lastViewController = viewController;
+        lastClickTime = [NSDate timeIntervalSinceReferenceDate];
+        
+        return NO;
     }
     
-    if ([nav.topViewController isEqual:self]) {
-        self.i++;
+    NSTimeInterval clickTime = [NSDate timeIntervalSinceReferenceDate];
+    if (clickTime - lastClickTime > 0.5 ) {
+        lastClickTime = clickTime;
+        return NO;
     }
-    if (self.i == 2) {
-        self.i = 0;
-        NSLog(@"点击两次");
-        //这里做逻辑处理就行了
-    }
+    
+    lastClickTime = clickTime;
     return YES;
 }
 

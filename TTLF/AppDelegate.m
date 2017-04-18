@@ -50,7 +50,6 @@
         
         // tabbar
         RootTabbarController *tabbar = [[RootTabbarController alloc] init];
-        [TTLFManager sharedManager].tabbar = tabbar;
         self.window.rootViewController = tabbar;
         
         

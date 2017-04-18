@@ -38,7 +38,7 @@
 - (void)setupSubViews
 {
     self.titleArray = @[@[@"欢迎页",@"摇一摇花名",@"关于我们"],@[@"意见反馈",@"清除缓存",@"分享天天礼佛"],@[@"退出登录"]];
-    self.iconArray = @[@[@"set_safe",@"set_shark",@"set_theme"],@[@"set_contact",@"set_clear",@"set_share"],@"set_return"];
+    self.iconArray = @[@[@"set_welcome",@"set_shark",@"set_about"],@[@"set_suggest",@"set_clean",@"set_share"],@"set_return"];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;

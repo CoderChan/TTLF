@@ -288,22 +288,8 @@
 
 - (void)registerSuccess
 {
-    // 去tabbar
-    //    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
-    //    [TTLFManager sharedManager].tabbar = tabbar;
-    //    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    //    CATransition *animation = [CATransition animation];
-    //    animation.duration = 0.6;
-    //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    //    animation.type = kCATransitionFade;
-    //    animation.subtype = kCATransitionFromBottom;
-    //    [self.view.window.layer addAnimation:animation forKey:nil];
-    //    window.rootViewController = tabbar;
-    
-    // 去礼佛界面
-    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
-    [TTLFManager sharedManager].lifoVC = lifoVC;
-    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+//     去tabbar
+    RootTabbarController *tabbar = [[RootTabbarController alloc]init];
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     CATransition *animation = [CATransition animation];
     animation.duration = 0.6;
@@ -311,7 +297,20 @@
     animation.type = kCATransitionFade;
     animation.subtype = kCATransitionFromBottom;
     [self.view.window.layer addAnimation:animation forKey:nil];
-    window.rootViewController = nav;
+    window.rootViewController = tabbar;
+    
+    // 去礼佛界面
+//    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
+//    [TTLFManager sharedManager].lifoVC = lifoVC;
+//    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
+//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    CATransition *animation = [CATransition animation];
+//    animation.duration = 0.6;
+//    animation.timingFunction = UIViewAnimationCurveEaseInOut;
+//    animation.type = kCATransitionFade;
+//    animation.subtype = kCATransitionFromBottom;
+//    [self.view.window.layer addAnimation:animation forKey:nil];
+//    window.rootViewController = nav;
 }
 
 

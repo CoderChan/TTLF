@@ -127,6 +127,12 @@
     self.headView.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
 }
 
+#pragma mark - 其他方法
+- (void)douleClickReloadAction
+{
+    [self.tableView.mj_header beginRefreshing];
+}
+
 #pragma mark - 其他代理
 - (void)fyqTableCellClickType:(FYQCellClickType)clickType Model:(DynamicModel *)model
 {

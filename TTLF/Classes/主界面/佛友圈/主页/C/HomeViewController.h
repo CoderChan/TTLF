@@ -10,6 +10,7 @@
 
 @interface HomeViewController : SuperViewController
 
-
+/** 双击，加载数据 */
+- (void)douleClickReloadAction;
 
 @end

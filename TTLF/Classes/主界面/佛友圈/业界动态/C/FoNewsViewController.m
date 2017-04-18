@@ -8,6 +8,7 @@
 
 #import "FoNewsViewController.h"
 #import "NewsTableViewCell.h"
+#import "DetialNewsViewController.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
 
@@ -61,6 +62,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetialNewsViewController *news = [DetialNewsViewController new];
+    [self.navigationController pushViewController:news animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
