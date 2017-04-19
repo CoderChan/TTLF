@@ -20,11 +20,15 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UIImageView *imageV = [[UIImageView alloc]initWithFrame:self.view.bounds];
+    
     if (SCREEN_WIDTH == 375) {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"laugh_ip6"]];
+        imageV.image = [UIImage imageNamed:@"welcome_ip6"];
     }else{
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"laugh"]];
+        imageV.image = [UIImage imageNamed:@"welcome"];
     }
+    [self.view addSubview:imageV];
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event

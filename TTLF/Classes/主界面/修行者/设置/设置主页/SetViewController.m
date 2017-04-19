@@ -78,7 +78,7 @@
     
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            //安全中心
+            // 欢迎页
             CATransition *animation = [CATransition animation];
             animation.duration = 0.2;
             animation.timingFunction = UIViewAnimationCurveEaseInOut;
