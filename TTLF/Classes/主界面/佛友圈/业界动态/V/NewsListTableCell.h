@@ -9,10 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "NewsArticleModel.h"
 
+/********* 之前版本的文字头条HeadView *********/
 @interface NewsListTableCell : UITableViewCell
 
+/** 新闻文章模型 */
 @property (strong,nonatomic) NewsArticleModel *model;
-
+/** 初始化 */
 + (instancetype)sharedNewsListTableCell:(UITableView *)tableView;
 
 @end

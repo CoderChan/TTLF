@@ -38,9 +38,6 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
-    UIImageView *headImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"news_top_place"]];
-    headImgView.frame = CGRectMake(0, 0, self.view.width, 80);
-    self.tableView.tableHeaderView = headImgView;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -70,7 +67,11 @@
     return 0.1f;
 }
 
-
+#pragma mark - 其他方法
+- (void)douleClickReloadAction
+{
+    [self.tableView.mj_header beginRefreshing];
+}
 
 
 @end

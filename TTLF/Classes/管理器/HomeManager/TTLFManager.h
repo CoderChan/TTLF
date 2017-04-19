@@ -10,7 +10,7 @@
 #import "NetworkDataManager.h"
 #import "UserInfoManager.h"
 #import "MusicPlayerManager.h"
-#import "HomeViewController.h"
+#import "FoNewsViewController.h"
 #import "LiFoViewController.h"
 #import "RootTabbarController.h"
 
@@ -29,7 +29,7 @@
 /** 礼佛界面 */
 @property (weak,nonatomic) LiFoViewController *lifoVC;
 /** 第一个界面 */
-@property (weak,nonatomic) HomeViewController *homeVC;
+@property (weak,nonatomic) FoNewsViewController *homeVC;
 /** Tabbar */
 @property (weak,nonatomic) RootTabbarController *tabbar;
 

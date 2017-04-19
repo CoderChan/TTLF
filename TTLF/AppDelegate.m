@@ -16,7 +16,7 @@
 #import "RootTabbarController.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "PhoneLoginViewController.h"
-#import <BaiduMapAPI_Base/BMKBaseComponent.h>
+
 
 
 @interface AppDelegate ()
@@ -77,8 +77,8 @@
     [WXApi registerAppSupportContentFlag:typeFlag];
     
     // 百度地图
-    BMKMapManager *mapManager = [[BMKMapManager alloc]init];
-    [mapManager start:BaiduMap_AK generalDelegate:nil];
+//    BMKMapManager *mapManager = [[BMKMapManager alloc]init];
+//    [mapManager start:BaiduMap_AK generalDelegate:nil];
     
     // MOB短信验证码
     [SMSSDK registerApp:Mob_AppKey withSecret:Mob_Secret];

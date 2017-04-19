@@ -56,8 +56,6 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>请授权您的相机权限</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>请授权您的位置权限</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>请授权您的相册权限</string>
 	<key>UILaunchStoryboardName</key>

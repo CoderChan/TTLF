@@ -10,4 +10,6 @@
 
 @interface FoNewsViewController : SuperViewController
 
+- (void)douleClickReloadAction;
+
 @end
