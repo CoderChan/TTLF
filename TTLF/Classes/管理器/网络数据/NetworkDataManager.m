@@ -737,6 +737,9 @@
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
+            NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+            [UD setObject:model.fa_xiang forKey:LastPusaImgURL];
+            [UD synchronize];
             success();
         }else{
             fail(message);

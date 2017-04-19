@@ -13,6 +13,7 @@
 #import "TTLFConstKey.h"
 #import "TTLFManager.h"
 #import <YYKit.h>
+#import "AppDelegate.h"
 #import "MBProgressHUD+MJ.h"
 #import "UIView+Extension.h"
 #import "UIImage+Category.h"

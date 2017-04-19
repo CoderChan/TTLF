@@ -16,7 +16,7 @@
 #import "SuggestViewController.h"
 #import "RootNavgationController.h"
 #import "WechatLoginViewController.h"
-
+#import "PhoneLoginViewController.h"
 
 
 @interface SetViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -140,17 +140,34 @@
 
 - (void)reloginSuccess
 {
-    WechatLoginViewController *tabbar = [[WechatLoginViewController alloc]init];
-    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    CATransition *animation = [CATransition animation];
-    animation.duration = 0.6;
-    animation.timingFunction = UIViewAnimationCurveEaseInOut;
-    animation.type = kCATransitionFade;
-    animation.subtype = kCATransitionFromBottom;
-    [self.view.window.layer addAnimation:animation forKey:nil];
+    if ([WXApi isWXAppInstalled]) {
+        WechatLoginViewController *tabbar = [[WechatLoginViewController alloc]init];
+        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        CATransition *animation = [CATransition animation];
+        animation.duration = 0.6;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.type = kCATransitionFade;
+        animation.subtype = kCATransitionFromBottom;
+        [self.view.window.layer addAnimation:animation forKey:nil];
+        
+        window.rootViewController = nav;
+        [window makeKeyAndVisible];
+    }else{
+        PhoneLoginViewController *tabbar = [[PhoneLoginViewController alloc]init];
+        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:tabbar];
+        UIWindow *window = [UIApplication sharedApplication].delegate.window;
+        CATransition *animation = [CATransition animation];
+        animation.duration = 0.6;
+        animation.timingFunction = UIViewAnimationCurveEaseInOut;
+        animation.type = kCATransitionFade;
+        animation.subtype = kCATransitionFromBottom;
+        [self.view.window.layer addAnimation:animation forKey:nil];
+        
+        window.rootViewController = nav;
+        [window makeKeyAndVisible];
+    }
     
-    window.rootViewController = nav;
 }
 
 

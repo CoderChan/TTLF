@@ -73,12 +73,13 @@
     [self setupSubViews];
     
     [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^(TodayLifoInfoModel *lifoModel) {
+        NSString *lastPusa = [[NSUserDefaults standardUserDefaults] objectForKey:LastPusaImgURL];
+        lifoModel.pusa = lifoModel.pusa.length > 7 ? lifoModel.pusa : lastPusa;
         if (lifoModel.pusa) {
             self.lightImageView1.hidden = NO;
             self.lightImageView2.hidden = NO;
             self.sunImageView.hidden = NO;
             [self.pusaImageView sd_setImageWithURL:[NSURL URLWithString:lifoModel.pusa] placeholderImage:[UIImage imageNamed:@"lifo_no_pusa"]];
-//            self.pusaImageView.image = [UIImage imageNamed:@"gy"];
         }else{
             self.pusaImageView.image = [UIImage imageNamed:@"gy_lifo_god_none"];
             self.lightImageView1.hidden = YES;

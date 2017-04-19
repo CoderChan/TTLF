@@ -19,7 +19,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.title = @"每日阅读";
     [self setupSubViews];
 }
 #pragma mark - 绘制界面

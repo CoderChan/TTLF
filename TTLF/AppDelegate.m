@@ -15,6 +15,7 @@
 #import "WechatLoginViewController.h"
 #import "RootTabbarController.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "PhoneLoginViewController.h"
 #import <BaiduMapAPI_Base/BMKBaseComponent.h>
 
 
@@ -54,9 +55,15 @@
         
         
     }else{
-        WechatLoginViewController *wechatLogin = [WechatLoginViewController new];
-        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:wechatLogin];
-        self.window.rootViewController = nav;
+        if ([WXApi isWXAppInstalled]) {
+            WechatLoginViewController *wechatLogin = [WechatLoginViewController new];
+            RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:wechatLogin];
+            self.window.rootViewController = nav;
+        }else{
+            PhoneLoginViewController *wechatLogin = [PhoneLoginViewController new];
+            RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:wechatLogin];
+            self.window.rootViewController = nav;
+        }
     }
 }
 

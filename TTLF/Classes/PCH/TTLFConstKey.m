@@ -15,6 +15,7 @@
 NSString *const isFirstComeIn = @"isFirstComeIn";
 NSString *const CFBundleVersion = @"CFBundleVersion";
 NSString *const HowToUse = @"HowToUse";
+NSString *const LastPusaImgURL = @"LastPusaImgURL";
 
 NSString *const UuserID = @"UuserID";
 NSString *const Uunionid = @"unionid";

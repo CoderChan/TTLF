@@ -18,6 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString *const isFirstComeIn; // 第一次进来展示引导指标
 extern NSString *const CFBundleVersion; // 版本号
 extern NSString *const HowToUse; // 怎么使用
+extern NSString *const LastPusaImgURL; // 上一次礼佛的佛像图片地址
 
 
 extern NSString *const UuserID; // 用户ID

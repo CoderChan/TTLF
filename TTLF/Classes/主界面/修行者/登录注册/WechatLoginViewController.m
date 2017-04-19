@@ -250,7 +250,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 {
     // 去tabbar
     RootTabbarController *tabbar = [[RootTabbarController alloc]init];
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
     CATransition *animation = [CATransition animation];
     animation.duration = 0.6;
     animation.timingFunction = UIViewAnimationCurveEaseInOut;
@@ -258,12 +258,13 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     animation.subtype = kCATransitionFromBottom;
     [self.view.window.layer addAnimation:animation forKey:nil];
     window.rootViewController = tabbar;
+    [window makeKeyAndVisible];
     
     // 去礼佛界面
 //    LiFoViewController *lifoVC = [[LiFoViewController alloc]init];
 //    [TTLFManager sharedManager].lifoVC = lifoVC;
 //    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:lifoVC];
-//    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+//    UIWindow *window = [UIApplication sharedApplication].delegate.window;
 //    CATransition *animation = [CATransition animation];
 //    animation.duration = 0.6;
 //    animation.timingFunction = UIViewAnimationCurveEaseInOut;
@@ -271,6 +272,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 //    animation.subtype = kCATransitionFromBottom;
 //    [self.view.window.layer addAnimation:animation forKey:nil];
 //    window.rootViewController = nav;
+//    [window makeKeyAndVisible];
 }
 
 #pragma mark - 其他
