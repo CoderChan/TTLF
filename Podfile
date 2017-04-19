@@ -5,8 +5,8 @@
 target 'TTLF' do
     
     pod 'AFNetworking'
-    pod 'FMDB'
-    pod 'JFImagePicker'
+#    pod 'FMDB'
+#    pod 'JFImagePicker'
     pod 'Masonry'
     pod 'SDWebImage'
     pod 'MJExtension'

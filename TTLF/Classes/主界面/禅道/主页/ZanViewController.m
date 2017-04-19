@@ -10,9 +10,9 @@
 #import "NormalTableViewCell.h"
 #import "LiFoViewController.h"
 #import "MyBooksViewController.h"
-#import "ZuoCanViewController.h"
 #import "MusicPlayingController.h"
 #import "VegeViewController.h"
+#import "PlaceListViewController.h"
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -34,7 +34,7 @@
 - (void)setupSubViews
 {
     
-    self.array = @[@[@"佛典",@"梵音"],@[@"天天礼佛",@"坐禅冥想"],@[@"素食生活",@"放生活动"]];
+    self.array = @[@[@"佛典",@"梵音"],@[@"天天礼佛",@"日行一善"],@[@"素食生活",@"佛教名山"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 108) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.dataSource = self;
@@ -53,7 +53,8 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *imageArr = @[@[@"zen_book",@"zen_music"],@[@"zen_heart",@"zen_think"],@[@"zen_vangen",@"zen_smile"]];
+    
+    NSArray *imageArr = @[@[@"zen_book",@"zen_music"],@[@"zen_heart",@"zan_xingshan"],@[@"zen_vangen",@"zen_smile"]];
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
     cell.iconView.image = [UIImage imageNamed:imageArr[indexPath.section][indexPath.row]];
@@ -85,10 +86,6 @@
             LiFoViewController *lifo = [LiFoViewController new];
             [TTLFManager sharedManager].lifoVC = lifo;
             [self.navigationController pushViewController:lifo animated:YES];
-        }else{
-            // 冥想
-            ZuoCanViewController *zuocan = [ZuoCanViewController new];
-            [self.navigationController pushViewController:zuocan animated:YES];
         }
         
     }else{
@@ -96,7 +93,8 @@
             VegeViewController *vegeVC = [VegeViewController new];
             [self.navigationController pushViewController:vegeVC animated:YES];
         }else{
-            [MBProgressHUD showSuccess:@"我在南山南"];
+            PlaceListViewController *place = [[PlaceListViewController alloc]init];
+            [self.navigationController pushViewController:place animated:YES];
         }
     }
 }

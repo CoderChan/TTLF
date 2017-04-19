@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"佛教胜地";
+    self.title = @"佛教名山";
     
     [self setupSubViews];
 }

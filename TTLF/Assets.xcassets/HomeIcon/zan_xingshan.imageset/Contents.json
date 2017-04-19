@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
+      "filename" : "zan_xingshan.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "wechat_black_bg@2x.jpg",
+      "filename" : "zan_xingshan@2x.png",
       "scale" : "2x"
     },
     {
