@@ -78,10 +78,13 @@
     bottomView.userInteractionEnabled = YES;
     [self.view addSubview:bottomView];
     
+    UITapGestureRecognizer *sendFoodTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        [MBProgressHUD showError:@"分享食材"];
+    }];
+    [bottomView addGestureRecognizer:sendFoodTap];
     
     UIImageView *imageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"vege_new_guo"]];
     imageView.frame = CGRectMake(self.view.width/2 - 105*CKproportion, bottomView.height/2 - 95*CKproportion, 210*CKproportion, 190*CKproportion);
-//    imageView.frame = bottomView.bounds;
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [bottomView addSubview:imageView];
     
@@ -90,7 +93,7 @@
 
 - (void)addVegeAction
 {
-    [MBProgressHUD showSuccess:@"添加收藏"];
+    [MBProgressHUD showSuccess:@"我发布的食材"];
 }
 
 @end

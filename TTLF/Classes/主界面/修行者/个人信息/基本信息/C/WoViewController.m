@@ -56,7 +56,7 @@
     };
     self.tableView.tableHeaderView = self.headView;
     
-    self.array = @[@[@"功德值"],@[@"相册",@"消息",@"社群",@"收藏"],@[@"设置"]];
+    self.array = @[@[@"功德值"],@[@"收藏",@"历史",@"消息",@"分享"],@[@"设置"]];
     [self.view addSubview:self.tableView];
     
 }
@@ -73,7 +73,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *iconArray = @[@[@"wo_gongde"],@[@"wo_photo",@"wo_message",@"wo_group",@"wo_store"],@[@"wo_set"]];;
+    NSArray *iconArray = @[@[@"wo_gongde"],@[@"wo_store",@"wo_history",@"wo_message",@"wo_share"],@[@"wo_set"]];;
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.iconView.image = [UIImage imageNamed:iconArray[indexPath.section][indexPath.row]];
     cell.titleLabel.text = self.array[indexPath.section][indexPath.row];

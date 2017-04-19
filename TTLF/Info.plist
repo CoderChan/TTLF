@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSContactsUsageDescription</key>
-	<string>请授权您的通讯录权限</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>china</string>
 	<key>CFBundleDisplayName</key>
@@ -56,6 +54,8 @@
 	</dict>
 	<key>NSCameraUsageDescription</key>
 	<string>请授权您的相机权限</string>
+	<key>NSContactsUsageDescription</key>
+	<string>请授权您的通讯录权限</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>请授权您的相册权限</string>
 	<key>UILaunchStoryboardName</key>
