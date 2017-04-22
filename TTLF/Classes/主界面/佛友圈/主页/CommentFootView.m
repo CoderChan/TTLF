@@ -13,7 +13,7 @@
 @interface CommentFootView ()
 
 // 评论数
-@property (strong,nonatomic) UIButton *discussNumBtn;
+@property (strong,nonatomic) UILabel *discussNumLabel;
 
 
 
@@ -39,6 +39,14 @@
     xian.image = [UIImage imageNamed:@"xian"];
     [self addSubview:xian];
     
+    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    rightButton.frame = CGRectMake(self.width - 60, xian.height, 60, self.height - xian.height);
+    rightButton.backgroundColor = [UIColor clearColor];
+    [rightButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        [MBProgressHUD showSuccess:@"ams"];
+    }];
+    [self addSubview:rightButton];
+    
     UIImageView *iconView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fyq_comment_edit"]];
     [self addSubview:iconView];
     [iconView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -59,16 +67,29 @@
     }];
     
     
-    // 评论数按钮
-    self.discussNumBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.discussNumBtn.frame = CGRectMake(self.width - 80, 0, 70, self.height);
-    [self.discussNumBtn setImage:[UIImage imageNamed:@"comment_rightbar"] forState:UIControlStateNormal];
-    [self.discussNumBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        
+    UIImageView *discussImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"comment_rightbar"]];
+    discussImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [rightButton addSubview:discussImgView];
+    [discussImgView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(rightButton.mas_left).offset(5);
+        make.centerY.equalTo(rightButton.mas_centerY);
+        make.width.and.height.equalTo(@30);
     }];
-    [self.discussNumBtn setTitle:@"182" forState:UIControlStateNormal];
-    self.discussNumBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [self addSubview:self.discussNumBtn];
+    
+    // 评论数
+    self.discussNumLabel = [[UILabel alloc]init];
+    self.discussNumLabel.text = @"12";
+    self.discussNumLabel.textColor = MainColor;
+    [self.discussNumLabel sizeToFit];
+    self.discussNumLabel.backgroundColor = self.backgroundColor;
+    self.discussNumLabel.font = [UIFont boldSystemFontOfSize:10];
+    [discussImgView addSubview:self.discussNumLabel];
+    [self.discussNumLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(discussImgView.mas_right).offset(-8);
+        make.top.equalTo(discussImgView.mas_top);
+        make.height.equalTo(@12);
+    }];
+    
     
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
     clickButton.backgroundColor = [UIColor clearColor];
@@ -82,7 +103,7 @@
         make.left.equalTo(self.mas_left);
         make.top.equalTo(self.mas_top);
         make.bottom.equalTo(self.mas_bottom);
-        make.right.equalTo(self.discussNumBtn.mas_left);
+        make.right.equalTo(rightButton.mas_left);
     }];
     
 }

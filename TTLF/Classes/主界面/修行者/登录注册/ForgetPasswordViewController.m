@@ -251,7 +251,7 @@
         [MBProgressHUD showError:@"验证码不正确"];
         return;
     }
-    if (self.passWord1.text.length < 6 || self.passWord2.text.length != 6) {
+    if (self.passWord1.text.length < 6 || self.passWord2.text.length < 6) {
         [MBProgressHUD showError:@"密码最少6位长度"];
         return;
     }

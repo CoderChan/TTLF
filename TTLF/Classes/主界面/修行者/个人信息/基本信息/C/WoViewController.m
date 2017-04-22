@@ -16,7 +16,7 @@
 #import "NormalTableViewCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "UserInfoViewController.h"
-#import "PhotosViewController.h"
+#import "StoreListViewController.h"
 #import "PunnaNumViewController.h"
 
 @interface WoViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -87,8 +87,8 @@
         [self.navigationController pushViewController:punna animated:YES];
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
-            PhotosViewController *photos = [PhotosViewController new];
-            [self.navigationController pushViewController:photos animated:YES];
+            StoreListViewController *store = [StoreListViewController new];
+            [self.navigationController pushViewController:store animated:YES];
         }else if (indexPath.row == 1){
             
         }else {

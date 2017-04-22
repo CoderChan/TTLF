@@ -468,7 +468,7 @@
 }
 
 
-#pragma mark - 花名相关
+// 花名相关
 - (void)sharkActionSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -535,8 +535,7 @@
         fail(error.localizedDescription);
     }];
 }
-
-#pragma mark - 获取话题列表
+#pragma mark - 发送动态相关
 - (void)getTopicListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -544,6 +543,7 @@
         fail(@"用户未登录");
         return;
     }
+    
     NSString *url = @"http://app.yangruyi.com/home/Index/topic";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
@@ -573,7 +573,7 @@
     }];
     
 }
-#pragma mark - 发送动态
+// 发送有图动态
 - (void)sendImgDyn:(UIImage *)image Topic:(SendTopicModel *)topicModel Content:(NSString *)content LocationJson:(NSString *)locationJson IsNoname:(BOOL)isNoName Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -617,7 +617,7 @@
         fail(error.localizedDescription);
     }];
 }
-
+// 发送无图动态
 - (void)sendTextDynWithTopic:(SendTopicModel *)topicModel Content:(NSString *)content LocationJson:(NSString *)locationJson IsNoname:(BOOL)isNoName Success:(SuccessStringBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -647,6 +647,101 @@
         }else{
             fail(message);
         }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+#pragma mark - 首页佛友圈板块
+// 收藏文章
+- (void)storeNewsWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/News/storeNews";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:newsModel.news_id.base64EncodedString forKey:@"news_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/storeNews?userID=%@&news_id=%@",account.userID.base64EncodedString,newsModel.news_id.base64EncodedString];
+    NSLog(@"收藏文章的URL = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 收藏列表
+- (void)storeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/News/listStore";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/listStore?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"收藏列表的URL = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+            if (modelArray.count > 0) {
+                success(modelArray);
+            }else{
+                fail(@"暂无收藏");
+            }
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 删除收藏
+- (void)deleteStoreWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/News/cancelStore";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:newsModel.news_id.base64EncodedString forKey:@"news_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/cancelStore?userID=%@&news_id=%@",account.userID.base64EncodedString,newsModel.news_id.base64EncodedString];
+    NSLog(@"删除收藏的URL = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+        
     } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];

@@ -34,11 +34,11 @@
 - (void)setModel:(NewsArticleModel *)model
 {
     _model = model;
-    if (model.isNewest) {
+    if (model.news_logo) {
         // 显示文章封面
-        [_iconImgView sd_setImageWithURL:[NSURL URLWithString:model.coverUrl] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+        [_iconImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageNamed:@"user_place"]];
         _titleLabel.numberOfLines = 2;
-        _titleLabel.text = model.title;
+        _titleLabel.text = model.news_name;
         [_titleLabel mas_updateConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(self.iconImgView.mas_right).offset(8);
             make.height.equalTo(@44);
@@ -47,7 +47,7 @@
         }];
     }else{
         // 显示点修饰
-        _titleLabel.text = model.title;
+        _titleLabel.text = model.news_name;
         _titleLabel.numberOfLines = 1;
         _iconImgView.image = [UIImage imageNamed:@"news_point"];
         [_iconImgView mas_updateConstraints:^(MASConstraintMaker *make) {

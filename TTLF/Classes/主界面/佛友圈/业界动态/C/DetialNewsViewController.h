@@ -7,7 +7,10 @@
 //
 
 #import "SuperViewController.h"
+#import "NewsArticleModel.h"
 
 @interface DetialNewsViewController : SuperViewController
+
+@property (strong,nonatomic) NewsArticleModel *newsModel;
 
 @end

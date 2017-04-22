@@ -17,6 +17,7 @@
 #import "PunaNumListModel.h"
 #import "LifoResourceModel.h"
 #import "TodayLifoInfoModel.h"
+#import "NewsArticleModel.h"
 
 
 
@@ -72,6 +73,14 @@ typedef void (^SuccessStringBlock)(NSString *string);
 
 
 #pragma mark - 佛友圈板块
+// 收藏文章
+- (void)storeNewsWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 收藏列表
+- (void)storeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 删除收藏
+- (void)deleteStoreWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+
+
 // 获取话题列表
 - (void)getTopicListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 发送有图动态

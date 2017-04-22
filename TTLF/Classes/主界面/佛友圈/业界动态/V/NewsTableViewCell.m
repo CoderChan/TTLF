@@ -10,6 +10,7 @@
 #import <Masonry.h>
 
 
+
 @interface NewsTableViewCell ()
 
 /** 文章封面 */
@@ -18,6 +19,8 @@
 @property (strong,nonatomic) UILabel *titleLabel;
 /** 来源 */
 @property (strong,nonatomic) UILabel *fromLabel;
+/** 时间 */
+@property (strong,nonatomic) UILabel *timeLabel;
 
 @end
 
@@ -45,8 +48,20 @@
     return self;
 }
 
+- (void)setModel:(NewsArticleModel *)model
+{
+    _model = model;
+    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _titleLabel.text = model.news_name;
+    _fromLabel.text = model.source;
+    
+    NSString *dateStr = [model.createtime substringWithRange:NSMakeRange(5, 6)];
+    _timeLabel.text = dateStr;
+}
+
 - (void)setupSubViews
 {
+    // 封面
     self.newsImgView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
     [self.contentView addSubview:self.newsImgView];
     [self.newsImgView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -56,6 +71,7 @@
         make.height.equalTo(@70);
     }];
     
+    // 文章标题
     self.titleLabel = [[UILabel alloc]init];
     self.titleLabel.text = @"四川佛像的这根衣带 系出来一条中原佛像史";
     self.titleLabel.textColor = [UIColor blackColor];
@@ -69,6 +85,7 @@
         make.top.equalTo(self.newsImgView.mas_top).offset(1);
     }];
     
+    // 来源
     self.fromLabel = [[UILabel alloc]init];
     self.fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
     self.fromLabel.textColor = RGBACOLOR(87, 87, 87, 1);
@@ -80,15 +97,28 @@
         make.height.equalTo(@21);
     }];
     
+    // 时间
+    self.timeLabel = [[UILabel alloc]init];
+    self.timeLabel.textAlignment = NSTextAlignmentRight;
+    self.timeLabel.textColor = RGBACOLOR(108, 108, 108, 1);
+    self.timeLabel.font = [UIFont systemFontOfSize:13];
+    [self.contentView addSubview:self.timeLabel];
+    [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.contentView.mas_right).offset(-8);
+        make.centerY.equalTo(self.fromLabel.mas_centerY);
+        make.height.equalTo(@21);
+    }];
     
+    // 线
     UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
     [self.contentView addSubview:xian];
     [xian mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(self.contentView.mas_bottom);
+        make.bottom.equalTo(self.contentView.mas_bottom).offset(1);
         make.left.equalTo(self.contentView.mas_left);
         make.right.equalTo(self.contentView.mas_right);
-        make.height.equalTo(@1);
+        make.height.equalTo(@2);
     }];
+    
     
 }
 

@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewsArticleModel.h"
 
 @interface NewsTableViewCell : UITableViewCell
+
+@property (strong,nonatomic) NewsArticleModel *model;
 
 + (instancetype)sharedNewsCell:(UITableView *)tableView;
 

@@ -11,21 +11,23 @@
 @interface NewsArticleModel : NSObject
 
 /** 新闻文章的ID */
-@property (copy,nonatomic) NSString *newsID;
+@property (copy,nonatomic) NSString *news_id;
+/** 收藏的ID */
+@property (copy,nonatomic) NSString *storeid;
 /** 文章标题 */
-@property (copy,nonatomic) NSString *title;
+@property (copy,nonatomic) NSString *news_name;
 /** 封面图链接 */
-@property (copy,nonatomic) NSString *coverUrl;
+@property (copy,nonatomic) NSString *news_logo;
 /** 查看文章内容的url */
-@property (copy,nonatomic) NSString *webUrl;
+@property (copy,nonatomic) NSString *site;
 /** 来源:如新浪佛学、凤凰佛学 */
-@property (copy,nonatomic) NSString *from;
+@property (copy,nonatomic) NSString *source;
 /** 原文链接：当from为原创时为null */
-@property (copy,nonatomic) NSString *fromUrl;
-/** 评论 */
-@property (copy,nonatomic) NSArray *discussArray;
+@property (copy,nonatomic) NSString *source_link;
+/** 创建时间 */
+@property (copy,nonatomic) NSString *createtime;
+/** 关键字 */
+@property (copy,nonatomic) NSString *keywords;
 
-/** 是否为最新 */
-@property (assign,nonatomic) BOOL isNewest;
 
 @end

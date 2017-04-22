@@ -10,11 +10,17 @@
 #import "CommentFootView.h"
 #import "SendCommentView.h"
 #import <LCActionSheet.h>
+#import "RightMoreView.h"
 
 
 #define BottomHeight 50
 
-@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate>
+@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate>
+{
+    BOOL theBool;
+    UIProgressView* myProgressView;
+    NSTimer *myTimer;
+}
 
 /** webview */
 @property (strong,nonatomic) UIWebView *webView;
@@ -28,7 +34,22 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"天天阅读";
+    [self addProgressView];
     [self setupSubViews];
+}
+#pragma mark - 添加加载进度条
+- (void)addProgressView
+{
+    // 仿微信进度条
+    CGFloat progressBarHeight = 2.f;
+    CGRect navigationBarBounds = self.navigationController.navigationBar.bounds;
+    CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
+    myProgressView = [[UIProgressView alloc] initWithFrame:barFrame];
+    myProgressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+    myProgressView.progressTintColor = MainColor;
+    [self.navigationController.navigationBar addSubview:myProgressView];
+    
+    
 }
 #pragma mark - 绘制界面
 - (void)setupSubViews
@@ -42,7 +63,7 @@
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:@"http://fo.ifeng.com/a/20170418/44575301_0.shtml"]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.newsModel.source_link]];
     [self.webView loadRequest:request];
     
     // 评论视图
@@ -65,9 +86,45 @@
 #pragma mark - 其他方法
 - (void)commentAction
 {
-    
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    RightMoreView *moreView = [[RightMoreView alloc]initWithFrame:keyWindow.bounds];
+    moreView.delegate = self;
+    [keyWindow addSubview:moreView];
 }
-
+- (void)rightMoreViewWithClickType:(MoreItemClickType)clickType
+{
+    if (clickType == WechatFriendType) {
+        [MBProgressHUD showNormal:@"分享到朋友圈"];
+    }else if(clickType == WechatQuanType){
+        [MBProgressHUD showNormal:@"分享到微信好友"];
+    }else if (clickType == StoreClickType){
+        [[TTLFManager sharedManager].networkManager storeNewsWithModel:self.newsModel Success:^{
+            [MBProgressHUD showSuccess:@"已收藏"];
+        } Fail:^(NSString *errorMsg) {
+            [MBProgressHUD showError:errorMsg];
+        }];
+    }else if (clickType == OpenAtSafariType){
+        // Safari打开
+        NSURL *url = [NSURL URLWithString:self.newsModel.source_link];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+    }else if (clickType == SystermShareType){
+        NSURL *url = [NSURL URLWithString:self.newsModel.source_link];
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[url] applicationActivities:nil];
+        [self presentViewController:activity animated:YES completion:^{
+            
+        }];
+    }else if (clickType == CopyUrlType){
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = self.newsModel.source_link;
+        [MBProgressHUD showSuccess:@"已复制到剪切板"];
+    }else if (clickType == RefreshType){
+        [self.webView reload];
+    }else if (clickType == NightDayMobeType){
+        [MBProgressHUD showSuccess:@"夜间模式"];
+    }
+}
 #pragma mark - 其他代理
 - (void)actionSheet:(LCActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -130,15 +187,46 @@
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
+    myProgressView.progress = 0;
+    theBool = false;
+    //0.01667 is roughly 1/60, so it will update at 60 FPS
+    myTimer = [NSTimer scheduledTimerWithTimeInterval:0.01667 target:self selector:@selector(timerCallback) userInfo:nil repeats:YES];
     
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    
+    theBool = true;
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     KGLog(@"error = %@",error.localizedDescription);
 }
+
+-(void)timerCallback {
+    if (theBool) {
+        if (myProgressView.progress >= 1) {
+            myProgressView.hidden = true;
+            [myTimer invalidate];
+        }
+        else {
+            myProgressView.progress += 0.1;
+        }
+    }
+    else {
+        myProgressView.progress += 0.05;
+        if (myProgressView.progress >= 0.8) {
+            myProgressView.progress = 0.8;
+        }
+    }
+}
+
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    
+    // 移除 progress view
+    // because UINavigationBar is shared with other ViewControllers
+    [myProgressView removeFromSuperview];
+}
+
 
 @end

@@ -10,6 +10,7 @@
 
 @interface FoNewsViewController : SuperViewController
 
+// 双击重新加载
 - (void)douleClickReloadAction;
 
 @end

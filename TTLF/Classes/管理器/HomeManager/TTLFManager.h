@@ -23,7 +23,7 @@
 @property (strong,nonatomic) NetworkDataManager *networkManager;
 /** 用户信息 */
 @property (strong,nonatomic) UserInfoManager *userManager;
-/** APP属性 */
+/** 音乐播放属性 */
 @property (strong,nonatomic) MusicPlayerManager *musicManager;
 
 /** 礼佛界面 */
