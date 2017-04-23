@@ -14,6 +14,8 @@
 @property (copy,nonatomic) NSString *news_id;
 /** 收藏的ID */
 @property (copy,nonatomic) NSString *storeid;
+/** 收藏的时间 */
+@property (copy,nonatomic) NSString *create_time;
 /** 文章标题 */
 @property (copy,nonatomic) NSString *news_name;
 /** 封面图链接 */

@@ -728,8 +728,8 @@
     NSString *url = @"http://app.yangruyi.com/home/News/cancelStore";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
-    [param setValue:newsModel.news_id.base64EncodedString forKey:@"news_id"];
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/cancelStore?userID=%@&news_id=%@",account.userID.base64EncodedString,newsModel.news_id.base64EncodedString];
+    [param setValue:newsModel.storeid.base64EncodedString forKey:@"storeid"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/cancelStore?userID=%@&storeid=%@",account.userID.base64EncodedString,newsModel.news_id.base64EncodedString];
     NSLog(@"删除收藏的URL = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {

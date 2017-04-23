@@ -109,6 +109,7 @@
     // 发送给朋友
     MoreItemView *wechatFriItem = [[MoreItemView alloc]initWithFrame:CGRectMake(space, (self.middleView.height/2 - width - 38)/2, width, width + 38)];
     wechatFriItem.titleLabel.text = @"发送给朋友";
+    wechatFriItem.iconView.image = [UIImage imageNamed:@"share_wechatFri"];
     [self.middleView addSubview:wechatFriItem];
     UITapGestureRecognizer *wechatFriTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
@@ -120,6 +121,7 @@
     
     // 朋友圈
     MoreItemView *wechatQuanItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wechatFriItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    wechatQuanItem.iconView.image = [UIImage imageNamed:@"share_quan"];
     wechatQuanItem.titleLabel.text = @"朋友圈";
     [self.middleView addSubview:wechatQuanItem];
     UITapGestureRecognizer *wechatQuanTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -132,6 +134,7 @@
     
     // 收藏
     MoreItemView *storeItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wechatQuanItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    storeItem.iconView.image = [UIImage imageNamed:@"share_store"];
     storeItem.titleLabel.text = @"收藏";
     [self.middleView addSubview:storeItem];
     UITapGestureRecognizer *storeTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -144,6 +147,7 @@
     
     // Safari打开
     MoreItemView *safariItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(storeItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    safariItem.iconView.image = [UIImage imageNamed:@"share_safari"];
     safariItem.titleLabel.text = @"在Safari中\r打开";
     [self.middleView addSubview:safariItem];
     UITapGestureRecognizer *safariTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -156,6 +160,7 @@
     
     // 系统分享
     MoreItemView *systermItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(safariItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    systermItem.iconView.image = [UIImage imageNamed:@"share_os"];
     systermItem.titleLabel.text = @"系统分享";
     [self.middleView addSubview:systermItem];
     UITapGestureRecognizer *systermTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -169,6 +174,7 @@
     /******** 第二行内容：web相关 *********/
     // 复制链接
     MoreItemView *copyUrlItem = [[MoreItemView alloc]initWithFrame:CGRectMake(space, (self.middleView.height/2 - width - 38)/2 + self.middleView.height/2 + 15, width, width + 38)];
+    copyUrlItem.iconView.image = [UIImage imageNamed:@"share_copyUrl"];
     copyUrlItem.titleLabel.text = @"复制链接";
     [self.middleView addSubview:copyUrlItem];
     UITapGestureRecognizer *copyUrlTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -181,6 +187,7 @@
     
     // 刷新
     MoreItemView *refreshItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(copyUrlItem.frame) + space, copyUrlItem.y, width, copyUrlItem.height)];
+    refreshItem.iconView.image = [UIImage imageNamed:@"shared_refresh"];
     refreshItem.titleLabel.text = @"刷新";
     [self.middleView addSubview:refreshItem];
     UITapGestureRecognizer *refreshTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
@@ -191,13 +198,14 @@
     }];
     [refreshItem addGestureRecognizer:refreshTap];
     
-    // 夜间模式
+    // 停止加载
     MoreItemView *dayNightItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(refreshItem.frame) + space, copyUrlItem.y, width, copyUrlItem.height)];
-    dayNightItem.titleLabel.text = @"夜间模式";
+    dayNightItem.iconView.image = [UIImage imageNamed:@"share_stop"];
+    dayNightItem.titleLabel.text = @"停止加载";
     [self.middleView addSubview:dayNightItem];
     UITapGestureRecognizer *nightTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
-            [_delegate rightMoreViewWithClickType:NightDayMobeType];
+            [_delegate rightMoreViewWithClickType:StopLoadType];
             [self removeFromSuperview];
         }
     }];

@@ -173,7 +173,7 @@
 - (UIImage *)placeholderImage
 {
     if (!_placeholderImage) {
-        _placeholderImage = [UIImage imageNamed:@"user_place"];
+        _placeholderImage = [UIImage imageNamed:@"image_place"];
     }
     return _placeholderImage;
 }
@@ -591,7 +591,7 @@
     self.currentImageIndex = index;
     if (zoomingScrollView.hasLoadedImage == NO) {
         if ([self highQualityImageURLForIndex:index]) { // 如果提供了高清大图数据源,就去加载
-            [zoomingScrollView setShowHighQualityImageWithURL:[self highQualityImageURLForIndex:index] placeholderImage:[UIImage imageNamed:@"user_place"]];
+            [zoomingScrollView setShowHighQualityImageWithURL:[self highQualityImageURLForIndex:index] placeholderImage:[UIImage imageNamed:@"image_place"]];
         } else if ([self assetForIndex:index]) {
             ALAsset *asset = [self assetForIndex:index];
             CGImageRef imageRef = asset.defaultRepresentation.fullScreenImage;

@@ -16,7 +16,7 @@ typedef NS_ENUM(NSInteger,MoreItemClickType){
     SystermShareType = 5,  // 系统分享
     CopyUrlType = 6,   // 复制链接
     RefreshType = 7,   // 刷新
-    NightDayMobeType = 8   // 夜间模式切换
+    StopLoadType = 8   // 停止加载
 };
 
 @protocol RightMoreViewDelegate <NSObject>

@@ -7,26 +7,18 @@
 //
 
 #import "DiscoverViewController.h"
-#import "PlaceListViewController.h"
-#import "DiscoverCollectionCell.h"
-#import "HomeReusableView.h"
-#import "GoodsDetialController.h"
-#import <MJRefresh.h>
-#import <SVWebViewController.h>
+#import "NormalTableViewCell.h"
+#import "OrderListTableCell.h"
+#import "GoodsListTableCell.h"
+#import "OrderListViewController.h"
+#import "AddressViewController.h"
 
+@interface DiscoverViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-#define TopViewH 210*CKproportion
-#define SpaceNum 4
-
-@interface DiscoverViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
-
-
-
-/** collectionView */
-@property (strong,nonatomic) UICollectionView *collectionView;
-/** 顶部图片 */
-@property (strong,nonatomic) UIImageView *topView;
-
+/** 表格 */
+@property (strong,nonatomic) UITableView *tableView;
+/** 数组 */
+@property (copy,nonatomic) NSArray *array;
 
 @end
 
@@ -38,128 +30,86 @@
     [self setupSubViews];
     
 }
-
+#pragma mark - 绘制表格
 - (void)setupSubViews
 {
-    self.view.backgroundColor = RGBACOLOR(250, 246, 232, 1);
-    [self.view addSubview:self.collectionView];
+    self.array = @[@[@"订单中心",@"收货地址"],@[@"小叶紫檀",@"黄花梨",@"菩提",@"红木饰品",@"幸运吊坠",@"佛像雕塑",@"精选配饰"]];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
+    self.tableView.backgroundColor = self.view.backgroundColor;
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
     
-    [self.collectionView insertSubview:self.topView atIndex:0];
-    
-    
-    self.collectionView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
-        
-    }];
-    [self.collectionView.mj_footer endRefreshingWithNoMoreData];
-    
+}
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return self.array.count;
+}
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    return [self.array[section] count];
+}
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            OrderListTableCell *cell = [OrderListTableCell sharedOrderListCell:tableView];
+            
+            return cell;
+        }else{
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            cell.iconView.image = [UIImage imageNamed:@"good_address"];
+            cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        }
+    }else{
+        GoodsListTableCell *cell = [GoodsListTableCell sharedGoodsListTableCell:tableView];
+        return cell;
+    }
 }
 
-#pragma mark - 表格相关
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 2;
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            OrderListViewController *orderList = [[OrderListViewController alloc]init];
+            [self.navigationController pushViewController:orderList animated:YES];
+        }else{
+            AddressViewController *address = [[AddressViewController alloc]init];
+            [self.navigationController pushViewController:address animated:YES];
+        }
+    } else {
+        
+    }
 }
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 120;
+        }else{
+            return 50;
+        }
+    }else{
+        return 150;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 4;
+        return 15;
     }else{
-        return 30;
+        return 5;
     }
 }
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    
-    DiscoverCollectionCell *cell = [DiscoverCollectionCell sharedCell:collectionView Path:indexPath];
-    return cell;
-    
-}
-
-// UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-//    GoodsDetialController *place = [GoodsDetialController new];
-//    [self.navigationController pushViewController:place animated:YES];
-    SVWebViewController *taobao = [[SVWebViewController alloc]initWithAddress:TaobaoGoodsURL];
-    taobao.title = @"饰品详情";
-    [self.navigationController pushViewController:taobao animated:YES];
-    
-    
-}
-
-// 返回这个UICollectionView是否可以被选择
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-// 定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    CGFloat Width = (self.view.width - SpaceNum * 3)/2;
-    return CGSizeMake(Width, Width + 45);
-}
-
-// 定义每个UICollectionView 的间距
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(SpaceNum, SpaceNum, SpaceNum, SpaceNum);
-}
-
-
-- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
-{
-    UICollectionReusableView * reusableview = nil;
-    if(kind == UICollectionElementKindSectionHeader){
-        
-        NSArray *titleArr = @[@"佛教胜地",@"精品佛饰"];
-        HomeReusableView * headerview = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeReusableView" forIndexPath:indexPath];
-        headerview.DidClickBlock = ^(){
-            PlaceListViewController *place = [PlaceListViewController new];
-            [self.navigationController pushViewController:place animated:YES];
-        };
-        headerview.title = titleArr[indexPath.section];
-        reusableview = headerview;
-        
-    }
-    return reusableview;
-}
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section
-{
-    return CGSizeMake(self.view.width, 40);
-}
-
-#pragma mark - 懒加载
-- (UICollectionView *)collectionView
-{
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    flowLayout.minimumLineSpacing = SpaceNum;
-    flowLayout.minimumInteritemSpacing = SpaceNum;
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    if (!_collectionView) {
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, -21, self.view.width, self.view.height - 44) collectionViewLayout:flowLayout];
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        _collectionView.backgroundColor = self.view.backgroundColor;
-        [_collectionView registerClass:[DiscoverCollectionCell class] forCellWithReuseIdentifier:@"DiscoverCollectionCell"];
-        _collectionView.contentInset = UIEdgeInsetsMake(TopViewH, 0, 0, 0);
-        [_collectionView registerClass:[HomeReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"HomeReusableView"];
-    }
-    return _collectionView;
-}
-
-- (UIImageView *)topView
-{
-    if (!_topView) {
-        _topView = [[UIImageView alloc]initWithFrame:CGRectMake(0, -TopViewH, self.view.width, TopViewH)];
-        _topView.userInteractionEnabled = YES;
-        [_topView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1490949352798&di=a1030c130b3757ed61f5b90916b9a375&imgtype=0&src=http%3A%2F%2Fimgsrc.baidu.com%2Fforum%2Fw%253D580%2Fsign%3De6a4c004f01f3a295ac8d5c6a927bce3%2Fc2528c1001e939014bcfece47bec54e734d196a2.jpg"] placeholderImage:[UIImage imageNamed:@"nian_sy_bg"]];
-        _topView.backgroundColor = MainColor;
-        _topView.autoresizingMask = YES;
-    }
-    return _topView;
+    UIView *footView = [UIView new];
+    footView.backgroundColor = [UIColor clearColor];
+    return footView;
 }
 
 

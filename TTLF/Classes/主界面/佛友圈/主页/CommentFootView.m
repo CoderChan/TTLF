@@ -43,7 +43,9 @@
     rightButton.frame = CGRectMake(self.width - 60, xian.height, 60, self.height - xian.height);
     rightButton.backgroundColor = [UIColor clearColor];
     [rightButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [MBProgressHUD showSuccess:@"ams"];
+        if (self.CommentBlock) {
+            _CommentBlock(PushToCommentControlerType);
+        }
     }];
     [self addSubview:rightButton];
     
@@ -90,12 +92,12 @@
         make.height.equalTo(@12);
     }];
     
-    
+    // 立刻评论
     UIButton *clickButton = [UIButton buttonWithType:UIButtonTypeCustom];
     clickButton.backgroundColor = [UIColor clearColor];
     [clickButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         if (self.CommentBlock) {
-            _CommentBlock();
+            _CommentBlock(PresentCommentViewType);
         }
     }];
     [self addSubview:clickButton];

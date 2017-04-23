@@ -51,9 +51,9 @@
 - (void)setModel:(NewsArticleModel *)model
 {
     _model = model;
-    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
     _titleLabel.text = model.news_name;
-    _fromLabel.text = model.source;
+    _fromLabel.text = [NSString stringWithFormat:@"#%@#",model.keywords];
     
     NSString *dateStr = [model.createtime substringWithRange:NSMakeRange(5, 6)];
     _timeLabel.text = dateStr;
@@ -67,8 +67,8 @@
     [self.newsImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(10);
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.width.equalTo(@80);
-        make.height.equalTo(@70);
+        make.width.equalTo(@98);
+        make.height.equalTo(@78);
     }];
     
     // 文章标题
@@ -88,23 +88,23 @@
     // 来源
     self.fromLabel = [[UILabel alloc]init];
     self.fromLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleFootnote];
-    self.fromLabel.textColor = RGBACOLOR(87, 87, 87, 1);
+    self.fromLabel.textColor = RGBACOLOR(108, 108, 108, 1);
     self.fromLabel.text = @"凤凰佛教";
     [self.contentView addSubview:self.fromLabel];
     [self.fromLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.titleLabel.mas_left);
-        make.bottom.equalTo(self.newsImgView.mas_bottom);
+        make.bottom.equalTo(self.newsImgView.mas_bottom).offset(2);
         make.height.equalTo(@21);
     }];
     
     // 时间
     self.timeLabel = [[UILabel alloc]init];
     self.timeLabel.textAlignment = NSTextAlignmentRight;
-    self.timeLabel.textColor = RGBACOLOR(108, 108, 108, 1);
+    self.timeLabel.textColor = [UIColor lightGrayColor];
     self.timeLabel.font = [UIFont systemFontOfSize:13];
     [self.contentView addSubview:self.timeLabel];
     [self.timeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.contentView.mas_right).offset(-8);
+        make.right.equalTo(self.titleLabel.mas_right);
         make.centerY.equalTo(self.fromLabel.mas_centerY);
         make.height.equalTo(@21);
     }];
@@ -118,7 +118,6 @@
         make.right.equalTo(self.contentView.mas_right);
         make.height.equalTo(@2);
     }];
-    
     
 }
 

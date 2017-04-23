@@ -8,7 +8,14 @@
 
 #import "UIViewController+Category.h"
 
+@interface UIViewController ()
+
+
+@end
+
 @implementation UIViewController (Category)
+
+
 
 #pragma mark - AlertView提示
 - (void)sendAlertAction:(NSString *)message
@@ -72,6 +79,16 @@
     }
 }
 
+#pragma mark - 数据异常的显示
+- (void)showEmptyViewWithMessage:(NSString *)message
+{
+    
+}
+- (void)hideMessageAction
+{
+    
+}
+
 #pragma mark - 闪烁灯效果
 - (CABasicAnimation *)AlphaLight:(float)time
 {
@@ -124,5 +141,8 @@
         
     }];
 }
+
+
+
 
 @end

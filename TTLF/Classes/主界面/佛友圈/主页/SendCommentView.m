@@ -63,7 +63,7 @@
     cancleButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [cancleButton setTitleColor:RGBACOLOR(67, 67, 67, 1) forState:UIControlStateNormal];
     [cancleButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self removeFromSuperviewAction];
+        [self dismissMyself];
     }];
     cancleButton.frame = CGRectMake(5, 4, 70, 38);
     [self.bottomView addSubview:cancleButton];
@@ -167,6 +167,25 @@
     }
 }
 
+- (void)dismissMyself
+{
+    [self endEditing:YES];
+    
+    for (UIView *subViews in self.bottomView.subviews) {
+        [subViews removeFromSuperview];
+    }
+    
+    [UIView animateWithDuration:0.4 animations:^{
+        self.alpha = 0;
+        self.bottomView.y = self.height;
+        self.bottomView.x = self.width/2 - 0.5;
+        self.bottomView.width = 1;
+        self.bottomView.height = 1;
+    } completion:^(BOOL finished) {
+        [self removeFromSuperview];
+    }];
+
+}
 
 - (void)removeFromSuperviewAction
 {

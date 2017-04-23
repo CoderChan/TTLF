@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+typedef NS_ENUM(NSInteger,ClickType) {
+    PresentCommentViewType, //立马评论
+    PushToCommentControlerType // 去评论界面
+};
 @interface CommentFootView : UIView
 
 /** 点击弹出评论视图 */
-@property (copy,nonatomic) void (^CommentBlock)();
+@property (copy,nonatomic) void (^CommentBlock)(ClickType clickType);
 
 @end

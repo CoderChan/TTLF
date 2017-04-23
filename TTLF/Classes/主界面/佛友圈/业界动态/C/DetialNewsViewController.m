@@ -7,10 +7,12 @@
 //
 
 #import "DetialNewsViewController.h"
+#import "CommentNewsController.h"
 #import "CommentFootView.h"
 #import "SendCommentView.h"
 #import <LCActionSheet.h>
 #import "RightMoreView.h"
+#import "XLPhotoBrowser.h"
 
 
 #define BottomHeight 50
@@ -26,6 +28,10 @@
 @property (strong,nonatomic) UIWebView *webView;
 /** 评论视图 */
 @property (strong,nonatomic) SendCommentView *commendView;
+/** 分享的URL */
+@property (copy,nonatomic) NSString *shareUrl;
+/** 获取文章中的图片 */
+@property (strong,nonatomic) NSMutableArray *imgUrlArray;
 
 @end
 
@@ -54,34 +60,69 @@
 #pragma mark - 绘制界面
 - (void)setupSubViews
 {
-    
+    self.imgUrlArray = [NSMutableArray array];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(commentAction)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     
     self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - BottomHeight)];
+    
     self.webView.backgroundColor = self.view.backgroundColor;
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.newsModel.source_link]];
+    NSString *url = [NSString stringWithFormat:@"%@?userID=%@&news_id=%@",self.newsModel.site,[AccountTool account].userID.base64EncodedString,self.newsModel.news_id.base64EncodedString];
+    self.shareUrl = [NSString stringWithFormat:@"%@?news_id=%@",self.newsModel.site,self.newsModel.news_id.base64EncodedString];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
     
     // 评论视图
     __weak __block DetialNewsViewController *copySelf = self;
     CommentFootView *footView = [[CommentFootView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.webView.frame), self.view.width, BottomHeight)];
-    footView.CommentBlock = ^{
-        self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
-        self.commendView.isSendIcon = NO;
-        self.commendView.SelectImageBlock = ^{
-            // 选择评论图
-            LCActionSheet *actionSheet = [LCActionSheet sheetWithTitle:nil delegate:copySelf cancelButtonTitle:@"取消" otherButtonTitles:@"拍照",@"从相册中选择", nil];
-            [actionSheet show];
-        };
-        [self.view addSubview:self.commendView];
+    footView.CommentBlock = ^(ClickType clickType) {
+        if (clickType == PresentCommentViewType) {
+            self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
+            self.commendView.isSendIcon = NO;
+            self.commendView.SelectImageBlock = ^{
+                // 选择评论图
+                LCActionSheet *actionSheet = [LCActionSheet sheetWithTitle:nil delegate:copySelf cancelButtonTitle:@"取消" otherButtonTitles:@"拍照",@"从相册中选择", nil];
+                [actionSheet show];
+            };
+            [self.view addSubview:self.commendView];
+        }else if (clickType == PushToCommentControlerType){
+            CommentNewsController *commentVC = [CommentNewsController new];
+            [self.navigationController pushViewController:commentVC animated:YES];
+        }
     };
     [self.view addSubview:footView];
     
+    // 添加左滑手势
+    UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        CommentNewsController *comment = [CommentNewsController new];
+        [self.navigationController pushViewController:comment animated:YES];
+    }];
+    [recognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
+    [self.webView addGestureRecognizer:recognizer];
+    
+    // 插入背景和提示文字
+    UIView *insertView = [[UIView alloc]initWithFrame:self.webView.bounds];
+    insertView.backgroundColor = RGBACOLOR(73, 75, 80, 1);
+    UILabel *topLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 7, self.webView.width, 30)];
+    topLabel.text = @"分享此文，扩散正价值观";
+    topLabel.textColor = RGBACOLOR(208, 208, 208, 1);
+    topLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    topLabel.textAlignment = NSTextAlignmentCenter;
+    [insertView addSubview:topLabel];
+    
+    UILabel *bottomLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, insertView.height - 37, self.webView.width, 30)];
+    bottomLabel.text = @"分享此文，扩散正价值观";
+    bottomLabel.textColor = RGBACOLOR(208, 208, 208, 1);
+    bottomLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
+    bottomLabel.textAlignment = NSTextAlignmentCenter;
+    [insertView addSubview:bottomLabel];
+    
+    [self.webView insertSubview:insertView atIndex:0];
 }
+
 
 #pragma mark - 其他方法
 - (void)commentAction
@@ -93,10 +134,37 @@
 }
 - (void)rightMoreViewWithClickType:(MoreItemClickType)clickType
 {
+    
     if (clickType == WechatFriendType) {
-        [MBProgressHUD showNormal:@"分享到朋友圈"];
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = self.newsModel.news_name;
+        message.description = @"天天礼佛：生活就是一场修行。";
+        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = self.shareUrl;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 0;
+        [WXApi sendReq:req];
     }else if(clickType == WechatQuanType){
-        [MBProgressHUD showNormal:@"分享到微信好友"];
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = self.newsModel.news_name;
+        message.description = @"天天礼佛：生活就是一场修行。";
+        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = self.shareUrl;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 1;
+        [WXApi sendReq:req];
     }else if (clickType == StoreClickType){
         [[TTLFManager sharedManager].networkManager storeNewsWithModel:self.newsModel Success:^{
             [MBProgressHUD showSuccess:@"已收藏"];
@@ -105,27 +173,33 @@
         }];
     }else if (clickType == OpenAtSafariType){
         // Safari打开
-        NSURL *url = [NSURL URLWithString:self.newsModel.source_link];
+        NSURL *url = [NSURL URLWithString:self.shareUrl];
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
             
         }];
     }else if (clickType == SystermShareType){
-        NSURL *url = [NSURL URLWithString:self.newsModel.source_link];
-        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[url] applicationActivities:nil];
+        // 系统分享
+        NSURL *url = [NSURL URLWithString:self.shareUrl];
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[[UIImage imageNamed:@"app_logo"],self.newsModel.news_name,url] applicationActivities:nil];
         [self presentViewController:activity animated:YES completion:^{
             
         }];
     }else if (clickType == CopyUrlType){
+        // 复制链接
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = self.newsModel.source_link;
+        pasteboard.string = self.shareUrl;
         [MBProgressHUD showSuccess:@"已复制到剪切板"];
     }else if (clickType == RefreshType){
+        // 重新加载网页
+        theBool = false;
+        [self addProgressView];
         [self.webView reload];
-    }else if (clickType == NightDayMobeType){
-        [MBProgressHUD showSuccess:@"夜间模式"];
+    }else if (clickType == StopLoadType){
+        theBool = YES;
+        [self.webView stopLoading];
     }
 }
-#pragma mark - 其他代理
+#pragma mark - 选择图片的代理
 - (void)actionSheet:(LCActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     switch (buttonIndex) {
@@ -196,10 +270,63 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     theBool = true;
+    // 标题
+    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.title = title.length >= 1 ? title : @"天天阅读";
+    //这里是js，主要目的实现对url的获取
+    static  NSString * const jsGetImages =
+    @"function getImages(){\
+    var objs = document.getElementsByTagName(\"img\");\
+    var imgScr = '';\
+    for(var i=0;i<objs.length;i++){\
+    imgScr = imgScr + objs[i].src + '+';\
+    };\
+    return imgScr;\
+    };";
+    
+    [webView stringByEvaluatingJavaScriptFromString:jsGetImages];//注入js方法
+    NSString *urlResurlt = [webView stringByEvaluatingJavaScriptFromString:@"getImages()"];
+    self.imgUrlArray = [NSMutableArray arrayWithArray:[urlResurlt componentsSeparatedByString:@"+"]];
+    NSLog(@"self.imgUrlArray = %@",self.imgUrlArray);
+    if (self.imgUrlArray.count >= 2) {
+        [self.imgUrlArray removeLastObject];
+    }
+    //urlResurlt 就是获取到得所有图片的url的拼接；mUrlArray就是所有Url的数组
+    
+    //添加图片可点击js
+    [self.webView stringByEvaluatingJavaScriptFromString:@"function registerImageClickAction(){\
+     var imgs=document.getElementsByTagName('img');\
+     var length=imgs.length;\
+     for(var i=0;i<length;i++){\
+     img=imgs[i];\
+     img.onclick=function(){\
+     window.location.href='image-preview:'+this.src}\
+     }\
+     }"];
+    [self.webView stringByEvaluatingJavaScriptFromString:@"registerImageClickAction();"];
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     KGLog(@"error = %@",error.localizedDescription);
+}
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    //预览图片
+    if ([request.URL.scheme isEqualToString:@"image-preview"]) {
+        NSString *path = [request.URL.absoluteString substringFromIndex:[@"image-preview:" length]];
+        // path是点击的图片地址
+        path = [path stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        NSInteger page = 0;
+        for (int i = 0; i < self.imgUrlArray.count; i++) {
+            NSString *imgUrl = self.imgUrlArray[i];
+            if ([path isEqualToString:imgUrl]) {
+                page = i;
+            }
+        }
+        [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:page];
+        return NO;
+    }
+    return YES;
 }
 
 -(void)timerCallback {
@@ -224,7 +351,6 @@
     [super viewWillDisappear:animated];
     
     // 移除 progress view
-    // because UINavigationBar is shared with other ViewControllers
     [myProgressView removeFromSuperview];
 }
 

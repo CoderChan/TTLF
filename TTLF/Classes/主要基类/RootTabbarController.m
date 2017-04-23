@@ -44,17 +44,17 @@
 {
     
     FoNewsViewController *vc1 = [[FoNewsViewController alloc] init];
-    [self addChildVC:vc1 Title:@"佛界头条" image:@"tree_normal" selectedImage:@"tree_highted" Tag:1];
+    [self addChildVC:vc1 Title:@"佛界头条" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:1];
     
     ZanViewController *vc2 = [[ZanViewController alloc] init];
-    [self addChildVC:vc2 Title:@"禅道" image:@"tree_normal" selectedImage:@"tree_highted" Tag:2];
+    [self addChildVC:vc2 Title:@"禅道" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:2];
     
     DiscoverViewController *vc3 = [[DiscoverViewController alloc] init];
     vc3.tabBarItem.badgeValue = @"12";
-    [self addChildVC:vc3 Title:@"发现" image:@"tree_normal" selectedImage:@"tree_highted" Tag:3];
+    [self addChildVC:vc3 Title:@"发现" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:3];
     
     WoViewController *vc4 = [[WoViewController alloc]init];
-    [self addChildVC:vc4 Title:@"修行者" image:@"tree_normal" selectedImage:@"tree_highted" Tag:4];
+    [self addChildVC:vc4 Title:@"修行者" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:4];
     
     
     // 设置一些被控制的控制器

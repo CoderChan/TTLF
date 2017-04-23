@@ -17,6 +17,7 @@
 /** 双AlertView带回调的提示 */
 - (void)showTwoAlertWithMessage:(NSString *)message ConfirmClick:(void (^)())clickBlock;
 
+
 /** 将字典或数组转化为JSON串 */
 - (NSString *)toJsonStr:(id)object;
 

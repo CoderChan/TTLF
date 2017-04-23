@@ -13,7 +13,6 @@
 #import <Masonry.h>
 #import <MJExtension/MJExtension.h>
 #import "NewsArticleModel.h"
-#import "SearchNewsViewController.h"
 
 
 @interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
@@ -47,7 +46,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 90;
+    self.tableView.rowHeight = 100;
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
@@ -193,12 +192,7 @@
 {
     [self.tableView.mj_header beginRefreshing];
 }
-//  UISearchBarDelegate
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    SearchNewsViewController *search = [[SearchNewsViewController alloc]initWithSearchKeyWord:searchBar.text];
-    [self.navigationController pushViewController:search animated:YES];
-}
+
 
 
 - (void)viewWillAppear:(BOOL)animated

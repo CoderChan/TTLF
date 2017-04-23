@@ -10,6 +10,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "StoreTableViewCell.h"
 #import <LCActionSheet.h>
+#import "DetialNewsViewController.h"
 
 @interface StoreListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -32,7 +33,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = 120;
+    self.tableView.rowHeight = 110;
     self.tableView.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
@@ -75,6 +76,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    DetialNewsViewController *news = [DetialNewsViewController new];
+    news.newsModel = self.array[indexPath.section];
+    [self.navigationController pushViewController:news animated:YES];
 }
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -86,7 +90,7 @@
                     [self.array removeObjectAtIndex:indexPath.section];
                     [self.tableView reloadData];
                 } Fail:^(NSString *errorMsg) {
-                    [MBProgressHUD showError:errorMsg];
+                    [self sendAlertAction:errorMsg];
                 }];
             }
         } otherButtonTitles:@"确定删除", nil];
