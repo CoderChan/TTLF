@@ -126,6 +126,7 @@
     
     // 评论附带的图片
     self.commentImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"fo_bg_09"]];
+    self.commentImgView.contentMode = UIViewContentModeScaleAspectFit;
     self.commentImgView.userInteractionEnabled = YES;
     [self.iconBgView addSubview:self.commentImgView];
     [self.commentImgView mas_makeConstraints:^(MASConstraintMaker *make) {

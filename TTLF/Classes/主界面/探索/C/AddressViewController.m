@@ -9,8 +9,7 @@
 #import "AddressViewController.h"
 
 
-@interface AddressViewController ()<UITableViewDelegate,UITableViewDataSource>
-
+@interface AddressViewController ()
 @property (strong,nonatomic) UITableView *tableView;
 
 @property (copy,nonatomic) NSArray *array;

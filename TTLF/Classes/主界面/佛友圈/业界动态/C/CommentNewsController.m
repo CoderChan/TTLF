@@ -154,9 +154,9 @@
     }];
     if (orgImage) {
         self.commendView.isSendIcon = YES;
-        self.commendView.commentImgView.image = orgImage;
+        self.commendView.commentImgView.image = [orgImage stretchableImageWithLeftCapWidth:20 topCapHeight:10];
     }else{
-        [MBProgressHUD showError:@"取消图片"];
+        [MBProgressHUD showError:@"暂不支持此类型的图片"];
     }
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker

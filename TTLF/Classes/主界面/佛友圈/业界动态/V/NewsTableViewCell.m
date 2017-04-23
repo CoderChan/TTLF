@@ -51,7 +51,9 @@
 - (void)setModel:(NewsArticleModel *)model
 {
     _model = model;
-    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        _newsImgView.image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:10];
+    }];
     _titleLabel.text = model.news_name;
     _fromLabel.text = [NSString stringWithFormat:@"#%@#",model.keywords];
     
@@ -63,6 +65,7 @@
 {
     // 封面
     self.newsImgView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
+    self.newsImgView.contentMode = UIViewContentModeScaleToFill;
     [self.contentView addSubview:self.newsImgView];
     [self.newsImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(10);

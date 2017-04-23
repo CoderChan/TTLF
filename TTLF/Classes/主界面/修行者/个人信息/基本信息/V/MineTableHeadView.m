@@ -47,8 +47,11 @@
     self.headIMGView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
     self.headIMGView.backgroundColor = [UIColor clearColor];
     self.headIMGView.layer.masksToBounds = YES;
-    self.headIMGView.layer.cornerRadius = 45*CKproportion;
     self.headIMGView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.headIMGView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.headIMGView.layer.masksToBounds = YES;
+    self.headIMGView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.headIMGView.layer.cornerRadius = 45*CKproportion;
     [self addSubview:self.headIMGView];
     [self.headIMGView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.mas_centerY).offset(-15);

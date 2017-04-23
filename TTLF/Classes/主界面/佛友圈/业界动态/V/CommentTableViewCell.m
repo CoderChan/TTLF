@@ -81,6 +81,10 @@
     
     // 附图
     self.insertImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"image_place"]];
+    self.insertImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.insertImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.insertImgView.layer.masksToBounds = YES;
+    self.insertImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
     [self.contentView addSubview:self.insertImgView];
     [self.insertImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.contentLabel.mas_bottom).offset(5);
