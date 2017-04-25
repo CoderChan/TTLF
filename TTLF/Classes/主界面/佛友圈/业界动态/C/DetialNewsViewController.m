@@ -17,7 +17,7 @@
 
 #define BottomHeight 50
 
-@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate>
+@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate,SendCommentDelegate>
 {
     BOOL theBool;
     UIProgressView* myProgressView;
@@ -55,10 +55,10 @@
     myProgressView.progressTintColor = MainColor;
     [self.navigationController.navigationBar addSubview:myProgressView];
     
-    
 }
 #pragma mark - 绘制界面
 - (void)setupSubViews
+
 {
     self.imgUrlArray = [NSMutableArray array];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(commentAction)];
@@ -81,6 +81,7 @@
     footView.CommentBlock = ^(ClickType clickType) {
         if (clickType == PresentCommentViewType) {
             self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
+            self.commendView.delegate = self;
             self.commendView.isSendIcon = NO;
             self.commendView.SelectImageBlock = ^{
                 // 选择评论图
@@ -90,6 +91,7 @@
             [self.view addSubview:self.commendView];
         }else if (clickType == PushToCommentControlerType){
             CommentNewsController *commentVC = [CommentNewsController new];
+            commentVC.newsModel = self.newsModel;
             [self.navigationController pushViewController:commentVC animated:YES];
         }
     };
@@ -98,6 +100,7 @@
     // 添加左滑手势
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         CommentNewsController *comment = [CommentNewsController new];
+        comment.newsModel = self.newsModel;
         [self.navigationController pushViewController:comment animated:YES];
     }];
     [recognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -121,6 +124,16 @@
     [insertView addSubview:bottomLabel];
     
     [self.webView insertSubview:insertView atIndex:0];
+}
+
+#pragma mark - 评论的代理
+- (void)sendCommentWithImage:(UIImage *)image CommentText:(NSString *)commentText
+{
+    [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^{
+        [MBProgressHUD showSuccess:@"评论成功"];
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
+    }];
 }
 
 
@@ -324,6 +337,8 @@
             }
         }
         [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:page];
+
+        
         return NO;
     }
     return YES;

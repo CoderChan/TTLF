@@ -592,10 +592,9 @@
     [param setValue:[NSString stringWithFormat:@"%d",isNoName].base64EncodedString forKey:@"nameType"];
     
     
-    
     NSTimeInterval interval = [[NSDate date] timeIntervalSince1970] * 1000;
     NSString *currentTime = [NSString stringWithFormat:@"%@_%.f",account.userID,interval];
-    // 上传头像 模糊度如果是1会出现失败
+    // 上传图片 模糊度如果是1会出现失败
     NSData *data = UIImageJPEGRepresentation(image, 0.5);
     NSString *name = @"file";
     NSString *fileName = [NSString stringWithFormat:@"%@.jpeg",currentTime];
@@ -745,6 +744,95 @@
     } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];
+}
+- (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/News/comment";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:newsModel.news_id.base64EncodedString forKey:@"news_id"];
+    
+    
+    if (image) {
+        // 有图评论
+        [param setValue:commentText.base64EncodedString forKey:@"commentText"];
+        NSTimeInterval interval = [[NSDate date] timeIntervalSince1970] * 1000;
+        NSString *currentTime = [NSString stringWithFormat:@"%@_%.f",account.userID,interval];
+        // 上传图片 模糊度如果是1会出现失败
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        NSString *name = @"file";
+        NSString *fileName = [NSString stringWithFormat:@"%@.jpeg",currentTime];
+        [HTTPManager uploadWithURL:url params:param fileData:data name:name fileName:fileName mimeType:@"jpeg" progress:^(NSProgress *progress) {
+            NSLog(@"上传进度 = %g",progress.fractionCompleted);
+        } success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSLog(@"responseObject = %@",responseObject);
+            int code = [[[responseObject objectForKey:@"code"] description] intValue];
+            NSString *message = [[responseObject objectForKey:@"message"] description];
+            if (code == 1) {
+                success();
+            }else{
+                fail(message);
+            }
+        } fail:^(NSURLSessionDataTask *task, NSError *error) {
+            fail(error.localizedDescription);
+        }];
+    }else{
+        // 无图评论
+        [param setValue:commentText.base64EncodedString forKey:@"commentText"];
+        NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/comment?userID=%@&news_id=%@&commentText=%@",account.userID.base64EncodedString,newsModel.news_id.base64EncodedString,commentText.base64EncodedString];
+        NSLog(@"无图评论 URL = %@",allurl);
+        [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+            NSLog(@"responseObject = %@",responseObject);
+            int code = [[[responseObject objectForKey:@"code"] description] intValue];
+            NSString *message = [[responseObject objectForKey:@"message"] description];
+            if (code == 1) {
+                success();
+            }else{
+                fail(message);
+            }
+        } fail:^(NSURLSessionDataTask *task, NSError *error) {
+            fail(error.localizedDescription);
+        }];
+    }
+}
+// 获取新闻评论列表
+- (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/News/listcomment";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:newsModel.news_id.base64EncodedString forKey:@"news_id"];
+    
+    NSString *uuurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/listcomment?userID=%@&news_id=%@",account.userID.base64EncodedString,newsModel.news_id.base64EncodedString];
+    NSLog(@"获取新闻的评论列表 = %@",uuurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            if (result.count >= 1) {
+                success(result);
+            }else{
+                fail(@"还没有数据，成为第一个评论者吧");
+            }
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
 }
 
 #pragma mark - 禅修板块

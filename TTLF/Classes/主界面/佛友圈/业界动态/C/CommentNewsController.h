@@ -10,4 +10,6 @@
 
 @interface CommentNewsController : SuperViewController
 
+@property (strong,nonatomic) NewsArticleModel *newsModel;
+
 @end

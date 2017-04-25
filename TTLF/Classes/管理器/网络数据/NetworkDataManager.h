@@ -79,6 +79,10 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)storeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 删除收藏
 - (void)deleteStoreWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 对新闻、文章进行评论
+- (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 获取文章的评论列表
+- (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
 // 获取话题列表

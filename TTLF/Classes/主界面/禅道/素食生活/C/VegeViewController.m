@@ -100,7 +100,6 @@
     imageView.contentMode = UIViewContentModeScaleAspectFill;
     [bottomView addSubview:imageView];
     
-    
 }
 
 - (void)addVegeAction

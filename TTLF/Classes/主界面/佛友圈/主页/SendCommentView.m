@@ -82,7 +82,7 @@
     [self.sendButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     self.sendButton.enabled = NO;
     [self.sendButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [copySelf removeFromSuperviewAction];
+        [copySelf sendCommentAction];
     }];
     self.sendButton.frame = CGRectMake(self.width - 5 - 70, 4, 70, 38);
     [self.bottomView addSubview:self.sendButton];
@@ -140,6 +140,25 @@
     
 }
 
+#pragma mark - 发送评论
+- (void)sendCommentAction
+{
+    if ([self.delegate respondsToSelector:@selector(sendCommentWithImage:CommentText:)]) {
+        if (self.isSendIcon) {
+            // 带图的评论
+            [_delegate sendCommentWithImage:self.commentImgView.image CommentText:self.textView.text];
+            [self removeFromSuperviewAction];
+        }else{
+            // 纯文字的评论
+            [_delegate sendCommentWithImage:nil CommentText:self.textView.text];
+            [self removeFromSuperviewAction];
+        }
+        
+    }
+    
+}
+
+#pragma mark - 其他方法
 - (void)setIsSendIcon:(BOOL)isSendIcon
 {
     _isSendIcon = isSendIcon;

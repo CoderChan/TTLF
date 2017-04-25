@@ -15,7 +15,7 @@
 
 
 #define BottomHeight 50
-@interface CommentNewsController ()<UITableViewDataSource,UITableViewDelegate,LCActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface CommentNewsController ()<UITableViewDataSource,UITableViewDelegate,LCActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,SendCommentDelegate>
 
 /** 数据源 */
 @property (strong,nonatomic) NSMutableArray *array;
@@ -36,6 +36,7 @@
 
 - (void)setupSubViews
 {
+    self.array = [NSMutableArray array];
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - BottomHeight)];
     self.tableView.delegate = self;
@@ -45,8 +46,15 @@
     [self.view addSubview:self.tableView];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        self.tableView.hidden = YES;
-        [self showEmptyViewWithMessage:@"还没有数据\r成为第一个评论者吧！"];
+        [[TTLFManager sharedManager].networkManager getNewsCommentWithModel:self.newsModel Success:^(NSArray *array) {
+            [self.tableView.mj_header endRefreshing];
+            [self.array removeAllObjects];
+            [self.array addObjectsFromArray:array];
+            [self.tableView reloadData];
+        } Fail:^(NSString *errorMsg) {
+            [self.tableView.mj_header endRefreshing];
+            [self showEmptyViewWithMessage:errorMsg];
+        }];
     }];
     
     
@@ -56,6 +64,7 @@
     footView.CommentBlock = ^(ClickType clickType) {
         if (clickType == PresentCommentViewType) {
             self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
+            self.commendView.delegate = self;
             self.commendView.isSendIcon = NO;
             self.commendView.SelectImageBlock = ^{
                 // 选择评论图
@@ -79,8 +88,8 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.array.count;
-    return 20;
+    return self.array.count;
+//    return 20;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -103,6 +112,15 @@
     UIView *footView = [[UIView alloc]initWithFrame:CGRectZero];
     footView.backgroundColor = [UIColor clearColor];
     return footView;
+}
+#pragma mark - 评论的代理
+- (void)sendCommentWithImage:(UIImage *)image CommentText:(NSString *)commentText
+{
+    [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^{
+        [MBProgressHUD showSuccess:@"评论成功"];
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
+    }];
 }
 
 #pragma mark - 选择图片的代理

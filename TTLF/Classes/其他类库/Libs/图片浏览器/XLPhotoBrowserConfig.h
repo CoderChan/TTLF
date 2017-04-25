@@ -39,9 +39,9 @@ typedef NS_ENUM(NSUInteger, XLProgressViewMode){
 // browser 图片间的margin
 #define XLPhotoBrowserImageViewMargin 10
 // browser中显示图片动画时长
-#define XLPhotoBrowserShowImageAnimationDuration 0.4f
+#define XLPhotoBrowserShowImageAnimationDuration 0.2f
 // browser中显示图片动画时长
-#define XLPhotoBrowserHideImageAnimationDuration 0.4f
+#define XLPhotoBrowserHideImageAnimationDuration 0.2f
 
 // 图片下载进度指示进度显示样式（XLProgressViewModeLoopDiagram 环形，XLProgressViewModePieDiagram 饼型）
 #define XLProgressViewProgressMode XLProgressViewModeLoopDiagram
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, XLProgressViewMode){
 // 图片下载进度指示器内部控件间的间距
 #define XLProgressViewItemMargin 10
 // 圆环形图片下载进度指示器 环线宽度
-#define XLProgressViewLoopDiagramLineWidth 8
+#define XLProgressViewLoopDiagramLineWidth 4
 
 
 
