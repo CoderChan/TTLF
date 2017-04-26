@@ -7,8 +7,12 @@
 //
 
 #import "PlaceListViewController.h"
-#import "DisCoverTableViewCell.h"
+#import "PlaceTableViewCell.h"
 #import <MJRefresh.h>
+#import "ProvinceViewController.h"
+#import "RootNavgationController.h"
+#import "PlaceDetialController.h"
+
 
 @interface PlaceListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -37,8 +41,19 @@
         
     }];
     [self.tableView.mj_footer endRefreshingWithNoMoreData];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"place_select_province"] style:UIBarButtonItemStylePlain target:self action:@selector(ChangeProvinceAction)];
+    [self.navigationItem.rightBarButtonItem setTintColor:MainColor];
 }
-
+- (void)ChangeProvinceAction
+{
+    ProvinceViewController *province = [ProvinceViewController new];
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:province];
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
+}
+#pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 20;
@@ -50,12 +65,17 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    DisCoverTableViewCell *cell = [DisCoverTableViewCell sharedDisCoverTableCell:tableView];
+    PlaceTableViewCell *cell = [PlaceTableViewCell sharedDisCoverTableCell:tableView];
     
     return cell;
     
 }
-
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    PlaceDetialController *placeDetial = [[PlaceDetialController alloc]init];
+    
+    [self.navigationController pushViewController:placeDetial animated:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {

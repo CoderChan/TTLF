@@ -31,6 +31,11 @@
     return self;
 }
 
+- (void)setCommentNum:(NSUInteger)commentNum
+{
+    _commentNum = commentNum;
+    _discussNumLabel.text = [NSString stringWithFormat:@"%lu",(unsigned long)commentNum];
+}
 - (void)layoutSubviews
 {
     [super layoutSubviews];
@@ -80,7 +85,7 @@
     
     // 评论数
     self.discussNumLabel = [[UILabel alloc]init];
-    self.discussNumLabel.text = @"12";
+    self.discussNumLabel.text = @"0";
     self.discussNumLabel.textColor = MainColor;
     [self.discussNumLabel sizeToFit];
     self.discussNumLabel.backgroundColor = self.backgroundColor;

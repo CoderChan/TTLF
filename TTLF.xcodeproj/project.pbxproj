@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0634E00CE7196E61DA9AE0C4 /* libPods-TTLFUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6951712420153646DB45C8 /* libPods-TTLFUITests.a */; };
 		177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */; };
+		3B132F121EAF848F00031B36 /* PlaceTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B132F111EAF848F00031B36 /* PlaceTableViewCell.m */; };
+		3B132F151EAF869A00031B36 /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B132F141EAF869A00031B36 /* ProvinceViewController.m */; };
 		3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */; };
 		3B1F05C71E792BD2005173B9 /* AboutPunnaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05B61E792BD2005173B9 /* AboutPunnaViewController.m */; };
 		3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05B81E792BD2005173B9 /* PunnaListViewController.m */; };
@@ -129,7 +131,6 @@
 		3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */; };
 		3B6872D01EAA495700A12FF4 /* StoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872CF1EAA495700A12FF4 /* StoreListViewController.m */; };
 		3B6872D41EAA4BC800A12FF4 /* StoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872D31EAA4BC800A12FF4 /* StoreTableViewCell.m */; };
-		3B6872DA1EAB2F6400A12FF4 /* DisCoverTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872D71EAB2F6400A12FF4 /* DisCoverTableViewCell.m */; };
 		3B6872DB1EAB2F6400A12FF4 /* PlaceListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872D91EAB2F6400A12FF4 /* PlaceListViewController.m */; };
 		3B6872DE1EAB4B1B00A12FF4 /* GoodsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872DD1EAB4B1B00A12FF4 /* GoodsListTableCell.m */; };
 		3B6872E11EAB50F100A12FF4 /* OrderListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872E01EAB50F100A12FF4 /* OrderListTableCell.m */; };
@@ -169,6 +170,7 @@
 		3BDCE9D01E6EBB7600E2F8E0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCE9CE1E6EBB7600E2F8E0 /* LaunchScreen.storyboard */; };
 		3BDCE9DB1E6EBB7600E2F8E0 /* TTLFTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9DA1E6EBB7600E2F8E0 /* TTLFTests.m */; };
 		3BDCE9E61E6EBB7700E2F8E0 /* TTLFUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9E51E6EBB7700E2F8E0 /* TTLFUITests.m */; };
+		3BE098E71EB050B8009AEE8D /* PlaceDetialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE098E61EB050B8009AEE8D /* PlaceDetialController.m */; };
 		3BE1879C1EAF2A9500EDDD8F /* TZAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE1878A1EAF2A9500EDDD8F /* TZAssetCell.m */; };
 		3BE1879D1EAF2A9500EDDD8F /* TZAssetModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE1878C1EAF2A9500EDDD8F /* TZAssetModel.m */; };
 		3BE1879E1EAF2A9500EDDD8F /* TZImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE1878E1EAF2A9500EDDD8F /* TZImageManager.m */; };
@@ -200,6 +202,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3B132F101EAF848F00031B36 /* PlaceTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceTableViewCell.h; sourceTree = "<group>"; };
+		3B132F111EAF848F00031B36 /* PlaceTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceTableViewCell.m; sourceTree = "<group>"; };
+		3B132F131EAF869A00031B36 /* ProvinceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceViewController.h; sourceTree = "<group>"; };
+		3B132F141EAF869A00031B36 /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceViewController.m; sourceTree = "<group>"; };
 		3B1F059D1E7928A0005173B9 /* FoNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoNewsViewController.h; sourceTree = "<group>"; };
 		3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FoNewsViewController.m; sourceTree = "<group>"; };
 		3B1F05B51E792BD2005173B9 /* AboutPunnaViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutPunnaViewController.h; sourceTree = "<group>"; };
@@ -441,8 +447,6 @@
 		3B6872CF1EAA495700A12FF4 /* StoreListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreListViewController.m; sourceTree = "<group>"; };
 		3B6872D21EAA4BC800A12FF4 /* StoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreTableViewCell.h; sourceTree = "<group>"; };
 		3B6872D31EAA4BC800A12FF4 /* StoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreTableViewCell.m; sourceTree = "<group>"; };
-		3B6872D61EAB2F6400A12FF4 /* DisCoverTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisCoverTableViewCell.h; sourceTree = "<group>"; };
-		3B6872D71EAB2F6400A12FF4 /* DisCoverTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisCoverTableViewCell.m; sourceTree = "<group>"; };
 		3B6872D81EAB2F6400A12FF4 /* PlaceListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceListViewController.h; sourceTree = "<group>"; };
 		3B6872D91EAB2F6400A12FF4 /* PlaceListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceListViewController.m; sourceTree = "<group>"; };
 		3B6872DC1EAB4B1B00A12FF4 /* GoodsListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListTableCell.h; sourceTree = "<group>"; };
@@ -522,6 +526,8 @@
 		3BDCE9E11E6EBB7700E2F8E0 /* TTLFUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TTLFUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDCE9E51E6EBB7700E2F8E0 /* TTLFUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TTLFUITests.m; sourceTree = "<group>"; };
 		3BDCE9E71E6EBB7700E2F8E0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BE098E51EB050B8009AEE8D /* PlaceDetialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDetialController.h; sourceTree = "<group>"; };
+		3BE098E61EB050B8009AEE8D /* PlaceDetialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDetialController.m; sourceTree = "<group>"; };
 		3BE187891EAF2A9500EDDD8F /* TZAssetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetCell.h; sourceTree = "<group>"; };
 		3BE1878A1EAF2A9500EDDD8F /* TZAssetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZAssetCell.m; sourceTree = "<group>"; };
 		3BE1878B1EAF2A9500EDDD8F /* TZAssetModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TZAssetModel.h; sourceTree = "<group>"; };
@@ -726,10 +732,14 @@
 		3B1F14CF1EA7536D00DFAFAE /* 佛教名山 */ = {
 			isa = PBXGroup;
 			children = (
-				3B6872D61EAB2F6400A12FF4 /* DisCoverTableViewCell.h */,
-				3B6872D71EAB2F6400A12FF4 /* DisCoverTableViewCell.m */,
 				3B6872D81EAB2F6400A12FF4 /* PlaceListViewController.h */,
 				3B6872D91EAB2F6400A12FF4 /* PlaceListViewController.m */,
+				3BE098E51EB050B8009AEE8D /* PlaceDetialController.h */,
+				3BE098E61EB050B8009AEE8D /* PlaceDetialController.m */,
+				3B132F131EAF869A00031B36 /* ProvinceViewController.h */,
+				3B132F141EAF869A00031B36 /* ProvinceViewController.m */,
+				3B132F101EAF848F00031B36 /* PlaceTableViewCell.h */,
+				3B132F111EAF848F00031B36 /* PlaceTableViewCell.m */,
 			);
 			path = "佛教名山";
 			sourceTree = "<group>";
@@ -1257,8 +1267,8 @@
 		3B2670AF1E6FE2B40078379B /* 基本信息 */ = {
 			isa = PBXGroup;
 			children = (
-				3B6872D11EAA497800A12FF4 /* M */,
 				3B2670B01E6FE2B40078379B /* C */,
+				3B6872D11EAA497800A12FF4 /* M */,
 				3B2670B81E6FE2B40078379B /* V */,
 			);
 			path = "基本信息";
@@ -2056,6 +2066,7 @@
 				3BAC6A971EAEF58000D3CB8C /* PYPhotoBrowserConst.m in Sources */,
 				3B266FDF1E6FDD740078379B /* TTLFConstKey.m in Sources */,
 				3B1F05C91E792BD2005173B9 /* PunnaNumViewController.m in Sources */,
+				3B132F151EAF869A00031B36 /* ProvinceViewController.m in Sources */,
 				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B6872D41EAA4BC800A12FF4 /* StoreTableViewCell.m in Sources */,
@@ -2066,9 +2077,9 @@
 				3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */,
 				3B2670361E6FDEBB0078379B /* NSString+Category.m in Sources */,
 				3B2670851E6FE2930078379B /* DiscoverViewController.m in Sources */,
-				3B6872DA1EAB2F6400A12FF4 /* DisCoverTableViewCell.m in Sources */,
 				3B266FD21E6FDCB60078379B /* AccountTool.m in Sources */,
 				3B1F14FD1EA7536D00DFAFAE /* BookTableViewCell.m in Sources */,
+				3BE098E71EB050B8009AEE8D /* PlaceDetialController.m in Sources */,
 				3BB6934C1EA9DAF400E431E0 /* RightMoreView.m in Sources */,
 				3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */,
 				3B2670461E6FDEBB0078379B /* WXApiRequestHandler.m in Sources */,
@@ -2090,6 +2101,7 @@
 				3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */,
 				3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */,
 				3B1F15031EA7536D00DFAFAE /* FruitBowlModel.m in Sources */,
+				3B132F121EAF848F00031B36 /* PlaceTableViewCell.m in Sources */,
 				3BE187A21EAF2A9500EDDD8F /* TZPhotoPreviewCell.m in Sources */,
 				3B1F14FB1EA7536D00DFAFAE /* MyBooksViewController.m in Sources */,
 				3B1F14FA1EA7536D00DFAFAE /* BookStoreViewController.m in Sources */,

@@ -14,6 +14,9 @@ typedef NS_ENUM(NSInteger,ClickType) {
 };
 @interface CommentFootView : UIView
 
+/** 评论数 */
+@property (assign,nonatomic) NSUInteger commentNum;
+
 /** 点击弹出评论视图 */
 @property (copy,nonatomic) void (^CommentBlock)(ClickType clickType);
 

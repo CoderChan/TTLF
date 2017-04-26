@@ -10,6 +10,9 @@
 
 @interface CommentNewsController : SuperViewController
 
+/** 数据源 */
 @property (strong,nonatomic) NewsArticleModel *newsModel;
+/** 数据源 */
+@property (strong,nonatomic) NSMutableArray *commentArray;
 
 @end

@@ -17,8 +17,7 @@
 #define BottomHeight 50
 @interface CommentNewsController ()<UITableViewDataSource,UITableViewDelegate,LCActionSheetDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,SendCommentDelegate>
 
-/** 数据源 */
-@property (strong,nonatomic) NSMutableArray *array;
+
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 弹出的评论视图 */
@@ -36,7 +35,7 @@
 
 - (void)setupSubViews
 {
-    self.array = [NSMutableArray array];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - BottomHeight)];
     self.tableView.delegate = self;
@@ -48,19 +47,26 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager getNewsCommentWithModel:self.newsModel Success:^(NSArray *array) {
             [self.tableView.mj_header endRefreshing];
-            [self.array removeAllObjects];
-            [self.array addObjectsFromArray:array];
+            [self.commentArray removeAllObjects];
+            [self.commentArray addObjectsFromArray:array];
+            [self hideMessageAction];
             [self.tableView reloadData];
         } Fail:^(NSString *errorMsg) {
+            [self hideMessageAction];
             [self.tableView.mj_header endRefreshing];
             [self showEmptyViewWithMessage:errorMsg];
         }];
     }];
-    
+    if (self.commentArray.count > 0) {
+        [self.tableView reloadData];
+    }else{
+        [self showEmptyViewWithMessage:@"还没有数据，\r成为第一个评论者吧"];
+    }
     
     // 评论视图
     __weak __block CommentNewsController *copySelf = self;
     CommentFootView *footView = [[CommentFootView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tableView.frame), self.view.width, BottomHeight)];
+    footView.commentNum = self.commentArray.count;
     footView.CommentBlock = ^(ClickType clickType) {
         if (clickType == PresentCommentViewType) {
             self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
@@ -88,7 +94,7 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.array.count;
+    return self.commentArray.count;
 //    return 20;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

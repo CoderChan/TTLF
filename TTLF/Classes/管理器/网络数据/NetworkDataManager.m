@@ -757,7 +757,6 @@
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:newsModel.news_id.base64EncodedString forKey:@"news_id"];
     
-    
     if (image) {
         // 有图评论
         [param setValue:commentText.base64EncodedString forKey:@"commentText"];

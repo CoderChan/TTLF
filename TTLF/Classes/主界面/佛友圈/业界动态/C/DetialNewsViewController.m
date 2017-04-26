@@ -32,6 +32,8 @@
 @property (copy,nonatomic) NSString *shareUrl;
 /** 获取文章中的图片 */
 @property (strong,nonatomic) NSMutableArray *imgUrlArray;
+/** 评论的数组 */
+@property (strong,nonatomic) NSMutableArray *commentArray;
 
 @end
 
@@ -60,6 +62,8 @@
 - (void)setupSubViews
 
 {
+
+    // 网页相关
     self.imgUrlArray = [NSMutableArray array];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(commentAction)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
@@ -92,15 +96,18 @@
         }else if (clickType == PushToCommentControlerType){
             CommentNewsController *commentVC = [CommentNewsController new];
             commentVC.newsModel = self.newsModel;
+            commentVC.commentArray = [NSMutableArray arrayWithArray:self.commentArray];
             [self.navigationController pushViewController:commentVC animated:YES];
         }
     };
+    footView.commentNum = self.commentArray.count;
     [self.view addSubview:footView];
     
     // 添加左滑手势
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         CommentNewsController *comment = [CommentNewsController new];
         comment.newsModel = self.newsModel;
+        comment.commentArray = [NSMutableArray arrayWithArray:self.commentArray];
         [self.navigationController pushViewController:comment animated:YES];
     }];
     [recognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -124,6 +131,17 @@
     [insertView addSubview:bottomLabel];
     
     [self.webView insertSubview:insertView atIndex:0];
+    
+    
+    // 获取评论数组
+    [[TTLFManager sharedManager].networkManager getNewsCommentWithModel:self.newsModel Success:^(NSArray *array) {
+        self.commentArray = [NSMutableArray arrayWithArray:array];
+        footView.commentNum = array.count;
+    } Fail:^(NSString *errorMsg) {
+        KGLog(@"获取评论错误 = %@",errorMsg);
+    }];
+    
+
 }
 
 #pragma mark - 评论的代理
@@ -300,7 +318,6 @@
     [webView stringByEvaluatingJavaScriptFromString:jsGetImages];//注入js方法
     NSString *urlResurlt = [webView stringByEvaluatingJavaScriptFromString:@"getImages()"];
     self.imgUrlArray = [NSMutableArray arrayWithArray:[urlResurlt componentsSeparatedByString:@"+"]];
-    NSLog(@"self.imgUrlArray = %@",self.imgUrlArray);
     if (self.imgUrlArray.count >= 2) {
         [self.imgUrlArray removeLastObject];
     }

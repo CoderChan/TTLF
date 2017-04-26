@@ -1,35 +1,33 @@
 //
-//  DisCoverTableViewCell.m
-//  FYQ
+//  PlaceTableViewCell.m
+//  TTLF
 //
-//  Created by Chan_Sir on 2016/12/19.
-//  Copyright © 2016年 陈振超. All rights reserved.
+//  Created by Chan_Sir on 2017/4/25.
+//  Copyright © 2017年 陈振超. All rights reserved.
 //
 
-#import "DisCoverTableViewCell.h"
+#import "PlaceTableViewCell.h"
 #import <Masonry.h>
-#import <UIImageView+WebCache.h>
 
-
-@interface DisCoverTableViewCell ()
+@interface PlaceTableViewCell ()
 
 @property (strong,nonatomic) UIImageView *backIMGView;
 
 @property (strong,nonatomic) UILabel *titleLabel;
 
+
 @end
 
-@implementation DisCoverTableViewCell
-
+@implementation PlaceTableViewCell
 
 
 + (instancetype)sharedDisCoverTableCell:(UITableView *)tableView
 {
-    static NSString *ID = @"DisCoverTableViewCell";
-    DisCoverTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    static NSString *ID = @"PlaceTableViewCell";
+    PlaceTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     if (!cell) {
-        cell = [[DisCoverTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[PlaceTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
     return cell;
 }
@@ -67,7 +65,7 @@
     
     
     self.titleLabel = [[UILabel alloc]init];
-    self.titleLabel.text = @"108📿念珠";
+    self.titleLabel.text = @"舟山普陀山";
     self.titleLabel.font = [UIFont boldSystemFontOfSize:30];
     self.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.titleLabel.textColor = [UIColor whiteColor];
@@ -80,5 +78,6 @@
     }];
     
 }
+
 
 @end
