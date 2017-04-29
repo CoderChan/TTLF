@@ -8,6 +8,7 @@
 
 #import "CommentTableViewCell.h"
 #import <Masonry.h>
+#import "XLPhotoBrowser.h"
 
 
 @interface CommentTableViewCell ()
@@ -44,16 +45,46 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
+        [self setSelectionStyle:UITableViewCellSelectionStyleNone];
         [self setupSubViews];
     }
     return self;
+}
+
+- (void)setCommentModel:(NewsCommentModel *)commentModel
+{
+    _commentModel = commentModel;
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:commentModel.commenter_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = commentModel.commenter_name;
+    _contentLabel.text = commentModel.comment_text;
+    if (commentModel.comment_pic.length > 5) {
+        _insertImgView.hidden = NO;
+        [_insertImgView sd_setImageWithURL:[NSURL URLWithString:commentModel.comment_pic] placeholderImage:[UIImage imageNamed:@"image_place"]];
+    }else{
+        _insertImgView.hidden = YES;
+    }
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:commentModel.comment_time];
+    NSString *dateStr = [NSString stringWithFormat:@"%@",date];
+    if ([date isToday]) {
+        // 只取时间
+        NSString *time = [dateStr substringWithRange:NSMakeRange(11, 5)];
+        _timeLabel.text = time;
+    }else if ([date isYesterday]){
+        // 只取时间
+        NSString *time = [dateStr substringWithRange:NSMakeRange(11, 5)];
+        _timeLabel.text = [NSString stringWithFormat:@"昨天 %@",time];
+    }else{
+        // 只取日期
+        NSString *time = [dateStr substringWithRange:NSMakeRange(0, 11)];
+        _timeLabel.text = time;
+    }
+    
 }
 
 - (void)setupSubViews
 {
     // 头像
     self.headImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
-    [self.headImgView sd_setImageWithURL:[NSURL URLWithString:[[TTLFManager sharedManager].userManager getUserInfo].headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
     self.headImgView.frame = CGRectMake(15, 10, 36, 36);
     self.headImgView.layer.masksToBounds = YES;
     self.headImgView.layer.cornerRadius = 18;
@@ -81,6 +112,7 @@
     
     // 附图
     self.insertImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"image_place"]];
+    self.insertImgView.userInteractionEnabled = YES;
     self.insertImgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.insertImgView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.insertImgView.layer.masksToBounds = YES;
@@ -92,6 +124,11 @@
         make.width.equalTo(@70);
         make.height.equalTo(@60);
     }];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        [XLPhotoBrowser showPhotoBrowserWithImages:@[_commentModel.comment_pic] currentImageIndex:0];
+    }];
+    [self.insertImgView addGestureRecognizer:tap];
     
     // 时间
     self.timeLabel = [[UILabel alloc]init];

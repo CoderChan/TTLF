@@ -138,6 +138,8 @@
 		3B6872E71EAB596C00A12FF4 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872E61EAB596C00A12FF4 /* AddressViewController.m */; };
 		3B6872EA1EAB966300A12FF4 /* CommentNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872E91EAB966300A12FF4 /* CommentNewsController.m */; };
 		3B6872ED1EABADDB00A12FF4 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872EC1EABADDB00A12FF4 /* CommentTableViewCell.m */; };
+		3B6B6E941EB445BD00597A84 /* FindVageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */; };
+		3B6B6E971EB47A2100597A84 /* NewsCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */; };
 		3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */; };
 		3BAC6A931EAEF58000D3CB8C /* PYPhotosPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */; };
 		3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */; };
@@ -461,6 +463,10 @@
 		3B6872E91EAB966300A12FF4 /* CommentNewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentNewsController.m; sourceTree = "<group>"; };
 		3B6872EB1EABADDB00A12FF4 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		3B6872EC1EABADDB00A12FF4 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
+		3B6B6E921EB445BD00597A84 /* FindVageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindVageTableViewCell.h; sourceTree = "<group>"; };
+		3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVageTableViewCell.m; sourceTree = "<group>"; };
+		3B6B6E951EB47A2100597A84 /* NewsCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentModel.h; sourceTree = "<group>"; };
+		3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentModel.m; sourceTree = "<group>"; };
 		3B70C8611E9B77E200FDD0A2 /* NewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
 		3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
 		3BAC6A791EAEF58000D3CB8C /* PYPhotosPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosPreviewController.h; sourceTree = "<group>"; };
@@ -1392,6 +1398,8 @@
 			children = (
 				3B4295B71E9B7255001374F2 /* NewsArticleModel.h */,
 				3B4295B81E9B7255001374F2 /* NewsArticleModel.m */,
+				3B6B6E951EB47A2100597A84 /* NewsCommentModel.h */,
+				3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1577,6 +1585,8 @@
 		3BD049C81EAC9E2A0054F9EF /* V */ = {
 			isa = PBXGroup;
 			children = (
+				3B6B6E921EB445BD00597A84 /* FindVageTableViewCell.h */,
+				3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1969,6 +1979,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B6B6E971EB47A2100597A84 /* NewsCommentModel.m in Sources */,
 				3B266FD11E6FDCB60078379B /* Account.m in Sources */,
 				3B2670571E6FDEBB0078379B /* XLZoomingScrollView.m in Sources */,
 				3B6872DB1EAB2F6400A12FF4 /* PlaceListViewController.m in Sources */,
@@ -1994,6 +2005,7 @@
 				3B1F15051EA7536D00DFAFAE /* TodayLifoInfoModel.m in Sources */,
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
+				3B6B6E941EB445BD00597A84 /* FindVageTableViewCell.m in Sources */,
 				3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
 				3BAC6A9A1EAEF58000D3CB8C /* PYPhotoBrowseView.m in Sources */,

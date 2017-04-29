@@ -26,7 +26,7 @@
     self = [super init];
     if (self) {
         self.networkManager = [NetworkDataManager sharedManager];
-        self.musicManager = [[MusicPlayerManager alloc]init];
+        self.musicManager = [MusicPlayerManager sharedManager];
         self.userManager = [UserInfoManager sharedManager];
     }
     return self;

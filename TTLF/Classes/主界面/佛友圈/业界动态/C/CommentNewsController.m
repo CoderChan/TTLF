@@ -20,6 +20,8 @@
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
+/** 底部评论竖图 */
+@property (strong,nonatomic) CommentFootView *footView;
 /** 弹出的评论视图 */
 @property (strong,nonatomic) SendCommentView *commendView;
 
@@ -40,7 +42,6 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - BottomHeight)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = 160;
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
@@ -65,26 +66,25 @@
     
     // 评论视图
     __weak __block CommentNewsController *copySelf = self;
-    CommentFootView *footView = [[CommentFootView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tableView.frame), self.view.width, BottomHeight)];
-    footView.commentNum = self.commentArray.count;
-    footView.CommentBlock = ^(ClickType clickType) {
+    self.footView = [[CommentFootView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.tableView.frame), self.view.width, BottomHeight)];
+    self.footView.commentNum = self.commentArray.count;
+    self.footView.CommentBlock = ^(ClickType clickType) {
         if (clickType == PresentCommentViewType) {
-            self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
-            self.commendView.delegate = self;
-            self.commendView.isSendIcon = NO;
-            self.commendView.SelectImageBlock = ^{
+            copySelf.commendView = [[SendCommentView alloc]initWithFrame:copySelf.view.bounds];
+            copySelf.commendView.delegate = copySelf;
+            copySelf.commendView.isSendIcon = NO;
+            copySelf.commendView.SelectImageBlock = ^{
                 // 选择评论图
                 LCActionSheet *actionSheet = [LCActionSheet sheetWithTitle:nil delegate:copySelf cancelButtonTitle:@"取消" otherButtonTitles:@"拍照",@"从相册中选择", nil];
                 [actionSheet show];
             };
-            [self.view addSubview:self.commendView];
+            [copySelf.view addSubview:copySelf.commendView];
         }else if (clickType == PushToCommentControlerType){
             
         }
     };
-    [self.view addSubview:footView];
+    [self.view addSubview:self.footView];
 }
-
 
 
 #pragma mark - 表格相关
@@ -95,12 +95,13 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.commentArray.count;
-//    return 20;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NewsCommentModel *model = self.commentArray[indexPath.row];
     CommentTableViewCell *cell = [CommentTableViewCell sharedCommentTableCell:tableView];
-    
+    cell.commentModel = model;
+    self.footView.commentNum = self.commentArray.count;
     return cell;
 }
 
@@ -108,6 +109,16 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewsCommentModel *model = self.commentArray[indexPath.row];
+    CGFloat textHeight = [model.comment_text boundingRectWithSize:CGSizeMake(SCREEN_WIDTH, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size.height;
+    if (model.comment_pic.length > 5) {
+        return 32 + textHeight + 60 + 30;
+    }else{
+        return 32 + textHeight + 35;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -119,13 +130,58 @@
     footView.backgroundColor = [UIColor clearColor];
     return footView;
 }
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewsCommentModel *model = self.commentArray[indexPath.row];
+    if ([model.commenter_uid isEqualToString:[AccountTool account].userID]) {
+        return UITableViewCellEditingStyleDelete;
+    }else{
+        return UITableViewCellEditingStyleNone;
+    }
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NewsCommentModel *model = self.commentArray[indexPath.row];
+    if ([model.commenter_uid isEqualToString:[AccountTool account].userID]) {
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    [[TTLFManager sharedManager].networkManager deleteNewsComment:model Success:^{
+                        [self.commentArray removeObjectAtIndex:indexPath.row];
+                        self.footView.commentNum = self.commentArray.count;
+                        if (self.CommentBlock) {
+                            _CommentBlock(self.commentArray);
+                        }
+                        [self.tableView reloadData];
+                    } Fail:^(NSString *errorMsg) {
+                        [self sendAlertAction:errorMsg];
+                    }];
+                }
+            } otherButtonTitles:@"删除评论", nil];
+            sheet.destructiveButtonIndexSet = [NSSet setWithObjects:@1, nil];
+            [sheet show];
+        }];
+        action.backgroundColor = WarningColor;
+        return @[action];
+    }else{
+        return NULL;
+    }
+    
+}
 #pragma mark - 评论的代理
 - (void)sendCommentWithImage:(UIImage *)image CommentText:(NSString *)commentText
 {
-    [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^{
+    [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^(NewsCommentModel *model) {
         [MBProgressHUD showSuccess:@"评论成功"];
+        [self.commentArray insertObject:model atIndex:0];
+        self.footView.commentNum = self.commentArray.count;
+        [self.tableView reloadData];
+        [self hideMessageAction];
+        if (self.CommentBlock) {
+            _CommentBlock(self.commentArray);
+        }
     } Fail:^(NSString *errorMsg) {
-        [self sendAlertAction:errorMsg];
+        
     }];
 }
 

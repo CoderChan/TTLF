@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "NewsCommentModel.h"
 
 /*********** 评论的cell ************/
 @interface CommentTableViewCell : UITableViewCell
+
+@property (strong,nonatomic) NewsCommentModel *commentModel;
 
 + (instancetype)sharedCommentTableCell:(UITableView *)tableView;
 

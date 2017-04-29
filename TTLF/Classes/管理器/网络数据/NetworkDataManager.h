@@ -18,6 +18,7 @@
 #import "LifoResourceModel.h"
 #import "TodayLifoInfoModel.h"
 #import "NewsArticleModel.h"
+#import "NewsCommentModel.h"
 
 
 
@@ -80,7 +81,9 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 删除收藏
 - (void)deleteStoreWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 对新闻、文章进行评论
-- (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(void (^)(NewsCommentModel *model))success Fail:(FailBlock)fail;
+// 删除自己的评论
+- (void)deleteNewsComment:(NewsCommentModel *)commentModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 获取文章的评论列表
 - (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 

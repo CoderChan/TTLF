@@ -745,7 +745,7 @@
         fail(error.localizedDescription);
     }];
 }
-- (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(SuccessBlock)success Fail:(FailBlock)fail
+- (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(void (^)(NewsCommentModel *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
     if (!account) {
@@ -765,7 +765,9 @@
         // 上传图片 模糊度如果是1会出现失败
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
         NSString *name = @"file";
+        // 图片名称，当前时间戳
         NSString *fileName = [NSString stringWithFormat:@"%@.jpeg",currentTime];
+        // 开始上传
         [HTTPManager uploadWithURL:url params:param fileData:data name:name fileName:fileName mimeType:@"jpeg" progress:^(NSProgress *progress) {
             NSLog(@"上传进度 = %g",progress.fractionCompleted);
         } success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -773,7 +775,9 @@
             int code = [[[responseObject objectForKey:@"code"] description] intValue];
             NSString *message = [[responseObject objectForKey:@"message"] description];
             if (code == 1) {
-                success();
+                NSDictionary *result = [responseObject objectForKey:@"result"];
+                NewsCommentModel *model = [NewsCommentModel mj_objectWithKeyValues:result];
+                success(model);
             }else{
                 fail(message);
             }
@@ -790,7 +794,9 @@
             int code = [[[responseObject objectForKey:@"code"] description] intValue];
             NSString *message = [[responseObject objectForKey:@"message"] description];
             if (code == 1) {
-                success();
+                NSDictionary *result = [responseObject objectForKey:@"result"];
+                NewsCommentModel *model = [NewsCommentModel mj_objectWithKeyValues:result];
+                success(model);
             }else{
                 fail(message);
             }
@@ -798,6 +804,33 @@
             fail(error.localizedDescription);
         }];
     }
+}
+- (void)deleteNewsComment:(NewsCommentModel *)commentModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/News/deletecomment";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:commentModel.comment_id.base64EncodedString forKey:@"comment_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/deletecomment?userID=%@&comment_id=%@",account.userID.base64EncodedString,commentModel.comment_id.base64EncodedString];
+    NSLog(@"删除评论的url = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
 }
 // 获取新闻评论列表
 - (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail
@@ -821,7 +854,8 @@
         if (code == 1) {
             NSArray *result = [responseObject objectForKey:@"result"];
             if (result.count >= 1) {
-                success(result);
+                NSArray *modelArray = [NewsCommentModel mj_objectArrayWithKeyValuesArray:result];
+                success(modelArray);
             }else{
                 fail(@"还没有数据，成为第一个评论者吧");
             }

@@ -28,6 +28,8 @@
 @property (strong,nonatomic) UIWebView *webView;
 /** 评论视图 */
 @property (strong,nonatomic) SendCommentView *commendView;
+/** 底部评论视图 */
+@property (strong,nonatomic) CommentFootView *footView;
 /** 分享的URL */
 @property (copy,nonatomic) NSString *shareUrl;
 /** 获取文章中的图片 */
@@ -81,33 +83,41 @@
     
     // 评论视图
     __weak __block DetialNewsViewController *copySelf = self;
-    CommentFootView *footView = [[CommentFootView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.webView.frame), self.view.width, BottomHeight)];
-    footView.CommentBlock = ^(ClickType clickType) {
+    self.footView = [[CommentFootView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.webView.frame), self.view.width, BottomHeight)];
+    self.footView.CommentBlock = ^(ClickType clickType) {
         if (clickType == PresentCommentViewType) {
-            self.commendView = [[SendCommentView alloc]initWithFrame:self.view.bounds];
-            self.commendView.delegate = self;
-            self.commendView.isSendIcon = NO;
-            self.commendView.SelectImageBlock = ^{
+            copySelf.commendView = [[SendCommentView alloc]initWithFrame:copySelf.view.bounds];
+            copySelf.commendView.delegate = copySelf;
+            copySelf.commendView.isSendIcon = NO;
+            copySelf.commendView.SelectImageBlock = ^{
                 // 选择评论图
                 LCActionSheet *actionSheet = [LCActionSheet sheetWithTitle:nil delegate:copySelf cancelButtonTitle:@"取消" otherButtonTitles:@"拍照",@"从相册中选择", nil];
                 [actionSheet show];
             };
-            [self.view addSubview:self.commendView];
+            [copySelf.view addSubview:copySelf.commendView];
         }else if (clickType == PushToCommentControlerType){
             CommentNewsController *commentVC = [CommentNewsController new];
-            commentVC.newsModel = self.newsModel;
-            commentVC.commentArray = [NSMutableArray arrayWithArray:self.commentArray];
-            [self.navigationController pushViewController:commentVC animated:YES];
+            commentVC.newsModel = copySelf.newsModel;
+            commentVC.commentArray = [NSMutableArray arrayWithArray:copySelf.commentArray];
+            commentVC.CommentBlock = ^(NSArray *commentArray) {
+                copySelf.commentArray = commentArray.mutableCopy;
+                copySelf.footView.commentNum = commentArray.count;
+            };
+            [copySelf.navigationController pushViewController:commentVC animated:YES];
         }
     };
-    footView.commentNum = self.commentArray.count;
-    [self.view addSubview:footView];
+    self.footView.commentNum = self.commentArray.count;
+    [self.view addSubview:self.footView];
     
     // 添加左滑手势
     UISwipeGestureRecognizer *recognizer = [[UISwipeGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         CommentNewsController *comment = [CommentNewsController new];
         comment.newsModel = self.newsModel;
         comment.commentArray = [NSMutableArray arrayWithArray:self.commentArray];
+        comment.CommentBlock = ^(NSArray *commentArray) {
+            copySelf.commentArray = commentArray.mutableCopy;
+            copySelf.footView.commentNum = commentArray.count;
+        };
         [self.navigationController pushViewController:comment animated:YES];
     }];
     [recognizer setDirection:UISwipeGestureRecognizerDirectionLeft];
@@ -136,19 +146,21 @@
     // 获取评论数组
     [[TTLFManager sharedManager].networkManager getNewsCommentWithModel:self.newsModel Success:^(NSArray *array) {
         self.commentArray = [NSMutableArray arrayWithArray:array];
-        footView.commentNum = array.count;
+        copySelf.footView.commentNum = array.count;
     } Fail:^(NSString *errorMsg) {
         KGLog(@"获取评论错误 = %@",errorMsg);
     }];
     
-
 }
 
 #pragma mark - 评论的代理
 - (void)sendCommentWithImage:(UIImage *)image CommentText:(NSString *)commentText
 {
-    [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^{
+    [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^(NewsCommentModel *model) {
         [MBProgressHUD showSuccess:@"评论成功"];
+        [self.commentArray addObject:model];
+        self.footView.commentNum = self.commentArray.count;
+        
     } Fail:^(NSString *errorMsg) {
         [self sendAlertAction:errorMsg];
     }];

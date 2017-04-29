@@ -14,5 +14,7 @@
 @property (strong,nonatomic) NewsArticleModel *newsModel;
 /** 数据源 */
 @property (strong,nonatomic) NSMutableArray *commentArray;
+/** 回调一下评论数组 */
+@property (copy,nonatomic) void (^CommentBlock)(NSArray *commentArray);
 
 @end

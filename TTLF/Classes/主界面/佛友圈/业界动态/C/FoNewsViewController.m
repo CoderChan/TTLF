@@ -167,7 +167,13 @@
     NewsArticleModel *model = self.array[indexPath.row];
     NewsTableViewCell *cell = [NewsTableViewCell sharedNewsCell:tableView];
     cell.model = model;
+    
     return cell;
+}
+
+- (void)skks:(NewsArticleModel *)model
+{
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
