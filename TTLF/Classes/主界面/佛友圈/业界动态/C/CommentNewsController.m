@@ -12,6 +12,7 @@
 #import "CommentFootView.h"
 #import <LCActionSheet.h>
 #import "SendCommentView.h"
+#import "VisitUserViewController.h"
 
 
 #define BottomHeight 50
@@ -102,6 +103,10 @@
     CommentTableViewCell *cell = [CommentTableViewCell sharedCommentTableCell:tableView];
     cell.commentModel = model;
     self.footView.commentNum = self.commentArray.count;
+    cell.UserClickBlock = ^(NewsCommentModel *commentModel) {
+        VisitUserViewController *userVC = [[VisitUserViewController alloc]initWithUserID:commentModel.commenter_uid];
+        [self.navigationController pushViewController:userVC animated:YES];
+    };
     return cell;
 }
 

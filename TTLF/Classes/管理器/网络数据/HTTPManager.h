@@ -50,7 +50,7 @@ typedef void(^FailCacheBlock) (NSError * error);
  *  @param success 成功回调
  *  @param fail    失败回调
  */
-+(void)GET:(NSString *)url
++ (void)GET:(NSString *)url
     params:(NSDictionary *)params success:(YLRMResponseSuccess)success
       fail:(YLRMResponseFail)fail;
 
@@ -73,7 +73,7 @@ typedef void(^FailCacheBlock) (NSError * error);
  *  @param success 成功回调
  *  @param fail    失败回调
  */
-+(void)POST:(NSString *)url
++ (void)POST:(NSString *)url
      params:(NSDictionary *)params
     success:(YLRMResponseSuccess)success
        fail:(YLRMResponseFail)fail;
@@ -93,7 +93,7 @@ typedef void(^FailCacheBlock) (NSError * error);
  *  @param fail     失败回调
  */
 
-+(void)uploadWithURL:(NSString *)url
++ (void)uploadWithURL:(NSString *)url
               params:(NSDictionary *)params
             fileData:(NSData *)filedata
                 name:(NSString *)name
@@ -103,8 +103,28 @@ typedef void(^FailCacheBlock) (NSError * error);
              success:(YLRMResponseSuccess)success
                 fail:(YLRMResponseFail)fail;
 
-
-
+/**
+ 上传多张图片
+ 
+ @param url 路径
+ @param params 参数
+ @param fileArray 图片数组
+ @param name 图片名称
+ @param filename 文件名
+ @param mimeType 文件类型
+ @param progress 进度回调
+ @param success 成功回调
+ @param fail 失败回调
+ */
++ (void)uploadFilesWithURL:(NSString *)url
+                    params:(NSDictionary *)params
+                 fileArray:(NSArray *)fileArray
+                      name:(NSString *)name
+                  fileName:(NSString *)filename
+                  mimeType:(NSString *) mimeType
+                  progress:(YLRMProgress)progress
+                   success:(YLRMResponseSuccess)success
+                      fail:(YLRMResponseFail)fail;
 
 
 @end

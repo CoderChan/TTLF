@@ -39,7 +39,6 @@
     return self;
 }
 
-
 - (void)setupSubViews
 {
 //    gy_book_cell

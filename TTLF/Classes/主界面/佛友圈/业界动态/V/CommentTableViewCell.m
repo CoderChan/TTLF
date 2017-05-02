@@ -85,17 +85,31 @@
 {
     // 头像
     self.headImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
+    self.headImgView.userInteractionEnabled = YES;
     self.headImgView.frame = CGRectMake(15, 10, 36, 36);
     self.headImgView.layer.masksToBounds = YES;
     self.headImgView.layer.cornerRadius = 18;
     [self.contentView addSubview:self.headImgView];
+    UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if (self.UserClickBlock) {
+            _UserClickBlock(_commentModel);
+        }
+    }];
+    [self.headImgView addGestureRecognizer:headTap];
     
     // 名称
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 10, self.headImgView.y + 2, 200, 20)];
     self.nameLabel.text = @"林中鹿";
+    self.nameLabel.userInteractionEnabled = YES;
     self.nameLabel.font = [UIFont boldSystemFontOfSize:16];
     self.nameLabel.textColor = RGBACOLOR(151, 171, 209, 1);
     [self.contentView addSubview:self.nameLabel];
+    UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if (self.UserClickBlock) {
+            _UserClickBlock(_commentModel);
+        }
+    }];
+    [self.nameLabel addGestureRecognizer:nameTap];
     
     // 评论的文字
     self.contentLabel = [[UILabel alloc]init];

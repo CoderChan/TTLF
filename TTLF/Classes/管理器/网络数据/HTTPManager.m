@@ -96,6 +96,35 @@
     }];
 }
 
+#pragma mark - 上传多张图片
++ (void)uploadFilesWithURL:(NSString *)url params:(NSDictionary *)params fileArray:(NSArray *)fileArray name:(NSString *)name fileName:(NSString *)filename mimeType:(NSString *)mimeType progress:(YLRMProgress)progress success:(YLRMResponseSuccess)success fail:(YLRMResponseFail)fail
+{
+    AFHTTPSessionManager *manager = [HTTPManager managerWithBaseURL:nil sessionConfiguration:NO];
+    NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
+    NSString *URL = [url stringByAddingPercentEncodingWithAllowedCharacters:set];
+    
+    [manager POST:URL parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData>  _Nonnull formData) {
+        // 上传 多张图片
+        for(NSInteger i = 0; i < fileArray.count; i++) {
+            NSData *imageData = UIImageJPEGRepresentation([fileArray objectAtIndex: i], 0.5);
+            // 上传的参数名
+            NSString *name = [NSString stringWithFormat:@"image%d",(int)(i+1)];
+            NSString *fileName = [NSString stringWithFormat:@"%@.jpeg",name];
+            NSLog(@"fileName = %@",fileName);
+            
+            [formData appendPartWithFileData:imageData name:name fileName:fileName mimeType:@"image/jpeg"];
+        }
+    } progress:^(NSProgress * _Nonnull uploadProgress) {
+        progress(uploadProgress);
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *dic = [HTTPManager responseConfiguration:responseObject];
+        success(task,dic);
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        fail(task,error);
+    }];
+}
+
+#pragma mark - 其他方法
 +(AFHTTPSessionManager *)managerWithBaseURL:(NSString *)baseURL  sessionConfiguration:(BOOL)isconfiguration{
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];

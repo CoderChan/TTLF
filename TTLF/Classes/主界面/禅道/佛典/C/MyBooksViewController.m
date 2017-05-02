@@ -44,26 +44,11 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    return 4;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BookTableViewCell *cell = [BookTableViewCell sharedBookTableViewCell:tableView];
-    if (indexPath.row == 0) {
-        // 加书本
-        for (int i = 0; i < 3; i++) {
-            UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-            [button setImage:[UIImage imageNamed:@"gy_book_cell"] forState:UIControlStateNormal];
-            CGFloat space = 30;
-            CGFloat W = (SCREEN_WIDTH - 4*space)/3;
-            CGFloat X = (i%3) * (W + space) + space;
-            CGFloat Y = 15;
-            CGFloat H = (SCREEN_HEIGHT - 64) / 4 - 30;
-            [button setFrame:CGRectMake(X, Y, W, H)];
-            [cell addSubview:button];
-        }
-        
-    }
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

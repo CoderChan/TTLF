@@ -12,8 +12,11 @@
 /*********** 评论的cell ************/
 @interface CommentTableViewCell : UITableViewCell
 
+/** 评论模型 */
 @property (strong,nonatomic) NewsCommentModel *commentModel;
-
+/** 点击头像和昵称的回调 */
+@property (copy,nonatomic) void (^UserClickBlock)(NewsCommentModel *commentModel);
+/** 初始化 */
 + (instancetype)sharedCommentTableCell:(UITableView *)tableView;
 
 @end

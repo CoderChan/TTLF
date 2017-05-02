@@ -140,6 +140,7 @@
 		3B6872ED1EABADDB00A12FF4 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872EC1EABADDB00A12FF4 /* CommentTableViewCell.m */; };
 		3B6B6E941EB445BD00597A84 /* FindVageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */; };
 		3B6B6E971EB47A2100597A84 /* NewsCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */; };
+		3B6B6E9A1EB5B78800597A84 /* VisitUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E991EB5B78800597A84 /* VisitUserViewController.m */; };
 		3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */; };
 		3BAC6A931EAEF58000D3CB8C /* PYPhotosPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */; };
 		3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */; };
@@ -467,6 +468,8 @@
 		3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVageTableViewCell.m; sourceTree = "<group>"; };
 		3B6B6E951EB47A2100597A84 /* NewsCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentModel.h; sourceTree = "<group>"; };
 		3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentModel.m; sourceTree = "<group>"; };
+		3B6B6E981EB5B78800597A84 /* VisitUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitUserViewController.h; sourceTree = "<group>"; };
+		3B6B6E991EB5B78800597A84 /* VisitUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitUserViewController.m; sourceTree = "<group>"; };
 		3B70C8611E9B77E200FDD0A2 /* NewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
 		3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
 		3BAC6A791EAEF58000D3CB8C /* PYPhotosPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosPreviewController.h; sourceTree = "<group>"; };
@@ -706,8 +709,8 @@
 		3B1F14C41EA7536D00DFAFAE /* 佛典 */ = {
 			isa = PBXGroup;
 			children = (
-				3B1F150F1EA7538500DFAFAE /* M */,
 				3B1F14C51EA7536D00DFAFAE /* C */,
+				3B1F150F1EA7538500DFAFAE /* M */,
 				3B1F14CA1EA7536D00DFAFAE /* V */,
 			);
 			path = "佛典";
@@ -716,10 +719,10 @@
 		3B1F14C51EA7536D00DFAFAE /* C */ = {
 			isa = PBXGroup;
 			children = (
-				3B1F14C61EA7536D00DFAFAE /* BookStoreViewController.h */,
-				3B1F14C71EA7536D00DFAFAE /* BookStoreViewController.m */,
 				3B1F14C81EA7536D00DFAFAE /* MyBooksViewController.h */,
 				3B1F14C91EA7536D00DFAFAE /* MyBooksViewController.m */,
+				3B1F14C61EA7536D00DFAFAE /* BookStoreViewController.h */,
+				3B1F14C71EA7536D00DFAFAE /* BookStoreViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1285,6 +1288,8 @@
 			children = (
 				3B2231E61E7F7B8200B43322 /* WoViewController.h */,
 				3B2231E71E7F7B8200B43322 /* WoViewController.m */,
+				3B6B6E981EB5B78800597A84 /* VisitUserViewController.h */,
+				3B6B6E991EB5B78800597A84 /* VisitUserViewController.m */,
 				3B2670B31E6FE2B40078379B /* UserInfoViewController.h */,
 				3B2670B41E6FE2B40078379B /* UserInfoViewController.m */,
 				3B2670B11E6FE2B40078379B /* PhotosViewController.h */,
@@ -2100,6 +2105,7 @@
 				3B1F150B1EA7536D00DFAFAE /* PusaCollectionViewCell.m in Sources */,
 				3B2670861E6FE2930078379B /* GoodsDetialController.m in Sources */,
 				3BE187A01EAF2A9500EDDD8F /* TZImagePickerController.m in Sources */,
+				3B6B6E9A1EB5B78800597A84 /* VisitUserViewController.m in Sources */,
 				3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */,
 				3B2670F51E6FE2B40078379B /* SuggestViewController.m in Sources */,
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
