@@ -23,7 +23,7 @@
 
 // 主色调 FA503C
 #define MainColor RGBACOLOR(250, 80, 60, 1)
-// DisEnbled颜色
+// DisEnbled颜色 RGBACOLOR(102, 102, 146, 1)
 #define DisAbledColor RGBACOLOR(108, 80, 77, 1)
 // 导航控制器颜色
 #define NavColor RGBACOLOR(43, 45, 50, 1)

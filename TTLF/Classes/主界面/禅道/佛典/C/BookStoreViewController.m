@@ -7,16 +7,16 @@
 //
 
 #import "BookStoreViewController.h"
-#import "BookCollectionViewCell.h"
+#import "BookStoreTableViewCell.h"
 #import <MJRefresh/MJRefresh.h>
+#import "BookDetialViewController.h"
 
 
-#define SpaceNum 8*CKproportion
-@interface BookStoreViewController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
+@interface BookStoreViewController ()<UITableViewDelegate,UITableViewDataSource>
 /** 背景图片 */
-@property (strong,nonatomic) UIImageView *backImgView;
-/** collectionView */
-@property (strong,nonatomic) UICollectionView *collectionView;
+@property (strong,nonatomic) UITableView *tableView;
+/** 数据源 */
+@property (strong,nonatomic) NSMutableArray *array;
 
 @end
 
@@ -25,99 +25,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"藏经阁";
-//    [self setupSubViews];
+    [self setupSubViews];
 }
 
 - (void)setupSubViews
 {
-    self.view.backgroundColor = RGBACOLOR(199, 148, 66, 1);
     
+    self.array = [NSMutableArray arrayWithObjects:@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2",@"3",@"1",@"2", nil];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.rowHeight = 120;
+    self.tableView.backgroundColor = self.view.backgroundColor;
+    [self.view addSubview:self.tableView];
     
-    [self.view addSubview:self.collectionView];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search_bar"] style:UIBarButtonItemStylePlain target:self action:@selector(searchBookAction)];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     
-    
-    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [self.collectionView.mj_header endRefreshing];
-        });
-    }];
+}
+
+- (void)searchBookAction
+{
     
 }
 
 #pragma mark - CollectionView代理
-- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
-- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 30;
+    return self.array.count;
 }
-- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    BookCollectionViewCell *cell = [BookCollectionViewCell sharedCell:collectionView Path:indexPath];
+    BookStoreTableViewCell *cell = [BookStoreTableViewCell sharedBookStoreCell:tableView];
     
     return cell;
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    BookDetialViewController *detial = [BookDetialViewController new];
+    [self.navigationController pushViewController:detial animated:YES];
 }
 
-// UICollectionView被选中时调用的方法
--(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-// 返回这个UICollectionView是否可以被选择
--(BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    return YES;
-}
-
-// 定义每个UICollectionView 的大小
-- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    int HangCount = 3; // 每行多少个
-    CGFloat Width = (self.view.width - (HangCount+1) * SpaceNum)/HangCount;
-    return CGSizeMake(Width, Width + 38);
-}
-
-// 定义每个UICollectionView 的间距
--(UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
-{
-    return UIEdgeInsetsMake(SpaceNum, SpaceNum, SpaceNum, SpaceNum);
-}
-
-// 定义每个UICollectionView 纵向的间距
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-{
-    return SpaceNum;
-}
-
-- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 1;
 }
-
-
-#pragma mark - 懒加载
-- (UICollectionView *)collectionView
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];
-    if (!_collectionView) {
-        _collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height - 64) collectionViewLayout:flowLayout];
-        _collectionView.showsHorizontalScrollIndicator = NO;
-        _collectionView.showsVerticalScrollIndicator = NO;
-        _collectionView.delegate = self;
-        _collectionView.dataSource = self;
-        _collectionView.backgroundColor = [UIColor clearColor];
-        [_collectionView registerClass:[BookCollectionViewCell class] forCellWithReuseIdentifier:@"BookCollectionViewCell"];
-        
-    }
-    return _collectionView;
+    UIView *foot = [UIView new];
+    foot.backgroundColor = [UIColor clearColor];
+    return foot;
 }
-
 
 
 @end

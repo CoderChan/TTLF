@@ -8,8 +8,8 @@
 
 #import "MyBooksViewController.h"
 #import "BookStoreViewController.h"
-#import "BookTableViewCell.h"
-
+#import "MyBooksTableViewCell.h"
+#import "BookDetialViewController.h"
 
 
 @interface MyBooksViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -48,8 +48,17 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BookTableViewCell *cell = [BookTableViewCell sharedBookTableViewCell:tableView];
+    MyBooksTableViewCell *cell = [MyBooksTableViewCell sharedBookTableViewCell:tableView];
+    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    BookDetialViewController *detial = [BookDetialViewController new];
+    [self.navigationController pushViewController:detial animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
