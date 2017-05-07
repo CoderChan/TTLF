@@ -88,6 +88,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
+
+
 // 获取话题列表
 - (void)getTopicListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 发送有图动态
@@ -96,7 +98,7 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)sendTextDynWithTopic:(SendTopicModel *)topicModel Content:(NSString *)content LocationJson:(NSString *)locationJson IsNoname:(BOOL)isNoName Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
 
 
-#pragma mark - 禅修板块
+#pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息
 - (void)getLifoInfoSuccess:(void (^)(TodayLifoInfoModel *lifoModel))success Fail:(FailBlock)fail;
 // 获取佛像、香、花瓶、果盘、佛牌资源
@@ -107,6 +109,12 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)everydayLifoWithXiang:(XiangModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
 - (void)everydayLifoWithFruit:(FruitBowlModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
 - (void)everydayLifoWithFopai:(FopaiModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
+
+
+#pragma mark - 禅修板块——素食生活
+// 上传素食
+- (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
+
 
 
 

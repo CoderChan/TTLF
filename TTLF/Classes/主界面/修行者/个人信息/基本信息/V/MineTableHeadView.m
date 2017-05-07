@@ -39,10 +39,8 @@
     [_headIMGView sd_setImageWithURL:[NSURL URLWithString:userModel.headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
 }
 
-
 - (void)setupSubViews
 {
-    
     // 头像
     self.headIMGView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
     self.headIMGView.backgroundColor = [UIColor clearColor];

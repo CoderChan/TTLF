@@ -123,6 +123,14 @@
     self.addTipLabel.textAlignment = NSTextAlignmentCenter;
     self.addTipLabel.textColor = MainColor;
     [self.coverImgView addSubview:self.addTipLabel];
+    
+#ifdef DEBUG // 处于开发阶段
+    self.nameField.text = @"小葱拌豆腐";
+    self.storyTextView.text = @"小葱拌豆腐是一道经典的汉族名菜。此菜色泽素雅淡洁，清香飘逸，鲜嫩爽口。豆腐蛋白质中含有人体自己所不能合成的8种必需氨基酸，其人体消化率可达92%-96%，是一种既富于营养又易于消化的食品。此菜色泽素雅淡洁，清香滑软，鲜嫩爽口。\r小葱拌豆腐——一清(青)二白，清是引申过来的。本意是说葱是青色的，豆腐是白色的。比喻清清楚楚，明明白白；也指非常清白。也作“一青二白”。";
+    self.coverImgView.image = [UIImage imageNamed:@"vage_place"];
+#else // 处于发布阶段
+
+#endif
 }
 
 
@@ -164,6 +172,9 @@
 - (void)nextStepAction
 {
     VageNextStepController *nextStep = [VageNextStepController new];
+    nextStep.coverImage = self.coverImgView.image;
+    nextStep.vageName = self.nameField.text;
+    nextStep.vageStory = self.storyTextView.text;
     [self.navigationController pushViewController:nextStep animated:YES];
 }
 

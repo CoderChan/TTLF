@@ -868,7 +868,7 @@
     
 }
 
-#pragma mark - 禅修板块
+#pragma mark - 禅修板块——天天礼佛
 - (void)getLifoInfoSuccess:(void (^)(TodayLifoInfoModel *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -1068,6 +1068,45 @@
     } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];
+}
+
+#pragma mark - 禅修板块——素食生活
+// 上传素食
+- (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/vegetarian/addvegetar";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:vageName.base64EncodedString forKey:@"vegeName"];
+    [param setValue:story.base64EncodedString forKey:@"story"];
+    [param setValue:foods.base64EncodedString forKey:@"vageMaterial"];
+    [param setValue:steps.base64EncodedString forKey:@"vageSteps"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/vegetarian/addvegetar?userID=%@&vegeName=%@&story=%@&vageMaterial=%@&vageSteps=%@",account.userID.base64EncodedString,vageName.base64EncodedString,story.base64EncodedString,foods.base64EncodedString,steps.base64EncodedString];
+    NSLog(@"上传素食的URL = %@",allurl);
+    
+    
+    [HTTPManager uploadFilesWithURL:url params:param fileArray:imageArray progress:^(NSProgress *progress) {
+        progressBlock(progress);
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success(@"发送成功");
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error = %@",error);
+        fail(error.localizedDescription);
+    }];
+    
 }
 
 

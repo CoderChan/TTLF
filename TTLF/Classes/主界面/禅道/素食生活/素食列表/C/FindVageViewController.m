@@ -8,13 +8,19 @@
 
 #import "FindVageViewController.h"
 #import "FindVageTableViewCell.h"
+#import "SearchVageViewController.h"
+#import "VageDetialViewController.h"
 
-@interface FindVageViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface FindVageViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
+/** 搜索框 */
+@property (strong,nonatomic) UISearchController *searchController;
+/** 搜索结果集 */
+@property (strong,nonatomic) SearchVageViewController *searchResultController;
 
 @end
 
@@ -28,11 +34,27 @@
 
 - (void)setupSubViews
 {
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.definesPresentationContext = YES;
+    
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.bounds.size.height)];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    
+    self.searchResultController = [[SearchVageViewController alloc]init];
+    self.searchController = [[UISearchController alloc]initWithSearchResultsController:self.searchResultController];
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.placeholder = @"搜索关键字";
+    self.searchController.searchBar.height = 50;
+    
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+}
+
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -48,6 +70,13 @@
     FindVageTableViewCell *cell = [FindVageTableViewCell sharedFindVageCell:tableView];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    VageDetialViewController *vageDetial = [VageDetialViewController new];
+    [self.navigationController pushViewController:vageDetial animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

@@ -62,11 +62,9 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     CGFloat height = (SCREEN_HEIGHT - 64) / 4;
     return height;
 }
-
 
 #pragma mark - 其他方法
 - (void)BookStoreAction

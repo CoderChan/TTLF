@@ -97,7 +97,7 @@
 }
 
 #pragma mark - 上传多张图片
-+ (void)uploadFilesWithURL:(NSString *)url params:(NSDictionary *)params fileArray:(NSArray *)fileArray name:(NSString *)name fileName:(NSString *)filename mimeType:(NSString *)mimeType progress:(YLRMProgress)progress success:(YLRMResponseSuccess)success fail:(YLRMResponseFail)fail
++ (void)uploadFilesWithURL:(NSString *)url params:(NSDictionary *)params fileArray:(NSArray *)fileArray progress:(YLRMProgress)progress success:(YLRMResponseSuccess)success fail:(YLRMResponseFail)fail
 {
     AFHTTPSessionManager *manager = [HTTPManager managerWithBaseURL:nil sessionConfiguration:NO];
     NSCharacterSet *set = [NSCharacterSet URLQueryAllowedCharacterSet];
@@ -107,6 +107,7 @@
         // 上传 多张图片
         for(NSInteger i = 0; i < fileArray.count; i++) {
             NSData *imageData = UIImageJPEGRepresentation([fileArray objectAtIndex: i], 0.5);
+//            NSData *imageData = UIImagePNGRepresentation([fileArray objectAtIndex: i]);
             // 上传的参数名
             NSString *name = [NSString stringWithFormat:@"image%d",(int)(i+1)];
             NSString *fileName = [NSString stringWithFormat:@"%@.jpeg",name];

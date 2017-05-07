@@ -85,7 +85,8 @@
     
 }
 
-- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url {
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
     return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
 

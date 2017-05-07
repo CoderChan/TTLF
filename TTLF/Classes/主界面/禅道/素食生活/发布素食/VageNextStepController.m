@@ -188,9 +188,32 @@
 - (void)finishAction
 {
     [self.view endEditing:YES];
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
+    
+    if (self.publishPhotosView.images.count <= 3) {
+        [MBProgressHUD showError:@"请上传3-9张图"];
+        return;
+    }
+    
+    NSMutableArray *vageImages = [NSMutableArray array];
+    [vageImages addObject:self.coverImage];
+    for (int i = 0; i < self.publishPhotosView.images.count; i++) {
+        UIImage *image = self.publishPhotosView.images[i];
+        [vageImages addObject:image];
+    }
+    
+    [[TTLFManager sharedManager].networkManager shareVageWithVageName:self.vageName Story:self.vageStory Images:vageImages VageFoods:self.foodTextView.text Steps:self.stepTextView.text Progress:^(NSProgress *progress) {
+        NSLog(@"progress = %f",progress.fractionCompleted);
+    } Success:^(NSString *string) {
+        [self showOneAlertWithMessage:string ConfirmClick:^{
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }];
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
     }];
+    
+    
 }
 #pragma mark - TextViewDelegate
 - (void)textViewDidBeginEditing:(UITextView *)textView

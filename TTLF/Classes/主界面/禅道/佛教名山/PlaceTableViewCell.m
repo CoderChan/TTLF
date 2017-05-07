@@ -50,8 +50,8 @@
 - (void)setupSubViews
 {
     self.backIMGView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
-    [self.backIMGView sd_setImageWithURL:[NSURL URLWithString:@"http://img010.hc360.cn/g6/M05/C1/60/wKhQr1Qd3_uEL2s3AAAAAB2B8rI771.jpg"] placeholderImage:[UIImage imageWithColor:HWRandomColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        self.backIMGView.image = [UIImage boxblurImage:image withBlurNumber:0.8];
+    [self.backIMGView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493977380930&di=9baae47ef80caa3f5e48d351c20c883e&imgtype=0&src=http%3A%2F%2Fjiangsu.china.com.cn%2Fuploadfile%2F2014%2F0403%2F20140403072026869.jpg"] placeholderImage:[UIImage imageWithColor:HWRandomColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        self.backIMGView.image = [UIImage boxblurImage:image withBlurNumber:0.5];
     }];
     self.backIMGView.layer.masksToBounds = YES;
     self.backIMGView.layer.cornerRadius = 4;

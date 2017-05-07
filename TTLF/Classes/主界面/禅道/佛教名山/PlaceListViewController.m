@@ -43,15 +43,22 @@
     [self.tableView.mj_footer endRefreshingWithNoMoreData];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"place_select_province"] style:UIBarButtonItemStylePlain target:self action:@selector(ChangeProvinceAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:MainColor];
+    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    
+    
 }
 - (void)ChangeProvinceAction
 {
     ProvinceViewController *province = [ProvinceViewController new];
     RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:province];
+    province.SelectProvinceBlock = ^(NSString *province) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:province style:UIBarButtonItemStylePlain target:self action:@selector(ChangeProvinceAction)];
+        [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1]} forState:UIControlStateNormal];
+    };
     [self presentViewController:nav animated:YES completion:^{
         
     }];
+    
 }
 #pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

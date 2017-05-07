@@ -54,6 +54,9 @@
     }else if([model.option_type containsString:@"礼佛一天"]){
         _iconView.image = [UIImage imageNamed:@"puna_lifo_icon"];
         _contentLabel.text = @"天天礼佛";
+    }else if([model.option_type containsString:@"发表评论"]){
+        _iconView.image = [UIImage imageNamed:@"puna_discuss"];
+        _contentLabel.text = model.option_type;
     }else{
         _contentLabel.text = model.option_type;
     }

@@ -71,15 +71,15 @@
 #pragma mark - 其他方法
 - (void)startReadingAction:(UIButton *)sender
 {
-    NSString *phrase = nil; // Document password (for unlocking most encrypted PDF files)
+    NSString *phrase = nil;
     NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
-    NSString *filePath = [pdfs lastObject]; assert(filePath != nil); // Path to first PDF file
+    NSString *filePath = [pdfs lastObject]; assert(filePath != nil);
     ReaderDocument *document = [ReaderDocument withDocumentFilePath:filePath password:phrase];
     if (document) {
         ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
         readerViewController.delegate = self;
-        readerViewController.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-        readerViewController.modalPresentationStyle = UIModalPresentationFormSheet;
+        readerViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+        readerViewController.modalPresentationStyle = UIModalPresentationPageSheet;
         [self presentViewController:readerViewController animated:YES completion:nil];
     }else{
         [MBProgressHUD showError:@"本地暂无PDF文件"];
@@ -89,7 +89,9 @@
 
 - (void)dismissReaderViewController:(ReaderViewController *)viewController
 {
-    [self dismissViewControllerAnimated:YES completion:NULL];
+    
+    [self dismissViewControllerAnimated:YES completion:nil];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

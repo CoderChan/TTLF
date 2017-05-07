@@ -161,10 +161,12 @@
 		3B6872E71EAB596C00A12FF4 /* AddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872E61EAB596C00A12FF4 /* AddressViewController.m */; };
 		3B6872EA1EAB966300A12FF4 /* CommentNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872E91EAB966300A12FF4 /* CommentNewsController.m */; };
 		3B6872ED1EABADDB00A12FF4 /* CommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872EC1EABADDB00A12FF4 /* CommentTableViewCell.m */; };
-		3B6B6E941EB445BD00597A84 /* FindVageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */; };
 		3B6B6E971EB47A2100597A84 /* NewsCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */; };
 		3B6B6E9A1EB5B78800597A84 /* VisitUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6B6E991EB5B78800597A84 /* VisitUserViewController.m */; };
 		3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */; };
+		3B7217FC1EBF12AE00C79B69 /* VageDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7217FB1EBF12AE00C79B69 /* VageDetialViewController.m */; };
+		3B7217FF1EBF21A700C79B69 /* MyVageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7217FE1EBF21A700C79B69 /* MyVageTableViewCell.m */; };
+		3BAB963D1EBDB35A00EB0562 /* VageStoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */; };
 		3BAC6A931EAEF58000D3CB8C /* PYPhotosPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */; };
 		3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */; };
 		3BAC6A951EAEF58000D3CB8C /* PYPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7E1EAEF58000D3CB8C /* PYPhotosViewController.m */; };
@@ -181,15 +183,9 @@
 		3BAC6AAA1EAEF5DF00D3CB8C /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA71EAEF5DF00D3CB8C /* DACircularProgressView.m */; };
 		3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */; };
 		3BAC6AAE1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */; };
-		3BB0E0DE1EACA66400CA23EC /* VageNextStepController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB0E0DD1EACA66400CA23EC /* VageNextStepController.m */; };
 		3BB6934C1EA9DAF400E431E0 /* RightMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6934B1EA9DAF400E431E0 /* RightMoreView.m */; };
 		3BB6934F1EA9DE0200E431E0 /* MoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6934E1EA9DE0200E431E0 /* MoreItemView.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
-		3BD049C91EAC9E2A0054F9EF /* VegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C61EAC9E2A0054F9EF /* VegeViewController.m */; };
-		3BD049CC1EAC9E6D0054F9EF /* ShareVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049CB1EAC9E6D0054F9EF /* ShareVageViewController.m */; };
-		3BD049CF1EAC9EB90054F9EF /* FindVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049CE1EAC9EB90054F9EF /* FindVageViewController.m */; };
-		3BD049D21EAC9F270054F9EF /* StoreVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049D11EAC9F270054F9EF /* StoreVageViewController.m */; };
-		3BD049D51EAC9F4E0054F9EF /* MyVagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049D41EAC9F4E0054F9EF /* MyVagesViewController.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
 		3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BDCE9CC1E6EBB7600E2F8E0 /* Assets.xcassets */; };
@@ -207,6 +203,14 @@
 		3BE187A31EAF2A9500EDDD8F /* TZPhotoPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE187971EAF2A9500EDDD8F /* TZPhotoPreviewController.m */; };
 		3BE187A41EAF2A9500EDDD8F /* TZVideoPlayerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE187991EAF2A9500EDDD8F /* TZVideoPlayerController.m */; };
 		3BE187A51EAF2A9500EDDD8F /* UIView+Layout.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BE1879B1EAF2A9500EDDD8F /* UIView+Layout.m */; };
+		3BF197C11EBDB28100E8EA03 /* ShareVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197AC1EBDB28100E8EA03 /* ShareVageViewController.m */; };
+		3BF197C21EBDB28100E8EA03 /* VageNextStepController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197AE1EBDB28100E8EA03 /* VageNextStepController.m */; };
+		3BF197C31EBDB28100E8EA03 /* FindVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197B21EBDB28100E8EA03 /* FindVageViewController.m */; };
+		3BF197C41EBDB28100E8EA03 /* SearchVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197B41EBDB28100E8EA03 /* SearchVageViewController.m */; };
+		3BF197C51EBDB28100E8EA03 /* VegeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197B61EBDB28100E8EA03 /* VegeViewController.m */; };
+		3BF197C61EBDB28100E8EA03 /* FindVageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197BA1EBDB28100E8EA03 /* FindVageTableViewCell.m */; };
+		3BF197C71EBDB28100E8EA03 /* StoreVageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197BD1EBDB28100E8EA03 /* StoreVageViewController.m */; };
+		3BF197C81EBDB28100E8EA03 /* MyVagesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BF197C01EBDB28100E8EA03 /* MyVagesViewController.m */; };
 		FED529258740D1E63B8BE1B0 /* libPods-TTLFTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 97F19F1377E210EA5E748A30 /* libPods-TTLFTests.a */; };
 /* End PBXBuildFile section */
 
@@ -532,14 +536,18 @@
 		3B6872E91EAB966300A12FF4 /* CommentNewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentNewsController.m; sourceTree = "<group>"; };
 		3B6872EB1EABADDB00A12FF4 /* CommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentTableViewCell.h; sourceTree = "<group>"; };
 		3B6872EC1EABADDB00A12FF4 /* CommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentTableViewCell.m; sourceTree = "<group>"; };
-		3B6B6E921EB445BD00597A84 /* FindVageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindVageTableViewCell.h; sourceTree = "<group>"; };
-		3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVageTableViewCell.m; sourceTree = "<group>"; };
 		3B6B6E951EB47A2100597A84 /* NewsCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCommentModel.h; sourceTree = "<group>"; };
 		3B6B6E961EB47A2100597A84 /* NewsCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsCommentModel.m; sourceTree = "<group>"; };
 		3B6B6E981EB5B78800597A84 /* VisitUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitUserViewController.h; sourceTree = "<group>"; };
 		3B6B6E991EB5B78800597A84 /* VisitUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitUserViewController.m; sourceTree = "<group>"; };
 		3B70C8611E9B77E200FDD0A2 /* NewsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsTableViewCell.h; sourceTree = "<group>"; };
 		3B70C8621E9B77E200FDD0A2 /* NewsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewsTableViewCell.m; sourceTree = "<group>"; };
+		3B7217FA1EBF12AE00C79B69 /* VageDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VageDetialViewController.h; sourceTree = "<group>"; };
+		3B7217FB1EBF12AE00C79B69 /* VageDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VageDetialViewController.m; sourceTree = "<group>"; };
+		3B7217FD1EBF21A700C79B69 /* MyVageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVageTableViewCell.h; sourceTree = "<group>"; };
+		3B7217FE1EBF21A700C79B69 /* MyVageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVageTableViewCell.m; sourceTree = "<group>"; };
+		3BAB963B1EBDB35A00EB0562 /* VageStoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VageStoreTableViewCell.h; sourceTree = "<group>"; };
+		3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VageStoreTableViewCell.m; sourceTree = "<group>"; };
 		3BAC6A791EAEF58000D3CB8C /* PYPhotosPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosPreviewController.h; sourceTree = "<group>"; };
 		3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotosPreviewController.m; sourceTree = "<group>"; };
 		3BAC6A7B1EAEF58000D3CB8C /* PYPhotosReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosReaderController.h; sourceTree = "<group>"; };
@@ -572,24 +580,12 @@
 		3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALabeledCircularProgressView.m; sourceTree = "<group>"; };
 		3BAC6AAC1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLAnimatedImageView+WebCache.h"; sourceTree = "<group>"; };
 		3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLAnimatedImageView+WebCache.m"; sourceTree = "<group>"; };
-		3BB0E0DC1EACA66400CA23EC /* VageNextStepController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VageNextStepController.h; sourceTree = "<group>"; };
-		3BB0E0DD1EACA66400CA23EC /* VageNextStepController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VageNextStepController.m; sourceTree = "<group>"; };
 		3BB6934A1EA9DAF400E431E0 /* RightMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightMoreView.h; sourceTree = "<group>"; };
 		3BB6934B1EA9DAF400E431E0 /* RightMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RightMoreView.m; sourceTree = "<group>"; };
 		3BB6934D1EA9DE0200E431E0 /* MoreItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreItemView.h; sourceTree = "<group>"; };
 		3BB6934E1EA9DE0200E431E0 /* MoreItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreItemView.m; sourceTree = "<group>"; };
 		3BD049C11EAC967B0054F9EF /* TTLFSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLFSettingManager.h; sourceTree = "<group>"; };
 		3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLFSettingManager.m; sourceTree = "<group>"; };
-		3BD049C51EAC9E2A0054F9EF /* VegeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VegeViewController.h; sourceTree = "<group>"; };
-		3BD049C61EAC9E2A0054F9EF /* VegeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VegeViewController.m; sourceTree = "<group>"; };
-		3BD049CA1EAC9E6D0054F9EF /* ShareVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareVageViewController.h; sourceTree = "<group>"; };
-		3BD049CB1EAC9E6D0054F9EF /* ShareVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareVageViewController.m; sourceTree = "<group>"; };
-		3BD049CD1EAC9EB90054F9EF /* FindVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindVageViewController.h; sourceTree = "<group>"; };
-		3BD049CE1EAC9EB90054F9EF /* FindVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVageViewController.m; sourceTree = "<group>"; };
-		3BD049D01EAC9F270054F9EF /* StoreVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreVageViewController.h; sourceTree = "<group>"; };
-		3BD049D11EAC9F270054F9EF /* StoreVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreVageViewController.m; sourceTree = "<group>"; };
-		3BD049D31EAC9F4E0054F9EF /* MyVagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVagesViewController.h; sourceTree = "<group>"; };
-		3BD049D41EAC9F4E0054F9EF /* MyVagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVagesViewController.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3BDCE9C11E6EBB7600E2F8E0 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		3BDCE9C31E6EBB7600E2F8E0 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -624,6 +620,22 @@
 		3BE187991EAF2A9500EDDD8F /* TZVideoPlayerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TZVideoPlayerController.m; sourceTree = "<group>"; };
 		3BE1879A1EAF2A9500EDDD8F /* UIView+Layout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Layout.h"; sourceTree = "<group>"; };
 		3BE1879B1EAF2A9500EDDD8F /* UIView+Layout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Layout.m"; sourceTree = "<group>"; };
+		3BF197AB1EBDB28100E8EA03 /* ShareVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareVageViewController.h; sourceTree = "<group>"; };
+		3BF197AC1EBDB28100E8EA03 /* ShareVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareVageViewController.m; sourceTree = "<group>"; };
+		3BF197AD1EBDB28100E8EA03 /* VageNextStepController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VageNextStepController.h; sourceTree = "<group>"; };
+		3BF197AE1EBDB28100E8EA03 /* VageNextStepController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VageNextStepController.m; sourceTree = "<group>"; };
+		3BF197B11EBDB28100E8EA03 /* FindVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindVageViewController.h; sourceTree = "<group>"; };
+		3BF197B21EBDB28100E8EA03 /* FindVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVageViewController.m; sourceTree = "<group>"; };
+		3BF197B31EBDB28100E8EA03 /* SearchVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchVageViewController.h; sourceTree = "<group>"; };
+		3BF197B41EBDB28100E8EA03 /* SearchVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchVageViewController.m; sourceTree = "<group>"; };
+		3BF197B51EBDB28100E8EA03 /* VegeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VegeViewController.h; sourceTree = "<group>"; };
+		3BF197B61EBDB28100E8EA03 /* VegeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VegeViewController.m; sourceTree = "<group>"; };
+		3BF197B91EBDB28100E8EA03 /* FindVageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindVageTableViewCell.h; sourceTree = "<group>"; };
+		3BF197BA1EBDB28100E8EA03 /* FindVageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindVageTableViewCell.m; sourceTree = "<group>"; };
+		3BF197BC1EBDB28100E8EA03 /* StoreVageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreVageViewController.h; sourceTree = "<group>"; };
+		3BF197BD1EBDB28100E8EA03 /* StoreVageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreVageViewController.m; sourceTree = "<group>"; };
+		3BF197BF1EBDB28100E8EA03 /* MyVagesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyVagesViewController.h; sourceTree = "<group>"; };
+		3BF197C01EBDB28100E8EA03 /* MyVagesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVagesViewController.m; sourceTree = "<group>"; };
 		77EA63DD650F1D07382D9DAB /* Pods-TTLFTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTLFTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTLFTests/Pods-TTLFTests.release.xcconfig"; sourceTree = "<group>"; };
 		7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TTLF.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		7A0C874DFAE73559955DA69E /* Pods-TTLF.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TTLF.release.xcconfig"; path = "Pods/Target Support Files/Pods-TTLF/Pods-TTLF.release.xcconfig"; sourceTree = "<group>"; };
@@ -835,9 +847,10 @@
 		3B1F14D11EA7536D00DFAFAE /* 素食生活 */ = {
 			isa = PBXGroup;
 			children = (
-				3BD049C41EAC9E2A0054F9EF /* C */,
-				3BD049C71EAC9E2A0054F9EF /* M */,
-				3BD049C81EAC9E2A0054F9EF /* V */,
+				3BF197AA1EBDB28100E8EA03 /* 发布素食 */,
+				3BF197AF1EBDB28100E8EA03 /* 素食列表 */,
+				3BF197BB1EBDB28100E8EA03 /* 素食收藏 */,
+				3BF197BE1EBDB28100E8EA03 /* 我发布的 */,
 			);
 			path = "素食生活";
 			sourceTree = "<group>";
@@ -1682,41 +1695,6 @@
 			path = "通用设置";
 			sourceTree = "<group>";
 		};
-		3BD049C41EAC9E2A0054F9EF /* C */ = {
-			isa = PBXGroup;
-			children = (
-				3BD049C51EAC9E2A0054F9EF /* VegeViewController.h */,
-				3BD049C61EAC9E2A0054F9EF /* VegeViewController.m */,
-				3BD049CA1EAC9E6D0054F9EF /* ShareVageViewController.h */,
-				3BD049CB1EAC9E6D0054F9EF /* ShareVageViewController.m */,
-				3BB0E0DC1EACA66400CA23EC /* VageNextStepController.h */,
-				3BB0E0DD1EACA66400CA23EC /* VageNextStepController.m */,
-				3BD049CD1EAC9EB90054F9EF /* FindVageViewController.h */,
-				3BD049CE1EAC9EB90054F9EF /* FindVageViewController.m */,
-				3BD049D01EAC9F270054F9EF /* StoreVageViewController.h */,
-				3BD049D11EAC9F270054F9EF /* StoreVageViewController.m */,
-				3BD049D31EAC9F4E0054F9EF /* MyVagesViewController.h */,
-				3BD049D41EAC9F4E0054F9EF /* MyVagesViewController.m */,
-			);
-			path = C;
-			sourceTree = "<group>";
-		};
-		3BD049C71EAC9E2A0054F9EF /* M */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = M;
-			sourceTree = "<group>";
-		};
-		3BD049C81EAC9E2A0054F9EF /* V */ = {
-			isa = PBXGroup;
-			children = (
-				3B6B6E921EB445BD00597A84 /* FindVageTableViewCell.h */,
-				3B6B6E931EB445BD00597A84 /* FindVageTableViewCell.m */,
-			);
-			path = V;
-			sourceTree = "<group>";
-		};
 		3BDCE9B41E6EBB7600E2F8E0 = {
 			isa = PBXGroup;
 			children = (
@@ -1798,6 +1776,80 @@
 				3BE1879B1EAF2A9500EDDD8F /* UIView+Layout.m */,
 			);
 			path = "图片多选";
+			sourceTree = "<group>";
+		};
+		3BF197AA1EBDB28100E8EA03 /* 发布素食 */ = {
+			isa = PBXGroup;
+			children = (
+				3BF197AB1EBDB28100E8EA03 /* ShareVageViewController.h */,
+				3BF197AC1EBDB28100E8EA03 /* ShareVageViewController.m */,
+				3BF197AD1EBDB28100E8EA03 /* VageNextStepController.h */,
+				3BF197AE1EBDB28100E8EA03 /* VageNextStepController.m */,
+			);
+			path = "发布素食";
+			sourceTree = "<group>";
+		};
+		3BF197AF1EBDB28100E8EA03 /* 素食列表 */ = {
+			isa = PBXGroup;
+			children = (
+				3BF197B01EBDB28100E8EA03 /* C */,
+				3BF197B71EBDB28100E8EA03 /* M */,
+				3BF197B81EBDB28100E8EA03 /* V */,
+			);
+			path = "素食列表";
+			sourceTree = "<group>";
+		};
+		3BF197B01EBDB28100E8EA03 /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3BF197B11EBDB28100E8EA03 /* FindVageViewController.h */,
+				3BF197B21EBDB28100E8EA03 /* FindVageViewController.m */,
+				3B7217FA1EBF12AE00C79B69 /* VageDetialViewController.h */,
+				3B7217FB1EBF12AE00C79B69 /* VageDetialViewController.m */,
+				3BF197B31EBDB28100E8EA03 /* SearchVageViewController.h */,
+				3BF197B41EBDB28100E8EA03 /* SearchVageViewController.m */,
+				3BF197B51EBDB28100E8EA03 /* VegeViewController.h */,
+				3BF197B61EBDB28100E8EA03 /* VegeViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3BF197B71EBDB28100E8EA03 /* M */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3BF197B81EBDB28100E8EA03 /* V */ = {
+			isa = PBXGroup;
+			children = (
+				3BF197B91EBDB28100E8EA03 /* FindVageTableViewCell.h */,
+				3BF197BA1EBDB28100E8EA03 /* FindVageTableViewCell.m */,
+			);
+			path = V;
+			sourceTree = "<group>";
+		};
+		3BF197BB1EBDB28100E8EA03 /* 素食收藏 */ = {
+			isa = PBXGroup;
+			children = (
+				3BF197BC1EBDB28100E8EA03 /* StoreVageViewController.h */,
+				3BF197BD1EBDB28100E8EA03 /* StoreVageViewController.m */,
+				3BAB963B1EBDB35A00EB0562 /* VageStoreTableViewCell.h */,
+				3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */,
+			);
+			path = "素食收藏";
+			sourceTree = "<group>";
+		};
+		3BF197BE1EBDB28100E8EA03 /* 我发布的 */ = {
+			isa = PBXGroup;
+			children = (
+				3BF197BF1EBDB28100E8EA03 /* MyVagesViewController.h */,
+				3BF197C01EBDB28100E8EA03 /* MyVagesViewController.m */,
+				3B7217FD1EBF21A700C79B69 /* MyVageTableViewCell.h */,
+				3B7217FE1EBF21A700C79B69 /* MyVageTableViewCell.m */,
+			);
+			path = "我发布的";
 			sourceTree = "<group>";
 		};
 		AC977B15F99E39867E54D4DD /* Frameworks */ = {
@@ -2110,8 +2162,8 @@
 				3B6B6E971EB47A2100597A84 /* NewsCommentModel.m in Sources */,
 				3B266FD11E6FDCB60078379B /* Account.m in Sources */,
 				3B2670571E6FDEBB0078379B /* XLZoomingScrollView.m in Sources */,
+				3BAB963D1EBDB35A00EB0562 /* VageStoreTableViewCell.m in Sources */,
 				3B6872DB1EAB2F6400A12FF4 /* PlaceListViewController.m in Sources */,
-				3BD049D21EAC9F270054F9EF /* StoreVageViewController.m in Sources */,
 				3B48383E1EB8CBAC0053BC8D /* ReaderThumbView.m in Sources */,
 				3BE1879E1EAF2A9500EDDD8F /* TZImageManager.m in Sources */,
 				3B3B3D751EA715FA00A32E56 /* SendTopicModel.m in Sources */,
@@ -2124,14 +2176,16 @@
 				3B2670DC1E6FE2B40078379B /* RegisterViewController.m in Sources */,
 				3B48383A1EB8CBAC0053BC8D /* ReaderThumbQueue.m in Sources */,
 				3B26704F1E6FDEBB0078379B /* TAAbstractDotView.m in Sources */,
-				3BD049C91EAC9E2A0054F9EF /* VegeViewController.m in Sources */,
 				3B4838411EB8CBAC0053BC8D /* ThumbsViewController.m in Sources */,
 				3B2670ED1E6FE2B40078379B /* MineTableViewCell.m in Sources */,
 				3B48382F1EB8CBAC0053BC8D /* CGPDFDocument.m in Sources */,
 				3B1F14FF1EA7536D00DFAFAE /* LiFoViewController.m in Sources */,
+				3B7217FC1EBF12AE00C79B69 /* VageDetialViewController.m in Sources */,
 				3B6872ED1EABADDB00A12FF4 /* CommentTableViewCell.m in Sources */,
 				3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */,
 				3BAC6A951EAEF58000D3CB8C /* PYPhotosViewController.m in Sources */,
+				3BF197C31EBDB28100E8EA03 /* FindVageViewController.m in Sources */,
+				3BF197C61EBDB28100E8EA03 /* FindVageTableViewCell.m in Sources */,
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
 				3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */,
 				3B1F15051EA7536D00DFAFAE /* TodayLifoInfoModel.m in Sources */,
@@ -2140,7 +2194,6 @@
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
 				3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */,
-				3B6B6E941EB445BD00597A84 /* FindVageTableViewCell.m in Sources */,
 				3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
 				3BAC6A9A1EAEF58000D3CB8C /* PYPhotoBrowseView.m in Sources */,
@@ -2150,12 +2203,12 @@
 				3BAC6AA31EAEF5B500D3CB8C /* FLAnimatedImage.m in Sources */,
 				3B2670481E6FDEBB0078379B /* WXMediaMessage+messageConstruct.m in Sources */,
 				3B1F05CD1E792BD2005173B9 /* PunnaListTableCell.m in Sources */,
-				3BD049CF1EAC9EB90054F9EF /* FindVageViewController.m in Sources */,
 				3B1F150D1EA7536D00DFAFAE /* PlayingRightBarView.m in Sources */,
 				3B4838391EB8CBAC0053BC8D /* ReaderThumbFetch.m in Sources */,
 				3B4838421EB8CBAC0053BC8D /* UIXToolbarView.m in Sources */,
 				3B1F15071EA7536D00DFAFAE /* DecorationListView.m in Sources */,
-				3BD049D51EAC9F4E0054F9EF /* MyVagesViewController.m in Sources */,
+				3BF197C21EBDB28100E8EA03 /* VageNextStepController.m in Sources */,
+				3BF197C51EBDB28100E8EA03 /* VegeViewController.m in Sources */,
 				3B2670381E6FDEBB0078379B /* UIImage+Category.m in Sources */,
 				3BE187A11EAF2A9500EDDD8F /* TZPhotoPickerController.m in Sources */,
 				3B2231EC1E7F853700B43322 /* MineTableHeadView.m in Sources */,
@@ -2183,6 +2236,7 @@
 				3B3B3D841EA7168B00A32E56 /* SendCommentView.m in Sources */,
 				3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */,
 				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
+				3BF197C71EBDB28100E8EA03 /* StoreVageViewController.m in Sources */,
 				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
 				3B2670471E6FDEBB0078379B /* WXApiResponseHandler.m in Sources */,
 				3BE187A31EAF2A9500EDDD8F /* TZPhotoPreviewController.m in Sources */,
@@ -2201,7 +2255,6 @@
 				3B4295BD1E9B775C001374F2 /* NewsListTableCell.m in Sources */,
 				3B2670F31E6FE2B40078379B /* StageInfoViewController.m in Sources */,
 				3B2670561E6FDEBB0078379B /* XLProgressView.m in Sources */,
-				3BD049CC1EAC9E6D0054F9EF /* ShareVageViewController.m in Sources */,
 				3BE187A41EAF2A9500EDDD8F /* TZVideoPlayerController.m in Sources */,
 				3B1F15021EA7536D00DFAFAE /* FoxiangModel.m in Sources */,
 				3B48383C1EB8CBAC0053BC8D /* ReaderThumbRequest.m in Sources */,
@@ -2212,6 +2265,7 @@
 				3B26704B1E6FDEBB0078379B /* FSActionSheetConfig.m in Sources */,
 				3B4838361EB8CBAC0053BC8D /* ReaderMainPagebar.m in Sources */,
 				3B4838371EB8CBAC0053BC8D /* ReaderMainToolbar.m in Sources */,
+				3BF197C81EBDB28100E8EA03 /* MyVagesViewController.m in Sources */,
 				3BB6934F1EA9DE0200E431E0 /* MoreItemView.m in Sources */,
 				3B2670351E6FDEBB0078379B /* Foundation+Log.m in Sources */,
 				3B1F14F91EA7536D00DFAFAE /* MusicPlayingController.m in Sources */,
@@ -2251,6 +2305,7 @@
 				3B3B3D741EA715FA00A32E56 /* LocationModel.m in Sources */,
 				3BAC6A9C1EAEF58000D3CB8C /* PYPhotosView.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
+				3BF197C41EBDB28100E8EA03 /* SearchVageViewController.m in Sources */,
 				3B4838301EB8CBAC0053BC8D /* ReaderConstants.m in Sources */,
 				3B48383B1EB8CBAC0053BC8D /* ReaderThumbRender.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
@@ -2274,14 +2329,15 @@
 				3B2670DB1E6FE2B40078379B /* PhoneLoginViewController.m in Sources */,
 				3B03082A1EB86C97004B9F53 /* MyBooksTableViewCell.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
-				3BB0E0DE1EACA66400CA23EC /* VageNextStepController.m in Sources */,
 				3B6872E11EAB50F100A12FF4 /* OrderListTableCell.m in Sources */,
 				3BAC6A9D1EAEF58000D3CB8C /* PYPhotoView.m in Sources */,
+				3BF197C11EBDB28100E8EA03 /* ShareVageViewController.m in Sources */,
 				3B2670541E6FDEBB0078379B /* UIView+XLExtension.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,
 				3B1F15011EA7536D00DFAFAE /* FopaiModel.m in Sources */,
 				3B6872EA1EAB966300A12FF4 /* CommentNewsController.m in Sources */,
 				3B2670E01E6FE2B40078379B /* NickNameViewController.m in Sources */,
+				3B7217FF1EBF21A700C79B69 /* MyVageTableViewCell.m in Sources */,
 				3B48383F1EB8CBAC0053BC8D /* ReaderViewController.m in Sources */,
 				3B4838341EB8CBAC0053BC8D /* ReaderDocument.m in Sources */,
 				3B2670DF1E6FE2B40078379B /* CityViewController.m in Sources */,
