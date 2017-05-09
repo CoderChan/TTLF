@@ -51,6 +51,12 @@
         make.height.equalTo(@30);
     }];
     
+    [[TTLFManager sharedManager].networkManager searchUserByUserID:[AccountTool account].userID Success:^(UserInfoModel *userModel) {
+        self.punnaLabel.text = userModel.punnaNum;
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
+    }];
+    
 }
 
 - (void)moreAction

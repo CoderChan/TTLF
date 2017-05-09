@@ -12,11 +12,13 @@ typedef NS_ENUM(NSInteger,MoreItemClickType){
     WechatFriendType = 1, // 微信好友
     WechatQuanType = 2, // 微信朋友圈
     StoreClickType = 3, // 添加收藏
-    OpenAtSafariType = 4, // 在Safari中打开
-    SystermShareType = 5,  // 系统分享
-    CopyUrlType = 6,   // 复制链接
-    RefreshType = 7,   // 刷新
-    StopLoadType = 8   // 停止加载
+    QQFriendType = 4, // QQ好友分享
+    QQSpaceType = 5, // QQ空间分享
+    OpenAtSafariType = 6, // 在Safari中打开
+    SystermShareType = 7,  // 系统分享
+    CopyUrlType = 8,   // 复制链接
+    RefreshType = 9,   // 刷新
+    StopLoadType = 10   // 停止加载
 };
 
 @protocol RightMoreViewDelegate <NSObject>
@@ -29,5 +31,7 @@ typedef NS_ENUM(NSInteger,MoreItemClickType){
 
 /** 点击事件的代理 */
 @property (weak,nonatomic) id<RightMoreViewDelegate> delegate;
+/** 文字描述 */
+@property (strong,nonatomic) NSString *title;
 
 @end

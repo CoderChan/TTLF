@@ -50,19 +50,6 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
-    /**
-    // 添加搜索框
-    self.definesPresentationContext = YES;
-    
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
-    self.searchController.searchBar.delegate = self;
-    [self.searchController setHidesNavigationBarDuringPresentation:YES];
-    self.searchController.searchBar.returnKeyType = UIReturnKeySearch;
-    self.searchController.searchBar.height = 44.f;
-    [self.searchController.searchBar sizeToFit];
-    self.tableView.tableHeaderView = self.searchController.searchBar;
-    */
-    
     // 下拉加载，每次加载最新的。
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         CurrentPage = 1;

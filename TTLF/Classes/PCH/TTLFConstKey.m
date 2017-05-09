@@ -9,6 +9,7 @@
 #import "TTLFConstKey.h"
 
 /************  通知及监听 关键字  *****************/
+NSString *const CreateNewVegeNoti = @"CreateNewVegeNoti";
 
 
 /************* NSUserDefault 关键字 **************/

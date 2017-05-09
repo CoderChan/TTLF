@@ -214,6 +214,10 @@
         } Fail:^(NSString *errorMsg) {
             [MBProgressHUD showError:errorMsg];
         }];
+    }else if (clickType == QQFriendType){
+        [MBProgressHUD showSuccess:@"QQ好友"];
+    }else if (clickType == QQSpaceType){
+        [MBProgressHUD showSuccess:@"QQ空间"];
     }else if (clickType == OpenAtSafariType){
         // Safari打开
         NSURL *url = [NSURL URLWithString:self.shareUrl];

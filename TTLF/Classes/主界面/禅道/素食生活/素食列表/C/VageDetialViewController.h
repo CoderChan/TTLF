@@ -10,4 +10,6 @@
 
 @interface VageDetialViewController : SuperViewController
 
+- (instancetype)initWithVegeModel:(VegeInfoModel *)vegeModel;
+
 @end

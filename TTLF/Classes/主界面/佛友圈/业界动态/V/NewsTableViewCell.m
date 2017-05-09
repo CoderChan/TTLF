@@ -65,7 +65,11 @@
 {
     // 封面
     self.newsImgView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
-    self.newsImgView.contentMode = UIViewContentModeScaleToFill;
+    self.newsImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.newsImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.newsImgView.layer.masksToBounds = YES;
+    self.newsImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
+    self.newsImgView.userInteractionEnabled = YES;
     [self.contentView addSubview:self.newsImgView];
     [self.newsImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(10);

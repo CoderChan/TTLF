@@ -9,13 +9,32 @@
 #import "PlaceDetialController.h"
 #import "NormalTableViewCell.h"
 #import "RightMoreView.h"
+#import "XLPhotoBrowser.h"
+#import <MapKit/MapKit.h>
 
 
 @interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate>
-
+/** 数据源 */
 @property (copy,nonatomic) NSArray *array;
-
+/** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
+/** 封面 */
+@property (strong,nonatomic) UIImageView *coverImgView;
+/** 查看点评 */
+@property (strong,nonatomic) UILabel *commentLabel;
+/** 旅行攻略 */
+@property (strong,nonatomic) UITextView *descTextView;
+/** 开放时间 */
+@property (strong,nonatomic) UILabel *openTimeLabel;
+/** 地图 */
+@property (strong,nonatomic) MKMapView *mapView;
+/** 电话 */
+@property (strong,nonatomic) UILabel *phoneLabel;
+/** 地址 */
+@property (strong,nonatomic) UILabel *locationLabel;
+/** 门票 */
+@property (strong,nonatomic) UILabel *ticketLabel;
+
 
 @end
 
@@ -33,19 +52,23 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     
-    self.array = @[@[@"封面",@"旅行攻略",@"开放时间"],@[@"地图导航"],@[@"电话",@"地址",@"门票"]];
+    self.array = @[@[@"封面",@"查看点评"],@[@"旅行攻略",@"开放时间"],@[@"地图导航"],@[@"电话",@"地址",@"门票"]];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
-    self.tableView.rowHeight = 80;
+    self.tableView.showsHorizontalScrollIndicator = NO;
+    self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
+    
+    
 }
 - (void)moreAction
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     RightMoreView *moreView = [[RightMoreView alloc]initWithFrame:keyWindow.bounds];
+    moreView.title = @"一键分享，让名刹香火更旺";
     moreView.delegate = self;
     [keyWindow addSubview:moreView];
 }
@@ -65,33 +88,145 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-    cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
-    return cell;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            // 封面
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.backgroundColor = [UIColor clearColor];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            [cell addSubview:self.coverImgView];
+            [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494164277360&di=041789287b9496fac576b9589bc6213a&imgtype=0&src=http%3A%2F%2Fpic.92to.com%2F360%2F201604%2F11%2F2556131_201208031421560125.jpg"] placeholderImage:[UIImage imageNamed:@"vage_place"]];
+            return cell;
+        } else {
+            // 查看点评
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        }
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            // 旅行攻略
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        } else {
+            // 开放时间
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        }
+    }else if (indexPath.section == 2){
+        // 地图导航
+        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+        [cell.titleLabel removeFromSuperview];
+        [cell.iconView removeFromSuperview];
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+        return cell;
+    }else {
+        if (indexPath.row == 0) {
+            // 电话
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        }else if (indexPath.row == 1){
+            // 地址
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        }else {
+            // 门票
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = self.array[indexPath.section][indexPath.row];
+            return cell;
+        }
+    }
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [XLPhotoBrowser showPhotoBrowserWithImages:@[self.coverImgView.image] currentImageIndex:0];
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UIView *headView = [UIView new];
-    headView.backgroundColor = [UIColor clearColor];
-    return headView;
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            // 封面
+            return 180 * CKproportion;
+        } else {
+            // 查看点评
+            return 55;
+        }
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            // 旅行攻略
+            return 120;
+        } else {
+            // 开放时间
+            return 55;
+        }
+    }else if (indexPath.section == 2){
+        // 地图导航
+        return 150;
+    }else {
+        if (indexPath.row == 0) {
+            // 电话
+            return 55;
+        }else if (indexPath.row == 1){
+            // 地址
+            return 55;
+        }else {
+            // 门票
+            return 55;
+        }
+    }
 }
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 10;
-}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 1;
+    return 10;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footView = [[UIView alloc]initWithFrame:CGRectZero];
     footView.backgroundColor = [UIColor clearColor];
     return footView;
+}
+
+#pragma mark - 懒加载
+- (UIImageView *)coverImgView
+{
+    if (!_coverImgView) {
+        _coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 180*CKproportion)];
+        _coverImgView.contentMode = UIViewContentModeScaleAspectFill;
+        [_coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+        _coverImgView.layer.masksToBounds = YES;
+        _coverImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
+        _coverImgView.backgroundColor = [UIColor clearColor];
+        _coverImgView.userInteractionEnabled = YES;
+    }
+    return _coverImgView;
 }
 
 

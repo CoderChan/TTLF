@@ -119,6 +119,8 @@
 		3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D51E6FE2B40078379B /* SetViewController.m */; };
 		3B2670F71E6FE2B40078379B /* SharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D71E6FE2B40078379B /* SharedView.m */; };
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
+		3B3AB9511EC16443000D71BB /* ImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3AB9501EC16443000D71BB /* ImageTableViewCell.m */; };
+		3B3B329C1EC0C16600595832 /* VegeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B329B1EC0C16600595832 /* VegeInfoModel.m */; };
 		3B3B3D741EA715FA00A32E56 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B3D711EA715FA00A32E56 /* LocationModel.m */; };
 		3B3B3D751EA715FA00A32E56 /* SendTopicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B3D731EA715FA00A32E56 /* SendTopicModel.m */; };
 		3B3B3D801EA7168B00A32E56 /* CommentFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B3D771EA7168B00A32E56 /* CommentFootView.m */; };
@@ -454,6 +456,10 @@
 		3B2670D81E6FE2B40078379B /* TitleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTableCell.h; sourceTree = "<group>"; };
 		3B2670D91E6FE2B40078379B /* TitleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTableCell.m; sourceTree = "<group>"; };
 		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3B3AB94F1EC16443000D71BB /* ImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTableViewCell.h; sourceTree = "<group>"; };
+		3B3AB9501EC16443000D71BB /* ImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTableViewCell.m; sourceTree = "<group>"; };
+		3B3B329A1EC0C16600595832 /* VegeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VegeInfoModel.h; sourceTree = "<group>"; };
+		3B3B329B1EC0C16600595832 /* VegeInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VegeInfoModel.m; sourceTree = "<group>"; };
 		3B3B3D701EA715FA00A32E56 /* LocationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationModel.h; sourceTree = "<group>"; };
 		3B3B3D711EA715FA00A32E56 /* LocationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationModel.m; sourceTree = "<group>"; };
 		3B3B3D721EA715FA00A32E56 /* SendTopicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendTopicModel.h; sourceTree = "<group>"; };
@@ -1817,6 +1823,8 @@
 		3BF197B71EBDB28100E8EA03 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3B3B329A1EC0C16600595832 /* VegeInfoModel.h */,
+				3B3B329B1EC0C16600595832 /* VegeInfoModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1826,6 +1834,8 @@
 			children = (
 				3BF197B91EBDB28100E8EA03 /* FindVageTableViewCell.h */,
 				3BF197BA1EBDB28100E8EA03 /* FindVageTableViewCell.m */,
+				3B3AB94F1EC16443000D71BB /* ImageTableViewCell.h */,
+				3B3AB9501EC16443000D71BB /* ImageTableViewCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2166,6 +2176,7 @@
 				3B6872DB1EAB2F6400A12FF4 /* PlaceListViewController.m in Sources */,
 				3B48383E1EB8CBAC0053BC8D /* ReaderThumbView.m in Sources */,
 				3BE1879E1EAF2A9500EDDD8F /* TZImageManager.m in Sources */,
+				3B3B329C1EC0C16600595832 /* VegeInfoModel.m in Sources */,
 				3B3B3D751EA715FA00A32E56 /* SendTopicModel.m in Sources */,
 				3B2670621E6FDFE40078379B /* RootTabbarController.m in Sources */,
 				3B2670511E6FDEBB0078379B /* TADotView.m in Sources */,
@@ -2229,6 +2240,7 @@
 				3B6872E41EAB594F00A12FF4 /* OrderListViewController.m in Sources */,
 				3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */,
 				3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */,
+				3B3AB9511EC16443000D71BB /* ImageTableViewCell.m in Sources */,
 				3B4838331EB8CBAC0053BC8D /* ReaderContentView.m in Sources */,
 				3B2670521E6FDEBB0078379B /* TAPageControl.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,

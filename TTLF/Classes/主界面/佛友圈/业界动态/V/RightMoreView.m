@@ -14,6 +14,8 @@
 {
     UIButton *mengButton;
 }
+/** 标题描述 */
+@property (strong,nonatomic) UILabel *titleLabel;
 
 /** 第一行内容数组 */
 @property (copy,nonatomic) NSArray *shareArray;
@@ -60,12 +62,12 @@
     [self addSubview:self.bottomView];
     
     // 网页由www.yangruyi.com提供
-    UILabel *fromLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 5, self.width, 25)];
-    fromLabel.text = @"网页由 www.yangruyi.com 提供";
-    fromLabel.textAlignment = NSTextAlignmentCenter;
-    fromLabel.textColor = RGBACOLOR(67, 67, 67, 1);
-    fromLabel.font = [UIFont systemFontOfSize:14];
-    [self.bottomView addSubview:fromLabel];
+    self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 5, self.width, 25)];
+    self.titleLabel.text = @"网页由 www.yangruyi.com 提供";
+    self.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.titleLabel.textColor = RGBACOLOR(67, 67, 67, 1);
+    self.titleLabel.font = [UIFont systemFontOfSize:14];
+    [self.bottomView addSubview:self.titleLabel];
     
     // 取消
     UIButton *cancleButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -79,7 +81,7 @@
     [self.bottomView addSubview:cancleButton];
     
     // 装着按钮的视图
-    self.middleView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(fromLabel.frame) + 15, self.width, self.bottomView.height - fromLabel.height - 15 - cancleButton.height - 15)];
+    self.middleView = [[UIView alloc]initWithFrame:CGRectMake(0, CGRectGetMaxY(self.titleLabel.frame) + 15, self.width, self.bottomView.height - self.titleLabel.height - 15 - cancleButton.height - 15)];
     self.middleView.backgroundColor = self.bottomView.backgroundColor;
     [self.bottomView addSubview:self.middleView];
     
@@ -94,6 +96,12 @@
     
 }
 
+- (void)setTitle:(NSString *)title
+{
+    _title = [title copy];
+    self.titleLabel.text = title;
+}
+
 #pragma mark - 绘制里面的按钮
 - (void)addSubViews
 {
@@ -101,8 +109,17 @@
     xian.frame = CGRectMake(0, self.middleView.height/2 - 1, self.middleView.width, 2);
     [self.middleView addSubview:xian];
     
+    
     CGFloat space = 12*CKproportion;
     CGFloat width = (SCREEN_WIDTH - 6*space)/5;
+    
+    UIScrollView *topScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, self.middleView.height/2)];
+    topScrollView.userInteractionEnabled = YES;
+    topScrollView.showsHorizontalScrollIndicator = NO;
+    topScrollView.showsVerticalScrollIndicator = NO;
+    topScrollView.contentSize = CGSizeMake(7 * width + space * 8, self.middleView.height/2);
+    [self.middleView addSubview:topScrollView];
+    
     
     /******** 第一行内容：分享 *********/
 
@@ -110,7 +127,7 @@
     MoreItemView *wechatFriItem = [[MoreItemView alloc]initWithFrame:CGRectMake(space, (self.middleView.height/2 - width - 38)/2, width, width + 38)];
     wechatFriItem.titleLabel.text = @"发送给朋友";
     wechatFriItem.iconView.image = [UIImage imageNamed:@"share_wechatFri"];
-    [self.middleView addSubview:wechatFriItem];
+    [topScrollView addSubview:wechatFriItem];
     UITapGestureRecognizer *wechatFriTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
             [_delegate rightMoreViewWithClickType:WechatFriendType];
@@ -123,7 +140,7 @@
     MoreItemView *wechatQuanItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wechatFriItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
     wechatQuanItem.iconView.image = [UIImage imageNamed:@"share_quan"];
     wechatQuanItem.titleLabel.text = @"朋友圈";
-    [self.middleView addSubview:wechatQuanItem];
+    [topScrollView addSubview:wechatQuanItem];
     UITapGestureRecognizer *wechatQuanTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
             [_delegate rightMoreViewWithClickType:WechatQuanType];
@@ -136,7 +153,7 @@
     MoreItemView *storeItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(wechatQuanItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
     storeItem.iconView.image = [UIImage imageNamed:@"share_store"];
     storeItem.titleLabel.text = @"收藏";
-    [self.middleView addSubview:storeItem];
+    [topScrollView addSubview:storeItem];
     UITapGestureRecognizer *storeTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
             [_delegate rightMoreViewWithClickType:StoreClickType];
@@ -145,11 +162,37 @@
     }];
     [storeItem addGestureRecognizer:storeTap];
     
+    // QQ好友
+    MoreItemView *qqFriendItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(storeItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    qqFriendItem.iconView.image = [UIImage imageNamed:@"share_friend"];
+    qqFriendItem.titleLabel.text = @"QQ好友";
+    [topScrollView addSubview:qqFriendItem];
+    UITapGestureRecognizer *qqFriendTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
+            [_delegate rightMoreViewWithClickType:QQFriendType];
+            [self removeFromSuperview];
+        }
+    }];
+    [qqFriendItem addGestureRecognizer:qqFriendTap];
+    
+    // QQ空间
+    MoreItemView *qqSpaceItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(qqFriendItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    qqSpaceItem.iconView.image = [UIImage imageNamed:@"share_space"];
+    qqSpaceItem.titleLabel.text = @"QQ空间";
+    [topScrollView addSubview:qqSpaceItem];
+    UITapGestureRecognizer *qqSpaceTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
+            [_delegate rightMoreViewWithClickType:QQSpaceType];
+            [self removeFromSuperview];
+        }
+    }];
+    [qqSpaceItem addGestureRecognizer:qqSpaceTap];
+    
     // Safari打开
-    MoreItemView *safariItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(storeItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
+    MoreItemView *safariItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(qqSpaceItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
     safariItem.iconView.image = [UIImage imageNamed:@"share_safari"];
     safariItem.titleLabel.text = @"在Safari中\r打开";
-    [self.middleView addSubview:safariItem];
+    [topScrollView addSubview:safariItem];
     UITapGestureRecognizer *safariTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
             [_delegate rightMoreViewWithClickType:OpenAtSafariType];
@@ -162,7 +205,7 @@
     MoreItemView *systermItem = [[MoreItemView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(safariItem.frame) + space, wechatFriItem.y, width, wechatFriItem.height)];
     systermItem.iconView.image = [UIImage imageNamed:@"share_os"];
     systermItem.titleLabel.text = @"系统分享";
-    [self.middleView addSubview:systermItem];
+    [topScrollView addSubview:systermItem];
     UITapGestureRecognizer *systermTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         if ([self.delegate respondsToSelector:@selector(rightMoreViewWithClickType:)]) {
             [_delegate rightMoreViewWithClickType:SystermShareType];

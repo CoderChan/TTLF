@@ -37,6 +37,16 @@
     return cell;
 }
 
+- (void)setVegeModel:(VegeInfoModel *)vegeModel
+{
+    _vegeModel = vegeModel;
+    _vageNameLabel.text = vegeModel.vege_name;
+    _storyLabel.text = vegeModel.vege_desc;
+    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.creater_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = vegeModel.creater_name;
+}
+
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
@@ -57,7 +67,7 @@
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.coverImgView.layer.masksToBounds = YES;
-    self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
     [self.contentView addSubview:self.coverImgView];
     
     // 名称
@@ -70,8 +80,11 @@
     // 发布人
     self.headImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
     self.headImgView.frame = CGRectMake(SCREEN_WIDTH/2 - 35, CGRectGetMaxY(self.vageNameLabel.frame) + 8, 20, 20);
-    self.headImgView.layer.masksToBounds = YES;
     self.headImgView.layer.cornerRadius = 10;
+    self.headImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.headImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.headImgView.layer.masksToBounds = YES;
+    self.headImgView.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
     [self.contentView addSubview:self.headImgView];
     
     self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 3, self.headImgView.y, 200, 21)];

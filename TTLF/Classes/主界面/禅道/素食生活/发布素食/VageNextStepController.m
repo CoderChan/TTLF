@@ -13,6 +13,7 @@
 #import "TZImagePickerController.h"
 #import "PYPhotoBrowser.h"
 #import <Masonry.h>
+#import "VageDetialViewController.h"
 
 
 #define FoodPlace @"豆腐、青葱、淀粉、少量生抽、油、盐、鸡精、水"
@@ -155,7 +156,7 @@
     return footView;
 }
 
-#pragma mark - 九宫格图片代理
+#pragma mark - 选择图片的代理
 - (void)photosView:(PYPhotosView *)photosView didAddImageClickedWithImages:(NSMutableArray *)images
 {
     
@@ -203,11 +204,9 @@
     
     [[TTLFManager sharedManager].networkManager shareVageWithVageName:self.vageName Story:self.vageStory Images:vageImages VageFoods:self.foodTextView.text Steps:self.stepTextView.text Progress:^(NSProgress *progress) {
         NSLog(@"progress = %f",progress.fractionCompleted);
-    } Success:^(NSString *string) {
-        [self showOneAlertWithMessage:string ConfirmClick:^{
-            [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                
-            }];
+    } Success:^(NSDictionary *vegeDict) {
+        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+            [YLNotificationCenter postNotificationName:CreateNewVegeNoti object:nil userInfo:vegeDict];
         }];
     } Fail:^(NSString *errorMsg) {
         [self sendAlertAction:errorMsg];

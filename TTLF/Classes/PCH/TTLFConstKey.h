@@ -38,6 +38,7 @@ extern NSString *const Ufrom;  //  设备来源
 extern NSString *const UuserBgImg; //  背景图片
 
 /********** 通知关键字 ***********/
+extern NSString *const CreateNewVegeNoti; // 新发布了素食的通知
 
 
 NS_ASSUME_NONNULL_END

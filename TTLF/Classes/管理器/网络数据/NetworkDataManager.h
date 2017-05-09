@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "HTTPManager.h"
 #import "WXApi.h"
+#import "UserInfoModel.h"
 #import "WechatAuthModel.h"
 #import "WechatInfoModel.h"
 #import "StageModel.h"
@@ -19,6 +20,7 @@
 #import "TodayLifoInfoModel.h"
 #import "NewsArticleModel.h"
 #import "NewsCommentModel.h"
+#import "VegeInfoModel.h"
 
 
 
@@ -63,6 +65,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)updateCity:(NSString *)city Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 上传头像
 - (void)uploadHeadImge:(UIImage *)image Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
+// 根据用户ID查询用户信息
+- (void)searchUserByUserID:(NSString *)sideID Success:(void (^)(UserInfoModel *userModel))success Fail:(FailBlock)fail;
 
 
 // 获取摇一摇全部信息
@@ -113,8 +117,15 @@ typedef void (^SuccessStringBlock)(NSString *string);
 
 #pragma mark - 禅修板块——素食生活
 // 上传素食
-- (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
-
+- (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *progress))progressBlock Success:(void (^)(NSDictionary *vegeDict))success Fail:(FailBlock)fail;
+// 获取素食列表
+- (void)getVageListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 添加素食收藏
+- (void)addStoreVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 取消收藏
+- (void)cancleStoreVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 收藏列表
+- (void)storeVegeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
 

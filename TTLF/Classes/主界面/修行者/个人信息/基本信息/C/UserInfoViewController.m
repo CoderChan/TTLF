@@ -250,7 +250,14 @@
     }else {
         [MBProgressHUD showError:@"请选择图片资源"];
     }
+    
 }
+// 取消上传
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 15;
@@ -260,11 +267,6 @@
     return 1;
 }
 
-#pragma mark - 取消上传
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    [picker dismissViewControllerAnimated:YES completion:nil];
-}
 
 
 #pragma mark - 懒加载

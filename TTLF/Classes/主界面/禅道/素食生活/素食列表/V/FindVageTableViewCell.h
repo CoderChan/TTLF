@@ -7,9 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "VegeInfoModel.h"
+
 
 @interface FindVageTableViewCell : UITableViewCell
 
+@property (strong,nonatomic) VegeInfoModel *vegeModel;
 
 + (instancetype)sharedFindVageCell:(UITableView *)tableView;
 

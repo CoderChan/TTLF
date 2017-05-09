@@ -99,7 +99,7 @@
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.coverImgView.layer.masksToBounds = YES;
-    self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight;
+    self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     self.coverImgView.backgroundColor = RGBACOLOR(250, 246, 232, 1);
     self.coverImgView.userInteractionEnabled = YES;
     [self.view addSubview:self.coverImgView];
@@ -165,6 +165,7 @@
 #pragma mark - 其他方法
 - (void)dismissAction
 {
+    [self.view endEditing:YES];
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
     }];

@@ -78,6 +78,7 @@
 {
     
     NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+    // 用户信息
     [UD removeObjectForKey:UuserID];
     [UD removeObjectForKey:Uunionid];
     [UD removeObjectForKey:UisOutHome];
@@ -93,6 +94,10 @@
     [UD removeObjectForKey:UstageIcon];
     [UD removeObjectForKey:Ufrom];
     [UD removeObjectForKey:UuserBgImg];
+    
+    // 其他缓存
+    [UD removeObjectForKey:LastPusaImgURL];
+    
 }
 
 #pragma mark - 获取用户模型

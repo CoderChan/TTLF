@@ -435,6 +435,31 @@
     }];
     
 }
+// 根据用户ID查询用户信息
+- (void)searchUserByUserID:(NSString *)sideID Success:(void (^)(UserInfoModel *))success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/index?userID=%@&sideID=%@",account.userID.base64EncodedString,sideID.base64EncodedString];
+    NSLog(@"查询用户ID = %@",url);
+    [HTTPManager GET:url params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"对方的信息 = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
+            success(userModel);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
 
 #pragma mark - 获取功德值列表
 - (void)getPunaNumWithMonth:(NSString *)month Success:(SuccessModelBlock)success Fail:(FailBlock)fail
@@ -1072,20 +1097,20 @@
 
 #pragma mark - 禅修板块——素食生活
 // 上传素食
-- (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
+- (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *))progressBlock Success:(void (^)(NSDictionary *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
     if (!account) {
         fail(@"用户未登录");
         return;
     }
-    NSString *url = @"http://app.yangruyi.com/home/vegetarian/addvegetar";
+    NSString *url = @"http://app.yangruyi.com/home/Vegetarian/addvegetar";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
-    [param setValue:vageName.base64EncodedString forKey:@"vegeName"];
-    [param setValue:story.base64EncodedString forKey:@"story"];
-    [param setValue:foods.base64EncodedString forKey:@"vageMaterial"];
-    [param setValue:steps.base64EncodedString forKey:@"vageSteps"];
+    [param setValue:vageName.base64EncodedString forKey:@"vege_name"];
+    [param setValue:story.base64EncodedString forKey:@"vege_desc"];
+    [param setValue:foods.base64EncodedString forKey:@"vege_food"];
+    [param setValue:steps.base64EncodedString forKey:@"vege_steps"];
     
     NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/vegetarian/addvegetar?userID=%@&vegeName=%@&story=%@&vageMaterial=%@&vageSteps=%@",account.userID.base64EncodedString,vageName.base64EncodedString,story.base64EncodedString,foods.base64EncodedString,steps.base64EncodedString];
     NSLog(@"上传素食的URL = %@",allurl);
@@ -1098,7 +1123,8 @@
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
-            success(@"发送成功");
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            success(result);
         }else{
             fail(message);
         }
@@ -1107,6 +1133,127 @@
         fail(error.localizedDescription);
     }];
     
+}
+
+// 获取素食列表
+- (void)getVageListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Vegetarian/index";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    NSLog(@"获取素食列表 = http://app.yangruyi.com/home/Vegetarian/index?userID=%@",account.userID.base64EncodedString);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [VegeInfoModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+// 添加素食收藏
+- (void)addStoreVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Vegetarian/vegeCollect";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:vegeModel.vege_id.base64EncodedString forKey:@"vege_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Vegetarian/vegeCollect?userID=%@&vege_id=%@",account.userID.base64EncodedString,vegeModel.vege_id.base64EncodedString];
+    NSLog(@"收藏素食 = %@",allurl);
+    
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+// 取消素食收藏
+- (void)cancleStoreVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Vegetarian/cancelVegeCollect";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:vegeModel.vege_id.base64EncodedString forKey:@"vege_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Vegetarian/cancelVegeCollect?userID=%@&vege_id=%@",account.userID.base64EncodedString,vegeModel.vege_id.base64EncodedString];
+    NSLog(@"取消收藏素食 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 收藏素食列表
+- (void)storeVegeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Vegetarian/vegeCollectList";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Vegetarian/vegeCollectList?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"素食收藏列表 = %@",allurl);
+    
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"素食列表 = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [VegeInfoModel mj_objectArrayWithKeyValuesArray:result];
+            if (modelArray.count > 0) {
+                success(modelArray);
+            }else{
+                fail(@"您还没有添加素食\r快去素食广场发现素食吧");
+            }
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
 
 

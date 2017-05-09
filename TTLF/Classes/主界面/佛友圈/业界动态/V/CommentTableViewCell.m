@@ -88,6 +88,10 @@
     self.headImgView.userInteractionEnabled = YES;
     self.headImgView.frame = CGRectMake(15, 10, 36, 36);
     self.headImgView.layer.masksToBounds = YES;
+    self.headImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.headImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.headImgView.layer.masksToBounds = YES;
+    self.headImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     self.headImgView.layer.cornerRadius = 18;
     [self.contentView addSubview:self.headImgView];
     UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {

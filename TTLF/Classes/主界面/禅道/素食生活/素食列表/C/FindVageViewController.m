@@ -10,6 +10,8 @@
 #import "FindVageTableViewCell.h"
 #import "SearchVageViewController.h"
 #import "VageDetialViewController.h"
+#import <MJRefresh.h>
+
 
 @interface FindVageViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 
@@ -37,7 +39,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.definesPresentationContext = YES;
     
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.bounds.size.height)];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.bounds.size.height - 64)];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -50,16 +52,30 @@
     self.searchController.searchBar.height = 50;
     
     self.tableView.tableHeaderView = self.searchController.searchBar;
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [[TTLFManager sharedManager].networkManager getVageListSuccess:^(NSArray *array) {
+            [self.tableView.mj_header endRefreshing];
+            self.array = array;
+            [self.tableView reloadData];
+        } Fail:^(NSString *errorMsg) {
+            [self.tableView.mj_header endRefreshing];
+            self.tableView.hidden = YES;
+            [self showEmptyViewWithMessage:errorMsg];
+        }];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    // 搜索素食
     
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 15;
+    return self.array.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -68,14 +84,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FindVageTableViewCell *cell = [FindVageTableViewCell sharedFindVageCell:tableView];
-    
+    VegeInfoModel *model = self.array[indexPath.section];
+    cell.vegeModel = model;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    VageDetialViewController *vageDetial = [VageDetialViewController new];
+    VegeInfoModel *vegeModel = self.array[indexPath.section];
+    VageDetialViewController *vageDetial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
     [self.navigationController pushViewController:vageDetial animated:YES];
 }
 

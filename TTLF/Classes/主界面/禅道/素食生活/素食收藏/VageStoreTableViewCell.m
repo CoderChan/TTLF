@@ -52,21 +52,35 @@
     return self;
 }
 
+- (void)setVegeModel:(VegeInfoModel *)vegeModel
+{
+    _vegeModel = vegeModel;
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.creater_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = vegeModel.creater_name;
+    _vageNameLabel.text = vegeModel.vege_name;
+    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    NSString *time = [vegeModel.create_time substringWithRange:NSMakeRange(0, 11)];
+    time = [time stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
+    _timeLabel.text = time;
+}
+
 - (void)setupSubViews
 {
     // 发布者头像
     self.headImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 30)];
-    self.headImgView.image = [UIImage imageWithColor:HWRandomColor];
+    self.headImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.headImgView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.headImgView.layer.masksToBounds = YES;
+    self.headImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     self.headImgView.layer.cornerRadius = 15;
     [self.contentView addSubview:self.headImgView];
     
     // 发布者昵称
-    self.vageNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 5, 10, 100, 30)];
-    self.vageNameLabel.text = @"周顺雷";
-    self.vageNameLabel.font = [UIFont systemFontOfSize:15];
-    self.vageNameLabel.textColor = RGBACOLOR(67, 67, 67, 1);
-    [self.contentView addSubview:self.vageNameLabel];
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.headImgView.frame) + 5, 10, 100, 30)];
+    self.nameLabel.text = @"杨雅茹";
+    self.nameLabel.font = [UIFont systemFontOfSize:15];
+    self.nameLabel.textColor = RGBACOLOR(67, 67, 67, 1);
+    [self.contentView addSubview:self.nameLabel];
     
     // 收藏时间
     self.timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(SCREEN_WIDTH - 100, 10, 80, 30)];
@@ -78,7 +92,10 @@
     
     // 封面
     self.coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, CGRectGetMaxY(self.headImgView.frame) + 15, 150 * CKproportion, 110 * CKproportion)];
-    self.coverImgView.image = [UIImage imageWithColor:HWRandomColor];
+    self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.coverImgView.layer.masksToBounds = YES;
+    self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:self.coverImgView];
     
     // 素食名称

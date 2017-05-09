@@ -12,6 +12,8 @@
 #import "StoreVageViewController.h"
 #import "MyVagesViewController.h"
 #import "RootNavgationController.h"
+#import "VageDetialViewController.h"
+#import <MJExtension/MJExtension.h>
 
 
 @interface VegeViewController ()
@@ -24,8 +26,19 @@
     [super viewDidLoad];
     self.title = @"素食生活";
     [self setupSubViews];
+    
+    [YLNotificationCenter addObserver:self selector:@selector(visitMyNewVegeAction:) name:CreateNewVegeNoti object:nil];
 }
-
+#pragma mark - 收到新发布的素食
+- (void)visitMyNewVegeAction:(NSNotification *)noti
+{
+    NSLog(@"noti = %@",noti.userInfo);
+    VegeInfoModel *vegeModel = [VegeInfoModel mj_objectWithKeyValues:noti.userInfo];
+    VageDetialViewController *detial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
+    [self.navigationController pushViewController:detial animated:YES];
+    
+}
+#pragma mark - 收到通知
 - (void)setupSubViews
 {
     
