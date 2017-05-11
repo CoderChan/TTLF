@@ -24,8 +24,10 @@
 @property (copy,nonatomic) NSString *vege_steps;
 /** 素食描述 */
 @property (copy,nonatomic) NSString *vege_desc;
-/** 时间 */
+/** 创建的时间 */
 @property (copy,nonatomic) NSString *create_time;
+/** 收藏的时间 */
+@property (copy,nonatomic) NSString *collect_time;
 /** 分享出去的URL，需要拼接素食ID */
 @property (copy,nonatomic) NSString *web_url;
 

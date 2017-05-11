@@ -48,7 +48,7 @@
             [self.array addObjectsFromArray:array];
             [self.tableView.mj_header endRefreshing];
             [self.tableView reloadData];
-            // 上拉加载更多
+            
             self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
                 
             }];
@@ -96,6 +96,12 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    VegeInfoModel *vegeModel = self.array[indexPath.section];
+    VageDetialViewController *detial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
+    [self.navigationController pushViewController:detial animated:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

@@ -13,5 +13,7 @@
 /** 搜索结果集 */
 @property (copy,nonatomic) NSArray *searchArray;
 
+- (void)showEmptyWithMessage:(NSString *)message;
+
 
 @end

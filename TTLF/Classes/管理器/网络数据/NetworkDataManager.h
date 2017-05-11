@@ -120,13 +120,18 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)shareVageWithVageName:(NSString *)vageName Story:(NSString *)story Images:(NSArray *)imageArray VageFoods:(NSString *)foods Steps:(NSString *)steps Progress:(void (^)(NSProgress *progress))progressBlock Success:(void (^)(NSDictionary *vegeDict))success Fail:(FailBlock)fail;
 // 获取素食列表
 - (void)getVageListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 搜索素食
+- (void)searchVege:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 添加素食收藏
 - (void)addStoreVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 取消收藏
 - (void)cancleStoreVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 收藏列表
 - (void)storeVegeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
-
+// 我发布的素食列表
+- (void)myCreateVegeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 删除我发布的
+- (void)deleteMyVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 
 

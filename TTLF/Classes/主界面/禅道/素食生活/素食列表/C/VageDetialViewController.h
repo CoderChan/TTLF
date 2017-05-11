@@ -10,6 +10,8 @@
 
 @interface VageDetialViewController : SuperViewController
 
+@property (assign,nonatomic) BOOL isPresent;
+
 - (instancetype)initWithVegeModel:(VegeInfoModel *)vegeModel;
 
 @end

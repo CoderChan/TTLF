@@ -8,11 +8,14 @@
 
 #import "SearchVageViewController.h"
 #import "FindVageTableViewCell.h"
+#import "RootNavgationController.h"
+#import "VageDetialViewController.h"
 
 @interface SearchVageViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
+
 
 
 @end
@@ -27,6 +30,7 @@
 
 - (void)setupSubViews
 {
+    self.view.backgroundColor = BackColor;
     self.tableView = [[UITableView alloc]initWithFrame:self.view.bounds];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.delegate = self;
@@ -34,9 +38,23 @@
     [self.view addSubview:self.tableView];
 }
 
+- (void)setSearchArray:(NSArray *)searchArray
+{
+    _searchArray = searchArray;
+    self.tableView.hidden = NO;
+    [self hideMessageAction];
+    [self.tableView reloadData];
+}
+
+- (void)showEmptyWithMessage:(NSString *)message
+{
+    self.tableView.hidden = YES;
+    [self showEmptyViewWithMessage:message];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return self.searchArray.count;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -44,9 +62,23 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
     FindVageTableViewCell *cell = [FindVageTableViewCell sharedFindVageCell:tableView];
-    
+    cell.vegeModel = vegeModel;
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
+    
+    VageDetialViewController *vageDetial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
+    vageDetial.isPresent = YES;
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:vageDetial];
+    [self presentViewController:nav animated:NO completion:^{
+        
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -64,6 +96,12 @@
     return footView;
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+}
 
 
 @end

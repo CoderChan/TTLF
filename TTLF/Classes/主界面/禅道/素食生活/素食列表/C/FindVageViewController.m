@@ -11,14 +11,19 @@
 #import "SearchVageViewController.h"
 #import "VageDetialViewController.h"
 #import <MJRefresh.h>
+#import <MJExtension/MJExtension.h>
 
 
 @interface FindVageViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+{
+    int CurrentPage; // 当前页
+    int PageNum; // 每页多少条
+}
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
-@property (copy,nonatomic) NSArray *array;
+@property (strong,nonatomic) NSMutableArray *array;
 /** 搜索框 */
 @property (strong,nonatomic) UISearchController *searchController;
 /** 搜索结果集 */
@@ -33,11 +38,15 @@
     self.title = @"精选素食";
     [self setupSubViews];
 }
-
+#pragma mark - 绘制界面和加载数据
 - (void)setupSubViews
 {
+    CurrentPage = 1;
+    PageNum = 3;
+    
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.definesPresentationContext = YES;
+    self.array = [NSMutableArray array];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.bounds.size.height - 64)];
     self.tableView.backgroundColor = self.view.backgroundColor;
@@ -53,26 +62,125 @@
     
     self.tableView.tableHeaderView = self.searchController.searchBar;
     
+    // 下拉加载，每次加载最新的。
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [[TTLFManager sharedManager].networkManager getVageListSuccess:^(NSArray *array) {
-            [self.tableView.mj_header endRefreshing];
-            self.array = array;
+        CurrentPage = 1;
+        [self.array removeAllObjects];
+        [self getArticleCurrentPage:CurrentPage Success:^(NSArray *modelArray) {
+            
+            [self.array addObjectsFromArray:modelArray];
             [self.tableView reloadData];
+            
         } Fail:^(NSString *errorMsg) {
-            [self.tableView.mj_header endRefreshing];
-            self.tableView.hidden = YES;
-            [self showEmptyViewWithMessage:errorMsg];
+            CurrentPage = 1;
+            [MBProgressHUD showError:errorMsg];
         }];
     }];
     [self.tableView.mj_header beginRefreshing];
+    
+    // 上拉加载更多
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self getArticleCurrentPage:CurrentPage Success:^(NSArray *modelArray) {
+            [self.tableView.mj_footer endRefreshing];
+            [self.array addObjectsFromArray:modelArray];
+            [self.tableView reloadData];
+        } Fail:^(NSString *errorMsg) {
+            [self.tableView.mj_footer endRefreshing];
+            [MBProgressHUD showError:errorMsg];
+        }];
+    }];
 }
 
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+#pragma mark - 获取数据
+- (void)getArticleCurrentPage:(int)currentPage Success:(void (^)(NSArray *modelArray))success Fail:(FailBlock)fail
 {
-    // 搜索素食
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *page = [NSString stringWithFormat:@"%d",currentPage].base64EncodedString;
+    NSString *pageNumStr = [NSString stringWithFormat:@"%d",PageNum].base64EncodedString;
+    
+    
+    
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Vegetarian/index/p/%d",currentPage];
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:pageNumStr forKey:@"pageNum"];
+    [param setValue:page forKey:@"currentPage"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Vegetarian/index?userID=%@&currentPage=%@&pageNum=%@",account.userID.base64EncodedString,page,pageNumStr];
+    NSLog(@"获取素食链接 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        [self.tableView.mj_header endRefreshing];
+        // 总文章数
+        int totalPage = [[[responseObject objectForKey:@"totalPage"] description] intValue];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            int yushu = totalPage % PageNum;
+            
+            if (yushu == 0) {
+                // 正好整除，总页数是他们的商
+                int sumPage = totalPage/PageNum;
+                if (CurrentPage > sumPage) {
+                    // 没有更多的了
+                    [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.tableView.mj_footer endRefreshing];
+                }else{
+                    CurrentPage++;
+                    NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+                    success(modelArray);
+                }
+            }else{
+                // 没有整除，总页数=商+1
+                int sumPage = totalPage/PageNum + 1;
+                if (CurrentPage > sumPage) {
+                    // 没有更多的了
+                    [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.tableView.mj_footer endRefreshing];
+                }else{
+                    CurrentPage++;
+                    NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+                    success(modelArray);
+                }
+            }
+            
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
     
 }
 
+
+#pragma mark - 搜索代理
+- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
+{
+    // 搜索素食
+    [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
+        self.searchResultController.searchArray = array;
+    } Fail:^(NSString *errorMsg) {
+        [self.searchResultController showEmptyWithMessage:errorMsg];
+    }];
+}
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    // 搜索素食
+    [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
+        self.searchResultController.searchArray = array;
+    } Fail:^(NSString *errorMsg) {
+        [self.searchResultController showEmptyWithMessage:errorMsg];
+    }];
+}
+#pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.array.count;

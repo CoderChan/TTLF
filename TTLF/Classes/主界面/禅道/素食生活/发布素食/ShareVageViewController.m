@@ -172,6 +172,7 @@
 }
 - (void)nextStepAction
 {
+    [self.view endEditing:YES];
     VageNextStepController *nextStep = [VageNextStepController new];
     nextStep.coverImage = self.coverImgView.image;
     nextStep.vageName = self.nameField.text;

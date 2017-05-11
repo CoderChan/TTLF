@@ -57,6 +57,9 @@
     }else if([model.option_type containsString:@"发表评论"]){
         _iconView.image = [UIImage imageNamed:@"puna_discuss"];
         _contentLabel.text = model.option_type;
+    }else if ([model.option_type containsString:@"被收藏"]){
+        _iconView.image = [UIImage imageNamed:@"puna_vege_store"];
+        _contentLabel.text = model.option_type;
     }else{
         _contentLabel.text = model.option_type;
     }

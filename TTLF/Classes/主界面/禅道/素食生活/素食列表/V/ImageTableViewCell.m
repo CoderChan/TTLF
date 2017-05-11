@@ -49,13 +49,11 @@
 
 - (void)setupSubViews
 {
-    self.backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 200*CKproportion)];
+    self.backImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 220*CKproportion - 1)];
     self.backImageView.contentMode = UIViewContentModeScaleAspectFill;
     [self.backImageView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.backImageView.layer.masksToBounds = YES;
-    self.backImageView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
-    self.backImageView.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.backImageView.layer.borderWidth = 1;
+    self.backImageView.autoresizingMask =  UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:self.backImageView];
     
 }

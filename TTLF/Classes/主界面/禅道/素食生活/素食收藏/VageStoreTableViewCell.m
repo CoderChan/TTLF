@@ -59,7 +59,7 @@
     _nameLabel.text = vegeModel.creater_name;
     _vageNameLabel.text = vegeModel.vege_name;
     [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
-    NSString *time = [vegeModel.create_time substringWithRange:NSMakeRange(0, 11)];
+    NSString *time = [vegeModel.collect_time substringWithRange:NSMakeRange(0, 11)];
     time = [time stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
     _timeLabel.text = time;
 }

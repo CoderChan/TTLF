@@ -47,7 +47,7 @@
 #pragma mark - 添加表格
 - (void)setupSubViews
 {
-    
+    self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAction)];
     [self.navigationItem.rightBarButtonItem setTintColor:MainColor];
     
@@ -132,18 +132,25 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     NSArray *titleArray = self.array[section];
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectZero];
-    label.backgroundColor = self.view.backgroundColor;
-    label.text = [NSString stringWithFormat:@"- %@ -",titleArray.firstObject];
+    
+    UIView *headView = [UIView new];
+    headView.backgroundColor = RGBACOLOR(247, 247, 247, 1);
+    headView.userInteractionEnabled = YES;
+    
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 7, self.view.width - 30, 30)];
+    label.backgroundColor = headView.backgroundColor;
+    label.text = titleArray.firstObject;
     label.textColor = MainColor;
     label.userInteractionEnabled = YES;
-    label.textAlignment = NSTextAlignmentCenter;
-    label.font = [UIFont systemFontOfSize:15];
+    label.textAlignment = NSTextAlignmentLeft;
+    label.font = [UIFont boldSystemFontOfSize:20];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         [self.view endEditing:YES];
     }];
     [label addGestureRecognizer:tap];
-    return label;
+    [headView addSubview:label];
+    
+    return headView;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -201,14 +208,16 @@
         UIImage *image = self.publishPhotosView.images[i];
         [vageImages addObject:image];
     }
-    
+    [MBProgressHUD showMessage:@"上传中···"];
     [[TTLFManager sharedManager].networkManager shareVageWithVageName:self.vageName Story:self.vageStory Images:vageImages VageFoods:self.foodTextView.text Steps:self.stepTextView.text Progress:^(NSProgress *progress) {
         NSLog(@"progress = %f",progress.fractionCompleted);
     } Success:^(NSDictionary *vegeDict) {
+        [MBProgressHUD hideHUD];
         [self.navigationController dismissViewControllerAnimated:YES completion:^{
             [YLNotificationCenter postNotificationName:CreateNewVegeNoti object:nil userInfo:vegeDict];
         }];
     } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD hideHUD];
         [self sendAlertAction:errorMsg];
     }];
     

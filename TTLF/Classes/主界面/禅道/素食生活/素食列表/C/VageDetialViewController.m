@@ -11,8 +11,11 @@
 #import "NormalTableViewCell.h"
 #import "ImageTableViewCell.h"
 #import "XLPhotoBrowser.h"
+#import "AccountTool.h"
+#import "PunnaNumViewController.h"
+#import "VisitUserViewController.h"
 
-
+#define TitleFont [UIFont systemFontOfSize:17]
 
 @interface VageDetialViewController ()<RightMoreViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -22,6 +25,25 @@
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
+
+/** 素食简介 */
+@property (strong,nonatomic) UILabel *vegeDescLabel;
+/** 作者头像 */
+@property (strong,nonatomic) UIImageView *createrHeadImgView;
+/** 作者昵称 */
+@property (strong,nonatomic) UILabel *createrNameLabel;
+/** 需要的食材 */
+@property (strong,nonatomic) UILabel *vegeFoodLabel;
+/** 烹饪步骤 */
+@property (strong,nonatomic) UILabel *vegeStepsLabel;
+
+/** 素食描述的label */
+@property (strong,nonatomic) UILabel *descLabel;
+/** 素食食材的label */
+@property (strong,nonatomic) UILabel *foodLabel;
+/** 烹饪步骤的label */
+@property (strong,nonatomic) UILabel *stepsLabel;
+
 
 @end
 
@@ -48,6 +70,12 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     
+    if (self.isPresent) {
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissAction)];
+        [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
+    }
+    
+    self.view.backgroundColor = [UIColor whiteColor];
     
     self.array = @[@[@"封面"],@[@"素食简介"],@[@"作者",@"需要的食材"],@[@"烹饪步骤"],self.vegeModel.vege_img_desc];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
@@ -56,6 +84,13 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
+}
+
+- (void)dismissAction
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -68,6 +103,7 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     if (indexPath.section == 0) {
         // 封面
         ImageTableViewCell *cell = [ImageTableViewCell sharedImageCell:tableView];
@@ -76,24 +112,46 @@
     }else if (indexPath.section == 1){
         // 简介
         NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.titleLabel removeFromSuperview];
+        [cell.iconView removeFromSuperview];
+        
+        [cell.contentView addSubview:self.descLabel];
+        [cell.contentView addSubview:self.vegeDescLabel];
         return cell;
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             // 作者
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-            cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            [cell.contentView addSubview:self.createrHeadImgView];
+            [cell.contentView addSubview:self.createrNameLabel];
             return cell;
         } else {
             // 需要的食材
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-            cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            [cell.titleLabel removeFromSuperview];
+            [cell.iconView removeFromSuperview];
+            
+            [cell.contentView addSubview:self.foodLabel];
+            [cell.contentView addSubview:self.vegeFoodLabel];
             return cell;
         }
     }else if (indexPath.section == 3){
         // 烹饪步骤说明
         NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.titleLabel removeFromSuperview];
+        [cell.iconView removeFromSuperview];
+        [cell.contentView addSubview:self.stepsLabel];
+        [cell.contentView addSubview:self.vegeStepsLabel];
         return cell;
     }else {
         // 步骤说明图
@@ -118,6 +176,15 @@
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             // 作者
+            if ([[AccountTool account].userID isEqualToString:self.vegeModel.creater_id]) {
+                // 自己
+                PunnaNumViewController *punna = [[PunnaNumViewController alloc]init];
+                [self.navigationController pushViewController:punna animated:YES];
+            }else{
+                // 别人
+                VisitUserViewController *user = [[VisitUserViewController alloc]initWithUserID:self.vegeModel.creater_id];
+                [self.navigationController pushViewController:user animated:YES];
+            }
             
         } else {
             // 需要的食材
@@ -136,25 +203,30 @@
 {
     if (indexPath.section == 0) {
         // 封面
-        return 200*CKproportion;
+        return 220*CKproportion;
     }else if (indexPath.section == 1){
         // 简介
-        return 80;
+        CGFloat height = [self.vegeModel.vege_desc boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
+        return height + 35;
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             // 作者
-            return 44;
+            return 50;
         } else {
             // 需要的食材
-            return 60;
+            CGFloat footHeight = [self.vegeModel.vege_food boundingRectWithSize:CGSizeMake(self.view.width, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
+            return footHeight + 35;
         }
     }else if (indexPath.section == 3){
         // 烹饪步骤说明
-        return 120;
+        CGFloat stepHeight = [self.vegeModel.vege_steps boundingRectWithSize:CGSizeMake(self.view.width, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
+        
+        return stepHeight + 30 + 20;
     }else {
         // 步骤说明图
-        return 200*CKproportion;
+        return 220*CKproportion;
     }
+
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -182,8 +254,8 @@
     NSString *shareUrl = [NSString stringWithFormat:@"%@%@",self.vegeModel.web_url,self.vegeModel.vege_id];
     if (clickType == WechatFriendType) {
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = @"天天礼佛：生活就是一场修行。";
-        message.description = self.vegeModel.vege_desc;
+        message.title = [NSString stringWithFormat:@"%@-%@",self.vegeModel.vege_name,self.vegeModel.vege_desc];
+        message.description = @"天天礼佛APP：您掌上的素食生活馆";
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
@@ -198,8 +270,8 @@
     }else if(clickType == WechatQuanType){
         
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = @"天天礼佛：生活就是一场修行。";
-        message.description = self.vegeModel.vege_desc;
+        message.title = [NSString stringWithFormat:@"%@-%@",self.vegeModel.vege_name,self.vegeModel.vege_desc];
+        message.description = @"天天礼佛APP：您掌上的素食生活馆";
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
@@ -215,7 +287,7 @@
         [[TTLFManager sharedManager].networkManager addStoreVegeWithModel:self.vegeModel Success:^{
             [MBProgressHUD showSuccess:@"已收藏"];
         } Fail:^(NSString *errorMsg) {
-            [self sendAlertAction:errorMsg];
+            [MBProgressHUD showError:errorMsg];
         }];
     }else if (clickType == QQFriendType){
         [MBProgressHUD showSuccess:@"QQ好友"];
@@ -246,5 +318,108 @@
         // 停止加载
     }
 }
+
+#pragma mark - 懒加载
+// 素食描述内容
+- (UILabel *)descLabel
+{
+    if (!_descLabel) {
+        _descLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
+        _descLabel.text = @"素食背后的故事：";
+        _descLabel.font = [UIFont boldSystemFontOfSize:20];
+        _descLabel.textColor = MainColor;
+    }
+    return _descLabel;
+}
+- (UILabel *)vegeDescLabel
+{
+    if (!_vegeDescLabel) {
+        
+        CGFloat height = [self.vegeModel.vege_desc boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
+        _vegeDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 33, self.view.width - 30, height)];
+        _vegeDescLabel.text = self.vegeModel.vege_desc;
+        _vegeDescLabel.font = TitleFont;
+        _vegeDescLabel.numberOfLines = 0;
+    }
+    return _vegeDescLabel;
+}
+
+// 创建者头像
+- (UIImageView *)createrHeadImgView
+{
+    if (!_createrHeadImgView) {
+        _createrHeadImgView = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.width - 15 - 36, 7, 36, 36)];
+        [_createrHeadImgView sd_setImageWithURL:[NSURL URLWithString:self.vegeModel.creater_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+        _createrHeadImgView.contentMode = UIViewContentModeScaleAspectFill;
+        [_createrHeadImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+        _createrHeadImgView.layer.masksToBounds = YES;
+        _createrHeadImgView.layer.cornerRadius = 18;
+        _createrHeadImgView.autoresizingMask =  UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
+    }
+    return _createrHeadImgView;
+}
+// 创建者昵称
+- (UILabel *)createrNameLabel
+{
+    if (!_createrNameLabel) {
+        _createrNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 7, self.view.width - 36 - 15 - 10, 36)];
+        _createrNameLabel.text = self.vegeModel.creater_name;
+        _createrNameLabel.textColor = RGBACOLOR(65, 65, 65, 1);
+        _createrNameLabel.textAlignment = NSTextAlignmentRight;
+        _createrNameLabel.font = TitleFont;
+    }
+    return _createrNameLabel;
+}
+
+// 需要的食材
+- (UILabel *)foodLabel
+{
+    if (!_foodLabel) {
+        _foodLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
+        _foodLabel.text = @"食材准备：";
+        _foodLabel.font = [UIFont boldSystemFontOfSize:20];
+        _foodLabel.textColor = MainColor;
+    }
+    return _foodLabel;
+}
+- (UILabel *)vegeFoodLabel
+{
+    if (!_vegeFoodLabel) {
+        
+        CGFloat footHeight = [self.vegeModel.vege_food boundingRectWithSize:CGSizeMake(self.view.width, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
+        _vegeFoodLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 33, self.view.width - 20, footHeight)];
+        _vegeFoodLabel.text = self.vegeModel.vege_food;
+        _vegeFoodLabel.font = TitleFont;
+        _vegeFoodLabel.numberOfLines = 0;
+        _vegeFoodLabel.textColor = RGBACOLOR(65, 65, 65, 1);
+    }
+    return _vegeFoodLabel;
+}
+// 烹饪步骤
+- (UILabel *)stepsLabel
+{
+    if (!_stepsLabel) {
+        _stepsLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
+        _stepsLabel.font = [UIFont boldSystemFontOfSize:20];
+        _stepsLabel.text = @"烹饪步骤：";
+        _stepsLabel.textColor = MainColor;
+    }
+    return _stepsLabel;
+}
+- (UILabel *)vegeStepsLabel
+{
+    if (!_vegeStepsLabel) {
+        CGFloat stepHeight = [self.vegeModel.vege_steps boundingRectWithSize:CGSizeMake(self.view.width, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
+        _vegeStepsLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 35, self.view.width - 30, stepHeight)];
+        _vegeStepsLabel.text = self.vegeModel.vege_steps;
+        _vegeStepsLabel.font = TitleFont;
+        _vegeStepsLabel.numberOfLines = 0;
+        _vegeStepsLabel.textColor = RGBACOLOR(65, 65, 65, 1);
+    }
+    return _vegeStepsLabel;
+}
+
+
+
 
 @end
