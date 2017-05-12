@@ -13,6 +13,8 @@
 #import "MusicPlayingController.h"
 #import "VegeViewController.h"
 #import "PlaceListViewController.h"
+#import "GoodnessViewController.h"
+#import <SVWebViewController.h>
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -74,9 +76,11 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            // 佛典
             MyBooksViewController *myBook = [MyBooksViewController new];
             [self.navigationController pushViewController:myBook animated:YES];
         }else{
+            // 梵音
             MusicPlayingController *music = [MusicPlayingController new];
             [self.navigationController pushViewController:music animated:YES];
         }
@@ -86,13 +90,20 @@
             LiFoViewController *lifo = [LiFoViewController new];
             [TTLFManager sharedManager].lifoVC = lifo;
             [self.navigationController pushViewController:lifo animated:YES];
+        }else{
+            // 日行一善
+            SVWebViewController *about = [[SVWebViewController alloc]initWithAddress:YiJijinWebURL];
+            about.title = @"壹基金";
+            [self.navigationController pushViewController:about animated:YES];
         }
         
     }else{
         if (indexPath.row == 0) {
+            // 素食生活
             VegeViewController *vegeVC = [VegeViewController new];
             [self.navigationController pushViewController:vegeVC animated:YES];
         }else{
+            // 佛教名山
             PlaceListViewController *place = [[PlaceListViewController alloc]init];
             [self.navigationController pushViewController:place animated:YES];
         }

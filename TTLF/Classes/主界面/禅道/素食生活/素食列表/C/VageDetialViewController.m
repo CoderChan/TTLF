@@ -17,7 +17,7 @@
 
 #define TitleFont [UIFont systemFontOfSize:17]
 
-@interface VageDetialViewController ()<RightMoreViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface VageDetialViewController ()<RightMoreViewDelegate,UITableViewDelegate,UITableViewDataSource,XLPhotoBrowserDelegate>
 
 /** 素食模型 */
 @property (strong,nonatomic) VegeInfoModel *vegeModel;
@@ -67,13 +67,8 @@
 
 - (void)setupSubViews
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     
-    if (self.isPresent) {
-        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"dismiss"] style:UIBarButtonItemStylePlain target:self action:@selector(dismissAction)];
-        [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
-    }
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(moreAction)];
     
     self.view.backgroundColor = [UIColor whiteColor];
     
@@ -86,12 +81,6 @@
     
 }
 
-- (void)dismissAction
-{
-    [self.navigationController dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -169,7 +158,11 @@
     
     if (indexPath.section == 0) {
         // 封面
-        [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:0];
+        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:0];
+        brower.browserStyle = XLPhotoBrowserStyleSimple;
+        brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
+        [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
+        
     }else if (indexPath.section == 1){
         // 简介
         
@@ -195,7 +188,10 @@
         
     }else {
         // 步骤说明图
-        [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:indexPath.row + 1];
+        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:indexPath.row + 1];
+        brower.browserStyle = XLPhotoBrowserStyleSimple;
+        brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
+        [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
     }
 }
 
@@ -318,6 +314,32 @@
         // 停止加载
     }
 }
+#pragma mark - XLPhotoBrowserDelegate
+- (void)photoBrowser:(XLPhotoBrowser *)browser clickActionSheetIndex:(NSInteger)actionSheetindex currentImageIndex:(NSInteger)currentImageIndex
+{
+    switch (actionSheetindex) {
+        case 0:
+        {
+            // 发送给朋友
+            UIImage *image = browser.sourceImageView.image;
+            if (!image) {
+                return;
+            }
+            
+            UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
+            [self presentViewController:activity animated:YES completion:nil];
+            break;
+        }
+        case 1:
+        {
+            // 保存到相册
+            [browser saveCurrentShowImage];
+            break;
+        }
+        default:
+            break;
+    }
+}
 
 #pragma mark - 懒加载
 // 素食描述内容
@@ -337,13 +359,13 @@
         
         CGFloat height = [self.vegeModel.vege_desc boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:TitleFont} context:nil].size.height;
         _vegeDescLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 33, self.view.width - 30, height)];
+        _vegeDescLabel.textColor = RGBACOLOR(65, 65, 65, 1);
         _vegeDescLabel.text = self.vegeModel.vege_desc;
         _vegeDescLabel.font = TitleFont;
         _vegeDescLabel.numberOfLines = 0;
     }
     return _vegeDescLabel;
 }
-
 // 创建者头像
 - (UIImageView *)createrHeadImgView
 {
@@ -370,7 +392,6 @@
     }
     return _createrNameLabel;
 }
-
 // 需要的食材
 - (UILabel *)foodLabel
 {
@@ -417,6 +438,25 @@
         _vegeStepsLabel.textColor = RGBACOLOR(65, 65, 65, 1);
     }
     return _vegeStepsLabel;
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 去掉那条线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+    
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    // 恢复那条线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefaultPrompt];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 

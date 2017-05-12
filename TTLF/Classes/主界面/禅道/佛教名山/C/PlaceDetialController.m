@@ -11,6 +11,9 @@
 #import "RightMoreView.h"
 #import "XLPhotoBrowser.h"
 #import <MapKit/MapKit.h>
+#import "ImageTableViewCell.h"
+#import "PlacePicturesController.h"
+#import "PlaceDiscussController.h"
 
 
 @interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate>
@@ -18,12 +21,13 @@
 @property (copy,nonatomic) NSArray *array;
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
+
 /** 封面 */
 @property (strong,nonatomic) UIImageView *coverImgView;
 /** 查看点评 */
 @property (strong,nonatomic) UILabel *commentLabel;
 /** 旅行攻略 */
-@property (strong,nonatomic) UITextView *descTextView;
+@property (strong,nonatomic) UILabel *travelLabel;
 /** 开放时间 */
 @property (strong,nonatomic) UILabel *openTimeLabel;
 /** 地图 */
@@ -49,8 +53,9 @@
 
 - (void)setupSubViews
 {
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
+
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(moreAction)];
     
     self.array = @[@[@"封面",@"查看点评"],@[@"旅行攻略",@"开放时间"],@[@"地图导航"],@[@"电话",@"地址",@"门票"]];
     
@@ -61,7 +66,6 @@
     self.tableView.showsVerticalScrollIndicator = NO;
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
-    
     
 }
 - (void)moreAction
@@ -91,17 +95,13 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             // 封面
-            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-            [cell.titleLabel removeFromSuperview];
-            [cell.iconView removeFromSuperview];
-            cell.backgroundColor = [UIColor clearColor];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            [cell addSubview:self.coverImgView];
-            [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494164277360&di=041789287b9496fac576b9589bc6213a&imgtype=0&src=http%3A%2F%2Fpic.92to.com%2F360%2F201604%2F11%2F2556131_201208031421560125.jpg"] placeholderImage:[UIImage imageNamed:@"vage_place"]];
+            ImageTableViewCell *cell = [ImageTableViewCell sharedImageCell:tableView];
+            cell.image_url = @"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494164277360&di=041789287b9496fac576b9589bc6213a&imgtype=0&src=http%3A%2F%2Fpic.92to.com%2F360%2F201604%2F11%2F2556131_201208031421560125.jpg";
             return cell;
         } else {
             // 查看点评
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            cell.accessoryType = UITableViewCellAccessoryNone;
             [cell.titleLabel removeFromSuperview];
             [cell.iconView removeFromSuperview];
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
@@ -165,7 +165,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            // 预览图集
+            PlacePicturesController *picture = [[PlacePicturesController alloc]init];
+            [self.navigationController pushViewController:picture animated:YES];
+        }else{
+            // 评论界面
+            PlaceDiscussController *discuss = [[PlaceDiscussController alloc]init];
+            [self.navigationController pushViewController:discuss animated:YES];
+        }
+    } else {
+        
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -173,7 +185,7 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             // 封面
-            return 180 * CKproportion;
+            return 220 * CKproportion;
         } else {
             // 查看点评
             return 55;

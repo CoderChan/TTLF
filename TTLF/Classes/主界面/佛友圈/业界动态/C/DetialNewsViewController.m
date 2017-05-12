@@ -17,7 +17,7 @@
 
 #define BottomHeight 50
 
-@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate,SendCommentDelegate>
+@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate,SendCommentDelegate,XLPhotoBrowserDelegate>
 {
     BOOL theBool;
     UIProgressView* myProgressView;
@@ -67,11 +67,11 @@
 
     // 网页相关
     self.imgUrlArray = [NSMutableArray array];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(commentAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(commentAction)];
+    
     
     self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - BottomHeight)];
-    
     self.webView.backgroundColor = self.view.backgroundColor;
     self.webView.delegate = self;
     [self.view addSubview:self.webView];
@@ -157,6 +157,7 @@
 - (void)sendCommentWithImage:(UIImage *)image CommentText:(NSString *)commentText
 {
     [[TTLFManager sharedManager].networkManager commentNewsWithModel:self.newsModel Image:image CommentText:commentText Success:^(NewsCommentModel *model) {
+        
         [MBProgressHUD showSuccess:@"评论成功"];
         [self.commentArray addObject:model];
         self.footView.commentNum = self.commentArray.count;
@@ -305,6 +306,33 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
+#pragma mark - 图片浏览器代理
+- (void)photoBrowser:(XLPhotoBrowser *)browser clickActionSheetIndex:(NSInteger)actionSheetindex currentImageIndex:(NSInteger)currentImageIndex
+{
+    switch (actionSheetindex) {
+        case 0:
+        {
+            // 发送给朋友
+            UIImage *image = browser.sourceImageView.image;
+            if (!image) {
+                return;
+            }
+            
+            UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
+            [self presentViewController:activity animated:YES completion:nil];
+            break;
+        }
+        case 1:
+        {
+            // 保存到相册
+            [browser saveCurrentShowImage];
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView
 {
@@ -369,8 +397,10 @@
                 page = i;
             }
         }
-        [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:page];
-
+        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:page];
+        brower.browserStyle = XLPhotoBrowserStyleSimple;
+        brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
+        [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
         
         return NO;
     }
@@ -400,6 +430,14 @@
     
     // 移除 progress view
     [myProgressView removeFromSuperview];
+}
+
+- (NSMutableArray *)commentArray
+{
+    if (!_commentArray) {
+        _commentArray = [NSMutableArray array];
+    }
+    return _commentArray;
 }
 
 

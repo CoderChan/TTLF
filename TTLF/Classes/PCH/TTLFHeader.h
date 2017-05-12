@@ -26,7 +26,8 @@
 
 // 官方网站
 #define OfficalWebURL @"http://www.yangruyi.com/"
-
+// 壹基金官网
+#define YiJijinWebURL @"http://cf.lingxi360.com/p/LXEimxXhz1CW-XA="
 
 // 友盟推送
 #define UMPush_AppKey @"58d12a06c62dca22da001944"

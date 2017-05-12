@@ -426,14 +426,7 @@
     [self beginLightingAction];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    [self beginLightingAction];
-    
-}
+
 - (void)beginLightingAction
 {
     // 继续发光
@@ -441,6 +434,14 @@
     [self.lightImageView2.layer addAnimation:self.rotationAnimation2 forKey:@"rotationAnimation"];
     // 太阳光圈扩散
     
+    
+}
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    [self beginLightingAction];
     
 }
 - (void)viewWillDisappear:(BOOL)animated

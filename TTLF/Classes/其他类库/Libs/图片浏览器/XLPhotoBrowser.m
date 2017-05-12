@@ -489,6 +489,7 @@
     [self.indicatorView removeFromSuperview];
     [self addSubview:self.savaImageTipLabel];
     if (error) {
+        
         self.savaImageTipLabel.text = XLPhotoBrowserSaveImageFailText;
     } else {
         self.savaImageTipLabel.text = XLPhotoBrowserSaveImageSuccessText;

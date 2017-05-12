@@ -39,8 +39,10 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search_bar"] style:UIBarButtonItemStylePlain target:self action:@selector(searchBookAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"search_bar"] style:UIBarButtonItemStylePlain target:self action:@selector(searchBookAction)];
+//    [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchBookAction)];
     
 }
 

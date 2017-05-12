@@ -27,7 +27,7 @@ typedef NS_ENUM(NSUInteger, XLProgressViewMode){
 };
 
 // 图片保存成功提示文字
-#define XLPhotoBrowserSaveImageSuccessText @"保存成功 ";
+#define XLPhotoBrowserSaveImageSuccessText @" 保存成功";
 // 图片保存失败提示文字
 #define XLPhotoBrowserSaveImageFailText @" 保存失败 ";
 // 网络图片加载失败的提示文字
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, XLProgressViewMode){
 #define XLPhotoBrowserHideImageAnimationDuration 0.2f
 
 // 图片下载进度指示进度显示样式（XLProgressViewModeLoopDiagram 环形，XLProgressViewModePieDiagram 饼型）
-#define XLProgressViewProgressMode XLProgressViewModeLoopDiagram
+#define XLProgressViewProgressMode XLProgressViewModePieDiagram
 // 图片下载进度指示器背景色
 #define XLProgressViewBackgroundColor [UIColor clearColor]
 // 图片下载进度指示器圆环/圆饼颜色
@@ -52,7 +52,7 @@ typedef NS_ENUM(NSUInteger, XLProgressViewMode){
 // 图片下载进度指示器内部控件间的间距
 #define XLProgressViewItemMargin 10
 // 圆环形图片下载进度指示器 环线宽度
-#define XLProgressViewLoopDiagramLineWidth 4
+#define XLProgressViewLoopDiagramLineWidth 6
 
 
 

@@ -11,10 +11,11 @@
 #import "SearchVageViewController.h"
 #import "VageDetialViewController.h"
 #import <MJRefresh.h>
+#import "RootNavgationController.h"
 #import <MJExtension/MJExtension.h>
 
 
-@interface FindVageViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface FindVageViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     int CurrentPage; // 当前页
     int PageNum; // 每页多少条
@@ -24,10 +25,7 @@
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (strong,nonatomic) NSMutableArray *array;
-/** 搜索框 */
-@property (strong,nonatomic) UISearchController *searchController;
-/** 搜索结果集 */
-@property (strong,nonatomic) SearchVageViewController *searchResultController;
+
 
 @end
 
@@ -42,10 +40,10 @@
 - (void)setupSubViews
 {
     CurrentPage = 1;
-    PageNum = 3;
+    PageNum = 2;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.definesPresentationContext = YES;
+    
     self.array = [NSMutableArray array];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.bounds.size.height - 64)];
@@ -54,13 +52,8 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
-    self.searchResultController = [[SearchVageViewController alloc]init];
-    self.searchController = [[UISearchController alloc]initWithSearchResultsController:self.searchResultController];
-    self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"搜索关键字";
-    self.searchController.searchBar.height = 50;
     
-    self.tableView.tableHeaderView = self.searchController.searchBar;
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchAction)];
     
     // 下拉加载，每次加载最新的。
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
@@ -133,7 +126,7 @@
                     [self.tableView.mj_footer endRefreshing];
                 }else{
                     CurrentPage++;
-                    NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+                    NSArray *modelArray = [VegeInfoModel mj_objectArrayWithKeyValuesArray:result];
                     success(modelArray);
                 }
             }else{
@@ -145,7 +138,7 @@
                     [self.tableView.mj_footer endRefreshing];
                 }else{
                     CurrentPage++;
-                    NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+                    NSArray *modelArray = [VegeInfoModel mj_objectArrayWithKeyValuesArray:result];
                     success(modelArray);
                 }
             }
@@ -160,26 +153,6 @@
 }
 
 
-#pragma mark - 搜索代理
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    // 搜索素食
-    [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
-        self.searchResultController.searchArray = array;
-    } Fail:^(NSString *errorMsg) {
-        [self.searchResultController showEmptyWithMessage:errorMsg];
-    }];
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    // 搜索素食
-    [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
-        self.searchResultController.searchArray = array;
-    } Fail:^(NSString *errorMsg) {
-        [self.searchResultController showEmptyWithMessage:errorMsg];
-    }];
-}
 #pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -221,5 +194,17 @@
 }
 
 
+#pragma mark - 其他方法
+- (void)searchAction
+{
+//    SearchVageViewController *search = [SearchVageViewController new];
+//    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:search];
+//    [self presentViewController:nav animated:NO completion:^{
+//        
+//    }];
+    
+    SearchVageViewController *search = [SearchVageViewController new];
+    [self.navigationController pushViewController:search animated:YES];
+}
 
 @end
