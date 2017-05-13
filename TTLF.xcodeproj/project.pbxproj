@@ -2549,6 +2549,10 @@
 				CODE_SIGN_ENTITLEMENTS = TTLF/TTLF.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y9A76R3UZY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/高德地图",
+				);
 				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -2572,6 +2576,10 @@
 				CODE_SIGN_ENTITLEMENTS = TTLF/TTLF.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = Y9A76R3UZY;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/高德地图",
+				);
 				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

@@ -5,8 +5,6 @@
 target 'TTLF' do
     
     pod 'AFNetworking'
-#    pod 'FMDB'
-#    pod 'JFImagePicker'
     pod 'Masonry'
     pod 'SDWebImage'
     pod 'MJExtension'
@@ -18,6 +16,9 @@ target 'TTLF' do
     pod 'SVWebViewController'
     pod 'MOBFoundation_IDFA' # Mob产品公共库
     pod 'SMSSDK' # SMSSDK必须
+    pod 'AMapSearch-NO-IDFA'
+    pod 'AMapLocation-NO-IDFA'
+    pod 'AMapNavi-NO-IDFA'
 
   target 'TTLFTests' do
     inherit! :search_paths

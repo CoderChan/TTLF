@@ -14,6 +14,16 @@ PODS:
   - AFNetworking/Serialization (3.1.0)
   - AFNetworking/UIKit (3.1.0):
     - AFNetworking/NSURLSession
+  - AMap3DMap-NO-IDFA (4.6.1):
+    - AMapFoundation-NO-IDFA (~> 1.3)
+  - AMapFoundation-NO-IDFA (1.3.4)
+  - AMapLocation-NO-IDFA (2.3.1):
+    - AMapFoundation-NO-IDFA (~> 1.3)
+  - AMapNavi-NO-IDFA (2.3.0):
+    - AMap3DMap-NO-IDFA (~> 4.2)
+    - AMapFoundation-NO-IDFA (~> 1.2)
+  - AMapSearch-NO-IDFA (5.0.0):
+    - AMapFoundation-NO-IDFA (~> 1.2)
   - FDFullscreenPopGesture (1.1)
   - LCActionSheet (2.7.0):
     - Masonry (~> 1.0.1)
@@ -33,6 +43,9 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - AMapLocation-NO-IDFA
+  - AMapNavi-NO-IDFA
+  - AMapSearch-NO-IDFA
   - FDFullscreenPopGesture
   - LCActionSheet
   - Masonry
@@ -47,6 +60,11 @@ DEPENDENCIES:
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
+  AMap3DMap-NO-IDFA: 4a1efafcebe244f80e923931c2f35e3929197283
+  AMapFoundation-NO-IDFA: 56b42e67233c8a883cfd448d94c4cb7380080741
+  AMapLocation-NO-IDFA: 7df5ab4b618d96665551afb0c6426f79db72a4a6
+  AMapNavi-NO-IDFA: a54f35c1c1e3e0ba14cf1139a7c7a6e8ff832fae
+  AMapSearch-NO-IDFA: 8fb4e844c27031f6791d5edce16fdd2a5cfac028
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   LCActionSheet: f9899232fbb4a1bd51213b1988f8a884259bc1ab
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
@@ -59,6 +77,6 @@ SPEC CHECKSUMS:
   YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 83a2a96e574ff953935e11b1c0c41404b84ac902
+PODFILE CHECKSUM: e41d16bb50cb2d51225065f710b51031e1dc0939
 
 COCOAPODS: 1.2.0.beta.1

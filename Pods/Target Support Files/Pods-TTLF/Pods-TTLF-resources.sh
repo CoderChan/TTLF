@@ -77,6 +77,8 @@ EOM
   esac
 }
 if [[ "$CONFIGURATION" == "Debug" ]]; then
+  install_resource "AMap3DMap-NO-IDFA/MAMapKit.framework/AMap.bundle"
+  install_resource "AMapNavi-NO-IDFA/AMapNaviKit.framework/AMapNavi.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "SMSSDK/SMSSDKUI.bundle"
   install_resource "SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerBack.png"
@@ -92,6 +94,8 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "SVWebViewController/SVWebViewController/SVWebViewController.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
+  install_resource "AMap3DMap-NO-IDFA/MAMapKit.framework/AMap.bundle"
+  install_resource "AMapNavi-NO-IDFA/AMapNaviKit.framework/AMapNavi.bundle"
   install_resource "MJRefresh/MJRefresh/MJRefresh.bundle"
   install_resource "SMSSDK/SMSSDKUI.bundle"
   install_resource "SVWebViewController/SVWebViewController/SVWebViewController.bundle/SVWebViewControllerBack.png"

@@ -14,6 +14,7 @@
 #import "ImageTableViewCell.h"
 #import "PlacePicturesController.h"
 #import "PlaceDiscussController.h"
+#import <AMapFoundationKit/AMapFoundationKit.h>
 
 
 @interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate>

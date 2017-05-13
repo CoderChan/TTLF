@@ -33,8 +33,12 @@
 #define UMPush_AppKey @"58d12a06c62dca22da001944"
 #define UMPush_AppSecret @"v0tzeuqjm3kaskykndwlb7rgxhc5byoo"
 
-// 百度地图
-#define BaiduMap_AK @"rrQe26RdbuFGqXNPAG6MeSkeLC10hM8w"
+//   微信SDK
+#define WeChatAppID @"wx817d7d973e5cdca8"
+#define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"
+
+// 高德地图
+#define GaodeMap_AK @"856a135eaee5e2f00596886e74455237"
 
 // MOb短信验证码
 #define Mob_AppKey @"1b1697bd31c74"
@@ -44,8 +48,6 @@
 #define TaobaoShopURL @"http://c.b1za.com/h.2YSG4Q?cv=u68FSigZYp&sm=edfca7"
 // 淘宝某商品URL
 #define TaobaoGoodsURL @"http://c.b5yq.com/h.W3Vcb6?cv=nB1w9Gp721&sm=78e104"
-//   微信SDK
-#define WeChatAppID @"wx817d7d973e5cdca8"
-#define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"
+
 
 #endif /* TTLFHeader_h */
