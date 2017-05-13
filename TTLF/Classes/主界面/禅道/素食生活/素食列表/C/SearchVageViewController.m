@@ -9,8 +9,12 @@
 #import "SearchVageViewController.h"
 #import "FindVageTableViewCell.h"
 #import "VageDetialViewController.h"
+#import "NormalTableViewCell.h"
 
 @interface SearchVageViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+{
+    BOOL isNodata;  //没有搜索结果时
+}
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
@@ -32,6 +36,7 @@
 
 - (void)setupSubViews
 {
+    isNodata = YES;
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.definesPresentationContext = YES;
@@ -55,10 +60,9 @@
 
 
 
-- (void)showEmptyWithMessage:(NSString *)message
+- (void)showMessageView:(NSString *)message
 {
-    self.tableView.hidden = NO;
-    [self showEmptyViewWithMessage:message];
+    [MBProgressHUD showError:message];
 }
 
 #pragma mark - 搜索代理
@@ -70,13 +74,14 @@
     // 搜索素食
     [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
         
+        isNodata = NO;
         [self.searchController dismissViewControllerAnimated:YES completion:nil];
         self.searchArray = array;
-        self.tableView.hidden = NO;
-        [self hideMessageAction];
         [self.tableView reloadData];
+        
     } Fail:^(NSString *errorMsg) {
-        [self showEmptyWithMessage:errorMsg];
+        isNodata = YES;
+        [self showMessageView:errorMsg];
     }];
 }
 
@@ -91,16 +96,18 @@
         
         [self.searchController dismissViewControllerAnimated:YES completion:nil];
         self.searchArray = array;
-        self.tableView.hidden = NO;
-        [self hideMessageAction];
+        isNodata = NO;
         [self.tableView reloadData];
+        
     } Fail:^(NSString *errorMsg) {
-        [self showEmptyWithMessage:errorMsg];
+        isNodata = YES;
+        [self showMessageView:errorMsg];
     }];
 }
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
 {
     self.searchArray = nil;
+    isNodata = YES;
     [self.tableView reloadData];
     return YES;
 }
@@ -108,7 +115,11 @@
 #pragma mark - 表格
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.searchArray.count;
+    if (isNodata) {
+        return 1;
+    }else{
+        return self.searchArray.count;
+    }
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -116,25 +127,43 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
-    FindVageTableViewCell *cell = [FindVageTableViewCell sharedFindVageCell:tableView];
-    cell.vegeModel = vegeModel;
-    return cell;
+    if (isNodata) {
+        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+        [cell.titleLabel removeFromSuperview];
+        [cell.iconView removeFromSuperview];
+        cell.backgroundColor = self.view.backgroundColor;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        return cell;
+    }else{
+        VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
+        FindVageTableViewCell *cell = [FindVageTableViewCell sharedFindVageCell:tableView];
+        cell.vegeModel = vegeModel;
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.view endEditing:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
     
-    VageDetialViewController *vageDetial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
-    [self.navigationController pushViewController:vageDetial animated:YES];
+    if (!isNodata) {
+        VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
+        VageDetialViewController *vageDetial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
+        [self.navigationController pushViewController:vageDetial animated:YES];
+
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 220*CKproportion + 10 + 25 + 28 + 50 + 10;
+    if (isNodata) {
+        return self.view.height - 50;
+    }else{
+        return 220*CKproportion + 10 + 25 + 28 + 50 + 10;
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

@@ -18,7 +18,7 @@ target 'TTLF' do
     pod 'SMSSDK' # SMSSDK必须
     pod 'AMapSearch-NO-IDFA'
     pod 'AMapLocation-NO-IDFA'
-    pod 'AMapNavi-NO-IDFA'
+    pod 'AMap2DMap-NO-IDFA'
 
   target 'TTLFTests' do
     inherit! :search_paths

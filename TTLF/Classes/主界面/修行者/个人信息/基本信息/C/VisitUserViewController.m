@@ -53,7 +53,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"查看详情";
+    self.title = @"查看功德值";
     [self setupSubViews];
     [[TTLFManager sharedManager].networkManager searchUserByUserID:self.userID Success:^(UserInfoModel *userModel) {
         self.userModel = userModel;
@@ -70,7 +70,7 @@
 
 - (void)setupSubViews
 {
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = RGBACOLOR(63, 65, 70, 1);
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -95,7 +95,7 @@
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     [cell.iconView removeFromSuperview];
     [cell.titleLabel removeFromSuperview];
-    cell.backgroundColor = [UIColor clearColor];
+    cell.backgroundColor = self.view.backgroundColor;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     [cell.contentView addSubview:self.circleView];
@@ -203,7 +203,7 @@
 {
     if (!_punnaLabel) {
         _punnaLabel = [[UILabel alloc]init];
-        self.punnaLabel.textColor = [UIColor blackColor];
+        self.punnaLabel.textColor = [UIColor whiteColor];
         self.punnaLabel.font = [UIFont boldSystemFontOfSize:30];
         self.punnaLabel.textAlignment = NSTextAlignmentCenter;
     }

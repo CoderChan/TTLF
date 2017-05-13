@@ -152,6 +152,7 @@
 		3B4838441EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4838431EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf */; };
 		3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */; };
 		3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */; };
+		3B4B412F1EC6F80D00C66C63 /* BigMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4B412E1EC6F80D00C66C63 /* BigMapViewController.m */; };
 		3B6872D01EAA495700A12FF4 /* StoreListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872CF1EAA495700A12FF4 /* StoreListViewController.m */; };
 		3B6872D41EAA4BC800A12FF4 /* StoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872D31EAA4BC800A12FF4 /* StoreTableViewCell.m */; };
 		3B6872DE1EAB4B1B00A12FF4 /* GoodsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B6872DD1EAB4B1B00A12FF4 /* GoodsListTableCell.m */; };
@@ -524,6 +525,8 @@
 		3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerManager.h; sourceTree = "<group>"; };
 		3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerManager.m; sourceTree = "<group>"; };
 		3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "消灾吉祥神咒.mp3"; sourceTree = "<group>"; };
+		3B4B412D1EC6F80D00C66C63 /* BigMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BigMapViewController.h; sourceTree = "<group>"; };
+		3B4B412E1EC6F80D00C66C63 /* BigMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BigMapViewController.m; sourceTree = "<group>"; };
 		3B6872CE1EAA495700A12FF4 /* StoreListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreListViewController.h; sourceTree = "<group>"; };
 		3B6872CF1EAA495700A12FF4 /* StoreListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreListViewController.m; sourceTree = "<group>"; };
 		3B6872D21EAA4BC800A12FF4 /* StoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreTableViewCell.h; sourceTree = "<group>"; };
@@ -1708,6 +1711,8 @@
 				3BAFF4A71EC4A36D00D81AD5 /* PlaceListViewController.m */,
 				3BAFF4A41EC4A36D00D81AD5 /* PlaceDetialController.h */,
 				3BAFF4A51EC4A36D00D81AD5 /* PlaceDetialController.m */,
+				3B4B412D1EC6F80D00C66C63 /* BigMapViewController.h */,
+				3B4B412E1EC6F80D00C66C63 /* BigMapViewController.m */,
 				3BAFF4B51EC4ACF800D81AD5 /* PlaceDiscussController.h */,
 				3BAFF4B61EC4ACF800D81AD5 /* PlaceDiscussController.m */,
 				3BAFF4B21EC4AB4200D81AD5 /* PlacePicturesController.h */,
@@ -2284,6 +2289,7 @@
 				3B26704A1E6FDEBB0078379B /* FSActionSheetCell.m in Sources */,
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
 				3B6872E41EAB594F00A12FF4 /* OrderListViewController.m in Sources */,
+				3B4B412F1EC6F80D00C66C63 /* BigMapViewController.m in Sources */,
 				3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */,
 				3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */,
 				3B3AB9511EC16443000D71BB /* ImageTableViewCell.m in Sources */,

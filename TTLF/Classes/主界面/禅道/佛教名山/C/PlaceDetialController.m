@@ -12,12 +12,13 @@
 #import "XLPhotoBrowser.h"
 #import <MapKit/MapKit.h>
 #import "ImageTableViewCell.h"
+#import "BigMapViewController.h"
 #import "PlacePicturesController.h"
 #import "PlaceDiscussController.h"
-#import <AMapFoundationKit/AMapFoundationKit.h>
+#import <MAMapKit/MAMapKit.h>
 
 
-@interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate>
+@interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate,MAMapViewDelegate>
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
 /** 表格 */
@@ -31,8 +32,8 @@
 @property (strong,nonatomic) UILabel *travelLabel;
 /** 开放时间 */
 @property (strong,nonatomic) UILabel *openTimeLabel;
-/** 地图 */
-@property (strong,nonatomic) MKMapView *mapView;
+/** 高德地图 */
+@property (strong,nonatomic) MAMapView *mapView;
 /** 电话 */
 @property (strong,nonatomic) UILabel *phoneLabel;
 /** 地址 */
@@ -45,6 +46,7 @@
 
 @implementation PlaceDetialController
 
+#pragma mark - 绘制界面
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"杭州灵隐寺";
@@ -58,7 +60,7 @@
     [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(moreAction)];
     
-    self.array = @[@[@"封面",@"查看点评"],@[@"旅行攻略",@"开放时间"],@[@"地图导航"],@[@"电话",@"地址",@"门票"]];
+    self.array = @[@[@"封面",@"精彩游记见闻"],@[@"旅行攻略",@"开放时间"],@[@"电话",@"地址",@"门票"]];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.delegate = self;
@@ -68,7 +70,10 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
+    self.tableView.tableFooterView = self.mapView;
+    
 }
+#pragma mark - 其他方法
 - (void)moreAction
 {
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
@@ -80,6 +85,12 @@
 - (void)rightMoreViewWithClickType:(MoreItemClickType)clickType
 {
     
+}
+#pragma mark - 地图相关
+- (void)mapView:(MAMapView *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    BigMapViewController *mapVC = [[BigMapViewController alloc]init];
+    [self.navigationController pushViewController:mapVC animated:YES];
 }
 
 #pragma mark - 表格相关
@@ -102,7 +113,6 @@
         } else {
             // 查看点评
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-            cell.accessoryType = UITableViewCellAccessoryNone;
             [cell.titleLabel removeFromSuperview];
             [cell.iconView removeFromSuperview];
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
@@ -126,15 +136,7 @@
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
             return cell;
         }
-    }else if (indexPath.section == 2){
-        // 地图导航
-        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        [cell.titleLabel removeFromSuperview];
-        [cell.iconView removeFromSuperview];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
-        return cell;
-    }else {
+    }else{
         if (indexPath.row == 0) {
             // 电话
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
@@ -160,6 +162,7 @@
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
             return cell;
         }
+        
     }
     
 }
@@ -199,10 +202,7 @@
             // 开放时间
             return 55;
         }
-    }else if (indexPath.section == 2){
-        // 地图导航
-        return 150;
-    }else {
+    }else{
         if (indexPath.row == 0) {
             // 电话
             return 55;
@@ -228,6 +228,7 @@
 }
 
 #pragma mark - 懒加载
+// 封面
 - (UIImageView *)coverImgView
 {
     if (!_coverImgView) {
@@ -241,6 +242,14 @@
     }
     return _coverImgView;
 }
-
+- (MAMapView *)mapView
+{
+    if (!_mapView) {
+        _mapView = [[MAMapView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 250)];
+        _mapView.delegate = self;
+        _mapView.mapType = MAMapTypeSatellite;
+    }
+    return _mapView;
+}
 
 @end

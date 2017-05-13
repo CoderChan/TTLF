@@ -27,6 +27,7 @@
 @property (strong,nonatomic) NSMutableArray *array;
 
 
+
 @end
 
 @implementation FindVageViewController
@@ -41,6 +42,7 @@
 {
     CurrentPage = 1;
     PageNum = 2;
+    
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     

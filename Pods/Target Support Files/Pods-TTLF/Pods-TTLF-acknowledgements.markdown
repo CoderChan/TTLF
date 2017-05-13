@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-## AMap3DMap-NO-IDFA
+## AMap2DMap-NO-IDFA
 
 Copyright © 2014 AutoNavi. All Rights Reserved.
 
@@ -35,11 +35,6 @@ Copyright © 2014 AutoNavi. All Rights Reserved.
 
 
 ## AMapLocation-NO-IDFA
-
-Copyright © 2014 AutoNavi. All Rights Reserved.
-
-
-## AMapNavi-NO-IDFA
 
 Copyright © 2014 AutoNavi. All Rights Reserved.
 

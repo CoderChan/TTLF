@@ -452,13 +452,19 @@
         if (code == 1) {
             NSArray *result = [responseObject objectForKey:@"result"];
             UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
-            // 更新本地数据
-            [[TTLFManager sharedManager].userManager removeDataSave];
-            [[TTLFManager sharedManager].userManager saveUserInfo:userModel Success:^{
+            if ([account.userID isEqualToString:userModel.userID]) {
+                // 更新本地数据
+                [[TTLFManager sharedManager].userManager removeDataSave];
+                [[TTLFManager sharedManager].userManager saveUserInfo:userModel Success:^{
+                    success(userModel);
+                } Fail:^(NSString *errorMsg) {
+                    success(userModel);
+                }];
+            }else{
+                // 对方的
                 success(userModel);
-            } Fail:^(NSString *errorMsg) {
-                success(userModel);
-            }];
+            }
+            
             
         }else{
             fail(message);

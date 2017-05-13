@@ -12,7 +12,6 @@
 #import "ImageTableViewCell.h"
 #import "XLPhotoBrowser.h"
 #import "AccountTool.h"
-#import "PunnaNumViewController.h"
 #import "VisitUserViewController.h"
 
 #define TitleFont [UIFont systemFontOfSize:17]
@@ -169,15 +168,8 @@
     }else if (indexPath.section == 2){
         if (indexPath.row == 0) {
             // 作者
-            if ([[AccountTool account].userID isEqualToString:self.vegeModel.creater_id]) {
-                // 自己
-                PunnaNumViewController *punna = [[PunnaNumViewController alloc]init];
-                [self.navigationController pushViewController:punna animated:YES];
-            }else{
-                // 别人
-                VisitUserViewController *user = [[VisitUserViewController alloc]initWithUserID:self.vegeModel.creater_id];
-                [self.navigationController pushViewController:user animated:YES];
-            }
+            VisitUserViewController *user = [[VisitUserViewController alloc]initWithUserID:self.vegeModel.creater_id];
+            [self.navigationController pushViewController:user animated:YES];
             
         } else {
             // 需要的食材
