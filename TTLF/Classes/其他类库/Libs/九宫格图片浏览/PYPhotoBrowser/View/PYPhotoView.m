@@ -13,6 +13,7 @@
 #import "PYPhotoCell.h"
 #import "PYProgressView.h"
 #import "PYPhotoBrowseView.h"
+#import <LCActionSheet.h>
 
 // cell的宽
 #define PYPhotoCellW (_photoCell.width > 0 ? _photoCell.width : PYScreenW)
@@ -335,7 +336,7 @@ static CGSize originalSize;
         }
         
         // 默认为0.25秒
-        [UIView animateWithDuration:0.25 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.18 delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.transform = CGAffineTransformMakeRotation(angle * factor);
             self.rotation = acosf(self.transform.a);
             if (ABS(asinf(self.transform.b) + M_PI_2) < 0.01) { // 旋转270°
@@ -415,7 +416,7 @@ static CGSize originalSize;
         }
         
         // 复位
-        [UIView animateWithDuration:0.25  delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+        [UIView animateWithDuration:0.18  delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
             self.transform = CGAffineTransformScale(self.transform, scale, scale);
         } completion:^(BOOL finished) {
             // 记录放大的倍数
@@ -435,12 +436,15 @@ static CGSize originalSize;
             // 如果实现了代理方法，直接返回，不使用默认的操作
             if([browseView.delegate respondsToSelector:@selector(photoBrowseView:didLongPressImage:index:)]) return;
         }
+        
+        
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *savePhotoAction = [UIAlertAction actionWithTitle:@"保存到相册" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             // 保存到相册
             UIImageWriteToSavedPhotosAlbum(self.image, self, @selector(image: didFinishSavingWithError: contextInfo:), nil);
         }];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
         [alertController addAction:savePhotoAction];
         [alertController addAction:cancelAction];
         
@@ -459,6 +463,7 @@ static CGSize originalSize;
             // 跳出提示
             [self.window.rootViewController presentViewController:alertController animated:YES completion:nil];
         }
+        
     }
 }
 
@@ -471,7 +476,7 @@ static CGSize originalSize;
     CGFloat scale = PYPreviewPhotoMaxScale;
     if ((self.width - self.photo.verticalWidth) > 0.01) scale = self.photo.verticalWidth / self.width;
     
-    [UIView animateWithDuration:0.25  delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+    [UIView animateWithDuration:0.18  delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
         self.transform = CGAffineTransformScale(self.transform, scale, scale);
     } completion:^(BOOL finished) {
         // 记录放大倍数

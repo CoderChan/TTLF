@@ -41,12 +41,13 @@
 - (void)setupSubViews
 {
     CurrentPage = 1;
-    PageNum = 2;
+    PageNum = 4;
     
     
     self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.array = [NSMutableArray array];
+    [self getData];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.bounds.size.height - 64)];
     self.tableView.backgroundColor = self.view.backgroundColor;
@@ -59,19 +60,8 @@
     
     // 下拉加载，每次加载最新的。
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        CurrentPage = 1;
-        [self.array removeAllObjects];
-        [self getArticleCurrentPage:CurrentPage Success:^(NSArray *modelArray) {
-            
-            [self.array addObjectsFromArray:modelArray];
-            [self.tableView reloadData];
-            
-        } Fail:^(NSString *errorMsg) {
-            CurrentPage = 1;
-            [MBProgressHUD showError:errorMsg];
-        }];
+        [self getData];
     }];
-    [self.tableView.mj_header beginRefreshing];
     
     // 上拉加载更多
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
@@ -83,6 +73,21 @@
             [self.tableView.mj_footer endRefreshing];
             [MBProgressHUD showError:errorMsg];
         }];
+    }];
+}
+
+- (void)getData
+{
+    CurrentPage = 1;
+    [self.array removeAllObjects];
+    [self getArticleCurrentPage:CurrentPage Success:^(NSArray *modelArray) {
+        
+        [self.array addObjectsFromArray:modelArray];
+        [self.tableView reloadData];
+        
+    } Fail:^(NSString *errorMsg) {
+        CurrentPage = 1;
+        [MBProgressHUD showError:errorMsg];
     }];
 }
 

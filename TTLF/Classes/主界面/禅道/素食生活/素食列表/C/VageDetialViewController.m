@@ -13,6 +13,7 @@
 #import "XLPhotoBrowser.h"
 #import "AccountTool.h"
 #import "VisitUserViewController.h"
+#import "PYPhotosView.h"
 
 #define TitleFont [UIFont systemFontOfSize:17]
 
@@ -35,6 +36,9 @@
 @property (strong,nonatomic) UILabel *vegeFoodLabel;
 /** 烹饪步骤 */
 @property (strong,nonatomic) UILabel *vegeStepsLabel;
+/** 素食配图 */
+@property (strong,nonatomic) PYPhotosView *photosView;
+
 
 /** 素食描述的label */
 @property (strong,nonatomic) UILabel *descLabel;
@@ -42,6 +46,8 @@
 @property (strong,nonatomic) UILabel *foodLabel;
 /** 烹饪步骤的label */
 @property (strong,nonatomic) UILabel *stepsLabel;
+/** 素食配图的label */
+@property (strong,nonatomic) UILabel *imagesLabel;
 
 
 @end
@@ -71,7 +77,7 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.array = @[@[@"封面"],@[@"素食简介"],@[@"作者",@"需要的食材"],@[@"烹饪步骤"],self.vegeModel.vege_img_desc];
+    self.array = @[@[@"封面"],@[@"素食简介"],@[@"作者",@"需要的食材"],@[@"烹饪步骤"],@[@"素食配图"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -143,21 +149,23 @@
         return cell;
     }else {
         // 步骤说明图
-        ImageTableViewCell *cell = [ImageTableViewCell sharedImageCell:tableView];
-        cell.image_url = self.vegeModel.vege_img_desc[indexPath.row];
+        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.titleLabel removeFromSuperview];
+        [cell.iconView removeFromSuperview];
+        [cell.contentView addSubview:self.imagesLabel];
+        [cell.contentView addSubview:self.photosView];
         return cell;
     }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    NSMutableArray *imageArray = [NSMutableArray array];
-    [imageArray addObject:self.vegeModel.vege_img];
-    [imageArray addObjectsFromArray:self.vegeModel.vege_img_desc];
     
     if (indexPath.section == 0) {
         // 封面
-        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:0];
+        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:@[self.vegeModel.vege_img] currentImageIndex:0];
         brower.browserStyle = XLPhotoBrowserStyleSimple;
         brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
         [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
@@ -180,10 +188,7 @@
         
     }else {
         // 步骤说明图
-        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:indexPath.row + 1];
-        brower.browserStyle = XLPhotoBrowserStyleSimple;
-        brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
-        [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
+
     }
 }
 
@@ -212,7 +217,7 @@
         return stepHeight + 30 + 20;
     }else {
         // 步骤说明图
-        return 220*CKproportion;
+        return self.view.width + 30;
     }
 
 }
@@ -431,7 +436,31 @@
     }
     return _vegeStepsLabel;
 }
-
+- (UILabel *)imagesLabel
+{
+    if (!_imagesLabel) {
+        _imagesLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
+        _imagesLabel.font = [UIFont boldSystemFontOfSize:20];
+        _imagesLabel.text = @"素食配图：";
+        _imagesLabel.textColor = MainColor;
+    }
+    return _imagesLabel;
+}
+- (PYPhotosView *)photosView
+{
+    if (!_photosView) {
+        
+        _photosView = [PYPhotosView photosViewWithThumbnailUrls:self.vegeModel.vege_img_desc originalUrls:self.vegeModel.vege_img_desc photosMaxCol:3];
+        _photosView.photoMargin = 5;
+        _photosView.photoWidth = (self.view.width - 4 * _photosView.photoMargin)/3;
+        _photosView.photoHeight = _photosView.photoWidth;
+        _photosView.showDuration = 0.25;
+        _photosView.hiddenDuration = 0.25;
+        _photosView.x = _photosView.photoMargin;
+        _photosView.y = _photosView.photoMargin + 30;
+    }
+    return _photosView;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

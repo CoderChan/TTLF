@@ -32,6 +32,8 @@
 {
     self.array = [NSMutableArray array];
     
+    [self getData];
+    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -41,25 +43,28 @@
     [self.view addSubview:self.tableView];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [[TTLFManager sharedManager].networkManager myCreateVegeListSuccess:^(NSArray *array) {
-            self.tableView.hidden = NO;
-            [self.array addObjectsFromArray:array];
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView reloadData];
-            
-            self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
-                
-            }];
-            [self.tableView.mj_footer endRefreshingWithNoMoreData];
-        } Fail:^(NSString *errorMsg) {
-            self.tableView.hidden = YES;
-            [self.tableView.mj_header endRefreshing];
-            [self showEmptyViewWithMessage:errorMsg];
-        }];
+        [self getData];
     }];
     
-    [self.tableView.mj_header beginRefreshing];
-    
+}
+
+- (void)getData
+{
+    [[TTLFManager sharedManager].networkManager myCreateVegeListSuccess:^(NSArray *array) {
+        self.tableView.hidden = NO;
+        [self.array addObjectsFromArray:array];
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView reloadData];
+        
+        self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+            
+        }];
+        [self.tableView.mj_footer endRefreshingWithNoMoreData];
+    } Fail:^(NSString *errorMsg) {
+        self.tableView.hidden = YES;
+        [self.tableView.mj_header endRefreshing];
+        [self showEmptyViewWithMessage:errorMsg];
+    }];
 }
 
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
