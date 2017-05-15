@@ -7,7 +7,10 @@
 //
 
 #import "SuperViewController.h"
+#import "PlaceDetialModel.h"
 
 @interface PlaceDetialController : SuperViewController
+
+- (instancetype)initWithPlaceModel:(PlaceDetialModel *)placeModel;
 
 @end

@@ -11,6 +11,8 @@
 #import "XLPhotoBrowser.h"
 #import <LCActionSheet.h>
 #import "DrawCircleView.h"
+#import "PunnaListViewController.h"
+#import "AboutPunnaViewController.h"
 #import <Masonry.h>
 
 
@@ -66,6 +68,7 @@
         [self showEmptyViewWithMessage:errorMsg];
     }];
     
+    
 }
 
 - (void)setupSubViews
@@ -80,6 +83,10 @@
     
     self.tableView.tableHeaderView = self.headView;
     
+    if ([self.userID isEqualToString:[AccountTool account].userID]) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
+        [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -180,6 +187,21 @@
 {
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
+
+- (void)moreAction
+{
+    LCActionSheet *sheet = [LCActionSheet sheetWithTitle:nil cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
+        if (buttonIndex == 1) {
+            PunnaListViewController *list = [PunnaListViewController new];
+            [self.navigationController pushViewController:list animated:YES];
+        } else if(buttonIndex == 2){
+            AboutPunnaViewController *about = [AboutPunnaViewController new];
+            [self.navigationController pushViewController:about animated:YES];
+        }
+    } otherButtonTitles:@"增长记录",@"了解功德值", nil];
+    [sheet show];
+}
+
 
 
 #pragma mark - 懒加载
@@ -295,6 +317,23 @@
         _nameLabel.textAlignment = NSTextAlignmentRight;
     }
     return _nameLabel;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
+    // 去掉那条线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    // 恢复那条线
+    [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefaultPrompt];
+    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }
 
 

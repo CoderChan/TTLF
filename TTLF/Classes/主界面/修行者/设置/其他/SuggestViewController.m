@@ -115,6 +115,7 @@
     }
     [sender setImage:[UIImage imageNamed:@"cm2_list_checkbox_ok"] forState:UIControlStateNormal];
 }
+
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     if ([self.textView.text isEqualToString:@""]) {

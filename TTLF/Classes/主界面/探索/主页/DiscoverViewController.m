@@ -11,7 +11,7 @@
 #import "OrderListTableCell.h"
 #import "GoodsListTableCell.h"
 #import "OrderListViewController.h"
-#import "AddressViewController.h"
+#import "AddressListViewController.h"
 
 @interface DiscoverViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -76,7 +76,7 @@
             OrderListViewController *orderList = [[OrderListViewController alloc]init];
             [self.navigationController pushViewController:orderList animated:YES];
         }else{
-            AddressViewController *address = [[AddressViewController alloc]init];
+            AddressListViewController *address = [[AddressListViewController alloc]init];
             [self.navigationController pushViewController:address animated:YES];
         }
     } else {

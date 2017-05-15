@@ -17,7 +17,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "UserInfoViewController.h"
 #import "StoreListViewController.h"
-#import "PunnaNumViewController.h"
+#import "VisitUserViewController.h"
+
 
 @interface WoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -83,7 +84,7 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
-        PunnaNumViewController *punna = [PunnaNumViewController new];
+        VisitUserViewController *punna = [[VisitUserViewController alloc]initWithUserID:[AccountTool account].userID];
         [self.navigationController pushViewController:punna animated:YES];
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
