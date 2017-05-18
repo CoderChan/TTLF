@@ -182,10 +182,10 @@
     }else {
         if (indexPath.row == 0) {
             // 电话
-//            UIWebView *webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
-//            NSURL *url = [NSURL URLWithString:self.placeModel.mobie];
-//            [webView loadRequest:[NSURLRequest requestWithURL:url]];
-//            [self.view addSubview:webView];
+            UIWebView *webView = [[UIWebView alloc]initWithFrame:CGRectZero];
+            NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",self.placeModel.mobie]];
+            [webView loadRequest:[NSURLRequest requestWithURL:url]];
+            [self.view addSubview:webView];
         }
     }
 }

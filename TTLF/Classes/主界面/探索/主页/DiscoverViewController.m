@@ -12,6 +12,7 @@
 #import "GoodsListTableCell.h"
 #import "OrderListViewController.h"
 #import "AddressListViewController.h"
+#import "GoodClassListController.h"
 
 @interface DiscoverViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -73,14 +74,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            // 订单中心
             OrderListViewController *orderList = [[OrderListViewController alloc]init];
             [self.navigationController pushViewController:orderList animated:YES];
         }else{
+            // 收货地址
             AddressListViewController *address = [[AddressListViewController alloc]init];
             [self.navigationController pushViewController:address animated:YES];
         }
     } else {
-        
+        // 产品分类列表
+        GoodClassListController *goodClass = [[GoodClassListController alloc]init];
+        [self.navigationController pushViewController:goodClass animated:YES];
     }
 }
 

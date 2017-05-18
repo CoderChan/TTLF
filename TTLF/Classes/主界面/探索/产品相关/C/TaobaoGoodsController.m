@@ -1,25 +1,35 @@
 //
-//  GoodsDetialController.m
-//  FYQ
+//  TaobaoGoodsController.m
+//  TTLF
 //
-//  Created by Chan_Sir on 2017/1/15.
+//  Created by Chan_Sir on 2017/5/17.
 //  Copyright © 2017年 陈振超. All rights reserved.
 //
 
-#import "GoodsDetialController.h"
+#import "TaobaoGoodsController.h"
 
-@interface GoodsDetialController ()<UIWebViewDelegate>
+@interface TaobaoGoodsController ()<UIWebViewDelegate>
 
 @property (strong,nonatomic) UIWebView *webView;
 
+@property (copy,nonatomic) NSString *taobaoURL;
+
 @end
 
-@implementation GoodsDetialController
+@implementation TaobaoGoodsController
+
+- (instancetype)initWithTaobaoUrl:(NSString *)taobaoURL
+{
+    self = [super init];
+    if (self) {
+        self.taobaoURL = taobaoURL;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"饰品详情";
-    
+    self.title = @"淘宝详情";
     [self setupSubViews];
 }
 
@@ -57,5 +67,6 @@
 {
     [MBProgressHUD showError:error.localizedDescription];
 }
+
 
 @end

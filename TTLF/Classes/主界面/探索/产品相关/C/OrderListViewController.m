@@ -12,8 +12,9 @@
 
 @interface OrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+/** 订单数据源 */
 @property (copy,nonatomic) NSArray *array;
-
+/** 列表 */
 @property (strong,nonatomic) UITableView *tableView;
 
 @end
