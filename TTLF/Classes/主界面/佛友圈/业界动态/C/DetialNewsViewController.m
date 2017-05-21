@@ -13,6 +13,12 @@
 #import <LCActionSheet.h>
 #import "RightMoreView.h"
 #import "XLPhotoBrowser.h"
+#import <TencentOpenAPI/TencentApiInterface.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+//#import <TencentOpenAPI/QQApiInterfaceObject.h>
+//#import <TencentOpenAPI/TencentMessageObject.h>
+//#import <TencentOpenAPI/TencentOAuth.h>
+
 
 
 #define BottomHeight 50
@@ -216,9 +222,27 @@
             [MBProgressHUD showError:errorMsg];
         }];
     }else if (clickType == QQFriendType){
-        [MBProgressHUD showSuccess:@"QQ好友"];
+        NSString *shareUrl = self.shareUrl;
+        NSString *title = self.newsModel.news_name;
+        NSString *description = @"佛缘生活：生活就是一场修行。";
+        NSString *previewImageUrl = self.newsModel.news_logo;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qq
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
+        
     }else if (clickType == QQSpaceType){
-        [MBProgressHUD showSuccess:@"QQ空间"];
+        NSString *shareUrl = self.shareUrl;
+        NSString *title = self.newsModel.news_name;
+        NSString *description = @"佛缘生活：生活就是一场修行。";
+        NSString *previewImageUrl = self.newsModel.news_logo;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qzone
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
+        
     }else if (clickType == OpenAtSafariType){
         // Safari打开
         NSURL *url = [NSURL URLWithString:self.shareUrl];

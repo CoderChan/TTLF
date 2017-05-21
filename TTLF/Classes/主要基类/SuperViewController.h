@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TencentOpenAPI/QQApiInterface.h>
 
 @interface SuperViewController : UIViewController
 
@@ -14,5 +15,7 @@
 - (void)showEmptyViewWithMessage:(NSString *)message;
 /** 隐藏message */
 - (void)hideMessageAction;
+/** 发送消息到QQ */
+- (void)sendToQQWithSendResult:(QQApiSendResultCode)sendResult;
 
 @end

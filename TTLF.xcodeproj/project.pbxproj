@@ -17,6 +17,8 @@
 		3B062D9A1ECE93BE00886240 /* AreaListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D991ECE93BE00886240 /* AreaListModel.m */; };
 		3B062D9D1ECE93F500886240 /* AreaDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D9C1ECE93F500886240 /* AreaDetialModel.m */; };
 		3B062DA01ECEDF5000886240 /* PlaceDiscussModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D9F1ECEDF5000886240 /* PlaceDiscussModel.m */; };
+		3B062DB81ED18AAC00886240 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B062DB61ED18AAC00886240 /* TencentOpenAPI.framework */; };
+		3B062DB91ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B062DB71ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle */; };
 		3B17102F1ECB3E8C00779F75 /* GoodClassHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B17102E1ECB3E8C00779F75 /* GoodClassHeadView.m */; };
 		3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F059E1E7928A0005173B9 /* FoNewsViewController.m */; };
 		3B1F05C71E792BD2005173B9 /* AboutPunnaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B1F05B61E792BD2005173B9 /* AboutPunnaViewController.m */; };
@@ -268,6 +270,8 @@
 		3B062D9C1ECE93F500886240 /* AreaDetialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AreaDetialModel.m; sourceTree = "<group>"; };
 		3B062D9E1ECEDF5000886240 /* PlaceDiscussModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceDiscussModel.h; sourceTree = "<group>"; };
 		3B062D9F1ECEDF5000886240 /* PlaceDiscussModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDiscussModel.m; sourceTree = "<group>"; };
+		3B062DB61ED18AAC00886240 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		3B062DB71ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		3B17102D1ECB3E8C00779F75 /* GoodClassHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodClassHeadView.h; sourceTree = "<group>"; };
 		3B17102E1ECB3E8C00779F75 /* GoodClassHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodClassHeadView.m; sourceTree = "<group>"; };
 		3B1F059D1E7928A0005173B9 /* FoNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FoNewsViewController.h; sourceTree = "<group>"; };
@@ -713,6 +717,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B2670421E6FDEBB0078379B /* libWeChatSDK.a in Frameworks */,
+				3B062DB81ED18AAC00886240 /* TencentOpenAPI.framework in Frameworks */,
 				177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -747,6 +752,31 @@
 				EC978D0FBD303041FFE86125 /* Pods-TTLFUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3B062DA31ED1871B00886240 /* QQSDK */ = {
+			isa = PBXGroup;
+			children = (
+				3B062DB41ED18AAC00886240 /* QQ支持 */,
+				3B062DB51ED18AAC00886240 /* SDK */,
+			);
+			path = QQSDK;
+			sourceTree = "<group>";
+		};
+		3B062DB41ED18AAC00886240 /* QQ支持 */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "QQ支持";
+			sourceTree = "<group>";
+		};
+		3B062DB51ED18AAC00886240 /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				3B062DB61ED18AAC00886240 /* TencentOpenAPI.framework */,
+				3B062DB71ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle */,
+			);
+			path = SDK;
 			sourceTree = "<group>";
 		};
 		3B1F05871E7928A0005173B9 /* 佛友圈 */ = {
@@ -1140,6 +1170,7 @@
 		3B266FEC1E6FDEBB0078379B /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				3B062DA31ED1871B00886240 /* QQSDK */,
 				3B4838061EB8CBAC0053BC8D /* 电子书 */,
 				3BE187881EAF2A9500EDDD8F /* 图片多选 */,
 				3BAC6A741EAEF4F400D3CB8C /* 九宫格图片浏览 */,
@@ -2205,6 +2236,7 @@
 				3B2670F11E6FE2B40078379B /* shark.mp3 in Resources */,
 				3BAC6A991EAEF58000D3CB8C /* PYPhotosView.bundle in Resources */,
 				3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */,
+				3B062DB91ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				3B26704E1E6FDEBB0078379B /* FSActionSheet_cancel@3x.png in Resources */,
 				3B2670E41E6FE2B40078379B /* ProvincesAndCities.plist in Resources */,
 				3B4838441EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf in Resources */,
@@ -2724,6 +2756,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/高德地图",
+					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
+					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
 				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
@@ -2751,6 +2785,8 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/高德地图",
+					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
+					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
 				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;

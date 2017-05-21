@@ -20,6 +20,7 @@
 
 
 
+
 @interface AppDelegate ()
 
 @end
@@ -84,6 +85,8 @@
     // MOB短信验证码
     [SMSSDK registerApp:Mob_AppKey withSecret:Mob_Secret];
     
+    // QQ
+    self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQAppID andDelegate:nil];
 }
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
