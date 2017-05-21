@@ -10,4 +10,6 @@
 
 @interface PlaceDiscussController : SuperViewController
 
+- (instancetype)initWithModel:(PlaceDetialModel *)placeModel;
+
 @end

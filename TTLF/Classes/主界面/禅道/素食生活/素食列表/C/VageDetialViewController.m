@@ -248,7 +248,7 @@
     if (clickType == WechatFriendType) {
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = [NSString stringWithFormat:@"%@-%@",self.vegeModel.vege_name,self.vegeModel.vege_desc];
-        message.description = @"天天礼佛APP：您掌上的素食生活馆";
+        message.description = @"佛缘生活APP：您掌上的素食生活馆";
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
@@ -264,7 +264,7 @@
         
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = [NSString stringWithFormat:@"%@-%@",self.vegeModel.vege_name,self.vegeModel.vege_desc];
-        message.description = @"天天礼佛APP：您掌上的素食生活馆";
+        message.description = @"佛缘生活APP：您掌上的素食生活馆";
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
         WXWebpageObject *webObject = [WXWebpageObject object];

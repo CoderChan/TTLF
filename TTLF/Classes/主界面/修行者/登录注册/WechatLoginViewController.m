@@ -59,7 +59,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 {
     // 版权声明
     UILabel *copyLabel = [[UILabel alloc]init];
-    copyLabel.text = @"Copyright ©2017 天天礼佛";
+    copyLabel.text = @"Copyright ©2017 佛缘生活";
     copyLabel.textColor = MainColor;
     copyLabel.userInteractionEnabled = YES;
     copyLabel.textAlignment = NSTextAlignmentCenter;
@@ -111,7 +111,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
 {
     // 版权声明
     UILabel *copyLabel = [[UILabel alloc]init];
-    copyLabel.text = @"Copyright ©2017 天天礼佛";
+    copyLabel.text = @"Copyright ©2017 佛缘生活";
     copyLabel.textColor = MainColor;
     copyLabel.userInteractionEnabled = YES;
     copyLabel.textAlignment = NSTextAlignmentCenter;

@@ -10,4 +10,10 @@
 
 @interface SendDiscussController : SuperViewController
 
+/** 初始化 */
+- (instancetype)initWithModel:(PlaceDetialModel *)placeModel;
+/** 发布成功后的回调 */
+@property (copy,nonatomic) void (^AddCommentBlock)(PlaceDiscussModel *discussModel);
+
+
 @end

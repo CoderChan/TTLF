@@ -10,4 +10,7 @@
 
 @interface PlacePicturesController : SuperViewController
 
+- (instancetype)initWithModel:(PlaceDetialModel *)placeModel;
+
+
 @end

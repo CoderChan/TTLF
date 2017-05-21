@@ -14,13 +14,27 @@
 
 @interface PlacePicturesController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,XLPhotoBrowserDelegate>
 
+/** 表格 */
 @property (strong,nonatomic) UICollectionView *collectionView;
-
+/** 数据源 */
 @property (strong,nonatomic) NSMutableArray *array;
+/** 景区模型 */
+@property (strong,nonatomic) PlaceDetialModel *placeModel;
 
 @end
 
+
 @implementation PlacePicturesController
+
+
+- (instancetype)initWithModel:(PlaceDetialModel *)placeModel
+{
+    self = [super init];
+    if (self) {
+        self.placeModel = placeModel;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -31,10 +45,6 @@
 - (void)setupSubViews
 {
     self.view.backgroundColor = RGBACOLOR(45, 49, 50, 1);
-    self.array = [NSMutableArray array];
-    for (int i = 0; i < 120; i++) {
-        [self.array addObject:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494607177994&di=2c6a96b6a02076a369c0756a268f0776&imgtype=0&src=http%3A%2F%2Fimg2.yododo.com%2Fmicro%2Fphoto%2F2013-04-17%2F013E1619FCA50183FF8080813E1610D9.jpg"];
-    }
     
     UICollectionViewFlowLayout *flayout = [[UICollectionViewFlowLayout alloc]init];
     [flayout setScrollDirection:UICollectionViewScrollDirectionVertical];
@@ -47,6 +57,16 @@
     [self.collectionView registerClass:[PictureCollectionCell class] forCellWithReuseIdentifier:@"PictureCollectionCell"];
     self.collectionView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.collectionView];
+    
+    [[TTLFManager sharedManager].networkManager placePicturesWithModel:self.placeModel Success:^(NSArray *array) {
+        [self hideMessageAction];
+        self.collectionView.hidden = NO;
+        [self.array addObjectsFromArray:array];
+        [self.collectionView reloadData];
+    } Fail:^(NSString *errorMsg) {
+        self.collectionView.hidden = YES;
+        [self showEmptyViewWithMessage:errorMsg];
+    }];
     
 }
 #pragma mark - 表格相关
@@ -85,6 +105,13 @@
     return UIEdgeInsetsMake(SpaceNum, SpaceNum, SpaceNum, SpaceNum);
 }
 
+- (NSMutableArray *)array
+{
+    if (!_array) {
+        _array = [NSMutableArray array];
+    }
+    return _array;
+}
 
 
 @end

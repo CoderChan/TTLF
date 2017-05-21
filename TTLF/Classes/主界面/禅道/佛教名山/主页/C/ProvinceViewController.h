@@ -10,6 +10,6 @@
 
 @interface ProvinceViewController : SuperViewController
 
-@property (copy,nonatomic) void (^SelectProvinceBlock)(NSString *province);
+@property (copy,nonatomic) void (^SelectProvinceBlock)(AreaDetialModel *areaModel);
 
 @end

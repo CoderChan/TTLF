@@ -103,8 +103,6 @@
     NSString *page = [NSString stringWithFormat:@"%d",currentPage].base64EncodedString;
     NSString *pageNumStr = [NSString stringWithFormat:@"%d",PageNum].base64EncodedString;
     
-    
-    
     NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Vegetarian/index/p/%d",currentPage];
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];

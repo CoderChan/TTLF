@@ -36,6 +36,9 @@
 //   微信SDK
 #define WeChatAppID @"wx817d7d973e5cdca8"
 #define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"
+//  QQ互联
+#define QQAppID @"101403576"
+#define QQAppKey @"ac825fcb38e723f32b70271643f8a77e"
 
 // 高德地图
 #define GaodeMap_AK @"856a135eaee5e2f00596886e74455237"

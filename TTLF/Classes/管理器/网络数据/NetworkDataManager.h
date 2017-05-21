@@ -21,6 +21,9 @@
 #import "NewsArticleModel.h"
 #import "NewsCommentModel.h"
 #import "VegeInfoModel.h"
+#import "AreaListModel.h"
+#import "PlaceDiscussModel.h"
+#import "PlaceDetialModel.h"
 
 
 
@@ -132,6 +135,22 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)myCreateVegeListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 删除我发布的
 - (void)deleteMyVegeWithModel:(VegeInfoModel *)vegeModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+
+#pragma mark - 禅修板块 -- 佛教名山
+// 随机获取20个景区作为首页
+- (void)randomPlaceListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 获取景点地区列表
+- (void)areaListSuccess:(void (^)(AreaListModel *areaListModel))success Fail:(FailBlock)fail;
+// 获取某地区的景区列表
+- (void)placeListWithModel:(AreaDetialModel *)areaModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 对某个景点发表评论
+- (void)sendDiscussWithModel:(PlaceDetialModel *)placeModel Content:(NSString *)content Images:(NSArray *)imageArray Progress:(void (^)(NSProgress *progress))progressBlock Success:(void (^)(PlaceDiscussModel *model))success Fail:(FailBlock)fail;
+// 获取某个景区的评论列表
+- (void)placeDiscussWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 删除我发布的某个评论
+- (void)deletePlaceCommentWithModel:(PlaceDiscussModel *)discussModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 获取某个景区的图集
+- (void)placePicturesWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
 

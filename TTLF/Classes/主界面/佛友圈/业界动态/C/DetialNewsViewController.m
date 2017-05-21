@@ -182,7 +182,7 @@
     if (clickType == WechatFriendType) {
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = self.newsModel.news_name;
-        message.description = @"天天礼佛：生活就是一场修行。";
+        message.description = @"佛缘生活：生活就是一场修行。";
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
@@ -197,7 +197,7 @@
     }else if(clickType == WechatQuanType){
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = self.newsModel.news_name;
-        message.description = @"天天礼佛：生活就是一场修行。";
+        message.description = @"佛缘生活：生活就是一场修行。";
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
         WXWebpageObject *webObject = [WXWebpageObject object];

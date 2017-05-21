@@ -11,8 +11,9 @@
 
 @interface PlaceTableViewCell ()
 
+/** 背景图 */
 @property (strong,nonatomic) UIImageView *backIMGView;
-
+/** 景区昵称 */
 @property (strong,nonatomic) UILabel *titleLabel;
 
 
@@ -46,13 +47,17 @@
 }
 
 
-
+- (void)setPlaceModel:(PlaceDetialModel *)placeModel
+{
+    _placeModel = placeModel;
+    _titleLabel.text = placeModel.scenic_name;
+    [_backIMGView sd_setImageWithURL:[NSURL URLWithString:placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        _backIMGView.image = [UIImage boxblurImage:image withBlurNumber:0.1];
+    }];
+}
 - (void)setupSubViews
 {
-    self.backIMGView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
-    [self.backIMGView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1493977380930&di=9baae47ef80caa3f5e48d351c20c883e&imgtype=0&src=http%3A%2F%2Fjiangsu.china.com.cn%2Fuploadfile%2F2014%2F0403%2F20140403072026869.jpg"] placeholderImage:[UIImage imageWithColor:HWRandomColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        self.backIMGView.image = [UIImage boxblurImage:image withBlurNumber:0.1];
-    }];
+    self.backIMGView = [[UIImageView alloc]init];
     self.backIMGView.layer.masksToBounds = YES;
     self.backIMGView.layer.cornerRadius = 4;
     [self.contentView addSubview:self.backIMGView];

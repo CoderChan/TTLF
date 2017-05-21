@@ -37,6 +37,10 @@
 	<string>1.1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>mqqapi</string>
+		<string>mqzoneshare</string>
+		<string>mqq</string>
+		<string>mqzone</string>
 		<string>baidumap</string>
 		<string>taobao</string>
 		<string>alipayauth</string>

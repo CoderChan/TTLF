@@ -10,15 +10,29 @@
 #import "TZImagePickerController.h"
 #import "PYPhotosView.h"
 
+
+#define TextPlace @"欢迎去过该景点旅行过的佛友分享您的见闻"
+
 @interface SendDiscussController ()<PYPhotosViewDelegate>
 /** 输入框 */
 @property (strong,nonatomic) YYTextView *textView;
 /** 九宫格 */
 @property (strong,nonatomic) PYPhotosView *publishPhotosView;
+/** 景区模型 */
+@property (strong,nonatomic) PlaceDetialModel *placeModel;
 
 @end
 
 @implementation SendDiscussController
+
+- (instancetype)initWithModel:(PlaceDetialModel *)placeModel
+{
+    self = [super init];
+    if (self) {
+        self.placeModel = placeModel;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +48,7 @@
     
     // 文字输入框
     self.textView = [[YYTextView alloc]initWithFrame:CGRectMake(15, 15, self.view.width - 30, 130)];
-    self.textView.placeholderText = @"欢迎去该景点旅行过的佛友分享您的见闻";
+    self.textView.placeholderText = TextPlace;
     self.textView.backgroundColor = [UIColor whiteColor];
     self.textView.placeholderFont = [UIFont systemFontOfSize:14];
     self.textView.font = [UIFont systemFontOfSize:15];
@@ -95,6 +109,30 @@
 }
 - (void)sendAction
 {
+    [self.view endEditing:YES];
+    if (self.textView.text.length > 300) {
+        [MBProgressHUD showError:@"最多300字"];
+        return;
+    }
+    if ([self.textView.text isEqualToString:TextPlace]) {
+        [MBProgressHUD showError:@"请输入"];
+        return;
+    }
+    
+    [[TTLFManager sharedManager].networkManager sendDiscussWithModel:self.placeModel Content:self.textView.text Images:self.publishPhotosView.images Progress:^(NSProgress *progress) {
+        NSLog(@"上传进度 = %g",progress.fractionCompleted);
+    } Success:^(PlaceDiscussModel *model) {
+        
+        if (self.AddCommentBlock) {
+            _AddCommentBlock(model);
+            [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                
+            }];
+        }
+        
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
+    }];
     
 }
 

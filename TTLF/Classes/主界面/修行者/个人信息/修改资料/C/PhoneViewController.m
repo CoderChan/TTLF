@@ -171,7 +171,7 @@
     
     self.descLabel = [[UILabel alloc]init];
     self.descLabel.textAlignment = NSTextAlignmentCenter;
-    self.descLabel.text = @"此手机号方便您在天天礼佛中\n实现高效沟通";
+    self.descLabel.text = @"此手机号方便您在佛缘生活中\n实现高效沟通";
     self.descLabel.font = [UIFont systemFontOfSize:16];
     self.descLabel.textColor = [UIColor grayColor];
     self.descLabel.numberOfLines = 0;

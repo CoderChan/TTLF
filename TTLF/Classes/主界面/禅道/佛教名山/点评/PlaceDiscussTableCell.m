@@ -49,6 +49,48 @@
     return self;
 }
 
+- (void)setDiscussModel:(PlaceDiscussModel *)discussModel
+{
+    _discussModel = discussModel;
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:discussModel.creater_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = discussModel.creater_name;
+    _contentLabel.text = discussModel.discuss_content;
+    _timeLabel.text = discussModel.create_time;
+    if (discussModel.scenic_img_desc.count >= 1) {
+        // 有图
+        _photosView.hidden = NO;
+        _photosView.thumbnailUrls = self.discussModel.scenic_img_desc;
+        if (discussModel.scenic_img_desc.count > 0 && discussModel.scenic_img_desc.count < 4){
+            // 1-3张图
+            [_photosView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.contentLabel.mas_left);
+                make.top.equalTo(self.contentLabel.mas_bottom).offset(8);
+                make.width.equalTo(@(PYPhotoMargin * 4 + PYPhotoWidth * 3));
+                make.height.equalTo(@(PYPhotoMargin * 2 + PYPhotoHeight * 1));
+            }];
+        }else if (discussModel.scenic_img_desc.count >= 4 && discussModel.scenic_img_desc.count < 7){
+            // 4-6张图
+            [_photosView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.contentLabel.mas_left);
+                make.top.equalTo(self.contentLabel.mas_bottom).offset(8);
+                make.width.equalTo(@(PYPhotoMargin * 4 + PYPhotoWidth * 3));
+                make.height.equalTo(@(PYPhotoMargin * 3 + PYPhotoHeight * 2));
+            }];
+        }else{
+            // 7-9张图
+            [_photosView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.left.equalTo(self.contentLabel.mas_left);
+                make.top.equalTo(self.contentLabel.mas_bottom).offset(8);
+                make.width.equalTo(@(PYPhotoMargin * 4 + PYPhotoWidth * 3));
+                make.height.equalTo(@(PYPhotoMargin * 4 + PYPhotoHeight * 3));
+            }];
+        }
+        
+    }else{
+        // 无图
+        self.photosView.hidden = YES;
+    }
+}
 - (void)setupSubViews
 {
     // 头像
@@ -62,6 +104,13 @@
     self.headImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     self.headImgView.layer.cornerRadius = 18;
     [self.contentView addSubview:self.headImgView];
+    UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if (self.ClickUserBlock) {
+            _ClickUserBlock(self.discussModel.creater_id);
+        }
+    }];
+    [self.headImgView addGestureRecognizer:headTap];
+    
     
     
     // 名称
@@ -71,12 +120,17 @@
     self.nameLabel.font = [UIFont boldSystemFontOfSize:16];
     self.nameLabel.textColor = RGBACOLOR(151, 171, 209, 1);
     [self.contentView addSubview:self.nameLabel];
-    
+    UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if (self.ClickUserBlock) {
+            _ClickUserBlock(self.discussModel.creater_id);
+        }
+    }];
+    [self.nameLabel addGestureRecognizer:nameTap];
     
     // 评论的文字
     self.contentLabel = [[UILabel alloc]init];
     self.contentLabel.textColor = RGBACOLOR(87, 87, 87, 1);
-    self.contentLabel.font = [UIFont systemFontOfSize:14];
+    self.contentLabel.font = [UIFont systemFontOfSize:15];
     self.contentLabel.numberOfLines = 0;
     self.contentLabel.text = @"马卡卡玛卡没卡么卡卡没课吗看看嘛卡马克，蛇口蛇口马上开始科目是。请救救我鸡尾酒那我就借钱交加QQ。";
     [self.contentView addSubview:self.contentLabel];
@@ -91,17 +145,12 @@
     _photosView.showDuration = 0.25;
     _photosView.hiddenDuration = 0.25;
     _photosView.photoMargin = 1.5;
-    NSMutableArray *array = [NSMutableArray array];
-    for (int i = 0; i < 9; i++) {
-        [array addObject:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1494848326469&di=ddd17854689a103f2858afc1e7adf1f0&imgtype=0&src=http%3A%2F%2Fwww.rmzt.com%2Fuploads%2Fallimg%2F151013%2F1-15101315314H15.jpg"];
-    }
-    self.photosView.thumbnailUrls = array;
     [self.contentView addSubview:self.photosView];
     [self.photosView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentLabel.mas_left);
         make.top.equalTo(self.contentLabel.mas_bottom).offset(8);
-        make.width.equalTo(@(_photosView.photoMargin * 2 + _photosView.photoWidth * 3));
-        make.height.equalTo(@(_photosView.photoMargin * 2 + _photosView.photoWidth * 3));
+        make.width.equalTo(@(PYPhotoMargin * 2 + PYPhotoWidth * 3));
+        make.height.equalTo(@(PYPhotoMargin * 2 + PYPhotoHeight * 3));
     }];
     
     // 时间

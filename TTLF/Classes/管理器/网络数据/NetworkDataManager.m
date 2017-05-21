@@ -1125,7 +1125,7 @@
     [param setValue:foods.base64EncodedString forKey:@"vege_food"];
     [param setValue:steps.base64EncodedString forKey:@"vege_steps"];
     
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/vegetarian/addvegetar?userID=%@&vegeName=%@&story=%@&vageMaterial=%@&vageSteps=%@",account.userID.base64EncodedString,vageName.base64EncodedString,story.base64EncodedString,foods.base64EncodedString,steps.base64EncodedString];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/vegetarian/addvegetar?userID=%@&vegeName=%@&story=%@&vege_food=%@&vageSteps=%@",account.userID.base64EncodedString,vageName.base64EncodedString,story.base64EncodedString,foods.base64EncodedString,steps.base64EncodedString];
     NSLog(@"上传素食的URL = %@",allurl);
     
     
@@ -1355,7 +1355,6 @@
     
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"删除我发布的素食 = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
@@ -1368,5 +1367,255 @@
     }];
 }
 
+#pragma mark - 禅修板块 -- 佛教名山
+// 随机获取20个景区作为首页
+- (void)randomPlaceListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/scenic/suiJ";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/suiJ?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"随机获取20个景点 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [PlaceDetialModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+// 获取景点地区列表
+- (void)areaListSuccess:(void (^)(AreaListModel *))success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/index?userID=%@",account.userID.base64EncodedString];
+    
+    [HTTPManager GETCache:url parameter:nil success:^(id responseObject) {
+        
+        NSError *error;
+        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
+        if (!error) {
+            int code = [[[json objectForKey:@"code"] description] intValue];
+            NSString *message = [json objectForKey:@"message"];
+            if (code == 1) {
+                NSArray *result = [json objectForKey:@"result"];
+                AreaListModel *model = [AreaListModel mj_objectWithKeyValues:result];
+                success(model);
+            }else{
+                fail(message);
+            }
+        }else{
+            fail(@"解析失败");
+        }
+        
+    } failure:^(NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+// 获取某地区的景区列表
+- (void)placeListWithModel:(AreaDetialModel *)areaModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/scenic/scenic";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:areaModel.id.base64EncodedString forKey:@"place_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/scenic?userID=%@&place_id=%@",account.userID.base64EncodedString,areaModel.id.base64EncodedString];
+    NSLog(@"名山首页列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [PlaceDetialModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+
+}
+// 发送评论
+- (void)sendDiscussWithModel:(PlaceDetialModel *)placeModel Content:(NSString *)content Images:(NSArray *)imageArray Progress:(void (^)(NSProgress *))progressBlock Success:(void (^)(PlaceDiscussModel *))success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    if (imageArray.count > 0) {
+        // 有图评论
+        NSString *url = @"http://app.yangruyi.com/home/scenic/addScenic_comment";
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+        [param setValue:content.base64EncodedString forKey:@"discuss_content"];
+        [param setValue:placeModel.scenic_id.base64EncodedString forKey:@"scenic_id"];
+        
+        [HTTPManager uploadFilesWithURL:url params:param fileArray:imageArray progress:^(NSProgress *progress) {
+            progressBlock(progress);
+        } success:^(NSURLSessionDataTask *task, id responseObject) {
+            int code = [[[responseObject objectForKey:@"code"] description] intValue];
+            NSString *message = [responseObject objectForKey:@"message"];
+            if (code == 1) {
+                NSDictionary *result = [responseObject objectForKey:@"result"];
+                PlaceDiscussModel *model = [PlaceDiscussModel mj_objectWithKeyValues:result];
+                success(model);
+            }else{
+                fail(message);
+            }
+        } fail:^(NSURLSessionDataTask *task, NSError *error) {
+            fail(error.localizedDescription);
+        }];
+    }else{
+        // 无图评论
+        NSString *url = @"http://app.yangruyi.com/home/scenic/addScenic_comment";
+        NSMutableDictionary *param = [NSMutableDictionary dictionary];
+        [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+        [param setValue:content.base64EncodedString forKey:@"discuss_content"];
+        [param setValue:placeModel.scenic_id.base64EncodedString forKey:@"scenic_id"];
+        NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/addScenic_comment&userID=%@&discuss_content=%@&scenic_id=%@",account.userID.base64EncodedString,content.base64EncodedString,placeModel.scenic_id.base64EncodedString];
+        NSLog(@"无图评论 = %@",allurl);
+        
+        [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+            int code = [[[responseObject objectForKey:@"code"] description] intValue];
+            NSString *message = [responseObject objectForKey:@"message"];
+            if (code == 1) {
+                NSDictionary *result = [responseObject objectForKey:@"result"];
+                PlaceDiscussModel *model = [PlaceDiscussModel mj_objectWithKeyValues:result];
+                success(model);
+            }else{
+                fail(message);
+            }
+        } fail:^(NSURLSessionDataTask *task, NSError *error) {
+            fail(error.localizedDescription);
+        }];
+    }
+    
+    
+}
+// 获取某个景区的评论列表
+- (void)placeDiscussWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/scenic/ScenicCommentList";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:placeModel.scenic_id.base64EncodedString forKey:@"scenic_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/ScenicCommentList?userID=%@&scenic_id=%@",account.userID.base64EncodedString,placeModel.scenic_id.base64EncodedString];
+    NSLog(@"景区的评论列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [PlaceDiscussModel mj_objectArrayWithKeyValuesArray:result];
+            if (modelArray.count > 0) {
+                success(modelArray);
+            }else{
+                fail(@"还没有人点评该景点\r成为第一个评论者");
+            }
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+
+}
+// 删除我发布的某个评论
+- (void)deletePlaceCommentWithModel:(PlaceDiscussModel *)discussModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/scenic/delComment";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:discussModel.discuss_id.base64EncodedString forKey:@"discuss_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/delComment?userID=%@&discuss_id=%@",account.userID.base64EncodedString,discussModel.discuss_id.base64EncodedString];
+    NSLog(@"删除某个景区评论 = %@",allurl);
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 获取某个景区的图集
+- (void)placePicturesWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/scenic/scenicPic";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:placeModel.scenic_id.base64EncodedString forKey:@"scenic_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/scenicPic?userID=%@&scenic_id=%@",account.userID.base64EncodedString,placeModel.scenic_id.base64EncodedString];
+    NSLog(@"景区的图集列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            if (result.count > 0) {
+                success(result);
+            }else{
+                fail(@"还没有图集");
+            }
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
 
 @end
