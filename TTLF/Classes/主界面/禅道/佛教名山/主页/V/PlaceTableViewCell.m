@@ -52,7 +52,9 @@
     _placeModel = placeModel;
     _titleLabel.text = placeModel.scenic_name;
     [_backIMGView sd_setImageWithURL:[NSURL URLWithString:placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        _backIMGView.image = [UIImage boxblurImage:image withBlurNumber:0.1];
+        if (!error) {
+            _backIMGView.image = [UIImage boxblurImage:image withBlurNumber:0.1];
+        }
     }];
 }
 - (void)setupSubViews

@@ -10,7 +10,7 @@
 #import "NormalTableViewCell.h"
 #import "TitleTableCell.h"
 #import <LCActionSheet.h>
-#import <SVWebViewController.h>
+#import "NormalWebViewController.h"
 #import "SharkNameViewController.h"
 #import "NewFetherViewController.h"
 #import "SuggestViewController.h"
@@ -96,9 +96,8 @@
             [self.navigationController pushViewController:shark animated:YES];
         }else{
             // 关于我们
-            SVWebViewController *about = [[SVWebViewController alloc]initWithAddress:OfficalWebURL];
-            about.title = @"关于我们";
-            [self.navigationController pushViewController:about animated:YES];
+            NormalWebViewController *web = [[NormalWebViewController alloc]initWithUrlStr:OfficalWebURL];
+            [self.navigationController pushViewController:web animated:YES];
         }
     }else if (indexPath.section == 1) {
         if (indexPath.row == 0) {

@@ -15,9 +15,7 @@
 #import "XLPhotoBrowser.h"
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/QQApiInterface.h>
-//#import <TencentOpenAPI/QQApiInterfaceObject.h>
-//#import <TencentOpenAPI/TencentMessageObject.h>
-//#import <TencentOpenAPI/TencentOAuth.h>
+
 
 
 
@@ -62,7 +60,7 @@
     CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
     myProgressView = [[UIProgressView alloc] initWithFrame:barFrame];
     myProgressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    myProgressView.progressTintColor = MainColor;
+    myProgressView.progressTintColor = RGBACOLOR(10, 160, 79, 1);
     [self.navigationController.navigationBar addSubview:myProgressView];
     
 }

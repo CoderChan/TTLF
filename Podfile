@@ -10,10 +10,12 @@ target 'TTLF' do
     pod 'MJExtension'
     pod 'MJRefresh', '~> 3.1.12'
     pod 'YYKit'
+    pod 'FMDB'
     pod 'FDFullscreenPopGesture'
     pod 'LCActionSheet'
     pod 'YYKeyboardManager'
     pod 'SVWebViewController'
+    pod 'SDCycleScrollView','~> 1.64'
     pod 'MOBFoundation_IDFA' # Mob产品公共库
     pod 'SMSSDK' # SMSSDK必须
     pod 'AMapSearch-NO-IDFA'

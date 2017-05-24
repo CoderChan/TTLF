@@ -10,6 +10,7 @@
 #import "VageNextStepController.h"
 #import <Masonry.h>
 #import <LCActionSheet.h>
+#import "NormalWebViewController.h"
 
 
 #define TextPlace @"添加这道素食背后的故事，更具韵味。"
@@ -41,7 +42,7 @@
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStepAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:MainColor];
+    [self.navigationItem.rightBarButtonItem setTintColor:RGBACOLOR(10, 160, 79, 1)];
     
     // 精品提示
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 5, self.view.width, 50)];
@@ -51,7 +52,7 @@
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 15, topView.width - 20 - 40, 20)];
     tipLabel.text = @"如何使自己的素食菜谱成为精品推荐？";
-    tipLabel.textColor = MainColor;
+    tipLabel.textColor = RGBACOLOR(10, 160, 79, 1);
     tipLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     [topView addSubview:tipLabel];
     
@@ -60,10 +61,8 @@
     [topView addSubview:jiantouImgV];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        NSURL *url = [NSURL URLWithString:@"http://m.douguo.com/?/group/post/282384.html"];
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
-            
-        }];
+        NormalWebViewController *web = [[NormalWebViewController alloc]initWithUrlStr:@"http://app.yangruyi.com/Home/Vegetarian/showvege/?id=MTM=&userID=NzU="];
+        [self.navigationController pushViewController:web animated:YES];
     }];
     [topView addGestureRecognizer:tap];
     
@@ -121,15 +120,13 @@
     self.addTipLabel.text = @"添加封面";
     self.addTipLabel.font = [UIFont systemFontOfSize:14];
     self.addTipLabel.textAlignment = NSTextAlignmentCenter;
-    self.addTipLabel.textColor = MainColor;
+    self.addTipLabel.textColor = RGBACOLOR(10, 160, 79, 1);
     [self.coverImgView addSubview:self.addTipLabel];
     
 #ifdef DEBUG // 处于开发阶段
-    self.nameField.text = @"小葱拌豆腐";
-    self.storyTextView.text = @"小葱拌豆腐是一道经典的汉族名菜。此菜色泽素雅淡洁，清香飘逸，鲜嫩爽口。豆腐蛋白质中含有人体自己所不能合成的8种必需氨基酸，其人体消化率可达92%-96%，是一种既富于营养又易于消化的食品。此菜色泽素雅淡洁，清香滑软，鲜嫩爽口。\r小葱拌豆腐——一清(青)二白，清是引申过来的。本意是说葱是青色的，豆腐是白色的。比喻清清楚楚，明明白白；也指非常清白。也作“一青二白”。";
-    self.coverImgView.image = [UIImage imageNamed:@"vage_place"];
+    
 #else // 处于发布阶段
-
+    
 #endif
 }
 

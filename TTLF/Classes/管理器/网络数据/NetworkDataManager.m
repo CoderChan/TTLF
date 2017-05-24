@@ -10,6 +10,7 @@
 #import <MJExtension/MJExtension.h>
 #import "UserInfoManager.h"
 #import "AccountTool.h"
+#import "PlaceCacheManager.h"
 
 
 @implementation NetworkDataManager
@@ -1376,6 +1377,8 @@
         fail(@"用户未登录");
         return;
     }
+    
+    
     NSString *url = @"http://app.yangruyi.com/home/scenic/suiJ";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
@@ -1389,6 +1392,10 @@
         if (code == 1) {
             NSArray *result = [responseObject objectForKey:@"result"];
             NSArray *modelArray = [PlaceDetialModel mj_objectArrayWithKeyValuesArray:result];
+            [[PlaceCacheManager sharedManager] delePlaceCache];
+            for (PlaceDetialModel *placeModel in modelArray) {
+                [[PlaceCacheManager sharedManager] savePlaceArrayWithModel:placeModel];
+            }
             success(modelArray);
         }else{
             fail(message);

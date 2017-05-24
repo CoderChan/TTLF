@@ -42,7 +42,6 @@
                              "meta.content = 'width=device-width, initial-scale=1.0,minimum-scale=1, maximum-scale=2.0, user-scalable=yes';"
                              "document.getElementsByTagName('head')[0].appendChild(meta);"
                              ];
-    
     [self.webView stringByEvaluatingJavaScriptFromString:js_fit_code];
     [self.webView sizeToFit];
     self.webView.scrollView.showsHorizontalScrollIndicator = NO;
@@ -52,13 +51,9 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     [self.webView loadRequest:request];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"淘宝" style:UIBarButtonItemStylePlain target:self action:@selector(goForwardAction)];
-    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+    
 }
-- (void)goForwardAction
-{
-    [self.webView goForward];
-}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     

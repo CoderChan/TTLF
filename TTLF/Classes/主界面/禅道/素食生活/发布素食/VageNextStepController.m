@@ -16,8 +16,8 @@
 #import "VageDetialViewController.h"
 
 
-#define FoodPlace @"豆腐、青葱、淀粉、少量生抽、油、盐、鸡精、水"
-#define StepPlace @"1、豆腐切好块状，热锅、放油。\r2、将豆腐放入热锅内煎到6分熟。\r3、放盐和鸡精，翻均匀。\r4、重点来了，把准备好的淀粉和水、生抽搅拌均匀，导入锅内。\r5、3-5秒钟后，把切好的青葱放入锅内。\r几秒钟后一盘热腾腾的客家青葱豆腐色香味俱全，跃然餐桌。"
+#define FoodPlace @"如\r豆腐、青葱、淀粉、少量生抽、油、盐、鸡精、水"
+#define StepPlace @"如\r1、豆腐切好块状，热锅、放油。\r2、将豆腐放入热锅内煎到6分熟。\r3、放盐和鸡精，翻均匀。\r4、重点来了，把准备好的淀粉和水、生抽搅拌均匀，导入锅内。\r5、3-5秒钟后，把切好的青葱放入锅内。\r几秒钟后一盘热腾腾的客家青葱豆腐色香味俱全，跃然餐桌。"
 
 @interface VageNextStepController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate,TZImagePickerControllerDelegate,PYPhotosViewDelegate>
 
@@ -49,7 +49,7 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:MainColor];
+    [self.navigationItem.rightBarButtonItem setTintColor:RGBACOLOR(10, 160, 79, 1)];
     
     // 添加食材、烹饪步骤描述、上图
     self.array = @[@[@"需要的食材"],@[@"烹饪步骤"],@[@"素食辅助图"]];
@@ -140,7 +140,7 @@
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 7, self.view.width - 30, 30)];
     label.backgroundColor = headView.backgroundColor;
     label.text = titleArray.firstObject;
-    label.textColor = MainColor;
+    label.textColor = RGBACOLOR(10, 160, 79, 1);
     label.userInteractionEnabled = YES;
     label.textAlignment = NSTextAlignmentLeft;
     label.font = [UIFont boldSystemFontOfSize:20];
@@ -201,6 +201,19 @@
         [MBProgressHUD showError:@"请上传3-9张图"];
         return;
     }
+    
+#ifdef DEBUG // 处于开发阶段
+    
+#else // 处于发布阶段
+    if ([self.foodTextView.text isEqualToString:FoodPlace]) {
+        [MBProgressHUD showError:@"请输入食材"];
+        return;
+    }
+    if ([self.stepTextView.text isEqualToString:StepPlace]) {
+        [MBProgressHUD showError:@"请描述步骤"];
+        return;
+    }
+#endif
     
     NSMutableArray *vageImages = [NSMutableArray array];
     [vageImages addObject:self.coverImage];
@@ -311,7 +324,7 @@
     if (!_label) {
         _label = [[UILabel alloc]init];
         _label.text = @"图片至少3张，最多9张，建议9张拼成九宫格";
-        _label.textColor = MainColor;
+        _label.textColor = RGBACOLOR(10, 160, 79, 1);
         _label.textAlignment = NSTextAlignmentRight;
         _label.font = [UIFont systemFontOfSize:10];
     }

@@ -12,7 +12,7 @@
 #import <MJRefresh.h>
 #import <Masonry.h>
 #import <MJExtension/MJExtension.h>
-#import "NewsArticleModel.h"
+#import "NewsCacheManager.h"
 
 
 @interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
@@ -26,6 +26,7 @@
 @property (strong,nonatomic) NSMutableArray *array;
 /** 搜索控制器 */
 @property (nonatomic,strong) UISearchController *searchController;
+
 
 @end
 
@@ -50,6 +51,8 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
+    
+    
     // 下拉加载，每次加载最新的。
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         CurrentPage = 1;
@@ -66,6 +69,7 @@
             [MBProgressHUD showError:errorMsg];
         }];
     }];
+    
     [self.tableView.mj_header beginRefreshing];
     
     // 上拉加载更多
@@ -120,6 +124,7 @@
                 }else{
                     CurrentPage++;
                     NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+                    
                     success(modelArray);
                 }
             }else{
@@ -132,6 +137,7 @@
                 }else{
                     CurrentPage++;
                     NSArray *modelArray = [NewsArticleModel mj_objectArrayWithKeyValuesArray:result];
+                    
                     success(modelArray);
                 }
             }

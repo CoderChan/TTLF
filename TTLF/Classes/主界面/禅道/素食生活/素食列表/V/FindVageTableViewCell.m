@@ -42,7 +42,7 @@
     _vegeModel = vegeModel;
     _vageNameLabel.text = vegeModel.vege_name;
     _storyLabel.text = vegeModel.vege_desc;
-    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.creater_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
     _nameLabel.text = vegeModel.creater_name;
 }

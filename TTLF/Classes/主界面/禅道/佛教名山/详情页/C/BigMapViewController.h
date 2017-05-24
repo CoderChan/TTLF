@@ -10,4 +10,7 @@
 
 @interface BigMapViewController : SuperViewController
 
+// 初始化
+- initWithModel:(PlaceDetialModel *)placeModel;
+
 @end

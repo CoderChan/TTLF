@@ -59,7 +59,7 @@ static HTTPLimiteCache * cache = nil;
 - (NSData *)getDataWithNameString:(NSString *)urlString{
     // 根据接口获取路径
     urlString = [urlString MD5Hash];
-    NSString * path = [NSString stringWithFormat:@"%@/Documents/Cache/%@",NSHomeDirectory(),urlString];
+    NSString * path = [NSString stringWithFormat:@"%@/Documents/HTTPCache/%@",NSHomeDirectory(),urlString];
     // 判断路径是否存在
     NSFileManager * manager = [NSFileManager defaultManager];
     if (![manager fileExistsAtPath:path]) {

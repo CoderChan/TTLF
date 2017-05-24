@@ -42,6 +42,7 @@
 
 - (void)setupSubViews
 {
+    
     self.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
     
     UIView *backTopView = [[UIView alloc]initWithFrame:CGRectMake(0, -SCREEN_HEIGHT+50, SCREEN_WIDTH, SCREEN_HEIGHT)];

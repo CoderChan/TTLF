@@ -11,13 +11,18 @@
 #import "UIButton+Category.h"
 #import "TaobaoGoodsController.h"
 #import "ServersViewController.h"
+#import "GoodDetialFootView.h"
+#import <SDCycleScrollView.h>
+#import "XLPhotoBrowser.h"
 
 
-@interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource>
+@interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
+/** 轮播图 */
+@property (strong,nonatomic) SDCycleScrollView *scrollView;
 
 @end
 
@@ -70,8 +75,10 @@
     [taobaoBtn setTitle:@"淘宝" forState:UIControlStateNormal];
     [taobaoBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [taobaoBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        
         TaobaoGoodsController *taobao = [[TaobaoGoodsController alloc]init];
         [self.navigationController pushViewController:taobao animated:YES];
+        
     }];
     taobaoBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [taobaoBtn setImage:[UIImage imageNamed:@"good_taobao"] forState:UIControlStateNormal];
@@ -104,8 +111,8 @@
     
     
     // FootView
-    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 250)];
-    footView.backgroundColor = self.view.backgroundColor;
+    GoodDetialFootView *footView = [[GoodDetialFootView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
+    
     self.tableView.tableFooterView = footView;
 }
 
@@ -120,9 +127,41 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-    cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
-    return cell;
+    if (indexPath.section == 0) {
+        // 产品轮播图
+        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+        [cell.iconView removeFromSuperview];
+        [cell.titleLabel removeFromSuperview];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        [cell.contentView addSubview:self.scrollView];
+        return cell;
+    }else if (indexPath.section == 1){
+        if (indexPath.row == 0) {
+            // 商品名称
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [cell.iconView removeFromSuperview];
+            [cell.titleLabel removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.text = @"母亲节特惠，1.5厘米小叶紫檀";
+            return cell;
+        }else{
+            // 商品价格
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+            [cell.iconView removeFromSuperview];
+            [cell.titleLabel removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.textColor = WarningColor;
+            cell.textLabel.text = @"￥600";
+            return cell;
+        }
+    }else{
+        // 产品规格
+        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+        cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+        return cell;
+    }
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -134,7 +173,7 @@
     if (indexPath.section == 0) {
         return (self.view.height - 64 - 50)*0.75;
     } else {
-        return 60;
+        return 50;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -153,6 +192,20 @@
 {
     
 }
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
+{
+    NSArray *imageArray = cycleScrollView.imageURLStringsGroup;
+    [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:index];
+}
 
+- (SDCycleScrollView *)scrollView
+{
+    if (!_scrollView) {
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.75) delegate:self placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
+        _scrollView.imageURLStringsGroup = @[@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png",@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png",@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png",@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png"];
+        
+    }
+    return _scrollView;
+}
 
 @end

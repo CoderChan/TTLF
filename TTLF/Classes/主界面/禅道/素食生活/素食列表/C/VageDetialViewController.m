@@ -12,6 +12,7 @@
 #import "ImageTableViewCell.h"
 #import "XLPhotoBrowser.h"
 #import "AccountTool.h"
+#import "NoDequeTableViewCell.h"
 #import "VisitUserViewController.h"
 #import "PYPhotosView.h"
 
@@ -26,6 +27,8 @@
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
 
+/** 封面 */
+@property (strong,nonatomic) UIImageView *coverImgView;
 /** 素食简介 */
 @property (strong,nonatomic) UILabel *vegeDescLabel;
 /** 作者头像 */
@@ -100,8 +103,12 @@
     [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     if (indexPath.section == 0) {
         // 封面
-        ImageTableViewCell *cell = [ImageTableViewCell sharedImageCell:tableView];
-        cell.image_url = self.vegeModel.vege_img;
+        NoDequeTableViewCell *cell = [NoDequeTableViewCell sharedCell:tableView];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.accessoryType = UITableViewCellAccessoryNone;
+        
+        [cell.contentView addSubview:self.coverImgView];
+        
         return cell;
     }else if (indexPath.section == 1){
         // 简介
@@ -244,12 +251,14 @@
 }
 - (void)rightMoreViewWithClickType:(MoreItemClickType)clickType
 {
-    NSString *shareUrl = [NSString stringWithFormat:@"%@%@",self.vegeModel.web_url,self.vegeModel.vege_id];
+    NSString *shareUrl = [NSString stringWithFormat:@"%@&userID=%@",self.vegeModel.web_url,[AccountTool account].userID.base64EncodedString];
+    NSLog(@"分享页 == %@",shareUrl);
     if (clickType == WechatFriendType) {
+        NSData *thumbData = UIImageJPEGRepresentation(self.coverImgView.image, 0.1);
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = [NSString stringWithFormat:@"%@-%@",self.vegeModel.vege_name,self.vegeModel.vege_desc];
-        message.description = @"佛缘生活APP：您掌上的素食生活馆";
-        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        message.title = @"发现一道精选素食，送给素食生活的你。";
+        message.description = self.vegeModel.vege_desc;
+        [message setThumbData:thumbData];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
         webObject.webpageUrl = shareUrl;
@@ -261,11 +270,11 @@
         req.scene = 0;
         [WXApi sendReq:req];
     }else if(clickType == WechatQuanType){
-        
+        NSData *thumbData = UIImageJPEGRepresentation(self.coverImgView.image, 0.1);
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = [NSString stringWithFormat:@"%@-%@",self.vegeModel.vege_name,self.vegeModel.vege_desc];
-        message.description = @"佛缘生活APP：您掌上的素食生活馆";
-        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        message.title = @"发现一道精选素食，送给素食生活的你。";
+        message.description = self.vegeModel.vege_desc;
+        [message setThumbData:thumbData];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
         webObject.webpageUrl = shareUrl;
@@ -283,9 +292,24 @@
             [MBProgressHUD showError:errorMsg];
         }];
     }else if (clickType == QQFriendType){
-        [MBProgressHUD showSuccess:@"QQ好友"];
+        
+        NSString *title = self.vegeModel.vege_name;
+        NSString *description = self.vegeModel.vege_desc;
+        NSString *previewImageUrl = self.vegeModel.vege_img;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qq
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
     }else if (clickType == QQSpaceType){
-        [MBProgressHUD showSuccess:@"QQ空间"];
+        NSString *title = self.vegeModel.vege_name;
+        NSString *description = self.vegeModel.vege_desc;
+        NSString *previewImageUrl = self.vegeModel.vege_img;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qzone
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
     }else if (clickType == OpenAtSafariType){
         // Safari打开
         NSURL *url = [NSURL URLWithString:shareUrl];
@@ -295,7 +319,7 @@
     }else if (clickType == SystermShareType){
         // 系统分享
         NSURL *url = [NSURL URLWithString:shareUrl];
-        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[[UIImage imageNamed:@"app_logo"],self.vegeModel.vege_name,url] applicationActivities:nil];
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[self.coverImgView.image,self.vegeModel.vege_name,url] applicationActivities:nil];
         [self presentViewController:activity animated:YES completion:^{
             
         }];
@@ -339,6 +363,20 @@
 }
 
 #pragma mark - 懒加载
+// 封面
+- (UIImageView *)coverImgView
+{
+    if (!_coverImgView) {
+        _coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, SCREEN_WIDTH, 220*CKproportion - 1)];
+        [_coverImgView sd_setImageWithURL:[NSURL URLWithString:self.vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
+        _coverImgView.contentMode = UIViewContentModeScaleAspectFill;
+        [_coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+        _coverImgView.layer.masksToBounds = YES;
+        _coverImgView.autoresizingMask =  UIViewAutoresizingFlexibleWidth;
+        
+    }
+    return _coverImgView;
+}
 // 素食描述内容
 - (UILabel *)descLabel
 {
@@ -346,7 +384,7 @@
         _descLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _descLabel.text = @"素食背后的故事：";
         _descLabel.font = [UIFont boldSystemFontOfSize:20];
-        _descLabel.textColor = MainColor;
+        _descLabel.textColor = RGBACOLOR(10, 160, 79, 1);
     }
     return _descLabel;
 }
@@ -396,7 +434,7 @@
         _foodLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _foodLabel.text = @"食材准备：";
         _foodLabel.font = [UIFont boldSystemFontOfSize:20];
-        _foodLabel.textColor = MainColor;
+        _foodLabel.textColor = RGBACOLOR(10, 160, 79, 1);
     }
     return _foodLabel;
 }
@@ -420,7 +458,7 @@
         _stepsLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _stepsLabel.font = [UIFont boldSystemFontOfSize:20];
         _stepsLabel.text = @"烹饪步骤：";
-        _stepsLabel.textColor = MainColor;
+        _stepsLabel.textColor = RGBACOLOR(10, 160, 79, 1);
     }
     return _stepsLabel;
 }
@@ -442,7 +480,7 @@
         _imagesLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _imagesLabel.font = [UIFont boldSystemFontOfSize:20];
         _imagesLabel.text = @"素食配图：";
-        _imagesLabel.textColor = MainColor;
+        _imagesLabel.textColor = RGBACOLOR(10, 160, 79, 1);
     }
     return _imagesLabel;
 }

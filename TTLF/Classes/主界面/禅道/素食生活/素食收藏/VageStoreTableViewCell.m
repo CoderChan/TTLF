@@ -58,7 +58,7 @@
     [_headImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.creater_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
     _nameLabel.text = vegeModel.creater_name;
     _vageNameLabel.text = vegeModel.vege_name;
-    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:vegeModel.vege_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
     NSString *time = [vegeModel.collect_time substringWithRange:NSMakeRange(0, 11)];
     time = [time stringByReplacingOccurrencesOfString:@"-" withString:@"/"];
     _timeLabel.text = time;

@@ -12,8 +12,7 @@
 #import "ProvinceViewController.h"
 #import "RootNavgationController.h"
 #import "PlaceDetialController.h"
-#import "PlaceDetialModel.h"
-#
+#import "PlaceCacheManager.h"
 
 
 @interface PlaceListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -56,7 +55,17 @@
             [self showEmptyViewWithMessage:errorMsg];
         }];
     }];
-    [self.tableView.mj_header beginRefreshing];
+    
+    NSArray *cacheArray = [[PlaceCacheManager sharedManager] getPlaceCacheArray];
+    if (cacheArray.count == 0) {
+        [self.tableView.mj_header beginRefreshing];
+    }else{
+        self.tableView.hidden = NO;
+        [self hideMessageAction];
+        self.array = cacheArray;
+        [self.tableView reloadData];
+    }
+    
     
     self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
         

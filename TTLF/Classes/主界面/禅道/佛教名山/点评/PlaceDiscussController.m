@@ -72,7 +72,7 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         SendDiscussController *sendDis = [[SendDiscussController alloc]initWithModel:self.placeModel];
         sendDis.AddCommentBlock = ^(PlaceDiscussModel *discussModel) {
-            [self.array addObject:discussModel];
+            [self.array insertObject:discussModel atIndex:0];
             [self hideMessageAction];
             self.tableView.hidden = NO;
             [self.tableView reloadData];

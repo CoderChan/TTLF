@@ -16,9 +16,11 @@
 #import "PlacePicturesController.h"
 #import "PlaceDiscussController.h"
 #import <MAMapKit/MAMapKit.h>
+#import <MAMapKit/MAAnnotation.h>
+#import <AMapSearchKit/AMapSearchKit.h>
 
 
-@interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate,MAMapViewDelegate>
+@interface PlaceDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate,MAMapViewDelegate,AMapSearchDelegate>
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
 /** 表格 */
@@ -36,6 +38,7 @@
 @property (strong,nonatomic) UILabel *openTimeLabel;
 /** 高德地图 */
 @property (strong,nonatomic) MAMapView *mapView;
+@property (strong,nonatomic) AMapSearchAPI *search;
 /** 电话 */
 @property (strong,nonatomic) UILabel *phoneLabel;
 /** 地址 */
@@ -96,14 +99,15 @@
 }
 - (void)rightMoreViewWithClickType:(MoreItemClickType)clickType
 {
+    NSString *shareURL = [NSString stringWithFormat:@"%@&userID=%@",self.placeModel.web_url,[AccountTool account].userID.base64EncodedString];
     if (clickType == WechatFriendType) {
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = self.placeModel.scenic_name;
         message.description = self.placeModel.strategy;
-        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        [message setThumbImage:self.coverImgView.image];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
-        webObject.webpageUrl = self.placeModel.web_url;
+        webObject.webpageUrl = shareURL;
         message.mediaObject = webObject;
         
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
@@ -115,10 +119,10 @@
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = self.placeModel.scenic_name;
         message.description = self.placeModel.strategy;
-        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        [message setThumbImage:self.coverImgView.image];
         
         WXWebpageObject *webObject = [WXWebpageObject object];
-        webObject.webpageUrl = self.placeModel.web_url;
+        webObject.webpageUrl = shareURL;
         message.mediaObject = webObject;
         
         SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
@@ -129,26 +133,42 @@
     }else if (clickType == StoreClickType){
         
     }else if (clickType == QQFriendType){
-        [MBProgressHUD showSuccess:@"QQ好友"];
+        NSString *shareUrl = shareURL;
+        NSString *title = self.placeModel.scenic_name;
+        NSString *description = self.placeModel.strategy;
+        NSString *previewImageUrl = self.placeModel.scenic_img;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qq
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
     }else if (clickType == QQSpaceType){
-        [MBProgressHUD showSuccess:@"QQ空间"];
+        NSString *shareUrl = shareURL;
+        NSString *title = self.placeModel.scenic_name;
+        NSString *description = self.placeModel.strategy;
+        NSString *previewImageUrl = self.placeModel.scenic_img;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qzone
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
     }else if (clickType == OpenAtSafariType){
         // Safari打开
-        NSURL *url = [NSURL URLWithString:self.placeModel.web_url];
+        NSURL *url = [NSURL URLWithString:shareURL];
         [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
             
         }];
     }else if (clickType == SystermShareType){
         // 系统分享
-        NSURL *url = [NSURL URLWithString:self.placeModel.web_url];
-        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[[UIImage imageNamed:@"app_logo"],self.placeModel.scenic_name,url] applicationActivities:nil];
+        NSURL *url = [NSURL URLWithString:shareURL];
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[self.coverImgView.image,self.placeModel.scenic_name,url] applicationActivities:nil];
         [self presentViewController:activity animated:YES completion:^{
             
         }];
     }else if (clickType == CopyUrlType){
         // 复制链接
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-        pasteboard.string = self.placeModel.web_url;
+        pasteboard.string = shareURL;
         [MBProgressHUD showSuccess:@"已复制到剪切板"];
     }else if (clickType == RefreshType){
         // 重新加载网页
@@ -160,10 +180,40 @@
 #pragma mark - 地图相关
 - (void)mapView:(MAMapView *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate
 {
-    BigMapViewController *mapVC = [[BigMapViewController alloc]init];
+    BigMapViewController *mapVC = [[BigMapViewController alloc]initWithModel:self.placeModel];
     [self.navigationController pushViewController:mapVC animated:YES];
 }
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+{
+    BigMapViewController *mapVC = [[BigMapViewController alloc]initWithModel:self.placeModel];
+    [self.navigationController pushViewController:mapVC animated:YES];
+}
+- (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
+{
+    return 0;
+}
 
+- (void)onPOISearchDone:(AMapPOISearchBaseRequest *)request response:(AMapPOISearchResponse *)response
+{
+    NSArray<AMapPOI *> *pois = response.pois;
+    AMapPOI *lastPoi = [pois firstObject];
+    AMapGeoPoint *point = lastPoi.location;
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude);
+    [self.mapView setCenterCoordinate:coordinate animated:YES];
+    
+    NSMutableArray *annotationArray = [NSMutableArray array];
+    for (int i = 0; i < pois.count; i++) {
+        AMapPOI *mapPOI = pois[i];
+        CLLocationCoordinate2D pointCoordinate = CLLocationCoordinate2DMake(mapPOI.location.latitude, mapPOI.location.longitude);
+        MAPointAnnotation *pointAnnotation = [[MAPointAnnotation alloc]init];
+        
+        pointAnnotation.coordinate = pointCoordinate;
+        pointAnnotation.lockedToScreen = NO;
+        [annotationArray addObject:pointAnnotation];
+    }
+    [self.mapView addAnnotations:annotationArray];
+    
+}
 #pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -178,15 +228,15 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             // 封面
-            ImageTableViewCell *cell = [ImageTableViewCell sharedImageCell:tableView];
-            cell.image_url = self.placeModel.scenic_img;
+            NoDequeTableViewCell *cell = [NoDequeTableViewCell sharedCell:tableView];
+            [cell.contentView addSubview:self.coverImgView];
             return cell;
         } else {
             // 查看点评
             NoDequeTableViewCell *cell = [NoDequeTableViewCell sharedCell:tableView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.font = [UIFont boldSystemFontOfSize:19];
-            cell.textLabel.textColor = MainColor;
+            cell.textLabel.textColor = RGBACOLOR(253, 179, 20, 1);
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
             return cell;
         }
@@ -254,7 +304,7 @@
         }
     }else{
         // 交通
-        BigMapViewController *map = [[BigMapViewController alloc]init];
+        BigMapViewController *map = [[BigMapViewController alloc]initWithModel:self.placeModel];
         [self.navigationController pushViewController:map animated:YES];
     }
 }
@@ -320,7 +370,8 @@
 - (UIImageView *)coverImgView
 {
     if (!_coverImgView) {
-        _coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 180*CKproportion)];
+        _coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220*CKproportion)];
+        [_coverImgView sd_setImageWithURL:[NSURL URLWithString:self.placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(253, 179, 20, 1)]];
         _coverImgView.contentMode = UIViewContentModeScaleAspectFill;
         [_coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
         _coverImgView.layer.masksToBounds = YES;
@@ -343,7 +394,7 @@
         _travelLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:travelStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 5)];
         _travelLabel.attributedText = attributeStr;
     }
     return _travelLabel;
@@ -362,7 +413,7 @@
         _openTimeLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:timeStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 5)];
         _openTimeLabel.attributedText = attributeStr;
     }
     return _openTimeLabel;
@@ -377,7 +428,7 @@
         _phoneLabel.text = phoneStr;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:phoneStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 3)];
         _phoneLabel.attributedText = attributeStr;
     }
     return _phoneLabel;
@@ -396,7 +447,7 @@
         _addressLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:addressStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 3)];
         _addressLabel.attributedText = attributeStr;
     }
     return _addressLabel;
@@ -415,7 +466,7 @@
         _ticketLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:ticketStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 3)];
         _ticketLabel.attributedText = attributeStr;
         
     }
@@ -428,8 +479,22 @@
         _mapView = [[MAMapView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 250*CKproportion)];
         _mapView.delegate = self;
         _mapView.mapType = MAMapTypeSatellite;
+        AMapPOIKeywordsSearchRequest *request = [[AMapPOIKeywordsSearchRequest alloc]init];
+        request.keywords = self.placeModel.scenic_name;
+        request.requireExtension = YES;
+        request.cityLimit = NO;
+        request.requireSubPOIs = YES;
+        [self.search AMapPOIKeywordsSearch:request];
     }
     return _mapView;
+}
+- (AMapSearchAPI *)search
+{
+    if (!_search) {
+        _search = [[AMapSearchAPI alloc]init];
+        _search.delegate = self;
+    }
+    return _search;
 }
 // 交通攻略
 - (UILabel *)trafficLabel
@@ -445,7 +510,7 @@
         _trafficLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:ticketStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 5)];
         _trafficLabel.attributedText = attributeStr;
     }
     return _trafficLabel;
