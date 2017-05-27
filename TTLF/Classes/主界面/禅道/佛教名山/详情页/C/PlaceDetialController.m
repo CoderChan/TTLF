@@ -101,10 +101,18 @@
 {
     NSString *shareURL = [NSString stringWithFormat:@"%@&userID=%@",self.placeModel.web_url,[AccountTool account].userID.base64EncodedString];
     if (clickType == WechatFriendType) {
+        NSData *imageData = UIImageJPEGRepresentation(self.coverImgView.image, 0.01);
+        NSInteger len = imageData.length / 1024;
+        
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = self.placeModel.scenic_name;
         message.description = self.placeModel.strategy;
-        [message setThumbImage:self.coverImgView.image];
+        if (len > 32) {
+            [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        }else{
+            [message setThumbData:imageData];
+        }
+        
         
         WXWebpageObject *webObject = [WXWebpageObject object];
         webObject.webpageUrl = shareURL;
@@ -116,10 +124,18 @@
         req.scene = 0;
         [WXApi sendReq:req];
     }else if(clickType == WechatQuanType){
+        NSData *imageData = UIImageJPEGRepresentation(self.coverImgView.image, 0.01);
+        NSInteger len = imageData.length / 1024;
+        
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = self.placeModel.scenic_name;
         message.description = self.placeModel.strategy;
-        [message setThumbImage:self.coverImgView.image];
+        if (len > 32) {
+            [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        }else{
+            [message setThumbData:imageData];
+        }
+        
         
         WXWebpageObject *webObject = [WXWebpageObject object];
         webObject.webpageUrl = shareURL;
@@ -236,7 +252,7 @@
             NoDequeTableViewCell *cell = [NoDequeTableViewCell sharedCell:tableView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.font = [UIFont boldSystemFontOfSize:19];
-            cell.textLabel.textColor = RGBACOLOR(253, 179, 20, 1);
+            cell.textLabel.textColor = GoldColor;
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
             return cell;
         }
@@ -371,7 +387,7 @@
 {
     if (!_coverImgView) {
         _coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220*CKproportion)];
-        [_coverImgView sd_setImageWithURL:[NSURL URLWithString:self.placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:RGBACOLOR(253, 179, 20, 1)]];
+        [_coverImgView sd_setImageWithURL:[NSURL URLWithString:self.placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:GoldColor]];
         _coverImgView.contentMode = UIViewContentModeScaleAspectFill;
         [_coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
         _coverImgView.layer.masksToBounds = YES;
@@ -394,7 +410,7 @@
         _travelLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:travelStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 5)];
         _travelLabel.attributedText = attributeStr;
     }
     return _travelLabel;
@@ -413,7 +429,7 @@
         _openTimeLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:timeStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 5)];
         _openTimeLabel.attributedText = attributeStr;
     }
     return _openTimeLabel;
@@ -428,7 +444,7 @@
         _phoneLabel.text = phoneStr;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:phoneStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 3)];
         _phoneLabel.attributedText = attributeStr;
     }
     return _phoneLabel;
@@ -447,7 +463,7 @@
         _addressLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:addressStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 3)];
         _addressLabel.attributedText = attributeStr;
     }
     return _addressLabel;
@@ -466,7 +482,7 @@
         _ticketLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:ticketStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 3)];
         _ticketLabel.attributedText = attributeStr;
         
     }
@@ -510,7 +526,7 @@
         _trafficLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:ticketStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:RGBACOLOR(253, 179, 20, 1)} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 5)];
         _trafficLabel.attributedText = attributeStr;
     }
     return _trafficLabel;

@@ -12,9 +12,11 @@
 #import <MAMapKit/MAMapKit.h>
 #import <MAMapKit/MAAnnotation.h>
 #import <UIButton+WebCache.h>
+#import "PoiDetialView.h"
+#import "XLPhotoBrowser.h"
 #import <AMapSearchKit/AMapSearchKit.h>
 
-@interface BigMapViewController ()<MAMapViewDelegate,AMapSearchDelegate,AMapLocationManagerDelegate>
+@interface BigMapViewController ()<MAMapViewDelegate,AMapSearchDelegate,AMapLocationManagerDelegate,PoiViewDelegate>
 
 /** 景区模型 */
 @property (strong,nonatomic) PlaceDetialModel *placeModel;
@@ -24,8 +26,12 @@
 @property (strong,nonatomic) AMapSearchAPI *search;
 /** annotations */
 @property (strong,nonatomic) NSMutableArray *annotations;
+/** 装着POI模型 */
+@property (strong,nonatomic) NSMutableArray *poiArray;
 /** 定位管理器 */
 @property (strong,nonatomic) AMapLocationManager *locationManager;
+/** POI详细图 */
+@property (strong,nonatomic) PoiDetialView *poiDetialView;
 
 
 @end
@@ -55,7 +61,7 @@
     self.mapView.showsUserLocation = YES;
     [self.mapView setUserTrackingMode:MAUserTrackingModeFollow animated:YES];
     self.mapView.distanceFilter = 10;
-    [self.mapView setZoomLevel:7 animated:YES];
+    [self.mapView setZoomLevel:10 animated:YES];
     [self.view addSubview:self.mapView];
     
     // poi检索
@@ -112,7 +118,8 @@
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(point.latitude, point.longitude);
     [self.mapView setCenterCoordinate:coordinate animated:YES];
     
-    self.annotations = [NSMutableArray array];
+    [self.poiArray addObjectsFromArray:pois];
+    
     for (int i = 0; i < pois.count; i++) {
         AMapPOI *mapPOI = pois[i];
         CLLocationCoordinate2D pointCoordinate = CLLocationCoordinate2DMake(mapPOI.location.latitude, mapPOI.location.longitude);
@@ -125,9 +132,13 @@
     [self.mapView addAnnotations:self.annotations];
     
 }
-
+- (void)mapView:(MAMapView *)mapView didSingleTappedAtCoordinate:(CLLocationCoordinate2D)coordinate
+{
+    self.poiDetialView.hidden = YES;
+}
 - (MAAnnotationView *)mapView:(MAMapView *)mapView viewForAnnotation:(id<MAAnnotation>)annotation
 {
+    
     if ([annotation isKindOfClass:[MAPointAnnotation class]])
     {
         static NSString *pointReuseIndetifier = @"pointReuseIndetifier";
@@ -137,31 +148,70 @@
             annotationView = [[MAPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:pointReuseIndetifier];
         }
         
-        
         annotationView.canShowCallout               = YES;
         annotationView.animatesDrop                 = YES;
         annotationView.draggable                    = YES;
-        UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = CGRectMake(0, 0, 50, 50);
-        button.clipsToBounds = YES;
-        button.layer.cornerRadius = 25;
-        button.userInteractionEnabled = NO;
+        annotationView.pinColor                 = MAPinAnnotationColorGreen;
+        annotationView.tag = [self.annotations indexOfObject:annotation];
         
-//        AMapPOI *poiModel = [self.annotations indexOfObject:annotation];
-//        
-//        [button sd_setImageWithURL:[NSURL URLWithString:model.avatar] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"user_place"]];
-//        annotationView.leftCalloutAccessoryView    = button;
-//        annotationView.pinColor                     = [self.annotations indexOfObject:annotation] % 3;
-//        
-//        annotationView.tag = [self.annotations indexOfObject:annotation];
+        // 标注的信息
+        AMapPOI *poiModel = [self.poiArray objectAtIndex:[self.annotations indexOfObject:annotation]];
+        CGSize size = [poiModel.name boundingRectWithSize:CGSizeMake(self.view.width/2, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
+        
+        UILabel *nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, size.width + 10, 44)];
+        nameLabel.text = poiModel.name;
+        nameLabel.numberOfLines = 2;
+        nameLabel.textAlignment = NSTextAlignmentCenter;
+        nameLabel.font = [UIFont systemFontOfSize:15];
+        annotationView.leftCalloutAccessoryView = nameLabel;
+        annotationView.rightCalloutAccessoryView = nil;
+        
         return annotationView;
     }
     return nil;
 }
-
+- (void)mapView:(MAMapView *)mapView didSelectAnnotationView:(MAAnnotationView *)view
+{
+    if ([view.reuseIdentifier isEqualToString:@"pointReuseIndetifier"]) {
+        // 标注的信息
+        AMapPOI *poiModel = [self.poiArray objectAtIndex:view.tag];
+        
+        self.poiDetialView.hidden = NO;
+        self.poiDetialView.poiModel = poiModel;
+    }else{
+        // 点的其他地方
+        self.poiDetialView.hidden = YES;
+    }
+    
+}
 - (void)mapView:(MAMapView *)mapView didFailToLocateUserWithError:(NSError *)error
 {
     [self sendAlertAction:error.localizedDescription];
+}
+
+#pragma mark - POIViewDelegate
+- (void)poiViewWithType:(ClickType)type Model:(AMapPOI *)poiModel
+{
+    if (type == CallPhoneType) {
+        // 打电话
+        
+        UIWebView *phoneWebView = [[UIWebView alloc]initWithFrame:CGRectZero];
+        NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"tel:%@",poiModel.tel]]];
+        [phoneWebView loadRequest:request];
+        
+    }else if(type == ImageShowType){
+        // 浏览图集
+        if (poiModel.images.count == 0) {
+            [MBProgressHUD showError:@"该区域暂无图集"];
+        }else{
+            
+            NSMutableArray *tempArray = [NSMutableArray array];
+            for (AMapImage *mapImage in poiModel.images) {
+                [tempArray addObject:mapImage.url];
+            }
+            [XLPhotoBrowser showPhotoBrowserWithImages:tempArray currentImageIndex:0];
+        }
+    }
 }
 
 
@@ -189,6 +239,30 @@
         [_locationManager setPausesLocationUpdatesAutomatically:NO];
     }
     return _locationManager;
+}
+- (NSMutableArray *)annotations
+{
+    if (!_annotations) {
+        _annotations = [NSMutableArray array];
+    }
+    return _annotations;
+}
+- (NSMutableArray *)poiArray
+{
+    if (!_poiArray) {
+        _poiArray = [NSMutableArray array];
+    }
+    return _poiArray;
+}
+- (PoiDetialView *)poiDetialView
+{
+    if (!_poiDetialView) {
+        _poiDetialView = [[PoiDetialView alloc]initWithFrame:CGRectMake(0, self.view.height - 180, self.view.width, 180)];
+        _poiDetialView.hidden = YES;
+        _poiDetialView.delegate = self;
+        [self.view addSubview:_poiDetialView];
+    }
+    return _poiDetialView;
 }
 
 @end

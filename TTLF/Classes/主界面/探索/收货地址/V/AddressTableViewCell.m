@@ -49,6 +49,24 @@
     return self;
 }
 
+- (void)setModel:(AddressModel *)model
+{
+    _model = model;
+    _nameLabel.text = model.name;
+    _phoneLabel.text = model.phone;
+    _addressLabel.text = model.address_detail;
+    if (model.is_default) {
+        [_defaultBtn setImage:[UIImage imageNamed:@"cm2_list_checkbox_ok"] forState:UIControlStateNormal];
+        [_defaultBtn setTitleColor:RGBACOLOR(10, 160, 79, 1) forState:UIControlStateNormal];
+        [_defaultBtn setTitle:@"默认地址" forState:UIControlStateNormal];
+    }else{
+        [_defaultBtn setImage:[UIImage imageNamed:@"cm2_list_checkbox"] forState:UIControlStateNormal];
+        [_defaultBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [_defaultBtn setTitle:@"设为默认地址" forState:UIControlStateNormal];
+    }
+    
+}
+
 - (void)setupSubViews
 {
     // 收货人
@@ -118,7 +136,9 @@
 
 - (void)didSelected:(UIButton *)sender
 {
-    [sender setImage:[UIImage imageNamed:@"cm2_list_checkbox_ok"] forState:UIControlStateNormal];
+    if (self.SetDefaultBlock) {
+        _SetDefaultBlock(self.model);
+    }
 }
 
 

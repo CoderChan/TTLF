@@ -8,7 +8,7 @@
 
 
 /** --------------可修改(在PYConst.m修改)------------- */
-#define PYPlaceholderImage [UIImage imageNamed:@"image_place"] // 占位图
+#define PYPlaceholderImage [UIImage imageWithColor:HWRandomColor] // 占位图
 #define PYLoadFailureImage [UIImage imageNamed:@"PYPhotosView.bundle/imageerror"] // 加载失败图(添加在占位图上大小默认为100 * 100)
 #define PYAddImage [UIImage imageNamed:@"PYPhotosView.bundle/addimage"] // 添加图片图
 #define PYDeleteImage [UIImage imageNamed:@"PYPhotosView.bundle/deleteimage"] // 删除图片图

@@ -8,25 +8,49 @@
 
 #import "AddAddressViewController.h"
 #import "NoDequeTableViewCell.h"
+#import "CMPopTipView.h"
 
-@interface AddAddressViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AddAddressViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UITextViewDelegate>
 
+/** 地址模型 */
+@property (strong,nonatomic) AddressModel *addressModel;
+/** 是否为新增地址 */
+@property (assign,nonatomic) BOOL isAddNewAddress;
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
-
+/** 收货人名字 */
 @property (strong,nonatomic) UITextField *nameField;
+/** 电话 */
 @property (strong,nonatomic) UITextField *phoneField;
+/** 详细地址 */
 @property (strong,nonatomic) UITextView *addressView;
 
 @end
 
 @implementation AddAddressViewController
 
+- (instancetype)initWithModel:(AddressModel *)addressModel
+{
+    self = [super init];
+    if (self) {
+        if (addressModel) {
+            self.addressModel = addressModel;
+            self.title = @"修改地址";
+            self.isAddNewAddress = NO;
+        }else{
+            self.addressModel = nil;
+            self.isAddNewAddress = YES;
+            self.title = @"新增地址";
+        }
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"添加收货地址";
+    
     [self setupSubViews];
 }
 #pragma mark - 绘制界面
@@ -65,15 +89,51 @@
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         [self.view endEditing:YES];
-        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-            
-        }];
+        if (self.nameField.text.length == 0) {
+            [self showPopTipsWithMessage:@"请输入联系人" AtView:self.nameField inView:self.view];
+            return ;
+        }
+        if (![self.phoneField.text isPhoneNum]) {
+            [self showPopTipsWithMessage:@"号码有误" AtView:self.phoneField inView:self.view];
+            return ;
+        }
+        if (self.addressView.text.length == 0) {
+            [self showPopTipsWithMessage:@"输入地址" AtView:self.addressView inView:self.view];
+            return ;
+        }
+        if (self.isAddNewAddress) {
+            // 新增地址
+            [[TTLFManager sharedManager].networkManager addNewAddressWithModel:self.addressModel Success:^{
+                if (self.DidFinishedBlock) {
+                    _DidFinishedBlock();
+                    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
+                }
+            } Fail:^(NSString *errorMsg) {
+                [self sendAlertAction:errorMsg];
+            }];
+        }else{
+            // 修改地址
+            [[TTLFManager sharedManager].networkManager updateAddressWithModel:self.addressModel Success:^{
+                [self showOneAlertWithMessage:@"修改成功" ConfirmClick:^{
+                    if (self.DidFinishedBlock) {
+                        _DidFinishedBlock();
+                        [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                            
+                        }];
+                    }
+                }];
+            } Fail:^(NSString *errorMsg) {
+                [self sendAlertAction:errorMsg];
+            }];
+        }
     }];
     [footView addSubview:button];
     
     self.tableView.tableFooterView = footView;
 }
-
+#pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -133,23 +193,43 @@
     return footV;
 }
 
-
-
 #pragma mark - 其他方法
 - (void)dismissAction
 {
     [self.view endEditing:YES];
+    
     [self.navigationController dismissViewControllerAnimated:YES completion:^{
         
     }];
 }
 
+#pragma mark - 赋值
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([textField.text containsString:@" "]) {
+        [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+    if (textField == self.nameField) {
+        self.addressModel.name = textField.text;
+    }else if (textField == self.phoneField){
+        self.addressModel.phone = textField.text;
+    }
+}
+- (void)textViewDidEndEditing:(UITextView *)textView
+{
+    if ([textView.text containsString:@" "]) {
+        [textView.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+    self.addressModel.address_detail = textView.text;
+}
 
 #pragma mark - 懒加载
 - (UITextField *)nameField
 {
     if (!_nameField) {
         _nameField = [[UITextField alloc]initWithFrame:CGRectMake(110, 5, self.view.width - 110 - 20, 40)];
+        _nameField.delegate = self;
+        _nameField.text = self.addressModel.name;
         _nameField.placeholder = @"收货人姓名";
         _nameField.backgroundColor = [UIColor whiteColor];
         _nameField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -160,6 +240,8 @@
 {
     if (!_phoneField) {
         _phoneField = [[UITextField alloc]initWithFrame:CGRectMake(110, 5, self.view.width - 110 - 20, 40)];
+        _phoneField.delegate = self;
+        _phoneField.text = self.addressModel.phone;
         _phoneField.placeholder = @"11位手机号";
         _phoneField.clearButtonMode = UITextFieldViewModeWhileEditing;
         _phoneField.keyboardType = UIKeyboardTypeNumberPad;
@@ -171,11 +253,19 @@
 {
     if (!_addressView) {
         _addressView = [[UITextView alloc]initWithFrame:CGRectMake(110, 7.5, self.view.width - 110 - 20, 50)];
+        _addressView.delegate = self;
+        _addressView.text = self.addressModel.address_detail;
         _addressView.font = [UIFont systemFontOfSize:17];
         _addressView.backgroundColor = [UIColor whiteColor];
     }
     return _addressView;
 }
-
+- (AddressModel *)addressModel
+{
+    if (!_addressModel) {
+        _addressModel = [[AddressModel alloc]init];
+    }
+    return _addressModel;
+}
 
 @end

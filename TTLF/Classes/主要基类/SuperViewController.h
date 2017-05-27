@@ -17,5 +17,7 @@
 - (void)hideMessageAction;
 /** 发送消息到QQ */
 - (void)sendToQQWithSendResult:(QQApiSendResultCode)sendResult;
+/** 显示POP提示 */
+- (void)showPopTipsWithMessage:(NSString *)message AtView:(UIView *)atView inView:(UIView *)inView;
 
 @end

@@ -12,7 +12,7 @@
 #import <SMS_SDK/SMSSDK.h>
 
 
-@interface ForgetPasswordViewController ()
+@interface ForgetPasswordViewController ()<UITextFieldDelegate>
 
 {
     int ReGetCodeNum; // 重新获取验证码时间间隔
@@ -63,6 +63,7 @@
     
     // 手机号码
     self.phoneField = [[UITextField alloc]initWithFrame:CGRectMake(30, 25, self.view.width - 60, 40)];
+    self.phoneField.delegate = self;
     self.phoneField.tintColor = [UIColor blackColor];
     self.phoneField.placeholder = @"注册手机号";
     self.phoneField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.phoneField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
@@ -79,6 +80,7 @@
     
     // 验证码
     self.codeField = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.phoneField.frame) + 15, (self.view.width - 60) * 0.7, 40)];
+    self.codeField.delegate = self;
     self.codeField.tintColor = [UIColor blackColor];
     self.codeField.keyboardType = UIKeyboardTypeNumberPad;
     self.codeField.clearButtonMode = UITextFieldViewModeWhileEditing;
@@ -106,6 +108,7 @@
     // 密码1
     self.passWord1 = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.codeField.frame) + 15, self.view.width - 60, 40)];
     self.passWord1.secureTextEntry = YES;
+    self.passWord1.delegate = self;
     self.passWord1.placeholder = @"输入新密码";
     self.passWord1.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passWord1.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.passWord1.tintColor = [UIColor blackColor];
@@ -126,6 +129,7 @@
     // 密码2
     self.passWord2 = [[UITextField alloc]initWithFrame:CGRectMake(30, CGRectGetMaxY(self.passWord1.frame) + 15, self.view.width - 60, 40)];
     self.passWord2.secureTextEntry = YES;
+    self.passWord2.delegate = self;
     self.passWord2.placeholder = @"确认新密码";
     self.passWord2.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.passWord2.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
     self.passWord2.tintColor = [UIColor blackColor];
@@ -169,7 +173,7 @@
     [self.view endEditing:YES];
     
     if (![self.phoneField.text isPhoneNum]) {
-        [MBProgressHUD showError:@"手机号码不正确"];
+        [self showPopTipsWithMessage:@"号码有误" AtView:self.phoneField inView:self.view];
         return;
     }
     
@@ -244,19 +248,24 @@
     [self.view endEditing:YES];
     
     if (![self.phoneField.text isPhoneNum]) {
-        [MBProgressHUD showError:@"号码不正确"];
+        [self showPopTipsWithMessage:@"号码有误" AtView:self.phoneField inView:self.view];
         return;
     }
     if (self.codeField.text.length <= 3) {
-        [MBProgressHUD showError:@"验证码不正确"];
+        [self showPopTipsWithMessage:@"验证码有误" AtView:self.codeField inView:self.view];
         return;
     }
-    if (self.passWord1.text.length < 6 || self.passWord2.text.length < 6) {
-        [MBProgressHUD showError:@"密码最少6位长度"];
+    if (self.passWord1.text.length < 6) {
+        [self showPopTipsWithMessage:@"密码最少6位长度" AtView:self.passWord1 inView:self.view];
+        return;
+    }
+    if (self.passWord2.text.length < 6) {
+        [self showPopTipsWithMessage:@"密码最少6位长度" AtView:self.passWord2 inView:self.view];
         return;
     }
     if (![self.passWord1.text isEqualToString:self.passWord2.text]) {
-        [MBProgressHUD showError:@"两次密码不一致"];
+        [self showPopTipsWithMessage:@"两次输密不一致" AtView:self.passWord1 inView:self.view];
+        [self showPopTipsWithMessage:@"两次输密不一致" AtView:self.passWord2 inView:self.view];
         return;
     }
     
@@ -353,6 +362,22 @@
             break;
     }
 }
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([textField.text containsString:@" "]) {
+        textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField.text containsString:@" "]) {
+        textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+    return YES;
+}
+
 
 
 @end

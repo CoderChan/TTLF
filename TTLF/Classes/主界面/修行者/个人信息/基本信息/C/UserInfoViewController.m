@@ -235,7 +235,7 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
     if (orgImage) {
         [MBProgressHUD showMessage:@"上传中"];
-        [[TTLFManager sharedManager].networkManager uploadHeadImge:orgImage Progress:^(NSProgress *progress) {
+        [[TTLFManager sharedManager].networkManager uploadHeadImage:orgImage Progress:^(NSProgress *progress) {
             KGLog(@"progress = %g",progress.fractionCompleted);
         } Success:^(NSString *string) {
             NSLog(@"string = %@",string);

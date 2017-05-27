@@ -7,12 +7,15 @@
 //
 
 #import "GoodDetialFootView.h"
+#import "UIButton+Category.h"
+
+#define PlaceText @"温馨提示：\r1、收到产品时建议不拆装，放置3-5天以适应当地气候环境。\r2、产品介绍图仅供参考，最终效果以实际到手产品为准。\r3、商品适合男女老少，无不良影响。"
 
 @interface GoodDetialFootView ()
 
 /** 文字说明 */
 @property (strong,nonatomic) UILabel *contentLabel;
-/**  */
+
 
 @end
 
@@ -22,7 +25,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = BackColor;
+        self.backgroundColor = [UIColor whiteColor];
         [self setupSubViews];
     }
     return self;
@@ -31,16 +34,43 @@
 - (void)setupSubViews
 {
     
-    // 免邮、正品提示
-    
-    
-    // 产品说明
-    self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 5, SCREEN_WIDTH - 30, 135)];
-    self.contentLabel.text = @"产品说明：是男是女是，啊没客气客气今晚就。素食描述看看，爱马克思对本年度的绝佳是。斯诺克是肯定的你电脑的，南京济南市加上手机端你觉得呢看什么看什么肯定看懂你得。大男大女多多多多女军多女多军多女多女是安静暗杀教室你手机你叔叔！";
-    self.contentLabel.textColor = [UIColor grayColor];
+    CGSize size = [PlaceText boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
+    // 产品的其他说明
+    self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH - 30, size.height)];
+    self.contentLabel.backgroundColor = [UIColor clearColor];
+    self.contentLabel.text = PlaceText;
+    self.contentLabel.textColor = [UIColor blackColor];
     self.contentLabel.numberOfLines = 0;
-    self.contentLabel.font = [UIFont systemFontOfSize:15];
+    self.contentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [self addSubview:self.contentLabel];
+    
+    
+    CGFloat space = 20;
+    CGFloat W = (self.width - 4*space)/3;
+    CGFloat H = W;
+    NSArray *titleArray = @[@"免费包邮",@"老少皆宜",@"专柜正品"];
+    NSArray *iconArray = @[@"goods_baoyou",@"goods_person",@"goods_zheng"];
+    // 三个描述
+    for (int i = 0; i < titleArray.count; i++) {
+        CGRect frame;
+        frame.size.width = W;
+        frame.size.height = H;
+        frame.origin.x = (i%3) * (frame.size.width + space) + space;
+        frame.origin.y = CGRectGetMaxY(self.contentLabel.frame) + 10;
+        
+        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+        button.enabled = NO;
+        button.backgroundColor = [UIColor clearColor];
+        [button setTitle:titleArray[i] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
+        [button setTitleColor:GoldColor forState:UIControlStateNormal];
+        button.frame = frame;
+        [button centerImageAndTitle:5];
+        [self addSubview:button];
+        
+    }
+    
 }
 
 @end

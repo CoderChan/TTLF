@@ -24,6 +24,7 @@
 #import "AreaListModel.h"
 #import "PlaceDiscussModel.h"
 #import "PlaceDetialModel.h"
+#import "AddressModel.h"
 
 
 
@@ -67,7 +68,9 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 修改城市
 - (void)updateCity:(NSString *)city Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 上传头像
-- (void)uploadHeadImge:(UIImage *)image Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
+- (void)uploadHeadImage:(UIImage *)image Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
+// 上传背景图
+- (void)uploadBackImage:(UIImage *)image Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
 // 根据用户ID查询用户信息
 - (void)searchUserByUserID:(NSString *)sideID Success:(void (^)(UserInfoModel *userModel))success Fail:(FailBlock)fail;
 
@@ -152,6 +155,17 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 获取某个景区的图集
 - (void)placePicturesWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
+#pragma mark - 商城板块
+// 添加地址
+- (void)addNewAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 地址列表
+- (void)getAddressListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 修改\更新地址
+- (void)updateAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 删除地址
+- (void)deleteAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 设置默认地址
+- (void)setDefaultAddress:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 
 @end

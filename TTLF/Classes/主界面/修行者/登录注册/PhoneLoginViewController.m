@@ -185,11 +185,11 @@
     
     [self.view endEditing:YES];
     if (![self.phoneField.text isPhoneNum]) {
-        [MBProgressHUD showError:@"号码有误"];
+        [self showPopTipsWithMessage:@"号码有误" AtView:self.phoneField inView:self.view];
         return;
     }
     if (self.passField.text.length < 6) {
-        [MBProgressHUD showError:@"密码有误"];
+        [self showPopTipsWithMessage:@"密码有误" AtView:self.passField inView:self.view];
         return;
     }
     
@@ -234,6 +234,20 @@
 //    [window makeKeyAndVisible];
 }
 
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    if ([textField.text containsString:@" "]) {
+        textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string
+{
+    if ([textField.text containsString:@" "]) {
+        textField.text = [textField.text stringByReplacingOccurrencesOfString:@" " withString:@""];
+    }
+    return YES;
+}
 
 
 - (void)forgetPassAction

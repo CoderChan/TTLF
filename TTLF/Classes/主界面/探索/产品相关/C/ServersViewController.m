@@ -8,6 +8,7 @@
 
 #import "ServersViewController.h"
 #import "NormalTableViewCell.h"
+#import "AppDelegate.h"
 
 @interface ServersViewController ()<UIWebViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -66,10 +67,17 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    NSString *qq = [NSString stringWithFormat:@"mqq://im/chat?chat_type=wpa&uin=%@&version=1&src_type=web",self.qqArray[indexPath.section]];
+    NSString *qq = self.qqArray[indexPath.section];
+    BOOL isInstallQQ = [TencentOAuth iphoneQQInstalled];
+    if (!isInstallQQ) {
+        [self showTwoAlertWithMessage:@"当前设备未安装手机QQ，已复制QQ号，请根据该QQ号联系客服。" ConfirmClick:^{
+            [[UIPasteboard generalPasteboard] setString:qq];
+        }];
+        return;
+    }
+    NSString *openQQ = [NSString stringWithFormat:@"mqq://im/chat?chat_type=wpa&uin=%@&version=1&src_type=web",qq];
     UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectZero];
-    NSURL *url = [NSURL URLWithString:qq];
+    NSURL *url = [NSURL URLWithString:openQQ];
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     webView.delegate = self;
     [webView loadRequest:request];

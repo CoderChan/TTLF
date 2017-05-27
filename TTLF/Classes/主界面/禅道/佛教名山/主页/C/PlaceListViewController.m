@@ -44,15 +44,24 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager randomPlaceListSuccess:^(NSArray *array) {
+            
             [self.tableView.mj_header endRefreshing];
             self.tableView.hidden = NO;
             [self hideMessageAction];
             self.array = array;
             [self.tableView reloadData];
+            
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"place_select_province"] style:UIBarButtonItemStylePlain target:self action:@selector(ChangeProvinceAction)];
+            [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+            
         } Fail:^(NSString *errorMsg) {
             [self.tableView.mj_header endRefreshing];
             self.tableView.hidden = YES;
             [self showEmptyViewWithMessage:errorMsg];
+            
+            self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"place_select_province"] style:UIBarButtonItemStylePlain target:self action:@selector(ChangeProvinceAction)];
+            [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+            
         }];
     }];
     

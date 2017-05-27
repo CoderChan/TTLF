@@ -25,7 +25,12 @@
 		<dict>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>wtloginmqq2</string>
 				<string>tencent101403576</string>
+				<string>mqqwpa</string>
+				<string>mqqopensdkapiv2</string>
+				<string>mqqopensdkapiv3</string>
+				<string>mqqopensdkssologin</string>
 			</array>
 			<key>CFBundleURLName</key>
 			<string>tencent</string>

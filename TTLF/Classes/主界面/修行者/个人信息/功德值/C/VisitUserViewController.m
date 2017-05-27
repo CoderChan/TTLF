@@ -64,8 +64,7 @@
         [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userModel.headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
         [self.backImageView sd_setImageWithURL:[NSURL URLWithString:userModel.userBgImg] placeholderImage:[UIImage imageWithColor:RGBACOLOR(73, 75, 80, 1)]];
     } Fail:^(NSString *errorMsg) {
-        self.tableView.hidden = YES;
-        [self showEmptyViewWithMessage:errorMsg];
+        [MBProgressHUD showError:errorMsg];
     }];
     
     
@@ -176,7 +175,16 @@
     UIImage * orgImage = info[UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     if (orgImage) {
-        self.backImageView.image = orgImage;
+        [MBProgressHUD showMessage:nil];
+        [[TTLFManager sharedManager].networkManager uploadBackImage:orgImage Progress:^(NSProgress *progress) {
+            KGLog(@"上传进度 = %f",progress.fractionCompleted);
+        } Success:^(NSString *string) {
+            [MBProgressHUD hideHUD];
+            [self.backImageView sd_setImageWithURL:[NSURL URLWithString:string] placeholderImage:[UIImage imageWithColor:RGBACOLOR(73, 75, 80, 1)]];
+        } Fail:^(NSString *errorMsg) {
+            [MBProgressHUD hideHUD];
+            [self sendAlertAction:errorMsg];
+        }];
     }else {
         [MBProgressHUD showError:@"请选择图片资源"];
     }

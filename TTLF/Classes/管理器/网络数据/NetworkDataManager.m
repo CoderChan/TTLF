@@ -402,7 +402,7 @@
     }];
 }
 
-- (void)uploadHeadImge:(UIImage *)image Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
+- (void)uploadHeadImage:(UIImage *)image Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
     if (!account) {
@@ -414,7 +414,7 @@
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     
     // 上传头像 模糊度如果是1会出现失败
-    NSData *data = UIImageJPEGRepresentation(image, 0.5);
+    NSData *data = UIImageJPEGRepresentation(image, 0.9);
     NSString *name = @"file";
     NSString *fileName = @"head.jpeg";
     
@@ -435,6 +435,40 @@
         fail(error.localizedDescription);
     }];
     
+}
+// 上传背景图
+- (void)uploadBackImage:(UIImage *)image Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Index/addBg";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    // 上传头像 模糊度如果是1会出现失败
+    NSData *data = UIImageJPEGRepresentation(image, 0.9);
+    NSString *name = @"file";
+    NSString *fileName = @"back.jpeg";
+    
+    [HTTPManager uploadWithURL:url params:param fileData:data name:name fileName:fileName mimeType:@"jpeg" progress:^(NSProgress *progress) {
+        progressBlock(progress);
+    } success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSString *result = [[responseObject objectForKey:@"result"] description];
+            [[TTLFManager sharedManager].userManager updateWithKey:UuserBgImg Value:result];
+            success(result);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
 // 根据用户ID查询用户信息
 - (void)searchUserByUserID:(NSString *)sideID Success:(void (^)(UserInfoModel *))success Fail:(FailBlock)fail
@@ -1126,7 +1160,7 @@
     [param setValue:foods.base64EncodedString forKey:@"vege_food"];
     [param setValue:steps.base64EncodedString forKey:@"vege_steps"];
     
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/vegetarian/addvegetar?userID=%@&vegeName=%@&story=%@&vege_food=%@&vageSteps=%@",account.userID.base64EncodedString,vageName.base64EncodedString,story.base64EncodedString,foods.base64EncodedString,steps.base64EncodedString];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/vegetarian/addvegetar?userID=%@&vegeName=%@&vege_desc=%@&vege_food=%@&vageSteps=%@",account.userID.base64EncodedString,vageName.base64EncodedString,story.base64EncodedString,foods.base64EncodedString,steps.base64EncodedString];
     NSLog(@"上传素食的URL = %@",allurl);
     
     
@@ -1367,6 +1401,160 @@
         fail(error.localizedDescription);
     }];
 }
+#pragma mark - 商城模块
+// 添加新地址
+- (void)addNewAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Address/addAddress";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:addressModel.name.base64EncodedString forKey:@"name"];
+    [param setValue:addressModel.phone.base64EncodedString forKey:@"phone"];
+    [param setValue:addressModel.address_detail.base64EncodedString forKey:@"address_detail"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Address/addAddress?userID=%@&name=%@&phone=%@&address_detail=%@",account.userID.base64EncodedString,addressModel.name.base64EncodedString,addressModel.phone.base64EncodedString,addressModel.address_detail.base64EncodedString];
+    NSLog(@"添加新地址 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+// 获取地址列表
+- (void)getAddressListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Address/index";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Address/index?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"收货地址列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [AddressModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 更新地址
+- (void)updateAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Address/addAddress";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:addressModel.address_id.base64EncodedString forKey:@"address_id"];
+    [param setValue:addressModel.name.base64EncodedString forKey:@"name"];
+    [param setValue:addressModel.phone.base64EncodedString forKey:@"phone"];
+    [param setValue:addressModel.address_detail.base64EncodedString forKey:@"address_detail"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Address/addAddress?userID=%@&address_id=%@&name=%@&phone=%@&address_detail=%@",account.userID.base64EncodedString,addressModel.address_id.base64EncodedString,addressModel.name.base64EncodedString,addressModel.phone.base64EncodedString,addressModel.address_detail.base64EncodedString];
+    NSLog(@"更新收货地址 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 删除某个地址
+- (void)deleteAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Address/deleteAddress";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:addressModel.address_id.base64EncodedString forKey:@"address_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Address/deleteAddress?userID=%@&address_id=%@",account.userID.base64EncodedString,addressModel.address_id.base64EncodedString];
+    NSLog(@"删除某个收货地址 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 设置某个地址为默认
+- (void)setDefaultAddress:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Address/createDefault";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:addressModel.address_id.base64EncodedString forKey:@"address_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Address/createDefault?userID=%@&address_id=%@",account.userID.base64EncodedString,addressModel.address_id.base64EncodedString];
+    NSLog(@"设置默认地址 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
 
 #pragma mark - 禅修板块 -- 佛教名山
 // 随机获取20个景区作为首页
@@ -1377,7 +1565,6 @@
         fail(@"用户未登录");
         return;
     }
-    
     
     NSString *url = @"http://app.yangruyi.com/home/scenic/suiJ";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
@@ -1509,7 +1696,7 @@
         [param setValue:account.userID.base64EncodedString forKey:@"userID"];
         [param setValue:content.base64EncodedString forKey:@"discuss_content"];
         [param setValue:placeModel.scenic_id.base64EncodedString forKey:@"scenic_id"];
-        NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/addScenic_comment&userID=%@&discuss_content=%@&scenic_id=%@",account.userID.base64EncodedString,content.base64EncodedString,placeModel.scenic_id.base64EncodedString];
+        NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/addScenic_comment?userID=%@&discuss_content=%@&scenic_id=%@",account.userID.base64EncodedString,content.base64EncodedString,placeModel.scenic_id.base64EncodedString];
         NSLog(@"无图评论 = %@",allurl);
         
         [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {

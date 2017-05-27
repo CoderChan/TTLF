@@ -8,6 +8,7 @@
 
 #import "SuperViewController.h"
 #import <Masonry.h>
+#import "CMPopTipView.h"
 
 
 
@@ -123,6 +124,19 @@
         }
     }
 }
+#pragma mark - 气泡提示
+- (void)showPopTipsWithMessage:(NSString *)message AtView:(UIView *)atView inView:(UIView *)inView
+{
+    CMPopTipView *popTipView = [[CMPopTipView alloc]initWithTitle:nil message:message];
+    popTipView.shouldEnforceCustomViewPadding = YES;
+    popTipView.backgroundColor = RGBACOLOR(25, 35, 45, 1);
+    popTipView.animation = CMPopTipAnimationPop;
+    popTipView.dismissTapAnywhere = YES;
+    [popTipView autoDismissAnimated:YES atTimeInterval:2.5];
+    popTipView.textColor = [UIColor whiteColor];
+    [popTipView presentPointingAtView:atView inView:inView animated:YES];
+}
+
 #pragma mark - 懒加载
 - (UILabel *)messageLabel
 {

@@ -119,10 +119,12 @@
         return;
     }
     
+    [MBProgressHUD showMessage:@""];
     [[TTLFManager sharedManager].networkManager sendDiscussWithModel:self.placeModel Content:self.textView.text Images:self.publishPhotosView.images Progress:^(NSProgress *progress) {
         NSLog(@"上传进度 = %g",progress.fractionCompleted);
     } Success:^(PlaceDiscussModel *model) {
         
+        [MBProgressHUD hideHUD];
         if (self.AddCommentBlock) {
             _AddCommentBlock(model);
             [self.navigationController dismissViewControllerAnimated:YES completion:^{
@@ -131,6 +133,7 @@
         }
         
     } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD hideHUD];
         [self sendAlertAction:errorMsg];
     }];
     

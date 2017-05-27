@@ -29,6 +29,8 @@
 #define NavColor RGBACOLOR(43, 45, 50, 1)
 // 文字颜色
 #define TitleColor RGBACOLOR(0, 0, 0, 1)
+// 金黄颜色
+#define GoldColor RGBACOLOR(253, 179, 20, 1)
 // 警告的偏红颜色
 #define WarningColor RGBACOLOR(242, 73, 78, 1)
 // 控制器背景颜色 RGBACOLOR(250, 246, 232, 1)
