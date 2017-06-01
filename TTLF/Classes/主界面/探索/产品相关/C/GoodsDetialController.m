@@ -17,7 +17,7 @@
 #import "GoodsInfoModel.h"
 #import "RightMoreView.h"
 #import "CMPopTipView.h"
-#import "PayOrderView.h"
+#import "PayOrderViewController.h"
 #import "GoodsStandardController.h"
 
 
@@ -130,10 +130,8 @@
     [buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     buyButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [buyButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
-        PayOrderView *payView = [[PayOrderView alloc]initWithFrame:keyWindow.bounds];
-        
-        [keyWindow addSubview:payView];
+        PayOrderViewController *pay = [[PayOrderViewController alloc]init];
+        [self.navigationController pushViewController:pay animated:YES];
     }];
     [self.view addSubview:buyButton];
     

@@ -116,14 +116,12 @@
         }else{
             // 修改地址
             [[TTLFManager sharedManager].networkManager updateAddressWithModel:self.addressModel Success:^{
-                [self showOneAlertWithMessage:@"修改成功" ConfirmClick:^{
-                    if (self.DidFinishedBlock) {
-                        _DidFinishedBlock();
-                        [self.navigationController dismissViewControllerAnimated:YES completion:^{
-                            
-                        }];
-                    }
-                }];
+                if (self.DidFinishedBlock) {
+                    _DidFinishedBlock();
+                    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+                        
+                    }];
+                }
             } Fail:^(NSString *errorMsg) {
                 [self sendAlertAction:errorMsg];
             }];

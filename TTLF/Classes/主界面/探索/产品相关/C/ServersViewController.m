@@ -34,7 +34,7 @@
 {
     
     self.iconArray = @[@"http://app.yangruyi.com/Public/home/images/huaming/caomei.png",@"http://app.yangruyi.com/Public/home/images/huaming/chaye.png",@"http://app.yangruyi.com/Public/home/images/huaming/datouluobo.png",@"http://app.yangruyi.com/Public/home/images/huaming/hongjiao.png",@"http://app.yangruyi.com/Public/home/images/huaming/yingtao.png",@"http://app.yangruyi.com/Public/home/images/huaming/qingnangua.png"];
-    self.nameArray = @[@"草莓",@"茶叶",@"大头萝卜",@"红辣椒",@"樱桃",@"小南瓜"];
+    self.nameArray = @[@"草莓",@"茶叶",@"樱桃萝卜",@"红辣椒",@"樱桃",@"小南瓜"];
     self.qqArray = @[@"2155647772",@"3494204296",@"2040627176",@"2153702197",@"2167578676",@"3311015046"];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];

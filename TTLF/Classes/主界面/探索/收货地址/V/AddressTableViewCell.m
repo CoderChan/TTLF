@@ -11,14 +11,6 @@
 
 @interface AddressTableViewCell ()
 
-/** 收货人名字 */
-@property (strong,nonatomic) UILabel *nameLabel;
-/** 电话号码 */
-@property (strong,nonatomic) UILabel *phoneLabel;
-/** 详细地址 */
-@property (strong,nonatomic) UILabel *addressLabel;
-/** 是否为默认地址 */
-@property (strong,nonatomic) UIButton *defaultBtn;
 
 
 @end
@@ -29,7 +21,7 @@
 {
     static NSString *ID = @"AddressTableViewCell";
     AddressTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
+//    [tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     if (!cell) {
         cell = [[AddressTableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
     }
@@ -57,7 +49,7 @@
     _addressLabel.text = model.address_detail;
     if (model.is_default) {
         [_defaultBtn setImage:[UIImage imageNamed:@"cm2_list_checkbox_ok"] forState:UIControlStateNormal];
-        [_defaultBtn setTitleColor:RGBACOLOR(10, 160, 79, 1) forState:UIControlStateNormal];
+        [_defaultBtn setTitleColor:RGBACOLOR(84, 172, 63, 1) forState:UIControlStateNormal];
         [_defaultBtn setTitle:@"默认地址" forState:UIControlStateNormal];
     }else{
         [_defaultBtn setImage:[UIImage imageNamed:@"cm2_list_checkbox"] forState:UIControlStateNormal];
@@ -106,9 +98,9 @@
     }];
     
     // 线
-    UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xuxian"]];
-    [self.contentView addSubview:xian];
-    [xian mas_makeConstraints:^(MASConstraintMaker *make) {
+    self.xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xuxian"]];
+    [self.contentView addSubview:self.xian];
+    [self.xian mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left);
         make.right.equalTo(self.contentView.mas_right);
         make.top.equalTo(self.addressLabel.mas_bottom).offset(6);
@@ -125,7 +117,7 @@
     [self.defaultBtn addTarget:self action:@selector(didSelected:) forControlEvents:UIControlEventTouchUpInside];
     [self.contentView addSubview:self.defaultBtn];
     [self.defaultBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(xian.mas_bottom).offset(6);
+        make.top.equalTo(self.xian.mas_bottom).offset(6);
         make.width.equalTo(@130);
         make.height.equalTo(@30);
         make.left.equalTo(@12);

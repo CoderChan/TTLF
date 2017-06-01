@@ -10,6 +10,7 @@
 #import <MJExtension/MJExtension.h>
 #import "UserInfoManager.h"
 #import "AccountTool.h"
+#import "AddressCacheManager.h"
 #import "PlaceCacheManager.h"
 
 
@@ -226,9 +227,9 @@
         for (NSString *fileName in childerFiles) {
             //如有需要，加入条件，过滤掉不想删除的文件
             
-            if ([fileName isEqualToString:@"t_user.sqlite"]) {
+            if ([fileName isEqualToString:@"t_address.sqlite"]) {
                 // 不删除这些。用户信息、离线订单、归档
-                
+                [[AddressCacheManager sharedManager] deleteAddressCache];
                 completion();
                 
             }else{
@@ -1454,8 +1455,13 @@
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [responseObject objectForKey:@"message"];
         if (code == 1) {
+            [[AddressCacheManager sharedManager] deleteAddressCache];
             NSArray *result = [responseObject objectForKey:@"result"];
             NSArray *modelArray = [AddressModel mj_objectArrayWithKeyValuesArray:result];
+            for (AddressModel *model in modelArray) {
+                [[AddressCacheManager sharedManager] saveAddressArrayWithModel:model];
+            }
+            
             success(modelArray);
         }else{
             fail(message);

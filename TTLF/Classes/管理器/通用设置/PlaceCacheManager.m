@@ -24,7 +24,7 @@ static FMDatabase *_db;
     // scenic_id、scenic_name、areas、scenic_img、strategy、open_time、web_url、scenic_phone、scenic_address、traic、scenic_ticket
     
     // 建表语句
-    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_place (id integer PRIMARY KEY AUTOINCREMENT,scenic_id text,scenic_name text,areas text,scenic_img text,strategy text,open_time text,web_url text,scenic_phone text,scenic_address text,traic text,scenic_ticket text);"];
+    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_place (id integer PRIMARY KEY AUTOINCREMENT,scenic_id varchar,scenic_name varchar,areas varchar,scenic_img varchar,strategy text,open_time varchar,web_url varchar,scenic_phone varchar,scenic_address varchar,traic varchar,scenic_ticket varchar);"];
 }
 
 + (instancetype)sharedManager

@@ -15,16 +15,18 @@
 @property (copy,nonatomic) NSString *goodID;
 /** 商品名称 */
 @property (copy,nonatomic) NSString *goods_name;
+/** 商品封面 */
+@property (copy,nonatomic) NSString *cover_img;
 /** 商品状态：0、已下架  1、销售中  */
 @property (assign,nonatomic) NSInteger status;
+/** 是否推荐 */
+@property (assign,nonatomic) BOOL is_recommend;
 /** 图片集 */
 @property (copy,nonatomic) NSArray *images;
 /** 商品售价 */
 @property (copy,nonatomic) NSString *sale_price;
 /** 商品原价 */
 @property (copy,nonatomic) NSString *original_price;
-/** 商品描述，对名称的描述 */
-@property (copy,nonatomic) NSString *desc;
 /** 产品规格参数,HTML文本信息 */
 @property (copy,nonatomic) NSString *standard;
 /** 其他说明 */

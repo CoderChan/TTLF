@@ -33,7 +33,7 @@
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = self.view.backgroundColor;
-    self.tableView.rowHeight = 120;
+    self.tableView.rowHeight = 160*CKproportion;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];

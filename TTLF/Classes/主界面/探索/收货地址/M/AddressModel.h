@@ -21,7 +21,5 @@
 /** 是否为默认地址 */
 @property (assign,nonatomic) BOOL is_default;
 
-/** 索引，本地需要 */
-@property (assign,nonatomic) NSInteger *index;
 
 @end

@@ -57,6 +57,7 @@
     [super viewDidLoad];
     self.title = @"查看功德值";
     [self setupSubViews];
+    
     [[TTLFManager sharedManager].networkManager searchUserByUserID:self.userID Success:^(UserInfoModel *userModel) {
         self.userModel = userModel;
         self.punnaLabel.text = [NSString stringWithFormat:@"%@",userModel.punnaNum];
@@ -66,7 +67,6 @@
     } Fail:^(NSString *errorMsg) {
         [MBProgressHUD showError:errorMsg];
     }];
-    
     
 }
 
@@ -85,6 +85,12 @@
     if ([self.userID isEqualToString:[AccountTool account].userID]) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"rightbar_more"] style:UIBarButtonItemStylePlain target:self action:@selector(moreAction)];
         [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
+        // 自己
+        self.userModel = [[TTLFManager sharedManager].userManager getUserInfo];
+        self.punnaLabel.text = [NSString stringWithFormat:@"%@",self.userModel.punnaNum];
+        self.nameLabel.text = self.userModel.nickName;
+        [self.headImageView sd_setImageWithURL:[NSURL URLWithString:self.userModel.headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
+        [self.backImageView sd_setImageWithURL:[NSURL URLWithString:self.userModel.userBgImg] placeholderImage:[UIImage imageWithColor:RGBACOLOR(73, 75, 80, 1)]];
     }
 }
 

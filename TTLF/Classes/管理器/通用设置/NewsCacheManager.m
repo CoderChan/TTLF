@@ -24,7 +24,7 @@ static FMDatabase *_db;
     // news_id,storeid,create_time,news_name,news_logo,site,source,source_link,createtime,keywords
     
     // 建表语句
-    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_news (id integer PRIMARY KEY AUTOINCREMENT,news_id text,storeid text,create_time text,news_name text,news_logo text,site text,source text,source_link text,createtime text,keywords text);"];
+    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_news (id integer PRIMARY KEY AUTOINCREMENT,news_id varchar,storeid varchar,create_time varchar,news_name varchar,news_logo varchar,site varchar,source varchar,source_link varchar,createtime varchar,keywords varchar);"];
 }
 
 + (instancetype)sharedManager

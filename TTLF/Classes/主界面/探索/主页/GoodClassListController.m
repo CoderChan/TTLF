@@ -37,7 +37,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 64;
+    self.tableView.rowHeight = 90;
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
@@ -58,10 +58,11 @@
 {
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.titleLabel.text = @"1.8厘米小叶紫檀";
+    cell.iconView.image = [UIImage imageWithColor:HWRandomColor];
     [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.mas_left).offset(15);
         make.centerY.equalTo(cell.mas_centerY);
-        make.width.and.height.equalTo(@40);
+        make.width.and.height.equalTo(@60);
     }];
     return cell;
 }

@@ -12,6 +12,7 @@
 #import "DiscoverViewController.h"
 #import "WoViewController.h"
 #import "RootNavgationController.h"
+#import "AddressCacheManager.h"
 
 @interface RootTabbarController ()<UITabBarControllerDelegate>
 
@@ -43,6 +44,9 @@
 - (void)addChildControllers
 {
     
+    NSString *path = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
+    NSLog(@"根目录 = %@",path);
+    
     FoNewsViewController *vc1 = [[FoNewsViewController alloc] init];
     [self addChildVC:vc1 Title:@"佛界头条" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:1];
     
@@ -60,6 +64,13 @@
     // 设置一些被控制的控制器
     [TTLFManager sharedManager].homeVC = vc1;
     [TTLFManager sharedManager].tabbar = self;
+    
+    // 获取或更新一些缓存数据
+    [[TTLFManager sharedManager].networkManager getAddressListSuccess:^(NSArray *array) {
+        
+    } Fail:^(NSString *errorMsg) {
+        
+    }];
     
 }
 #pragma mark - 添加子控制器

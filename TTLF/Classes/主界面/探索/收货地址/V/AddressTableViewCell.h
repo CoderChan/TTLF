@@ -10,6 +10,20 @@
 
 @interface AddressTableViewCell : UITableViewCell
 
+/** 线 */
+@property (strong,nonatomic) UIImageView *xian;
+/** 是否为默认地址 */
+@property (strong,nonatomic) UIButton *defaultBtn;
+
+/** 收货人名字 */
+@property (strong,nonatomic) UILabel *nameLabel;
+/** 电话号码 */
+@property (strong,nonatomic) UILabel *phoneLabel;
+/** 详细地址 */
+@property (strong,nonatomic) UILabel *addressLabel;
+
+
+
 /** 地址模型 */
 @property (strong,nonatomic) AddressModel *model;
 /** 设置默认地址的回调 */

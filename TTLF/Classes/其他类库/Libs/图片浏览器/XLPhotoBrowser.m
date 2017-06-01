@@ -737,7 +737,7 @@
 //        (origin = (x = 0, y = NaN), size = (width = 414, height = NaN))
         
 
-        XLPBLog(@"需要提供源视图才能做弹出/退出图片浏览器的缩放动画");
+        NSLog(@"需要提供源视图才能做弹出/退出图片浏览器的缩放动画");
         return;
     }
     CGFloat imageWidthHeightRatio = image.size.width / image.size.height;

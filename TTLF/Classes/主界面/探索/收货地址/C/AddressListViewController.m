@@ -10,6 +10,7 @@
 #import "AddAddressViewController.h"
 #import "AddressTableViewCell.h"
 #import "RootNavgationController.h"
+#import "AddressCacheManager.h"
 #import <MJRefresh.h>
 
 @interface AddressListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -39,10 +40,11 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
+    [self getData];
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self getData];
     }];
-    [self.tableView.mj_header beginRefreshing];
+    
     
     // 新增地址按钮
     UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -70,6 +72,15 @@
 }
 - (void)getData
 {
+    NSArray *cacheArray = [[AddressCacheManager sharedManager] getAddressArray];
+    if (cacheArray.count >= 1) {
+        [self.tableView.mj_header endRefreshing];
+        self.tableView.hidden = NO;
+        [self hideMessageAction];
+        self.array = [NSMutableArray arrayWithArray:cacheArray];
+        [self.tableView reloadData];
+    }
+    
     [[TTLFManager sharedManager].networkManager getAddressListSuccess:^(NSArray *array) {
         [self.tableView.mj_header endRefreshing];
         self.tableView.hidden = NO;

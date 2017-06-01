@@ -93,7 +93,7 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 120;
+            return 160*CKproportion;
         }else{
             return 50;
         }

@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "GoodsInfoModel.h"
 
 /********* 支付视图 *********/
+
 @interface PayOrderView : UIView
 
-
+/** 立即购买单个商品的模型 */
+@property (strong,nonatomic) GoodsInfoModel *goodsModel;
 
 @end
