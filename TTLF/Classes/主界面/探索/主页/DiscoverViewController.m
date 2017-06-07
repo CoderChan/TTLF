@@ -13,13 +13,15 @@
 #import "OrderListViewController.h"
 #import "AddressListViewController.h"
 #import "GoodClassListController.h"
+#import <MJRefresh/MJRefresh.h>
 
 @interface DiscoverViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
-/** 数组 */
+/** 分类数组 */
 @property (copy,nonatomic) NSArray *array;
+
 
 @end
 
@@ -34,37 +36,60 @@
 #pragma mark - 绘制表格
 - (void)setupSubViews
 {
-    self.array = @[@[@"订单中心",@"收货地址"],@[@"小叶紫檀",@"黄花梨",@"菩提",@"红木饰品",@"幸运吊坠",@"佛像雕塑",@"精选配饰"]];
+//    self.array = @[@[@"订单中心",@"收货地址"],@[@"小叶紫檀",@"黄花梨",@"菩提",@"红木饰品",@"幸运吊坠",@"佛像雕塑",@"精选配饰"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
+    // 获取分类列表
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [[TTLFManager sharedManager].networkManager shopClassListSuccess:^(NSArray *array) {
+            [self.tableView.mj_header endRefreshing];
+            self.array = array;
+            [self.tableView reloadData];
+            
+        } Fail:^(NSString *errorMsg) {
+            [self.tableView.mj_header endRefreshing];
+            [self sendAlertAction:errorMsg];
+        }];
+    }];
+    [self.tableView.mj_header beginRefreshing];
+    
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.array.count;
+    return 2;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [self.array[section] count];
+    if (section == 0) {
+        return 2;
+    }else{
+        return self.array.count;
+    }
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            // 订单中心
             OrderListTableCell *cell = [OrderListTableCell sharedOrderListCell:tableView];
             
             return cell;
         }else{
+            // 地址管理
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
             cell.iconView.image = [UIImage imageNamed:@"good_address"];
-            cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+            cell.titleLabel.text = @"地址管理";
             return cell;
         }
     }else{
+        // 商品分类
         GoodsListTableCell *cell = [GoodsListTableCell sharedGoodsListTableCell:tableView];
+        GoodsClassModel *model = self.array[indexPath.row];
+        cell.cateModel = model;
         return cell;
     }
 }
@@ -72,6 +97,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             // 订单中心
@@ -84,7 +110,8 @@
         }
     } else {
         // 产品分类列表
-        GoodClassListController *goodClass = [[GoodClassListController alloc]init];
+        GoodsClassModel *model = self.array[indexPath.row];
+        GoodClassListController *goodClass = [[GoodClassListController alloc]initWithModel:model];
         [self.navigationController pushViewController:goodClass animated:YES];
     }
 }

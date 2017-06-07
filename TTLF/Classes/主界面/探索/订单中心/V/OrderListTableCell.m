@@ -78,7 +78,8 @@
     
     // 订单状态
     self.statusLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.nameLabel.x, CGRectGetMaxY(self.orderIDLabel.frame), self.nameLabel.width, 21)];
-    self.statusLabel.text = @"状态：已发货";
+    self.statusLabel.text = @"状态：待支付";
+    self.statusLabel.textColor = WarningColor;
     self.statusLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:self.statusLabel];
 

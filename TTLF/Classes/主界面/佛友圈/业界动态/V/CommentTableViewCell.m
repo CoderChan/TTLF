@@ -64,19 +64,11 @@
         _insertImgView.hidden = YES;
     }
     NSDate *date = [NSDate dateWithTimeIntervalSince1970:commentModel.comment_time];
-    NSString *dateStr = [NSString stringWithFormat:@"%@",date];
-    if ([date isToday]) {
-        // 只取时间
-        NSString *time = [dateStr substringWithRange:NSMakeRange(11, 5)];
-        _timeLabel.text = time;
-    }else if ([date isYesterday]){
-        // 只取时间
-        NSString *time = [dateStr substringWithRange:NSMakeRange(11, 5)];
-        _timeLabel.text = [NSString stringWithFormat:@"昨天 %@",time];
+    NSString *dateStr = [date formattedDateDescription];
+    if (dateStr.length >= 10) {
+        _timeLabel.text = [dateStr substringWithRange:NSMakeRange(0, 10)];
     }else{
-        // 只取日期
-        NSString *time = [dateStr substringWithRange:NSMakeRange(0, 11)];
-        _timeLabel.text = time;
+        _timeLabel.text = dateStr;
     }
     
 }

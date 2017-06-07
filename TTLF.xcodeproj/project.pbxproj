@@ -13,6 +13,9 @@
 		3B03082A1EB86C97004B9F53 /* MyBooksTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0308291EB86C97004B9F53 /* MyBooksTableViewCell.m */; };
 		3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B03082C1EB8785D004B9F53 /* BookDetialViewController.m */; };
 		3B0308301EB88E7F004B9F53 /* BookTableHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B03082F1EB88E7F004B9F53 /* BookTableHeadView.m */; };
+		3B036EE31EE502B400A5B89C /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B036EDC1EE502B400A5B89C /* OrderListViewController.m */; };
+		3B036EE41EE502B400A5B89C /* GoodsOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B036EDF1EE502B400A5B89C /* GoodsOrderModel.m */; };
+		3B036EE51EE502B400A5B89C /* OrderListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B036EE21EE502B400A5B89C /* OrderListTableCell.m */; };
 		3B062D911ECE8AE400886240 /* ServersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D901ECE8AE400886240 /* ServersViewController.m */; };
 		3B062D9A1ECE93BE00886240 /* AreaListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D991ECE93BE00886240 /* AreaListModel.m */; };
 		3B062D9D1ECE93F500886240 /* AreaDetialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D9C1ECE93F500886240 /* AreaDetialModel.m */; };
@@ -124,6 +127,7 @@
 		3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D51E6FE2B40078379B /* SetViewController.m */; };
 		3B2670F71E6FE2B40078379B /* SharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D71E6FE2B40078379B /* SharedView.m */; };
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
+		3B2FE3E51EE167C2006E7045 /* GoodsClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FE3E41EE167C2006E7045 /* GoodsClassModel.m */; };
 		3B3AB9511EC16443000D71BB /* ImageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3AB9501EC16443000D71BB /* ImageTableViewCell.m */; };
 		3B3B329C1EC0C16600595832 /* VegeInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B329B1EC0C16600595832 /* VegeInfoModel.m */; };
 		3B3B3D741EA715FA00A32E56 /* LocationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B3D711EA715FA00A32E56 /* LocationModel.m */; };
@@ -135,7 +139,6 @@
 		3B3B3D841EA7168B00A32E56 /* SendCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3B3D7F1EA7168B00A32E56 /* SendCommentView.m */; };
 		3B3FE96F1ED57E2B005C4922 /* PoiDetialView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FE96E1ED57E2B005C4922 /* PoiDetialView.m */; };
 		3B3FE9961ED6A445005C4922 /* GoodsInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FE9951ED6A445005C4922 /* GoodsInfoModel.m */; };
-		3B3FE9991ED6B807005C4922 /* GoodsOrderModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B3FE9981ED6B807005C4922 /* GoodsOrderModel.m */; };
 		3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B422DAA1EA5B573005F0762 /* DetialNewsViewController.m */; };
 		3B4295BA1E9B7255001374F2 /* NewsArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295B81E9B7255001374F2 /* NewsArticleModel.m */; };
 		3B4295BD1E9B775C001374F2 /* NewsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4295BC1E9B775C001374F2 /* NewsListTableCell.m */; };
@@ -190,6 +193,8 @@
 		3B7217FC1EBF12AE00C79B69 /* VageDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7217FB1EBF12AE00C79B69 /* VageDetialViewController.m */; };
 		3B7217FF1EBF21A700C79B69 /* MyVageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7217FE1EBF21A700C79B69 /* MyVageTableViewCell.m */; };
 		3B7787491ECD954A00C2E5F6 /* UIButton+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7787481ECD954A00C2E5F6 /* UIButton+Category.m */; };
+		3BA06F7D1EE79987001EFD4D /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA06F7C1EE79987001EFD4D /* NSDate+Category.m */; };
+		3BA06F801EE79B88001EFD4D /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA06F7F1EE79B88001EFD4D /* NSDateFormatter+Category.m */; };
 		3BAB963D1EBDB35A00EB0562 /* VageStoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */; };
 		3BAC6A931EAEF58000D3CB8C /* PYPhotosPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */; };
 		3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */; };
@@ -211,9 +216,7 @@
 		3BB6934C1EA9DAF400E431E0 /* RightMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6934B1EA9DAF400E431E0 /* RightMoreView.m */; };
 		3BB6934F1EA9DE0200E431E0 /* MoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6934E1EA9DE0200E431E0 /* MoreItemView.m */; };
 		3BB8E0571ECA96C1004BDE09 /* GoodsDetialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E04E1ECA96C1004BDE09 /* GoodsDetialController.m */; };
-		3BB8E0581ECA96C1004BDE09 /* OrderListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E0501ECA96C1004BDE09 /* OrderListViewController.m */; };
 		3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */; };
-		3BB8E05A1ECA96C1004BDE09 /* OrderListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E0561ECA96C1004BDE09 /* OrderListTableCell.m */; };
 		3BB8E05D1ECA98A8004BDE09 /* GoodClassListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
@@ -269,6 +272,12 @@
 		3B03082C1EB8785D004B9F53 /* BookDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookDetialViewController.m; sourceTree = "<group>"; };
 		3B03082E1EB88E7F004B9F53 /* BookTableHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookTableHeadView.h; sourceTree = "<group>"; };
 		3B03082F1EB88E7F004B9F53 /* BookTableHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookTableHeadView.m; sourceTree = "<group>"; };
+		3B036EDB1EE502B400A5B89C /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
+		3B036EDC1EE502B400A5B89C /* OrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListViewController.m; sourceTree = "<group>"; };
+		3B036EDE1EE502B400A5B89C /* GoodsOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsOrderModel.h; sourceTree = "<group>"; };
+		3B036EDF1EE502B400A5B89C /* GoodsOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsOrderModel.m; sourceTree = "<group>"; };
+		3B036EE11EE502B400A5B89C /* OrderListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListTableCell.h; sourceTree = "<group>"; };
+		3B036EE21EE502B400A5B89C /* OrderListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListTableCell.m; sourceTree = "<group>"; };
 		3B062D8F1ECE8AE400886240 /* ServersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ServersViewController.h; sourceTree = "<group>"; };
 		3B062D901ECE8AE400886240 /* ServersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ServersViewController.m; sourceTree = "<group>"; };
 		3B062D981ECE93BE00886240 /* AreaListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AreaListModel.h; sourceTree = "<group>"; };
@@ -491,6 +500,8 @@
 		3B2670D81E6FE2B40078379B /* TitleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTableCell.h; sourceTree = "<group>"; };
 		3B2670D91E6FE2B40078379B /* TitleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTableCell.m; sourceTree = "<group>"; };
 		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3B2FE3E31EE167C2006E7045 /* GoodsClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsClassModel.h; sourceTree = "<group>"; };
+		3B2FE3E41EE167C2006E7045 /* GoodsClassModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsClassModel.m; sourceTree = "<group>"; };
 		3B3AB94F1EC16443000D71BB /* ImageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageTableViewCell.h; sourceTree = "<group>"; };
 		3B3AB9501EC16443000D71BB /* ImageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTableViewCell.m; sourceTree = "<group>"; };
 		3B3B329A1EC0C16600595832 /* VegeInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VegeInfoModel.h; sourceTree = "<group>"; };
@@ -513,8 +524,6 @@
 		3B3FE96E1ED57E2B005C4922 /* PoiDetialView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PoiDetialView.m; sourceTree = "<group>"; };
 		3B3FE9941ED6A445005C4922 /* GoodsInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsInfoModel.h; sourceTree = "<group>"; };
 		3B3FE9951ED6A445005C4922 /* GoodsInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsInfoModel.m; sourceTree = "<group>"; };
-		3B3FE9971ED6B807005C4922 /* GoodsOrderModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsOrderModel.h; sourceTree = "<group>"; };
-		3B3FE9981ED6B807005C4922 /* GoodsOrderModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsOrderModel.m; sourceTree = "<group>"; };
 		3B422DA91EA5B573005F0762 /* DetialNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DetialNewsViewController.h; sourceTree = "<group>"; };
 		3B422DAA1EA5B573005F0762 /* DetialNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DetialNewsViewController.m; sourceTree = "<group>"; };
 		3B4295B71E9B7255001374F2 /* NewsArticleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsArticleModel.h; sourceTree = "<group>"; };
@@ -621,6 +630,10 @@
 		3B7217FE1EBF21A700C79B69 /* MyVageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyVageTableViewCell.m; sourceTree = "<group>"; };
 		3B7787471ECD954A00C2E5F6 /* UIButton+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Category.h"; sourceTree = "<group>"; };
 		3B7787481ECD954A00C2E5F6 /* UIButton+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Category.m"; sourceTree = "<group>"; };
+		3BA06F7B1EE79987001EFD4D /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		3BA06F7C1EE79987001EFD4D /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
+		3BA06F7E1EE79B88001EFD4D /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
+		3BA06F7F1EE79B88001EFD4D /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
 		3BAB963B1EBDB35A00EB0562 /* VageStoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VageStoreTableViewCell.h; sourceTree = "<group>"; };
 		3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VageStoreTableViewCell.m; sourceTree = "<group>"; };
 		3BAC6A791EAEF58000D3CB8C /* PYPhotosPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosPreviewController.h; sourceTree = "<group>"; };
@@ -663,12 +676,8 @@
 		3BB6934E1EA9DE0200E431E0 /* MoreItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreItemView.m; sourceTree = "<group>"; };
 		3BB8E04D1ECA96C1004BDE09 /* GoodsDetialController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetialController.h; sourceTree = "<group>"; };
 		3BB8E04E1ECA96C1004BDE09 /* GoodsDetialController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetialController.m; sourceTree = "<group>"; };
-		3BB8E04F1ECA96C1004BDE09 /* OrderListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListViewController.h; sourceTree = "<group>"; };
-		3BB8E0501ECA96C1004BDE09 /* OrderListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListViewController.m; sourceTree = "<group>"; };
 		3BB8E0531ECA96C1004BDE09 /* GoodsListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsListTableCell.h; sourceTree = "<group>"; };
 		3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListTableCell.m; sourceTree = "<group>"; };
-		3BB8E0551ECA96C1004BDE09 /* OrderListTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderListTableCell.h; sourceTree = "<group>"; };
-		3BB8E0561ECA96C1004BDE09 /* OrderListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderListTableCell.m; sourceTree = "<group>"; };
 		3BB8E05B1ECA98A8004BDE09 /* GoodClassListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodClassListController.h; sourceTree = "<group>"; };
 		3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodClassListController.m; sourceTree = "<group>"; };
 		3BD049C11EAC967B0054F9EF /* TTLFSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLFSettingManager.h; sourceTree = "<group>"; };
@@ -773,6 +782,43 @@
 				EC978D0FBD303041FFE86125 /* Pods-TTLFUITests.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		3B036ED91EE502B400A5B89C /* 订单中心 */ = {
+			isa = PBXGroup;
+			children = (
+				3B036EDA1EE502B400A5B89C /* C */,
+				3B036EDD1EE502B400A5B89C /* M */,
+				3B036EE01EE502B400A5B89C /* V */,
+			);
+			path = "订单中心";
+			sourceTree = "<group>";
+		};
+		3B036EDA1EE502B400A5B89C /* C */ = {
+			isa = PBXGroup;
+			children = (
+				3B036EDB1EE502B400A5B89C /* OrderListViewController.h */,
+				3B036EDC1EE502B400A5B89C /* OrderListViewController.m */,
+			);
+			path = C;
+			sourceTree = "<group>";
+		};
+		3B036EDD1EE502B400A5B89C /* M */ = {
+			isa = PBXGroup;
+			children = (
+				3B036EDE1EE502B400A5B89C /* GoodsOrderModel.h */,
+				3B036EDF1EE502B400A5B89C /* GoodsOrderModel.m */,
+			);
+			path = M;
+			sourceTree = "<group>";
+		};
+		3B036EE01EE502B400A5B89C /* V */ = {
+			isa = PBXGroup;
+			children = (
+				3B036EE11EE502B400A5B89C /* OrderListTableCell.h */,
+				3B036EE21EE502B400A5B89C /* OrderListTableCell.m */,
+			);
+			path = V;
 			sourceTree = "<group>";
 		};
 		3B062DA31ED1871B00886240 /* QQSDK */ = {
@@ -1182,6 +1228,10 @@
 		3B266FE01E6FDEBB0078379B /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				3BA06F7B1EE79987001EFD4D /* NSDate+Category.h */,
+				3BA06F7C1EE79987001EFD4D /* NSDate+Category.m */,
+				3BA06F7E1EE79B88001EFD4D /* NSDateFormatter+Category.h */,
+				3BA06F7F1EE79B88001EFD4D /* NSDateFormatter+Category.m */,
 				3B266FE11E6FDEBB0078379B /* Foundation+Log.m */,
 				3B266FE21E6FDEBB0078379B /* NSString+Category.h */,
 				3B266FE31E6FDEBB0078379B /* NSString+Category.m */,
@@ -1335,6 +1385,7 @@
 		3B2670731E6FE2660078379B /* 探索 */ = {
 			isa = PBXGroup;
 			children = (
+				3B036ED91EE502B400A5B89C /* 订单中心 */,
 				3B5BA6111EC9CCB000A57DBF /* 主页 */,
 				3B5BA6051EC9CCB000A57DBF /* 产品相关 */,
 				3B5BA60E1EC9CCB000A57DBF /* 收货地址 */,
@@ -1920,8 +1971,6 @@
 				3B5A47291EDC030900511A04 /* PayOrderViewController.m */,
 				3B062D8F1ECE8AE400886240 /* ServersViewController.h */,
 				3B062D901ECE8AE400886240 /* ServersViewController.m */,
-				3BB8E04F1ECA96C1004BDE09 /* OrderListViewController.h */,
-				3BB8E0501ECA96C1004BDE09 /* OrderListViewController.m */,
 				3B0AF02B1ED805F9007436AE /* GoodsStandardController.h */,
 				3B0AF02C1ED805F9007436AE /* GoodsStandardController.m */,
 			);
@@ -1933,8 +1982,8 @@
 			children = (
 				3B3FE9941ED6A445005C4922 /* GoodsInfoModel.h */,
 				3B3FE9951ED6A445005C4922 /* GoodsInfoModel.m */,
-				3B3FE9971ED6B807005C4922 /* GoodsOrderModel.h */,
-				3B3FE9981ED6B807005C4922 /* GoodsOrderModel.m */,
+				3B2FE3E31EE167C2006E7045 /* GoodsClassModel.h */,
+				3B2FE3E41EE167C2006E7045 /* GoodsClassModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1946,8 +1995,6 @@
 				3B0AF0331ED81AC5007436AE /* PayOrderView.m */,
 				3BB8E0531ECA96C1004BDE09 /* GoodsListTableCell.h */,
 				3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */,
-				3BB8E0551ECA96C1004BDE09 /* OrderListTableCell.h */,
-				3BB8E0561ECA96C1004BDE09 /* OrderListTableCell.m */,
 				3B11DB7A1ED43DD90037AABA /* GoodDetialFootView.h */,
 				3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */,
 			);
@@ -2438,12 +2485,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				3B062DA01ECEDF5000886240 /* PlaceDiscussModel.m in Sources */,
-				3BB8E05A1ECA96C1004BDE09 /* OrderListTableCell.m in Sources */,
 				3B5BA62B1EC9CF8600A57DBF /* AddressTableViewCell.m in Sources */,
 				3B4838381EB8CBAC0053BC8D /* ReaderThumbCache.m in Sources */,
 				3B6B6E971EB47A2100597A84 /* NewsCommentModel.m in Sources */,
 				3B266FD11E6FDCB60078379B /* Account.m in Sources */,
 				3B2670571E6FDEBB0078379B /* XLZoomingScrollView.m in Sources */,
+				3BA06F7D1EE79987001EFD4D /* NSDate+Category.m in Sources */,
 				3BAB963D1EBDB35A00EB0562 /* VageStoreTableViewCell.m in Sources */,
 				3B48383E1EB8CBAC0053BC8D /* ReaderThumbView.m in Sources */,
 				3BE1879E1EAF2A9500EDDD8F /* TZImageManager.m in Sources */,
@@ -2467,6 +2514,7 @@
 				3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */,
 				3BAC6A951EAEF58000D3CB8C /* PYPhotosViewController.m in Sources */,
 				3BF197C31EBDB28100E8EA03 /* FindVageViewController.m in Sources */,
+				3B036EE51EE502B400A5B89C /* OrderListTableCell.m in Sources */,
 				3BF197C61EBDB28100E8EA03 /* FindVageTableViewCell.m in Sources */,
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
 				3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */,
@@ -2485,6 +2533,7 @@
 				3B062D9A1ECE93BE00886240 /* AreaListModel.m in Sources */,
 				3B26703F1E6FDEBB0078379B /* MBProgressHUD+MJ.m in Sources */,
 				3B5BA5F21EC9794500A57DBF /* PlacePicturesController.m in Sources */,
+				3B2FE3E51EE167C2006E7045 /* GoodsClassModel.m in Sources */,
 				3B1F15041EA7536D00DFAFAE /* LifoResourceModel.m in Sources */,
 				3BB8E05D1ECA98A8004BDE09 /* GoodClassListController.m in Sources */,
 				3B1F150E1EA7536D00DFAFAE /* ZanViewController.m in Sources */,
@@ -2530,6 +2579,7 @@
 				3B3B3D841EA7168B00A32E56 /* SendCommentView.m in Sources */,
 				3B1F05CE1E792BD2005173B9 /* YearMonthPickerView.m in Sources */,
 				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
+				3B036EE41EE502B400A5B89C /* GoodsOrderModel.m in Sources */,
 				3BF197C71EBDB28100E8EA03 /* StoreVageViewController.m in Sources */,
 				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
 				3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */,
@@ -2543,6 +2593,7 @@
 				3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */,
 				3B3FE9961ED6A445005C4922 /* GoodsInfoModel.m in Sources */,
 				3B5BA5F11EC9794500A57DBF /* PlaceDetialController.m in Sources */,
+				3BA06F801EE79B88001EFD4D /* NSDateFormatter+Category.m in Sources */,
 				3B1F150A1EA7536D00DFAFAE /* FopaiShowView.m in Sources */,
 				3B2670EE1E6FE2B40078379B /* NavigationView.m in Sources */,
 				3B2670371E6FDEBB0078379B /* UIBarButtonItem+Extension.m in Sources */,
@@ -2604,13 +2655,11 @@
 				3BAC6A9C1EAEF58000D3CB8C /* PYPhotosView.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
 				3BF197C41EBDB28100E8EA03 /* SearchVageViewController.m in Sources */,
-				3BB8E0581ECA96C1004BDE09 /* OrderListViewController.m in Sources */,
 				3B4838301EB8CBAC0053BC8D /* ReaderConstants.m in Sources */,
 				3B5A472A1EDC030900511A04 /* PayOrderViewController.m in Sources */,
 				3B5BA5F31EC9794500A57DBF /* PlaceDetialModel.m in Sources */,
 				3B48383B1EB8CBAC0053BC8D /* ReaderThumbRender.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
-				3B3FE9991ED6B807005C4922 /* GoodsOrderModel.m in Sources */,
 				3BAC6AA41EAEF5B500D3CB8C /* FLAnimatedImageView.m in Sources */,
 				3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */,
 				3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */,
@@ -2632,6 +2681,7 @@
 				3B03082A1EB86C97004B9F53 /* MyBooksTableViewCell.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
 				3BAC6A9D1EAEF58000D3CB8C /* PYPhotoView.m in Sources */,
+				3B036EE31EE502B400A5B89C /* OrderListViewController.m in Sources */,
 				3BF197C11EBDB28100E8EA03 /* ShareVageViewController.m in Sources */,
 				3B2670541E6FDEBB0078379B /* UIView+XLExtension.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,

@@ -11,6 +11,7 @@
 #import <Masonry.h>
 #import "GoodClassHeadView.h"
 #import "GoodsDetialController.h"
+#import <MJRefresh.h>
 
 
 @interface GoodClassListController ()<UITableViewDelegate,UITableViewDataSource>
@@ -21,14 +22,27 @@
 @property (copy,nonatomic) NSArray *array;
 /** 头部 */
 @property (strong,nonatomic) GoodClassHeadView *headView;
+/** 分类模型 */
+@property (strong,nonatomic) GoodsClassModel *goodsCateModel;
+
 
 @end
 
+
 @implementation GoodClassListController
+
+- (instancetype)initWithModel:(GoodsClassModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.goodsCateModel = model;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"紫檀系列";
+    self.title = self.goodsCateModel.cate_name;
     [self setupSubViews];
 }
 
@@ -41,9 +55,30 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
-    self.headView = [[GoodClassHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 250*CKproportion)];
+    self.headView = [[GoodClassHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 280*CKproportion)];
+    
     self.headView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = self.headView;
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [[TTLFManager sharedManager].networkManager goodsListWithCateModel:self.goodsCateModel Success:^(NSArray *array) {
+            self.tableView.hidden = NO;
+            [self hidesBottomBarWhenPushed];
+            [self.tableView.mj_header endRefreshing];
+            self.array = array;
+            for (int i = 0; i < array.count; i++) {
+                GoodsInfoModel *model = array[i];
+                self.headView.model = model;
+            }
+            [self.tableView reloadData];
+            
+        } Fail:^(NSString *errorMsg) {
+            self.tableView.hidden = YES;
+            [self showEmptyViewWithMessage:errorMsg];
+            [self.tableView.mj_header endRefreshing];
+        }];
+    }];
+    [self.tableView.mj_header beginRefreshing];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -52,13 +87,14 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return self.array.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    GoodsInfoModel *goodsInfo = self.array[indexPath.row];
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-    cell.titleLabel.text = @"1.8厘米小叶紫檀";
-    cell.iconView.image = [UIImage imageWithColor:HWRandomColor];
+    cell.titleLabel.text = goodsInfo.article_name;
+    [cell.iconView sd_setImageWithURL:[NSURL URLWithString:goodsInfo.article_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
     [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.mas_left).offset(15);
         make.centerY.equalTo(cell.mas_centerY);

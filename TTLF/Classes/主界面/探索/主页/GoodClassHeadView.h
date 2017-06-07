@@ -10,6 +10,7 @@
 
 @interface GoodClassHeadView : UIView
 
-
+// 推荐的商品
+@property (strong,nonatomic) GoodsInfoModel *model;
 
 @end

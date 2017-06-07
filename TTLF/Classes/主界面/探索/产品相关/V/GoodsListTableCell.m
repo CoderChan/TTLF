@@ -41,6 +41,13 @@
     return self;
 }
 
+- (void)setCateModel:(GoodsClassModel *)cateModel
+{
+    _cateModel = cateModel;
+    [_goodsImgView sd_setImageWithURL:[NSURL URLWithString:cateModel.cate_img] placeholderImage:[UIImage imageNamed:@"mac_place"]];
+    _goodsClassLabel.text = cateModel.cate_name;
+}
+
 - (void)setupSubViews
 {
     // 商品分类的封面图
@@ -48,7 +55,7 @@
     [self.contentView addSubview:self.goodsImgView];
     [self.goodsImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(15);
-        make.right.equalTo(self.contentView.mas_centerX).offset(20);
+        make.right.equalTo(self.contentView.mas_centerX).offset(-15);
         make.top.equalTo(self.contentView.mas_top).offset(10);
         make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
     }];
@@ -60,7 +67,7 @@
     [self.contentView addSubview:self.goodsClassLabel];
     [self.goodsClassLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerY.equalTo(self.contentView.mas_centerY);
-        make.left.equalTo(self.mas_centerX).offset(17);
+        make.left.equalTo(self.goodsImgView.mas_right).offset(10);
         make.height.equalTo(@30);
     }];
 }

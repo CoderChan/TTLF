@@ -11,7 +11,6 @@
 #import "PYPhotoBrowser.h"
 #import <LCActionSheet.h>
 #import "TZImagePickerController.h"
-#import "PYPhotoBrowser.h"
 #import <Masonry.h>
 #import "VageDetialViewController.h"
 

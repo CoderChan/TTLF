@@ -20,6 +20,7 @@
 #import "NSString+Category.h"
 #import <UIImageView+WebCache.h>
 #import "NSString+Category.h"
+#import "NSDate+Category.h"
 #import "UIViewController+Category.h"
 
 

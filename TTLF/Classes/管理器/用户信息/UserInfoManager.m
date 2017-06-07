@@ -10,7 +10,6 @@
 #import "AccountTool.h"
 
 
-
 @implementation UserInfoManager
 
 #pragma mark - 单例初始化
@@ -41,6 +40,7 @@
     NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
     [UD setObject:userModel.userID forKey:UuserID];
     [UD setObject:userModel.unionid forKey:Uunionid];
+    [UD setObject:[NSString stringWithFormat:@"%d",userModel.type] forKey:Utype];
     [UD setObject:userModel.isOutHome forKey:UisOutHome];
     [UD setObject:userModel.phoneNum forKey:UphoneNum];
     [UD setObject:userModel.nickName forKey:UnickName];
@@ -81,6 +81,7 @@
     // 用户信息
     [UD removeObjectForKey:UuserID];
     [UD removeObjectForKey:Uunionid];
+    [UD removeObjectForKey:Utype];
     [UD removeObjectForKey:UisOutHome];
     [UD removeObjectForKey:UphoneNum];
     [UD removeObjectForKey:UnickName];
@@ -108,6 +109,7 @@
     NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
     NSString *userID = [UD objectForKey:UuserID];
     NSString *unionid = [UD objectForKey:Uunionid];
+    NSString *type = [UD objectForKey:Utype];
     NSString *isOutHome = [UD objectForKey:UisOutHome];
     NSString *phoneNum = [UD objectForKey:UphoneNum];
     NSString *nickName = [UD objectForKey:UnickName];
@@ -124,6 +126,7 @@
     
     userModel.userID = userID;
     userModel.unionid = unionid;
+    userModel.type = [type intValue];
     userModel.isOutHome = isOutHome;
     userModel.phoneNum = phoneNum;
     userModel.nickName = nickName;

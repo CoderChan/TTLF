@@ -23,6 +23,7 @@ extern NSString *const LastPusaImgURL; // 上一次礼佛的佛像图片地址
 
 extern NSString *const UuserID; // 用户ID
 extern NSString *const Uunionid; // 微信标识ID
+extern NSString *const Utype; // 用户身份类型
 extern NSString *const UisOutHome; // 是否皈依
 extern NSString *const UphoneNum; // 电话号码
 extern NSString *const UnickName; // 昵称

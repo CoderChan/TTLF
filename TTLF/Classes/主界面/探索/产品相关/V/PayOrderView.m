@@ -98,7 +98,7 @@
     
     // 商品封面
     self.coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(20, 10, 80, 80)];
-    [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:self.goodsModel.cover_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [self.coverImgView sd_setImageWithURL:[NSURL URLWithString:self.goodsModel.article_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
     self.coverImgView.userInteractionEnabled = YES;
     self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleWidth & UIViewAutoresizingFlexibleHeight;
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;

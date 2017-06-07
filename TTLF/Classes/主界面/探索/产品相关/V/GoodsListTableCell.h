@@ -8,11 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-/******* 商品清单的cell *******/
+/******* 商品分类的cell *******/
 @interface GoodsListTableCell : UITableViewCell
 
-
-
+/** 商品分类模型 */
+@property (strong,nonatomic) GoodsClassModel *cateModel;
+/** 初始化 */
 + (instancetype)sharedGoodsListTableCell:(UITableView *)tableView;
 
 @end

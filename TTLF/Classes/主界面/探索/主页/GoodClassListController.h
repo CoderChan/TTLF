@@ -10,4 +10,6 @@
 
 @interface GoodClassListController : SuperViewController
 
+- (instancetype)initWithModel:(GoodsClassModel *)model;
+
 @end

@@ -14,6 +14,8 @@
 @property (copy,nonatomic) NSString *userID;
 /** 微信的标示ID */
 @property (copy,nonatomic) NSString *unionid;
+/** 用户身份 -- 0：超级管理员，1：普通管理员，2：普通用户 */
+@property (assign,nonatomic) int type;
 /** 手机号码 */
 @property (copy,nonatomic) NSString *phoneNum;
 /** 在家还是出家 */

@@ -16,6 +16,8 @@
 @property (strong,nonatomic) UIImageView *headIMGView;
 /** 昵称 */
 @property (strong,nonatomic) UILabel *nameLabel;
+/** 身份用户身份信息 */
+@property (strong,nonatomic) UILabel *typeLabel;
 
 @end
 
@@ -37,6 +39,21 @@
     _userModel = userModel;
     _nameLabel.text = userModel.nickName;
     [_headIMGView sd_setImageWithURL:[NSURL URLWithString:userModel.headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    if (userModel.type == 6) {
+        _nameLabel.textColor = GoldColor;
+        _typeLabel.textColor = RGBACOLOR(253, 199, 40, 1);
+        _typeLabel.text = @"超级管理员";
+    }else if (userModel.type == 7){
+        _nameLabel.textColor = GoldColor;
+        _typeLabel.textColor = RGBACOLOR(253, 199, 40, 1);;
+        _typeLabel.text = @"普通管理员";
+    }else if (userModel.type == 8){
+//        [_typeLabel removeFromSuperview];
+        _typeLabel.text = @"普通用户";
+    }else{
+        _typeLabel.text = [NSString stringWithFormat:@"type=%d",userModel.type];
+//        [_typeLabel removeFromSuperview];
+    }
 }
 
 - (void)setupSubViews
@@ -66,6 +83,19 @@
     [self addSubview:self.nameLabel];
     [self.nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.headIMGView.mas_bottom).offset(5);
+        make.centerX.equalTo(self.mas_centerX);
+        make.height.equalTo(@21);
+    }];
+    
+    // 身份信息
+    self.typeLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+    self.typeLabel.text = @"普通用户";
+    self.typeLabel.font = [UIFont systemFontOfSize:14];
+    self.typeLabel.textColor = [UIColor whiteColor];
+    self.typeLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:self.typeLabel];
+    [self.typeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.nameLabel.mas_bottom).offset(1);
         make.centerX.equalTo(self.mas_centerX);
         make.height.equalTo(@21);
     }];

@@ -92,7 +92,6 @@
     RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:province];
     province.SelectProvinceBlock = ^(AreaDetialModel *areaModel) {
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:areaModel.province_name style:UIBarButtonItemStylePlain target:self action:@selector(ChangeProvinceAction)];
-//        [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor whiteColor],NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleCaption1]} forState:UIControlStateNormal];
         // 刷新界面
         [[TTLFManager sharedManager].networkManager placeListWithModel:areaModel Success:^(NSArray *array) {
             self.tableView.hidden = NO;

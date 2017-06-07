@@ -25,6 +25,8 @@
 #import "PlaceDiscussModel.h"
 #import "PlaceDetialModel.h"
 #import "AddressModel.h"
+#import "GoodsClassModel.h"
+#import "GoodsInfoModel.h"
 
 
 
@@ -166,6 +168,11 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)deleteAddressWithModel:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 设置默认地址
 - (void)setDefaultAddress:(AddressModel *)addressModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+
+// 获取商品分类列表
+- (void)shopClassListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 获取商品分类下的商品列表
+- (void)goodsListWithCateModel:(GoodsClassModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
 @end

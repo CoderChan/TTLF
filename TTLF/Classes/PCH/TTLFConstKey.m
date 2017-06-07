@@ -20,6 +20,7 @@ NSString *const LastPusaImgURL = @"LastPusaImgURL";
 
 NSString *const UuserID = @"UuserID";
 NSString *const Uunionid = @"unionid";
+NSString *const Utype = @"Utype";
 NSString *const UisOutHome = @"UisOutHome";
 NSString *const UphoneNum = @"UphoneNum";
 NSString *const UnickName = @"UnickName";
