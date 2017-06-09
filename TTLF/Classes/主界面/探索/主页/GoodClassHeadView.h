@@ -10,7 +10,7 @@
 
 @interface GoodClassHeadView : UIView
 // 点击事件
-@property (copy,nonatomic) void (^DidClickBlock)();
+@property (copy,nonatomic) void (^DidClickBlock)(GoodsInfoModel *model);
 // 推荐的商品
 @property (strong,nonatomic) GoodsInfoModel *model;
 

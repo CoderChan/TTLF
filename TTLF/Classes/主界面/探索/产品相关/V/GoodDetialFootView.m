@@ -29,6 +29,13 @@
         [self setupSubViews];
     }
     return self;
+    
+}
+
+- (void)setModel:(GoodsInfoModel *)model
+{
+    _model = model;
+    
 }
 
 - (void)setupSubViews

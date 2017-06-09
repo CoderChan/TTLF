@@ -209,9 +209,12 @@
     if (indexPath.section == 0) {
         return (self.view.height - 64 - 50)*0.7;
     }else if (indexPath.section == 1){
-        return 75;
+        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
+        CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
+        CGFloat height = size.height + 10 + 30 + 20;
+        return height;
     }else {
-        return 50;
+        return 55;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -338,9 +341,13 @@
 - (UILabel *)nameLabel
 {
     if (!_nameLabel) {
-        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, self.view.width - 30, 24)];
+        
+        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
+        CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
+        _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, self.view.width - 30, size.height + 10)];
         _nameLabel.numberOfLines = 2;
-        _nameLabel.text = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
+        _nameLabel.font = [UIFont systemFontOfSize:16];
+        _nameLabel.text = nameStr;
     }
     return _nameLabel;
 }

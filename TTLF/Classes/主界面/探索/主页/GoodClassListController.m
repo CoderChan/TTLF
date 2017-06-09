@@ -59,26 +59,21 @@
     [self.view addSubview:self.tableView];
     
     self.headView = [[GoodClassHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 280*CKproportion)];
-    self.headView.DidClickBlock = ^{
-        GoodsInfoModel *goodsModel = [[GoodsInfoModel alloc]init];
-        for (int i = 0; i < copySelf.array.count; i++) {
-            GoodsInfoModel *model = copySelf.array[i];
-            if (model.is_recommend) {
-                goodsModel = model;
-            }
-        }
+    self.headView.DidClickBlock = ^(GoodsInfoModel *model){
         
-        GoodsDetialController *detial = [[GoodsDetialController alloc]initWithModel:goodsModel];
+        GoodsDetialController *detial = [[GoodsDetialController alloc]initWithModel:model];
         [copySelf.navigationController pushViewController:detial animated:YES];
+        
     };
     self.headView.backgroundColor = [UIColor whiteColor];
-    self.tableView.tableHeaderView = self.headView;
+    
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager goodsListWithCateModel:self.goodsCateModel Success:^(NSArray *array) {
-            self.tableView.hidden = NO;
+            
             [self hidesBottomBarWhenPushed];
             [self.tableView.mj_header endRefreshing];
+            self.tableView.tableHeaderView = self.headView;
             self.array = array;
             for (int i = 0; i < array.count; i++) {
                 GoodsInfoModel *model = array[i];
@@ -89,7 +84,7 @@
             [self.tableView reloadData];
             
         } Fail:^(NSString *errorMsg) {
-            self.tableView.hidden = YES;
+            self.tableView.tableHeaderView = nil;
             [self showEmptyViewWithMessage:errorMsg];
             [self.tableView.mj_header endRefreshing];
         }];

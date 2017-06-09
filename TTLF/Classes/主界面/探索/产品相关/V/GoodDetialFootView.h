@@ -10,6 +10,6 @@
 
 @interface GoodDetialFootView : UIView
 
-
+@property (strong,nonatomic) GoodsInfoModel *model;
 
 @end
