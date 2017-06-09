@@ -22,6 +22,9 @@
 
 
 @interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,RightMoreViewDelegate>
+
+// 商品模型
+@property (strong,nonatomic) GoodsInfoModel *model;
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
@@ -39,6 +42,15 @@
 @end
 
 @implementation GoodsDetialController
+
+- (instancetype)initWithModel:(GoodsInfoModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.model = model;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -93,7 +105,7 @@
     [taobaoBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [taobaoBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         
-        NormalWebViewController *taobao = [[NormalWebViewController alloc]initWithUrlStr:TaobaoGoodsURL];
+        NormalWebViewController *taobao = [[NormalWebViewController alloc]initWithUrlStr:self.model.article_describe];
         [self.navigationController pushViewController:taobao animated:YES];
         
     }];
@@ -188,14 +200,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 2) {
-        GoodsStandardController *tandard = [[GoodsStandardController alloc]init];
+        GoodsStandardController *tandard = [[GoodsStandardController alloc]initWithModel:self.model];
         [self.navigationController pushViewController:tandard animated:YES];
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        return (self.view.height - 64 - 50)*0.75;
+        return (self.view.height - 64 - 50)*0.7;
     }else if (indexPath.section == 1){
         return 75;
     }else {
@@ -225,6 +237,85 @@
 - (void)rightMoreViewWithClickType:(MoreItemClickType)clickType
 {
     
+    NSString *shareUrl = [NSString stringWithFormat:@"%@%@",self.model.web_url,self.model.goods_id];
+    if (clickType == WechatFriendType) {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = self.model.article_name;
+        message.description = self.model.goods_desc;
+        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = shareUrl;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 0;
+        [WXApi sendReq:req];
+    }else if(clickType == WechatQuanType){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = self.model.article_name;
+        message.description = self.model.goods_desc;
+        [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = shareUrl;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 1;
+        [WXApi sendReq:req];
+    }else if (clickType == StoreClickType){
+        [MBProgressHUD showSuccess:@"已收藏"];
+    }else if (clickType == QQFriendType){
+        
+        NSString *title = self.model.article_name;
+        NSString *description = self.model.goods_desc;
+        NSString *previewImageUrl = self.model.article_logo;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qq
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
+        
+    }else if (clickType == QQSpaceType){
+        
+        NSString *title = self.model.article_name;
+        NSString *description = self.model.goods_desc;
+        NSString *previewImageUrl = self.model.article_logo;
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        //将内容分享到qzone
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
+        
+    }else if (clickType == OpenAtSafariType){
+        // Safari打开
+        NSURL *url = [NSURL URLWithString:shareUrl];
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+            
+        }];
+    }else if (clickType == SystermShareType){
+        // 系统分享
+        NSURL *url = [NSURL URLWithString:shareUrl];
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[[UIImage imageNamed:@"app_logo"],self.model.article_name,url] applicationActivities:nil];
+        [self presentViewController:activity animated:YES completion:^{
+            
+        }];
+    }else if (clickType == CopyUrlType){
+        // 复制链接
+        UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+        pasteboard.string = shareUrl;
+        [MBProgressHUD showSuccess:@"已复制到剪切板"];
+    }else if (clickType == RefreshType){
+        // 重新加载网页
+        
+    }else if (clickType == StopLoadType){
+        
+    }
 }
 #pragma mark - 相关代理
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
@@ -237,9 +328,9 @@
 - (SDCycleScrollView *)scrollView
 {
     if (!_scrollView) {
-        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.75) delegate:self placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70) delegate:self placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
         _scrollView.autoScroll = NO;
-        _scrollView.imageURLStringsGroup = @[@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png",@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png",@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png",@"http://photocdn.sohu.com/20150716/mp23060992_1437043605508_5.png"];
+        _scrollView.imageURLStringsGroup = @[self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo];
         
     }
     return _scrollView;
@@ -249,7 +340,7 @@
     if (!_nameLabel) {
         _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, self.view.width - 30, 24)];
         _nameLabel.numberOfLines = 2;
-        _nameLabel.text = @"母亲节特惠，1.5厘米小叶紫檀";
+        _nameLabel.text = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
     }
     return _nameLabel;
 }
@@ -260,7 +351,7 @@
         _salePriceLabel.textColor = WarningColor;
         _salePriceLabel.backgroundColor = [UIColor clearColor];
         _salePriceLabel.font = [UIFont systemFontOfSize:16];
-        _salePriceLabel.text = @"￥599";
+        _salePriceLabel.text = [NSString stringWithFormat:@"￥%@",self.model.sale_price];
         
         // 富文本
         NSMutableAttributedString *graytext = [[NSMutableAttributedString alloc] initWithString:_salePriceLabel.text];
@@ -276,7 +367,7 @@
 {
     if (!_oldPriceLabel) {
         _oldPriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(_salePriceLabel.frame) + 5, _salePriceLabel.y, 100, 30)];
-        _oldPriceLabel.text = @"￥899";
+        _oldPriceLabel.text = self.model.original_price;
         _oldPriceLabel.userInteractionEnabled = YES;
         _oldPriceLabel.font = [UIFont systemFontOfSize:16];
         _oldPriceLabel.textColor = RGBACOLOR(87, 87, 87, 1);

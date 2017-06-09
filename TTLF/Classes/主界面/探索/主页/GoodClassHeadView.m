@@ -73,6 +73,14 @@
     }];
     
     
+    // 添加点击事件
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        if (self.DidClickBlock) {
+            _DidClickBlock();
+        }
+    }];
+    [self addGestureRecognizer:tap];
+    
 }
 
 @end

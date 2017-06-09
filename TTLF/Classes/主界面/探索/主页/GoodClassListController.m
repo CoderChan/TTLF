@@ -48,6 +48,9 @@
 
 - (void)setupSubViews
 {
+    
+    __weak GoodClassListController *copySelf = self;
+    
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -56,7 +59,18 @@
     [self.view addSubview:self.tableView];
     
     self.headView = [[GoodClassHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 280*CKproportion)];
-    
+    self.headView.DidClickBlock = ^{
+        GoodsInfoModel *goodsModel = [[GoodsInfoModel alloc]init];
+        for (int i = 0; i < copySelf.array.count; i++) {
+            GoodsInfoModel *model = copySelf.array[i];
+            if (model.is_recommend) {
+                goodsModel = model;
+            }
+        }
+        
+        GoodsDetialController *detial = [[GoodsDetialController alloc]initWithModel:goodsModel];
+        [copySelf.navigationController pushViewController:detial animated:YES];
+    };
     self.headView.backgroundColor = [UIColor whiteColor];
     self.tableView.tableHeaderView = self.headView;
     
@@ -68,7 +82,9 @@
             self.array = array;
             for (int i = 0; i < array.count; i++) {
                 GoodsInfoModel *model = array[i];
-                self.headView.model = model;
+                if (model.is_recommend) {
+                    self.headView.model = model;
+                }
             }
             [self.tableView reloadData];
             
@@ -105,7 +121,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    GoodsDetialController *detial = [GoodsDetialController new];
+    GoodsInfoModel *goodsInfo = self.array[indexPath.row];
+    GoodsDetialController *detial = [[GoodsDetialController alloc]initWithModel:goodsInfo];
     [self.navigationController pushViewController:detial animated:YES];
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

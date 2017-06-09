@@ -11,9 +11,22 @@
 
 @interface GoodsStandardController ()
 
+@property (strong,nonatomic) GoodsInfoModel *model;
+
+@property (strong,nonatomic) UIWebView *webView;
+
 @end
 
 @implementation GoodsStandardController
+
+- (instancetype)initWithModel:(GoodsInfoModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.model = model;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -24,6 +37,11 @@
 
 - (void)setupSubViews
 {
+    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
+    self.webView.backgroundColor = self.view.backgroundColor;
+    [self.view addSubview:self.webView];
+    
+    [self.webView loadHTMLString:self.model.standard baseURL:[NSURL URLWithString:@"app.yangruyi.com"]];
     
 }
 

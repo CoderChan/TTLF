@@ -30,7 +30,6 @@
         [UIFont boldSystemFontOfSize:18],NSFontAttributeName, nil]];
     [[UINavigationBar appearance] setBarStyle:UIBarStyleBlackTranslucent];
     
-    
     [[UIBarButtonItem appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} forState:UIControlStateNormal];
     
 }

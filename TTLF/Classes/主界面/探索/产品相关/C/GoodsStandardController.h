@@ -10,4 +10,6 @@
 
 @interface GoodsStandardController : SuperViewController
 
+- (instancetype)initWithModel:(GoodsInfoModel *)model;
+
 @end

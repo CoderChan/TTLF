@@ -9,7 +9,8 @@
 #import <UIKit/UIKit.h>
 
 @interface GoodClassHeadView : UIView
-
+// 点击事件
+@property (copy,nonatomic) void (^DidClickBlock)();
 // 推荐的商品
 @property (strong,nonatomic) GoodsInfoModel *model;
 

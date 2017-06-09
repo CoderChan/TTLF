@@ -985,7 +985,8 @@
     NSString *url = @"http://app.yangruyi.com/home/Index/qiancheng";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
-    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Index/qiancheng?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"礼佛资源 = %@",allurl);
     
     [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
 //        NSLog(@"礼佛资源 = %@",responseObject);

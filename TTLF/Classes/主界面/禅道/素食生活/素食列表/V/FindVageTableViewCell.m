@@ -63,7 +63,6 @@
     // 封面
     self.coverImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"vage_place"]];
     self.coverImgView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 220*CKproportion);
-//    self.coverImgView.userInteractionEnabled = YES;
     self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.coverImgView.layer.masksToBounds = YES;
