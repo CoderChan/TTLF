@@ -13,7 +13,7 @@
 #import <MAMapKit/MAAnnotation.h>
 #import <UIButton+WebCache.h>
 #import "PoiDetialView.h"
-#import "XLPhotoBrowser.h"
+#import "PYPhotoBrowser.h"
 #import <AMapSearchKit/AMapSearchKit.h>
 
 @interface BigMapViewController ()<MAMapViewDelegate,AMapSearchDelegate,AMapLocationManagerDelegate,PoiViewDelegate>
@@ -209,7 +209,9 @@
             for (AMapImage *mapImage in poiModel.images) {
                 [tempArray addObject:mapImage.url];
             }
-            [XLPhotoBrowser showPhotoBrowserWithImages:tempArray currentImageIndex:0];
+            PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:tempArray originalUrls:tempArray];
+            [self.view addSubview:photosView];
+            
         }
     }
 }

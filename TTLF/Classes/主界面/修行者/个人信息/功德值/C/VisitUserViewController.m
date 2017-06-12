@@ -8,12 +8,13 @@
 
 #import "VisitUserViewController.h"
 #import "NormalTableViewCell.h"
-#import "XLPhotoBrowser.h"
+
 #import <LCActionSheet.h>
 #import "DrawCircleView.h"
 #import "PunnaListViewController.h"
 #import "AboutPunnaViewController.h"
 #import <Masonry.h>
+#import "PYPhotoBrowser.h"
 
 
 
@@ -279,7 +280,10 @@
                 LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
                     if (buttonIndex == 1) {
                         // 预览大图
-                        [XLPhotoBrowser showPhotoBrowserWithImages:@[_backImageView.image] currentImageIndex:0];
+//                        [XLPhotoBrowser showPhotoBrowserWithImages:@[_backImageView.image] currentImageIndex:0];
+                        
+                        PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[_backImageView.image] originalUrls:@[_backImageView.image]];
+                        [self.view addSubview:photosView];
                     } else if(buttonIndex == 2){
                         // 更改背景图
                         [self pickerImageAction];
@@ -288,7 +292,8 @@
                 [sheet show];
             }else{
                 // 他人
-                [XLPhotoBrowser showPhotoBrowserWithImages:@[_backImageView.image] currentImageIndex:0];
+                PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[_backImageView.image] originalUrls:@[_backImageView.image]];
+                [self.view addSubview:photosView];
             }
         }];
         [_backImageView addGestureRecognizer:tap];
@@ -315,7 +320,8 @@
         _headImageView.layer.shadowRadius = 5.0;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-            [XLPhotoBrowser showPhotoBrowserWithImages:@[_headImageView.image] currentImageIndex:0];
+            PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[_backImageView.image] originalUrls:@[_backImageView.image]];
+            [self.view addSubview:photosView];
         }];
         [_headImageView addGestureRecognizer:tap];
     }

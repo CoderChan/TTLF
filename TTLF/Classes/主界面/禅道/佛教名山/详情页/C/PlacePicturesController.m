@@ -8,11 +8,12 @@
 
 #import "PlacePicturesController.h"
 #import "PictureCollectionCell.h"
-#import "XLPhotoBrowser.h"
+#import "PYPhotoBrowser.h"
+
 
 #define SpaceNum 2
 
-@interface PlacePicturesController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,XLPhotoBrowserDelegate>
+@interface PlacePicturesController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,PYPhotoBrowseViewDataSource,PYPhotoBrowseViewDelegate>
 
 /** 表格 */
 @property (strong,nonatomic) UICollectionView *collectionView;
@@ -62,6 +63,16 @@
         [self hideMessageAction];
         self.collectionView.hidden = NO;
         [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
+//        [self.array addObjectsFromArray:array];
         [self.collectionView reloadData];
     } Fail:^(NSString *errorMsg) {
         self.collectionView.hidden = YES;
@@ -92,14 +103,6 @@
     cell.img_url = self.array[indexPath.row];
     return cell;
 }
-- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:self.array currentImageIndex:indexPath.row];
-    brower.browserStyle = XLPhotoBrowserStyleSimple;
-    brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
-    [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
-}
-
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(SpaceNum, SpaceNum, SpaceNum, SpaceNum);
@@ -112,6 +115,13 @@
     }
     return _array;
 }
+
+#pragma mark - 图片浏览器
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
 
 
 @end

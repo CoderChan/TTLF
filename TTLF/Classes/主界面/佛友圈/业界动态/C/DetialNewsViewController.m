@@ -12,7 +12,7 @@
 #import "SendCommentView.h"
 #import <LCActionSheet.h>
 #import "RightMoreView.h"
-#import "XLPhotoBrowser.h"
+#import "PYPhotoBrowser.h"
 #import <TencentOpenAPI/TencentApiInterface.h>
 #import <TencentOpenAPI/QQApiInterface.h>
 
@@ -21,7 +21,7 @@
 
 #define BottomHeight 50
 
-@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate,SendCommentDelegate,XLPhotoBrowserDelegate>
+@interface DetialNewsViewController ()<UIWebViewDelegate,UIImagePickerControllerDelegate, UINavigationControllerDelegate,LCActionSheetDelegate,RightMoreViewDelegate,SendCommentDelegate>
 {
     BOOL theBool;
     UIProgressView* myProgressView;
@@ -328,32 +328,6 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - 图片浏览器代理
-- (void)photoBrowser:(XLPhotoBrowser *)browser clickActionSheetIndex:(NSInteger)actionSheetindex currentImageIndex:(NSInteger)currentImageIndex
-{
-    switch (actionSheetindex) {
-        case 0:
-        {
-            // 发送给朋友
-            UIImage *image = browser.sourceImageView.image;
-            if (!image) {
-                return;
-            }
-            
-            UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
-            [self presentViewController:activity animated:YES completion:nil];
-            break;
-        }
-        case 1:
-        {
-            // 保存到相册
-            [browser saveCurrentShowImage];
-            break;
-        }
-        default:
-            break;
-    }
-}
 
 #pragma mark - UIWebViewDelegate
 - (void)webViewDidStartLoad:(UIWebView *)webView
@@ -419,10 +393,8 @@
                 page = i;
             }
         }
-        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:page];
-        brower.browserStyle = XLPhotoBrowserStyleSimple;
-        brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
-        [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
+        PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:self.imgUrlArray originalUrls:self.imgUrlArray];
+        [self.view addSubview:photosView];
         
         return NO;
     }

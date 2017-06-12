@@ -15,7 +15,7 @@
 #import "NickNameViewController.h"
 #import "CityViewController.h"
 #import "StageInfoViewController.h"
-#import "XLPhotoBrowser.h"
+#import "PYPhotoBrowser.h"
 #import "PhoneViewController.h"
 #import "AccountTool.h"
 #import "RootNavgationController.h"
@@ -290,7 +290,8 @@
         _headImgView.layer.masksToBounds = YES;
         _headImgView.layer.cornerRadius = 5;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-            [XLPhotoBrowser showPhotoBrowserWithImages:@[self.userModel.headUrl] currentImageIndex:0];
+            PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[self.userModel.headUrl] originalUrls:@[self.userModel.headUrl]];
+            [self.view addSubview:photosView];
         }];
         [_headImgView addGestureRecognizer:tap];
     }

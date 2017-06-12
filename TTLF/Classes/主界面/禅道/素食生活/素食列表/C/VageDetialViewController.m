@@ -10,7 +10,7 @@
 #import "RightMoreView.h"
 #import "NormalTableViewCell.h"
 #import "ImageTableViewCell.h"
-#import "XLPhotoBrowser.h"
+#import "PYPhotoBrowser.h"
 #import "AccountTool.h"
 #import "NoDequeTableViewCell.h"
 #import "VisitUserViewController.h"
@@ -18,7 +18,7 @@
 
 #define TitleFont [UIFont systemFontOfSize:17]
 
-@interface VageDetialViewController ()<RightMoreViewDelegate,UITableViewDelegate,UITableViewDataSource,XLPhotoBrowserDelegate>
+@interface VageDetialViewController ()<RightMoreViewDelegate,UITableViewDelegate,UITableViewDataSource>
 
 /** 素食模型 */
 @property (strong,nonatomic) VegeInfoModel *vegeModel;
@@ -172,10 +172,8 @@
     
     if (indexPath.section == 0) {
         // 封面
-        XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:@[self.vegeModel.vege_img] currentImageIndex:0];
-        brower.browserStyle = XLPhotoBrowserStyleSimple;
-        brower.pageControlStyle = XLPhotoBrowserPageControlStyleNone;
-        [brower setActionSheetWithTitle:@"" delegate:self cancelButtonTitle:@"取消" deleteButtonTitle:nil otherButtonTitles:@"发送给朋友",@"保存到相册", nil];
+        PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[self.vegeModel.vege_img] originalUrls:@[self.vegeModel.vege_img]];
+        [self.view addSubview:photosView];
         
     }else if (indexPath.section == 1){
         // 简介
@@ -335,33 +333,6 @@
         // 停止加载
     }
 }
-#pragma mark - XLPhotoBrowserDelegate
-- (void)photoBrowser:(XLPhotoBrowser *)browser clickActionSheetIndex:(NSInteger)actionSheetindex currentImageIndex:(NSInteger)currentImageIndex
-{
-    switch (actionSheetindex) {
-        case 0:
-        {
-            // 发送给朋友
-            UIImage *image = browser.sourceImageView.image;
-            if (!image) {
-                return;
-            }
-            
-            UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image] applicationActivities:nil];
-            [self presentViewController:activity animated:YES completion:nil];
-            break;
-        }
-        case 1:
-        {
-            // 保存到相册
-            [browser saveCurrentShowImage];
-            break;
-        }
-        default:
-            break;
-    }
-}
-
 #pragma mark - 懒加载
 // 封面
 - (UIImageView *)coverImgView

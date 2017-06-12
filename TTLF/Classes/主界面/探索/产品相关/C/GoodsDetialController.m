@@ -13,7 +13,7 @@
 #import "ServersViewController.h"
 #import "GoodDetialFootView.h"
 #import <SDCycleScrollView.h>
-#import "XLPhotoBrowser.h"
+#import "PYPhotoBrowser.h"
 #import "GoodsInfoModel.h"
 #import "RightMoreView.h"
 #import "CMPopTipView.h"
@@ -324,7 +324,9 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSArray *imageArray = cycleScrollView.imageURLStringsGroup;
-    [XLPhotoBrowser showPhotoBrowserWithImages:imageArray currentImageIndex:index];
+    PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:imageArray originalUrls:imageArray];
+    [self.view addSubview:photosView];
+    
 }
 
 

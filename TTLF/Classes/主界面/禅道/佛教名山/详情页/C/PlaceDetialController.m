@@ -9,7 +9,7 @@
 #import "PlaceDetialController.h"
 #import "NoDequeTableViewCell.h"
 #import "RightMoreView.h"
-#import "XLPhotoBrowser.h"
+
 #import <MapKit/MapKit.h>
 #import "ImageTableViewCell.h"
 #import "BigMapViewController.h"
