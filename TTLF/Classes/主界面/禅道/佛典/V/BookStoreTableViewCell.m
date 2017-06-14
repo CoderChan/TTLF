@@ -43,6 +43,14 @@
     return self;
 }
 
+- (void)setModel:(BookInfoModel *)model
+{
+    _model = model;
+    [_bookCoverImgView sd_setImageWithURL:[NSURL URLWithString:model.book_logo] placeholderImage:[UIImage imageNamed:@"gy_book_cell"]];
+    _bookNameLabel.text = model.book_name;
+    _bookDescLabel.text = model.book_info;
+}
+
 - (void)setupSubViews
 {
     self.bookCoverImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"gy_book_cell"]];

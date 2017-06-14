@@ -7,7 +7,21 @@
 //
 
 #import "GoodsOrderModel.h"
+#import <MJExtension/MJExtension.h>
 
 @implementation GoodsOrderModel
+
++ (instancetype)mj_objectWithKeyValues:(id)keyValues
+{
+    if (![keyValues isKindOfClass:[NSDictionary class]]) return nil;
+    
+    GoodsOrderModel *orderModel = [super mj_objectWithKeyValues:keyValues];
+    
+    NSDictionary *dict = [keyValues objectForKey:@"goods"];
+    orderModel.goods = [GoodsInfoModel mj_objectWithKeyValues:dict];
+    
+    return orderModel;
+}
+
 
 @end

@@ -72,6 +72,29 @@
     }];
 }
 
+#pragma mark - 下载文件
++ (void)downLoadFileWithURL:(NSString *)url Progress:(YLRMProgress)progress Completion:(id)completion Fail:(id)fail
+{
+    //远程地址
+    NSURL *URL = [NSURL URLWithString:url];
+    //默认配置
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    
+    //AFN3.0+基于封住URLSession的句柄
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    //请求
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+//    
+//    [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+//        
+//    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+//        
+//    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+//        
+//    }];
+}
+
 #pragma mark - 上传文件
 + (void)uploadWithURL:(NSString *)url params:(NSDictionary *)params fileData:(NSData *)filedata name:(NSString *)name fileName:(NSString *)filename mimeType:(NSString *)mimeType progress:(YLRMProgress)progress success:(YLRMResponseSuccess)success fail:(YLRMResponseFail)fail
 {

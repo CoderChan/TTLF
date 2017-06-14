@@ -12,6 +12,7 @@
 #import "AccountTool.h"
 #import "AddressCacheManager.h"
 #import "PlaceCacheManager.h"
+#import "BookCacheManager.h"
 
 
 @implementation NetworkDataManager
@@ -213,7 +214,7 @@
     }];
 }
 
-// 退出登录，清除一些缓存
+#pragma mark - 退出登录，清除一些缓存
 - (void)reloginCompletion:(void (^)())completion
 {
     [[SDImageCache sharedImageCache] cleanDisk];
@@ -227,9 +228,10 @@
         for (NSString *fileName in childerFiles) {
             //如有需要，加入条件，过滤掉不想删除的文件
             
-            if ([fileName isEqualToString:@"t_address.sqlite"]) {
+            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"]) {
                 // 不删除这些。用户信息、离线订单、归档
                 [[AddressCacheManager sharedManager] deleteAddressCache];
+                [[BookCacheManager sharedManager] deleBookCache];
                 completion();
                 
             }else{
@@ -820,6 +822,7 @@
         fail(error.localizedDescription);
     }];
 }
+// 发表文章评论
 - (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(void (^)(NewsCommentModel *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -880,6 +883,7 @@
         }];
     }
 }
+// 用户删除自己的评论
 - (void)deleteNewsComment:(NewsCommentModel *)commentModel Success:(SuccessBlock)success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
@@ -906,6 +910,34 @@
         fail(error.localizedDescription);
     }];
     
+}
+// 管理员删除文章评论
+- (void)adminDeleteNewsComment:(NewsCommentModel *)commentModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/News/deleteNewsComment";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:commentModel.comment_id.base64EncodedString forKey:@"comment_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/News/deleteNewsComment?userID=%@&comment_id=%@",account.userID.base64EncodedString,commentModel.comment_id.base64EncodedString];
+    NSLog(@"管理员删除评论的url = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
 // 获取新闻评论列表
 - (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail
@@ -937,6 +969,62 @@
         }else{
             fail(message);
         }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+    
+}
+
+#pragma mark - 禅修板块——佛典
+// 获取佛典信息列表
+- (void)getBookListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Buddist/index";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/index?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"佛典列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [BookInfoModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+#warning 下载
+// 下载佛典
+- (void)downLoadBookWithModel:(BookInfoModel *)model Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *urlStr = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/downloadFd?userID=%@&book_id=%@",account.userID.base64EncodedString,model.book_id.base64EncodedString];
+    NSLog(@"下载佛典 = %@",urlStr);
+    
+    NSURL *url = [NSURL URLWithString:urlStr];
+    
+    [HTTPManager GET:urlStr params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"responseObject = %@",responseObject);
     } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];
@@ -1627,6 +1715,101 @@
         fail(error.localizedDescription);
     }];
 }
+// 添加商品到订单列表
+- (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Order/index";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:goodsModel.goods_id.base64EncodedString forKey:@"goods_id"];
+    [param setValue:nums.base64EncodedString forKey:@"num"];
+    if (remark) {
+        [param setValue:remark.base64EncodedString forKey:@"remark"];
+    }
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/index?userID=%@&goods_id=%@&num=%@&remark=%@",account.userID.base64EncodedString,goodsModel.goods_id.base64EncodedString,nums.base64EncodedString,remark.base64EncodedString];
+    NSLog(@"添加商品到订单列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 获取用户订单列表
+- (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Order/showAllOrder";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/showAllOrder?userID=%@",account.userID.base64EncodedString];
+    NSLog(@"订单列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [GoodsOrderModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 管理员获取全部订单列表
+- (void)getAllOrderListWithDate:(NSString *)date Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    account.userID = @"65";
+    NSString *url = @"http://app.yangruyi.com/home/Order/showUserAllOrder";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:date.base64EncodedString forKey:@"date"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/showUserAllOrder?userID=%@&date=%@",account.userID.base64EncodedString,date.base64EncodedString];
+    NSLog(@"全部订单列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [GoodsOrderModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
 
 #pragma mark - 禅修板块 -- 佛教名山
 // 随机获取20个景区作为首页
@@ -1837,6 +2020,32 @@
     [param setValue:discussModel.discuss_id.base64EncodedString forKey:@"discuss_id"];
     NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/delComment?userID=%@&discuss_id=%@",account.userID.base64EncodedString,discussModel.discuss_id.base64EncodedString];
     NSLog(@"删除某个景区评论 = %@",allurl);
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 管理员删除不良评论
+- (void)adminDeletePlaceCommentWithModel:(PlaceDiscussModel *)discussModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/scenic/deleteScenicComment";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:discussModel.discuss_id.base64EncodedString forKey:@"comment_id"];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/scenic/deleteScenicComment?userID=%@&comment_id=%@",account.userID.base64EncodedString,discussModel.discuss_id.base64EncodedString];
+    NSLog(@"管理员删除某个景区评论 = %@",allurl);
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [responseObject objectForKey:@"message"];

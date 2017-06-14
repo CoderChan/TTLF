@@ -138,7 +138,8 @@
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NewsCommentModel *model = self.commentArray[indexPath.row];
-    if ([model.commenter_uid isEqualToString:[AccountTool account].userID]) {
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+    if ([model.commenter_uid isEqualToString:[AccountTool account].userID] || userModel.type == 6) {
         return UITableViewCellEditingStyleDelete;
     }else{
         return UITableViewCellEditingStyleNone;
@@ -147,11 +148,35 @@
 - (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NewsCommentModel *model = self.commentArray[indexPath.row];
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+    
     if ([model.commenter_uid isEqualToString:[AccountTool account].userID]) {
         UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
                 if (buttonIndex == 1) {
                     [[TTLFManager sharedManager].networkManager deleteNewsComment:model Success:^{
+                        [self.commentArray removeObjectAtIndex:indexPath.row];
+                        self.footView.commentNum = self.commentArray.count;
+                        if (self.CommentBlock) {
+                            _CommentBlock(self.commentArray);
+                        }
+                        [self.tableView reloadData];
+                    } Fail:^(NSString *errorMsg) {
+                        [self sendAlertAction:errorMsg];
+                    }];
+                }
+            } otherButtonTitles:@"删除评论", nil];
+            sheet.destructiveButtonIndexSet = [NSSet setWithObjects:@1, nil];
+            [sheet show];
+        }];
+        action.backgroundColor = WarningColor;
+        return @[action];
+    }else if (userModel.type == 6){
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    // 管理员删除
+                    [[TTLFManager sharedManager].networkManager adminDeleteNewsComment:model Success:^{
                         [self.commentArray removeObjectAtIndex:indexPath.row];
                         self.footView.commentNum = self.commentArray.count;
                         if (self.CommentBlock) {

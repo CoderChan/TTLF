@@ -30,13 +30,22 @@
     if (self) {
         self.backgroundColor = [UIColor whiteColor];
         self.userInteractionEnabled = YES;
+        [self setupSubViews];
     }
     return self;
 }
 
-- (void)layoutSubviews
+- (void)setModel:(BookInfoModel *)model
 {
-    [super layoutSubviews];
+    _model = model;
+    [_bookCoverImgView sd_setImageWithURL:[NSURL URLWithString:model.book_logo] placeholderImage:[UIImage imageNamed:@"gy_book_cell"]];
+    _bookNameLabel.text = [NSString stringWithFormat:@"《%@》",model.book_name];
+    _bookWriterLabel.text = [NSString stringWithFormat:@"作者：%@",model.book_author];
+    _bookTypeLabel.text = [NSString stringWithFormat:@"类型：%@",model.book_type];
+}
+
+- (void)setupSubViews
+{
     
     // 线
     UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];

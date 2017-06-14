@@ -10,4 +10,6 @@
 
 @interface PayOrderViewController : SuperViewController
 
+- (instancetype)initWithModel:(GoodsInfoModel *)model;
+
 @end

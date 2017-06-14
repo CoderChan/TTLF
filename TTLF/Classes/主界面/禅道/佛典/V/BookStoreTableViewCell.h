@@ -10,6 +10,8 @@
 
 @interface BookStoreTableViewCell : UITableViewCell
 
+@property (strong,nonatomic) BookInfoModel *model;
+
 + (instancetype)sharedBookStoreCell:(UITableView *)tableView;
 
 @end

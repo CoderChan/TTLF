@@ -131,6 +131,7 @@
 {
     PlaceDiscussModel *model = self.array[indexPath.row];
     Account *account = [AccountTool account];
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
     if ([model.creater_id isEqualToString:account.userID]) {
         UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
             LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
@@ -149,6 +150,25 @@
         }];
         action.backgroundColor = WarningColor;
         return @[action];
+    }else if (userModel.type == 6){
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
+                if (buttonIndex == 1) {
+                    // 删除我发布的评论
+                    [[TTLFManager sharedManager].networkManager adminDeletePlaceCommentWithModel:model Success:^{
+                        [self.array removeObjectAtIndex:indexPath.row];
+                        [self.tableView reloadData];
+                    } Fail:^(NSString *errorMsg) {
+                        [MBProgressHUD showError:errorMsg];
+                    }];
+                }
+            } otherButtonTitles:@"删除", nil];
+            sheet.destructiveButtonIndexSet = [NSSet setWithObjects:@1, nil];
+            [sheet show];
+        }];
+        action.backgroundColor = WarningColor;
+        return @[action];
+        
     }else{
         return NULL;
     }
@@ -158,7 +178,8 @@
 {
     PlaceDiscussModel *model = self.array[indexPath.row];
     Account *account = [AccountTool account];
-    if ([model.creater_id isEqualToString:account.userID]) {
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+    if ([model.creater_id isEqualToString:account.userID] || userModel.type == 6) {
         return UITableViewCellEditingStyleDelete;
     }else{
         return UITableViewCellEditingStyleNone;

@@ -26,6 +26,7 @@
 		3B0AF0311ED80A8C007436AE /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0301ED80A8C007436AE /* CMPopTipView.m */; };
 		3B0AF0341ED81AC5007436AE /* PayOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0331ED81AC5007436AE /* PayOrderView.m */; };
 		3B0AF0371ED8204D007436AE /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0361ED8204D007436AE /* AddressModel.m */; };
+		3B0BBECB1EEF77560071A77E /* AllOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */; };
 		3B11DB7C1ED43DD90037AABA /* GoodDetialFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */; };
 		3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7E1ED54B300037AABA /* PlaceCacheManager.m */; };
 		3B11DB821ED556DA0037AABA /* NewsCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB811ED556DA0037AABA /* NewsCacheManager.m */; };
@@ -102,7 +103,6 @@
 		3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670A11E6FE2B40078379B /* CityInfoModel.m */; };
 		3B2670E31E6FE2B40078379B /* ProvinceCityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670A31E6FE2B40078379B /* ProvinceCityModel.m */; };
 		3B2670E41E6FE2B40078379B /* ProvincesAndCities.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B2670A41E6FE2B40078379B /* ProvincesAndCities.plist */; };
-		3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670B21E6FE2B40078379B /* PhotosViewController.m */; };
 		3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670B41E6FE2B40078379B /* UserInfoViewController.m */; };
 		3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670BA1E6FE2B40078379B /* ContentTableViewCell.m */; };
 		3B2670ED1E6FE2B40078379B /* MineTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670BC1E6FE2B40078379B /* MineTableViewCell.m */; };
@@ -201,6 +201,8 @@
 		3BAC6AAA1EAEF5DF00D3CB8C /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA71EAEF5DF00D3CB8C /* DACircularProgressView.m */; };
 		3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */; };
 		3BAC6AAE1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */; };
+		3BAD0AE01EF0D2D300903EF3 /* BookInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD0ADF1EF0D2D300903EF3 /* BookInfoModel.m */; };
+		3BAD0AE31EF1005500903EF3 /* BookCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD0AE21EF1005500903EF3 /* BookCacheManager.m */; };
 		3BAFF4A21EC4A00100D81AD5 /* GoodnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFF4A11EC4A00100D81AD5 /* GoodnessViewController.m */; };
 		3BB6934C1EA9DAF400E431E0 /* RightMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6934B1EA9DAF400E431E0 /* RightMoreView.m */; };
 		3BB6934F1EA9DE0200E431E0 /* MoreItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB6934E1EA9DE0200E431E0 /* MoreItemView.m */; };
@@ -285,6 +287,8 @@
 		3B0AF0331ED81AC5007436AE /* PayOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayOrderView.m; sourceTree = "<group>"; };
 		3B0AF0351ED8204D007436AE /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		3B0AF0361ED8204D007436AE /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		3B0BBEC91EEF77560071A77E /* AllOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrderViewController.h; sourceTree = "<group>"; };
+		3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderViewController.m; sourceTree = "<group>"; };
 		3B11DB7A1ED43DD90037AABA /* GoodDetialFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetialFootView.h; sourceTree = "<group>"; };
 		3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GoodDetialFootView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3B11DB7D1ED54B300037AABA /* PlaceCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCacheManager.h; sourceTree = "<group>"; };
@@ -440,8 +444,6 @@
 		3B2670A21E6FE2B40078379B /* ProvinceCityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProvinceCityModel.h; sourceTree = "<group>"; };
 		3B2670A31E6FE2B40078379B /* ProvinceCityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProvinceCityModel.m; sourceTree = "<group>"; };
 		3B2670A41E6FE2B40078379B /* ProvincesAndCities.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ProvincesAndCities.plist; sourceTree = "<group>"; };
-		3B2670B11E6FE2B40078379B /* PhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotosViewController.h; sourceTree = "<group>"; };
-		3B2670B21E6FE2B40078379B /* PhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotosViewController.m; sourceTree = "<group>"; };
 		3B2670B31E6FE2B40078379B /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		3B2670B41E6FE2B40078379B /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
 		3B2670B91E6FE2B40078379B /* ContentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentTableViewCell.h; sourceTree = "<group>"; };
@@ -636,6 +638,10 @@
 		3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALabeledCircularProgressView.m; sourceTree = "<group>"; };
 		3BAC6AAC1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLAnimatedImageView+WebCache.h"; sourceTree = "<group>"; };
 		3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLAnimatedImageView+WebCache.m"; sourceTree = "<group>"; };
+		3BAD0ADE1EF0D2D300903EF3 /* BookInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoModel.h; sourceTree = "<group>"; };
+		3BAD0ADF1EF0D2D300903EF3 /* BookInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoModel.m; sourceTree = "<group>"; };
+		3BAD0AE11EF1005500903EF3 /* BookCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCacheManager.h; sourceTree = "<group>"; };
+		3BAD0AE21EF1005500903EF3 /* BookCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookCacheManager.m; sourceTree = "<group>"; };
 		3BAFF4A01EC4A00100D81AD5 /* GoodnessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodnessViewController.h; sourceTree = "<group>"; };
 		3BAFF4A11EC4A00100D81AD5 /* GoodnessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodnessViewController.m; sourceTree = "<group>"; };
 		3BB6934A1EA9DAF400E431E0 /* RightMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RightMoreView.h; sourceTree = "<group>"; };
@@ -1059,6 +1065,8 @@
 		3B1F150F1EA7538500DFAFAE /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3BAD0ADE1EF0D2D300903EF3 /* BookInfoModel.h */,
+				3BAD0ADF1EF0D2D300903EF3 /* BookInfoModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1423,8 +1431,6 @@
 				3B2231E71E7F7B8200B43322 /* WoViewController.m */,
 				3B2670B31E6FE2B40078379B /* UserInfoViewController.h */,
 				3B2670B41E6FE2B40078379B /* UserInfoViewController.m */,
-				3B2670B11E6FE2B40078379B /* PhotosViewController.h */,
-				3B2670B21E6FE2B40078379B /* PhotosViewController.m */,
 				3B6872CE1EAA495700A12FF4 /* StoreListViewController.h */,
 				3B6872CF1EAA495700A12FF4 /* StoreListViewController.m */,
 			);
@@ -1608,6 +1614,8 @@
 			children = (
 				3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */,
 				3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */,
+				3BAD0AE11EF1005500903EF3 /* BookCacheManager.h */,
+				3BAD0AE21EF1005500903EF3 /* BookCacheManager.m */,
 			);
 			path = "音乐播放器";
 			sourceTree = "<group>";
@@ -1746,6 +1754,8 @@
 			children = (
 				3B5BA6121EC9CCB000A57DBF /* DiscoverViewController.h */,
 				3B5BA6131EC9CCB000A57DBF /* DiscoverViewController.m */,
+				3B0BBEC91EEF77560071A77E /* AllOrderViewController.h */,
+				3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */,
 				3BB8E05B1ECA98A8004BDE09 /* GoodClassListController.h */,
 				3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */,
 				3B17102D1ECB3E8C00779F75 /* GoodClassHeadView.h */,
@@ -2420,6 +2430,7 @@
 				3B2670621E6FDFE40078379B /* RootTabbarController.m in Sources */,
 				3B1F15061EA7536D00DFAFAE /* XiangModel.m in Sources */,
 				3BE1879D1EAF2A9500EDDD8F /* TZAssetModel.m in Sources */,
+				3BAD0AE31EF1005500903EF3 /* BookCacheManager.m in Sources */,
 				3B5BA5F61EC9794500A57DBF /* ProvinceViewController.m in Sources */,
 				3B2670DE1E6FE2B40078379B /* WechatLoginViewController.m in Sources */,
 				3B3B3D821EA7168B00A32E56 /* ReportDetialViewController.m in Sources */,
@@ -2445,6 +2456,7 @@
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
 				3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */,
 				3B5BA6281EC9CE7500A57DBF /* AddressListViewController.m in Sources */,
+				3BAD0AE01EF0D2D300903EF3 /* BookInfoModel.m in Sources */,
 				3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */,
 				3B11DB821ED556DA0037AABA /* NewsCacheManager.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
@@ -2486,6 +2498,7 @@
 				3B4B41351EC83E9B00C66C63 /* VisitUserViewController.m in Sources */,
 				3B1F05CB1E792BD2005173B9 /* DrawCircleView.m in Sources */,
 				3B062D911ECE8AE400886240 /* ServersViewController.m in Sources */,
+				3B0BBECB1EEF77560071A77E /* AllOrderViewController.m in Sources */,
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
 				3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */,
 				3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */,
@@ -2564,7 +2577,6 @@
 				3B2670F51E6FE2B40078379B /* SuggestViewController.m in Sources */,
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
 				3BE187A51EAF2A9500EDDD8F /* UIView+Layout.m in Sources */,
-				3B2670E91E6FE2B40078379B /* PhotosViewController.m in Sources */,
 				3B3B3D741EA715FA00A32E56 /* LocationModel.m in Sources */,
 				3BAC6A9C1EAEF58000D3CB8C /* PYPhotosView.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,

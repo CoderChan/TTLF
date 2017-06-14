@@ -41,7 +41,7 @@
     self.webView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.webView];
     
-    [self.webView loadHTMLString:self.model.standard baseURL:[NSURL URLWithString:@"app.yangruyi.com"]];
+    [self.webView loadHTMLString:self.model.article_desc baseURL:[NSURL URLWithString:@"app.yangruyi.com"]];
     
 }
 

@@ -15,6 +15,9 @@
 
 @interface BookDetialViewController ()<UITableViewDelegate,UITableViewDataSource,ReaderViewControllerDelegate>
 
+// 书籍模型
+@property (strong,nonatomic) BookInfoModel *model;
+
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
@@ -30,16 +33,29 @@
 
 @implementation BookDetialViewController
 
+
+- (instancetype)initWithModel:(BookInfoModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.model = model;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"佛典详情";
-    [self setupSubViews];
+    if (self.model) {
+        [self setupSubViews];
+    }
     
 }
 
 - (void)setupSubViews
 {
-    self.array = @[@[@"查看目录"],@[@"开始阅读"]];
+    
+    self.array = @[@[@"精彩书评"],@[@"开始阅读"]];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - 80)];
     self.tableView.showsHorizontalScrollIndicator = NO;
@@ -53,8 +69,8 @@
     
     // 头部
     self.headView = [[BookTableHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 140)];
+    self.headView.model = self.model;
     self.tableView.tableHeaderView = self.headView;
-    
     
     
     // 脚部
@@ -71,6 +87,17 @@
 #pragma mark - 其他方法
 - (void)startReadingAction:(UIButton *)sender
 {
+    // 先判断该书籍本地有没有下载，没用则去下载
+    
+    [[TTLFManager sharedManager].networkManager downLoadBookWithModel:self.model Progress:^(NSProgress *progress) {
+        NSLog(@"下载进度 = %f",progress.fractionCompleted);
+    } Success:^(NSString *string) {
+        [self sendAlertAction:string];
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
+    }];
+    
+    /**
     NSString *phrase = nil;
     NSArray *pdfs = [[NSBundle mainBundle] pathsForResourcesOfType:@"pdf" inDirectory:nil];
     NSString *filePath = [pdfs lastObject]; assert(filePath != nil);
@@ -84,6 +111,7 @@
     }else{
         [MBProgressHUD showError:@"本地暂无PDF文件"];
     }
+     */
     
 }
 
@@ -169,7 +197,7 @@
     if (!_button) {
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         [_button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        _button.frame = CGRectMake(25, 20, self.view.width - 50, 40);
+        _button.frame = CGRectMake(25, 20, self.view.width - 50, 42);
         [_button setBackgroundColor:MainColor];
         _button.layer.masksToBounds = YES;
         _button.layer.cornerRadius = 4;
@@ -182,7 +210,7 @@
 {
     if (!_bookDetialView) {
         _bookDetialView = [[UITextView alloc]initWithFrame:CGRectMake(15, 15, self.view.width - 30, self.tableView.height - self.headView.height - 55 - 20 - 15)];
-        _bookDetialView.text = @"     导语：妙法莲华经(Saddharmapundarika-sutra) ，简称《法华经》， 在古印度、尼泊尔等地长期流行。在克什米尔、尼泊尔和中国新疆、西藏等地有40多种梵文版本，分为尼泊尔体系、克什米尔体系（基尔基特）和新疆体系。尼泊尔体系版本约为11世纪后作品，保持完整，已出版5种校订本。1983年北京民族文化宫图书馆用珂罗版彩色复制出版了由尼泊尔传入、珍藏于西藏萨迦寺的法华经。《妙法莲华经》是佛陀释迦牟尼晚年说教，宣讲内容至高无上，明示不分贫富贵贱、人人皆可成佛。关键词“妙法莲华”。“妙法”指的是一乘法、不二法；“莲华”比喻“妙”在什么地方，第一是花果同时，第二是出淤泥而不染，第三是内敛不露。\n《法华经》是释迦牟尼佛晚年在王舍城灵鷲山所说，为大乘佛教初期经典之一。《法华经》成立年代约纪元前後，最晚不迟于公元1世纪，因为龙树菩萨(公元150-250)的著作《中论》、《大智度论》已引用本经文义。另外《大泥洹经》、《大般涅槃经》、《优婆塞戒经》、《大乘本生心地观经》、《大佛顶首楞严经》等诸经皆列举本经经名并援引经中文义，可见本经之成立年代较以上诸经为早。七卷，或八卷，后秦鸠摩罗什译";
+        _bookDetialView.text = self.model.book_info;
         _bookDetialView.editable = NO;
         _bookDetialView.font = [UIFont systemFontOfSize:16];
         _bookDetialView.textColor = RGBACOLOR(65, 65, 65, 1);

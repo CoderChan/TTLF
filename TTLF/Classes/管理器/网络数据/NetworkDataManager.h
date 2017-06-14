@@ -27,6 +27,8 @@
 #import "AddressModel.h"
 #import "GoodsClassModel.h"
 #import "GoodsInfoModel.h"
+#import "GoodsOrderModel.h"
+#import "BookInfoModel.h"
 
 
 
@@ -96,6 +98,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)commentNewsWithModel:(NewsArticleModel *)newsModel Image:(UIImage *)image CommentText:(NSString *)commentText Success:(void (^)(NewsCommentModel *model))success Fail:(FailBlock)fail;
 // 删除自己的评论
 - (void)deleteNewsComment:(NewsCommentModel *)commentModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 管理员删除文章评论
+- (void)adminDeleteNewsComment:(NewsCommentModel *)commentModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 获取文章的评论列表
 - (void)getNewsCommentWithModel:(NewsArticleModel *)newsModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
@@ -109,6 +113,11 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 发送无图动态
 - (void)sendTextDynWithTopic:(SendTopicModel *)topicModel Content:(NSString *)content LocationJson:(NSString *)locationJson IsNoname:(BOOL)isNoName Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
 
+#pragma mark - 禅修板块——佛典
+// 获取佛典信息列表
+- (void)getBookListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 下载佛典
+- (void)downLoadBookWithModel:(BookInfoModel *)model Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
 
 #pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息
@@ -154,6 +163,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)placeDiscussWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 删除我发布的某个评论
 - (void)deletePlaceCommentWithModel:(PlaceDiscussModel *)discussModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 管理员删除不良评论
+- (void)adminDeletePlaceCommentWithModel:(PlaceDiscussModel *)discussModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 获取某个景区的图集
 - (void)placePicturesWithModel:(PlaceDetialModel *)placeModel Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
@@ -173,6 +184,12 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)shopClassListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 获取商品分类下的商品列表
 - (void)goodsListWithCateModel:(GoodsClassModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 添加商品到订单列表
+- (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 获取用户订单列表
+- (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 管理员获取全部订单列表
+- (void)getAllOrderListWithDate:(NSString *)date Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
 @end

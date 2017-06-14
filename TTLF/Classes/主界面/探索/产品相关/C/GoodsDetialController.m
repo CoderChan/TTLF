@@ -126,7 +126,13 @@
     [addButton setTitle:@"加入购物车" forState:UIControlStateNormal];
     addButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [addButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
-        [self showPopTipsWithMessage:@"添加成功" AtView:sender inView:self.view];
+        
+        [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:@"1" Remark:nil Success:^{
+            [self showPopTipsWithMessage:@"添加成功" AtView:sender inView:self.view];
+        } Fail:^(NSString *errorMsg) {
+            [self sendAlertAction:errorMsg];
+        }];
+        
     }];
     [self.view addSubview:addButton];
     
@@ -142,15 +148,20 @@
     [buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     buyButton.titleLabel.font = [UIFont systemFontOfSize:15];
     [buyButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        PayOrderViewController *pay = [[PayOrderViewController alloc]init];
+        PayOrderViewController *pay = [[PayOrderViewController alloc]initWithModel:self.model];
         [self.navigationController pushViewController:pay animated:YES];
     }];
     [self.view addSubview:buyButton];
     
     
     // FootView
-    GoodDetialFootView *footView = [[GoodDetialFootView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 250)];
+    CGSize size = [self.model.article_desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
+    CGFloat space = 20;
+    CGFloat iconHeight = (self.view.width - 30 - 4*space)/3;
+    CGFloat footHeight = size.height + 15 + 10 + iconHeight + 10;
     
+    GoodDetialFootView *footView = [[GoodDetialFootView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, footHeight)];
+    footView.model = self.model;
     self.tableView.tableFooterView = footView;
 }
 
@@ -324,8 +335,15 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     NSArray *imageArray = cycleScrollView.imageURLStringsGroup;
-    PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:imageArray originalUrls:imageArray];
-    [self.view addSubview:photosView];
+    
+    PYPhotoBrowseView *browerView = [[PYPhotoBrowseView alloc]init];
+    browerView.imagesURL = imageArray;
+    browerView.currentIndex = index;
+    browerView.showDuration = 0.25;
+    browerView.hiddenDuration = 0.25;
+    browerView.frameToWindow = CGRectMake(0, 64, self.view.width, self.scrollView.height);
+    browerView.frameFormWindow = CGRectMake(0, 64, self.view.width, self.scrollView.height);
+    [browerView show];
     
 }
 

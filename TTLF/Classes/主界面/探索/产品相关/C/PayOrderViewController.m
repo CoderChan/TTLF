@@ -17,6 +17,8 @@
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
+/** 商品模型 */
+@property (strong,nonatomic) GoodsInfoModel *model;
 /** 商品详情 */
 @property (strong,nonatomic) UIImageView *goodsImgView;
 /** 商品名称 */
@@ -46,6 +48,15 @@
 @end
 
 @implementation PayOrderViewController
+
+- (instancetype)initWithModel:(GoodsInfoModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.model = model;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -77,7 +88,7 @@
     
     // 总数量
     [footView addSubview:self.sumCountLabel];
-    [self createSumCount:self.numLabel.text SumPrice:@"599.00"];
+    [self createSumCount:self.numLabel.text SumPrice:self.model.sale_price];
     
     // 提交订单
     UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -86,10 +97,23 @@
     [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:19];
     sendButton.frame = CGRectMake(footView.width * 0.7, 0, footView.width * 0.3, footView.height);
+    [sendButton addTarget:self action:@selector(payOrderAction) forControlEvents:UIControlEventTouchUpInside];
     [footView addSubview:sendButton];
     
 }
+#pragma mark - 支付订单
+- (void)payOrderAction
+{
+    [self.view endEditing:YES];
+    // 支付失败时添加到订单列表
+    [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:self.numLabel.text Remark:self.msgField.text Success:^{
+        [MBProgressHUD showSuccess:@"添加成功"];
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
+    }];
+}
 
+#pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return self.array.count;
@@ -267,7 +291,7 @@
             payCount++;
             copySelf.miniteButton.enabled = YES;
             copySelf.numLabel.text = [NSString stringWithFormat:@"%d",payCount];
-            CGFloat sumPrice = payCount * 599.00;
+            CGFloat sumPrice = payCount * [self.model.sale_price floatValue];
             NSString *sumPriceStr = [NSString stringWithFormat:@"%.2f",sumPrice];
             [copySelf createSumCount:copySelf.numLabel.text SumPrice:sumPriceStr];
         }];
@@ -302,14 +326,14 @@
             int payCount = [copySelf.numLabel.text intValue];
             if (payCount == 1) {
                 copySelf.miniteButton.enabled = NO;
-                CGFloat sumPrice = payCount * 599.00;
+                CGFloat sumPrice = payCount * [self.model.sale_price floatValue];
                 NSString *sumPriceStr = [NSString stringWithFormat:@"%.2f",sumPrice];
                 [copySelf createSumCount:@"1" SumPrice:sumPriceStr];
                 return ;
             }else{
                 payCount--;
                 copySelf.numLabel.text = [NSString stringWithFormat:@"%d",payCount];
-                CGFloat sumPrice = payCount * 599.00;
+                CGFloat sumPrice = payCount * [self.model.sale_price floatValue];
                 NSString *sumPriceStr = [NSString stringWithFormat:@"%.2f",sumPrice];
                 [copySelf createSumCount:copySelf.numLabel.text SumPrice:sumPriceStr];
             }
@@ -322,7 +346,7 @@
 {
     if (!_goodsImgView) {
         _goodsImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 20, 60, 60)];
-        _goodsImgView.image = [UIImage imageWithColor:HWRandomColor];
+        [_goodsImgView sd_setImageWithURL:[NSURL URLWithString:self.model.article_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
     }
     return _goodsImgView;
 }
@@ -331,7 +355,7 @@
 {
     if (!_goodsNameLabel) {
         _goodsNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.goodsImgView.frame) + 15, 15, self.view.width - 70 - 15 - 15, 42)];
-        _goodsNameLabel.text = @"商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称";
+        _goodsNameLabel.text = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
         _goodsNameLabel.numberOfLines = 2;
         _goodsNameLabel.font = [UIFont systemFontOfSize:16];
         _goodsNameLabel.textColor = [UIColor blackColor];
@@ -366,7 +390,7 @@
         _goodsPriceLabel.textColor = [UIColor grayColor];
         _goodsPriceLabel.textAlignment = NSTextAlignmentRight;
         _goodsPriceLabel.font = [UIFont systemFontOfSize:14];
-        _goodsPriceLabel.text = @"￥599.00        x 1";
+        _goodsPriceLabel.text = [NSString stringWithFormat:@"￥%@        x 1",self.model.sale_price];
     }
     return _goodsPriceLabel;
 }

@@ -14,6 +14,7 @@
 #import "AddressListViewController.h"
 #import "GoodClassListController.h"
 #import <MJRefresh/MJRefresh.h>
+#import "AllOrderViewController.h"
 
 @interface DiscoverViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -36,7 +37,7 @@
 #pragma mark - 绘制表格
 - (void)setupSubViews
 {
-//    self.array = @[@[@"订单中心",@"收货地址"],@[@"小叶紫檀",@"黄花梨",@"菩提",@"红木饰品",@"幸运吊坠",@"佛像雕塑",@"精选配饰"]];
+//    self.array = @[@[@"订单中心",@"收货地址"],@[@"小叶紫檀",@"黄花梨",@"禅茶一味",@"红木饰品",@"幸运吊坠",@"佛像雕塑",@"精选配饰"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.delegate = self;
@@ -57,7 +58,19 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+    if (userModel.type == 6 || userModel.type == 7) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"订单" style:UIBarButtonItemStylePlain target:self action:@selector(checkAllOrderAction)];
+        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    }
+    
 }
+- (void)checkAllOrderAction
+{
+    AllOrderViewController *allOrder = [AllOrderViewController new];
+    [self.navigationController pushViewController:allOrder animated:YES];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;

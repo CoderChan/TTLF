@@ -10,6 +10,6 @@
 
 @interface BookTableHeadView : UIView
 
-
+@property (strong,nonatomic) BookInfoModel *model;
 
 @end

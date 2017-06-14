@@ -9,7 +9,7 @@
 #import "PlacePicturesController.h"
 #import "PictureCollectionCell.h"
 #import "PYPhotoBrowser.h"
-
+#import "PYPhotosReaderController.h"
 
 #define SpaceNum 2
 
@@ -119,9 +119,35 @@
 #pragma mark - 图片浏览器
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    CGRect frame = CGRectZero;
+    for (int i = 0; i < self.array.count; i++) {
+        UICollectionViewCell *cell = collectionView.subviews[indexPath.row];
+        frame = CGRectMake(cell.frame.origin.x, cell.frame.origin.y + 64, cell.frame.size.width, cell.frame.size.height);
+    }
+    
+    NSLog(@"X = %f,Y = %f, W = %f,H = %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
+    
+    // 1.创建自己定义的browseView
+    PYPhotoBrowseView *browseView = [[PYPhotoBrowseView alloc] init];
+    browseView.currentIndex = indexPath.row;
+    // 2.设置数据源和代理并实现数据源和代理方法
+    browseView.dataSource = self;
+    browseView.imagesURL = self.array;
+    browseView.delegate = self;
+    browseView.showDuration = 0.3;
+    browseView.hiddenDuration = 0.3;
+    browseView.frameFormWindow = frame;
+    browseView.frameToWindow = frame;
+    // 3.显示（浏览）
+    [browseView show];
+    
+    
     
 }
-
+- (void)photoBrowseView:(PYPhotoBrowseView *)photoBrowseView didSingleClickedImage:(UIImage *)image index:(NSInteger)index
+{
+    [photoBrowseView hidden];
+}
 
 
 @end

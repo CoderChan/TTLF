@@ -10,4 +10,6 @@
 
 @interface BookDetialViewController : SuperViewController
 
+- (instancetype)initWithModel:(BookInfoModel *)model;
+
 @end

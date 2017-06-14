@@ -11,6 +11,8 @@
 /********* 商品订单的cell *********/
 @interface OrderListTableCell : UITableViewCell
 
+@property (strong,nonatomic) GoodsOrderModel *model;
+
 + (instancetype)sharedOrderListCell:(UITableView *)tableView;
 
 @end

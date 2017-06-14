@@ -47,6 +47,21 @@
     return self;
 }
 
+- (void)setModel:(GoodsOrderModel *)model
+{
+    _model = model;
+    [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.article_logo] placeholderImage:[UIImage imageNamed:@"iPhone_place"]];
+    _nameLabel.text = [NSString stringWithFormat:@"%@--%@",model.goods.article_name,model.goods.goods_desc];
+    _dateLabel.text = model.check_time;
+    _orderIDLabel.text = [NSString stringWithFormat:@"订单号#：%@",model.ordernum];
+    if (model.status == 0) {
+        // 未支付
+        _statusLabel.text = @"状态：待支付";
+    }else{
+        _statusLabel.text = @"看看看";
+    }
+}
+
 - (void)setupSubViews
 {
 //    高度160*比例

@@ -1,30 +1,31 @@
 //
-//  OrderListViewController.m
+//  AllOrderViewController.m
 //  TTLF
 //
-//  Created by Chan_Sir on 2017/4/22.
+//  Created by Chan_Sir on 2017/6/13.
 //  Copyright © 2017年 陈振超. All rights reserved.
 //
 
-#import "OrderListViewController.h"
-#import "OrderListTableCell.h"
+#import "AllOrderViewController.h"
 #import <MJRefresh/MJRefresh.h>
+#import "OrderListTableCell.h"
 
 
-@interface OrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface AllOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-/** 订单数据源 */
-@property (copy,nonatomic) NSArray *array;
-/** 列表 */
 @property (strong,nonatomic) UITableView *tableView;
+
+@property (copy,nonatomic) NSArray *array;
+
+@property (copy,nonatomic) NSString *dateStr;
 
 @end
 
-@implementation OrderListViewController
+@implementation AllOrderViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"我的订单";
+    self.title = @"全部订单";
     [self setupSubViews];
 }
 
@@ -39,8 +40,17 @@
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
     
+    NSDate *date = [NSDate date];
+    NSDate *localDate = [date dateByAddingHours:8];
+    
+    NSString *dateStr = [NSString stringWithFormat:@"%@",localDate];// 还需要+8小时
+    self.dateStr = [dateStr substringWithRange:NSMakeRange(0, 10)];
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [[TTLFManager sharedManager].networkManager orderListSuccess:^(NSArray *array) {
+        
+        self.dateStr = @"2017-06-12";
+        
+        [[TTLFManager sharedManager].networkManager getAllOrderListWithDate:self.dateStr Success:^(NSArray *array) {
             [self.tableView.mj_header endRefreshing];
             self.array = array;
             [self.tableView reloadData];
@@ -48,8 +58,16 @@
             [self.tableView.mj_header endRefreshing];
             [self sendAlertAction:errorMsg];
         }];
+        
     }];
     [self.tableView.mj_header beginRefreshing];
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(selectDateAction)];
+    
+}
+- (void)selectDateAction
+{
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -89,6 +107,8 @@
     footView.backgroundColor = [UIColor clearColor];
     return footView;
 }
+
+
 
 
 @end

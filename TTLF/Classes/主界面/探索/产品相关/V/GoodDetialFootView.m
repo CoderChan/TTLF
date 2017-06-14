@@ -35,12 +35,15 @@
 - (void)setModel:(GoodsInfoModel *)model
 {
     _model = model;
-    
+    CGSize size = [model.article_desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
+    CGFloat space = 20;
+    CGFloat iconHeight = (self.width - 4*space)/3;
+    _contentLabel.text = model.article_desc;
+    _contentLabel.height = size.height + 15 + 10 + iconHeight + 10;
 }
 
 - (void)setupSubViews
 {
-    
     CGSize size = [PlaceText boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
     // 产品的其他说明
     self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH - 30, size.height)];
