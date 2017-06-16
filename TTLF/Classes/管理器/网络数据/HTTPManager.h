@@ -79,12 +79,6 @@ typedef void(^FailCacheBlock) (NSError * error);
        fail:(YLRMResponseFail)fail;
 
 
-+ (void)downLoadFileWithURL:(NSString *)url
-                   Progress:(YLRMProgress)progress
-                 Completion:(id)completion
-                       Fail:(id)fail;
-
-
 /**
  *  普通路径上传文件（图片、小视频、文件等）
  *

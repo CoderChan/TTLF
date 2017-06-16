@@ -209,6 +209,8 @@
 		3BB8E0571ECA96C1004BDE09 /* GoodsDetialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E04E1ECA96C1004BDE09 /* GoodsDetialController.m */; };
 		3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */; };
 		3BB8E05D1ECA98A8004BDE09 /* GoodClassListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */; };
+		3BCB1C261EF1693600FFEC30 /* CommentBookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C251EF1693600FFEC30 /* CommentBookController.m */; };
+		3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
@@ -654,6 +656,10 @@
 		3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListTableCell.m; sourceTree = "<group>"; };
 		3BB8E05B1ECA98A8004BDE09 /* GoodClassListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodClassListController.h; sourceTree = "<group>"; };
 		3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodClassListController.m; sourceTree = "<group>"; };
+		3BCB1C241EF1693600FFEC30 /* CommentBookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentBookController.h; sourceTree = "<group>"; };
+		3BCB1C251EF1693600FFEC30 /* CommentBookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentBookController.m; sourceTree = "<group>"; };
+		3BCB1C271EF2167800FFEC30 /* SearchBookVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBookVController.h; sourceTree = "<group>"; };
+		3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBookVController.m; sourceTree = "<group>"; };
 		3BD049C11EAC967B0054F9EF /* TTLFSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLFSettingManager.h; sourceTree = "<group>"; };
 		3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLFSettingManager.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -945,6 +951,10 @@
 				3B1F14C71EA7536D00DFAFAE /* BookStoreViewController.m */,
 				3B03082B1EB8785D004B9F53 /* BookDetialViewController.h */,
 				3B03082C1EB8785D004B9F53 /* BookDetialViewController.m */,
+				3BCB1C271EF2167800FFEC30 /* SearchBookVController.h */,
+				3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */,
+				3BCB1C241EF1693600FFEC30 /* CommentBookController.h */,
+				3BCB1C251EF1693600FFEC30 /* CommentBookController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2470,6 +2480,7 @@
 				3BB8E05D1ECA98A8004BDE09 /* GoodClassListController.m in Sources */,
 				3B1F150E1EA7536D00DFAFAE /* ZanViewController.m in Sources */,
 				3BAC6AA31EAEF5B500D3CB8C /* FLAnimatedImage.m in Sources */,
+				3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */,
 				3B2670481E6FDEBB0078379B /* WXMediaMessage+messageConstruct.m in Sources */,
 				3B1F05CD1E792BD2005173B9 /* PunnaListTableCell.m in Sources */,
 				3B1F150D1EA7536D00DFAFAE /* PlayingRightBarView.m in Sources */,
@@ -2613,6 +2624,7 @@
 				3B5BA5FB1EC997A800A57DBF /* SendDiscussController.m in Sources */,
 				3B6872EA1EAB966300A12FF4 /* CommentNewsController.m in Sources */,
 				3BAFF4A21EC4A00100D81AD5 /* GoodnessViewController.m in Sources */,
+				3BCB1C261EF1693600FFEC30 /* CommentBookController.m in Sources */,
 				3B2670E01E6FE2B40078379B /* NickNameViewController.m in Sources */,
 				3B0AF0341ED81AC5007436AE /* PayOrderView.m in Sources */,
 				3B0AF0311ED80A8C007436AE /* CMPopTipView.m in Sources */,

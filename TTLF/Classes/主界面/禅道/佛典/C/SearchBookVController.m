@@ -1,21 +1,20 @@
 //
-//  SearchVageViewController.m
+//  SearchBookVController.m
 //  TTLF
 //
-//  Created by Chan_Sir on 2017/5/6.
+//  Created by Chan_Sir on 2017/6/15.
 //  Copyright © 2017年 陈振超. All rights reserved.
 //
 
-#import "SearchVageViewController.h"
-#import "FindVageTableViewCell.h"
-#import "VageDetialViewController.h"
+#import "SearchBookVController.h"
 #import "NormalTableViewCell.h"
+#import "BookStoreTableViewCell.h"
+#import "BookDetialViewController.h"
 
-@interface SearchVageViewController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
+@interface SearchBookVController ()<UITableViewDelegate,UITableViewDataSource,UISearchBarDelegate>
 {
     BOOL isNodata;  //没有搜索结果时
 }
-
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
 /** 搜索结果集 */
@@ -26,11 +25,11 @@
 
 @end
 
-@implementation SearchVageViewController
+@implementation SearchBookVController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"素食搜索";
+    self.title = @"佛典搜索";
     [self setupSubViews];
 }
 
@@ -51,7 +50,7 @@
     
     self.searchController = [[UISearchController alloc]initWithSearchResultsController:nil];
     self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.placeholder = @"搜索关键字";
+    self.searchController.searchBar.placeholder = @"佛典关键字";
     self.searchController.searchBar.height = 50;
     [self.searchController.searchBar becomeFirstResponder];
     
@@ -71,8 +70,8 @@
     if (searchBar.text.length < 1) {
         return;
     }
-    // 搜索素食
-    [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
+    // 搜索佛典
+    [[TTLFManager sharedManager].networkManager searchBookByKeyWord:searchBar.text Success:^(NSArray *array) {
         
         isNodata = NO;
         [self.searchController dismissViewControllerAnimated:YES completion:nil];
@@ -91,18 +90,17 @@
 //        return;
 //    }
 //    
-//    // 搜索素食
-//    [[TTLFManager sharedManager].networkManager searchVege:searchBar.text Success:^(NSArray *array) {
-//        
+//    // 搜索佛典
+//    [[TTLFManager sharedManager].networkManager searchBookByKeyWord:searchBar.text Success:^(NSArray *array) {
 //        [self.searchController dismissViewControllerAnimated:YES completion:nil];
 //        self.searchArray = array;
 //        isNodata = NO;
 //        [self.tableView reloadData];
-//        
 //    } Fail:^(NSString *errorMsg) {
 //        isNodata = YES;
 //        [self showMessageView:errorMsg];
 //    }];
+//    
 //}
 
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar
@@ -138,9 +136,9 @@
         
         return cell;
     }else{
-        VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
-        FindVageTableViewCell *cell = [FindVageTableViewCell sharedFindVageCell:tableView];
-        cell.vegeModel = vegeModel;
+        BookInfoModel *bookModel = self.searchArray[indexPath.section];
+        BookStoreTableViewCell *cell = [BookStoreTableViewCell sharedBookStoreCell:tableView];
+        cell.model = bookModel;
         return cell;
     }
 }
@@ -151,10 +149,10 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (!isNodata) {
-        VegeInfoModel *vegeModel = self.searchArray[indexPath.section];
-        VageDetialViewController *vageDetial = [[VageDetialViewController alloc]initWithVegeModel:vegeModel];
+        BookInfoModel *vegeModel = self.searchArray[indexPath.section];
+        BookDetialViewController *vageDetial = [[BookDetialViewController alloc]initWithModel:vegeModel];
         [self.navigationController pushViewController:vageDetial animated:YES];
-
+        
     }
 }
 
@@ -163,7 +161,7 @@
     if (isNodata) {
         return self.view.height - 50;
     }else{
-        return 220*CKproportion + 10 + 25 + 28 + 50 + 10;
+        return 120;
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -177,21 +175,6 @@
     return footView;
 }
 
-//
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-//    [self.navigationController.navigationBar setHidden:YES];
-//    
-//}
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    self.navigationController.navigationBar.barStyle = UIBarStyleBlack;
-//    [self.navigationController.navigationBar setHidden:NO];
-//}
-//
 
 
 @end

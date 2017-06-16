@@ -118,6 +118,10 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)getBookListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 下载佛典
 - (void)downLoadBookWithModel:(BookInfoModel *)model Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
+// 搜索佛典
+- (void)searchBookByKeyWord:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 发布佛典评论
+- (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 #pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息

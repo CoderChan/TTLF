@@ -88,7 +88,7 @@
     // 高亮图标
     childVC.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     NSMutableDictionary *selectTextAttres = [NSMutableDictionary dictionary];
-    selectTextAttres[NSForegroundColorAttributeName] = MainColor;
+    selectTextAttres[NSForegroundColorAttributeName] = RGBACOLOR(247, 81, 67, 1);
     selectTextAttres[NSFontAttributeName] = [UIFont systemFontOfSize:9];
     
     

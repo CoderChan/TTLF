@@ -142,6 +142,15 @@
     }];
 }
 
+#pragma mark - 判断当前网络为蜂窝网络还是WiFi
+- (void)networkingType:(void (^)(AFNetworkReachabilityStatus))netType
+{
+    AFNetworkReachabilityManager *manager = [AFNetworkReachabilityManager sharedManager];
+    [manager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+        netType(status);
+    }];
+    [manager startMonitoring];
+}
 
 
 

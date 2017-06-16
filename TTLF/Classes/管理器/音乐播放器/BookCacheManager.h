@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "BookInfoModel.h"
 
 /********** 书架的缓存 ***********/
 

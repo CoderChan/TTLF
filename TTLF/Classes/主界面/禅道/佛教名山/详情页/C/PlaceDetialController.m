@@ -252,7 +252,7 @@
             NoDequeTableViewCell *cell = [NoDequeTableViewCell sharedCell:tableView];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.font = [UIFont boldSystemFontOfSize:19];
-            cell.textLabel.textColor = GoldColor;
+            cell.textLabel.textColor = MainColor;
             cell.textLabel.text = self.array[indexPath.section][indexPath.row];
             return cell;
         }
@@ -387,7 +387,7 @@
 {
     if (!_coverImgView) {
         _coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 220*CKproportion)];
-        [_coverImgView sd_setImageWithURL:[NSURL URLWithString:self.placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:GoldColor]];
+        [_coverImgView sd_setImageWithURL:[NSURL URLWithString:self.placeModel.scenic_img] placeholderImage:[UIImage imageWithColor:MainColor]];
         _coverImgView.contentMode = UIViewContentModeScaleAspectFill;
         [_coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
         _coverImgView.layer.masksToBounds = YES;
@@ -410,7 +410,7 @@
         _travelLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:travelStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 5)];
         _travelLabel.attributedText = attributeStr;
     }
     return _travelLabel;
@@ -429,7 +429,7 @@
         _openTimeLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:timeStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 5)];
         _openTimeLabel.attributedText = attributeStr;
     }
     return _openTimeLabel;
@@ -444,7 +444,7 @@
         _phoneLabel.text = phoneStr;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:phoneStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 3)];
         _phoneLabel.attributedText = attributeStr;
     }
     return _phoneLabel;
@@ -463,7 +463,7 @@
         _addressLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:addressStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 3)];
         _addressLabel.attributedText = attributeStr;
     }
     return _addressLabel;
@@ -482,7 +482,7 @@
         _ticketLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:ticketStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 3)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 3)];
         _ticketLabel.attributedText = attributeStr;
         
     }
@@ -526,7 +526,7 @@
         _trafficLabel.numberOfLines = 0;
         
         NSMutableAttributedString *attributeStr = [[NSMutableAttributedString alloc]initWithString:ticketStr];
-        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:GoldColor} range:NSMakeRange(0, 5)];
+        [attributeStr addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:19],NSForegroundColorAttributeName:MainColor} range:NSMakeRange(0, 5)];
         _trafficLabel.attributedText = attributeStr;
     }
     return _trafficLabel;

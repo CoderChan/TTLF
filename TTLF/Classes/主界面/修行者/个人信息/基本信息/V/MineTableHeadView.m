@@ -40,11 +40,11 @@
     _nameLabel.text = userModel.nickName;
     [_headIMGView sd_setImageWithURL:[NSURL URLWithString:userModel.headUrl] placeholderImage:[UIImage imageNamed:@"user_place"]];
     if (userModel.type == 6) {
-        _nameLabel.textColor = GoldColor;
+        _nameLabel.textColor = MainColor;
         _typeLabel.textColor = RGBACOLOR(253, 199, 40, 1);
         _typeLabel.text = @"超级管理员";
     }else if (userModel.type == 7){
-        _nameLabel.textColor = GoldColor;
+        _nameLabel.textColor = MainColor;
         _typeLabel.textColor = RGBACOLOR(253, 199, 40, 1);;
         _typeLabel.text = @"普通管理员";
     }else if (userModel.type == 8){

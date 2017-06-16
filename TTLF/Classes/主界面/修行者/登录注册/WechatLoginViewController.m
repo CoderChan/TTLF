@@ -60,7 +60,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     // 版权声明
     UILabel *copyLabel = [[UILabel alloc]init];
     copyLabel.text = @"Copyright ©2017 佛缘生活";
-    copyLabel.textColor = GoldColor;
+    copyLabel.textColor = MainColor;
     copyLabel.userInteractionEnabled = YES;
     copyLabel.textAlignment = NSTextAlignmentCenter;
     copyLabel.font = [UIFont systemFontOfSize:13];
@@ -73,7 +73,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     
     // 游客登录
     UIView *touristView = [[UIView alloc]initWithFrame:CGRectZero];
-    touristView.backgroundColor = GoldColor;
+    touristView.backgroundColor = MainColor;
     touristView.userInteractionEnabled = YES;
     touristView.layer.masksToBounds = YES;
     touristView.layer.cornerRadius = 24;
@@ -112,7 +112,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     // 版权声明
     UILabel *copyLabel = [[UILabel alloc]init];
     copyLabel.text = @"Copyright ©2017 佛缘生活";
-    copyLabel.textColor = GoldColor;
+    copyLabel.textColor = MainColor;
     copyLabel.userInteractionEnabled = YES;
     copyLabel.textAlignment = NSTextAlignmentCenter;
     copyLabel.font = [UIFont systemFontOfSize:13];
@@ -137,10 +137,10 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     }];
     otherButton.layer.masksToBounds = YES;
     otherButton.layer.cornerRadius = 24;
-    otherButton.layer.borderColor = GoldColor.CGColor;
+    otherButton.layer.borderColor = MainColor.CGColor;
     otherButton.layer.borderWidth = 1.f;
     otherButton.titleLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    [otherButton setTitleColor:GoldColor forState:UIControlStateNormal];
+    [otherButton setTitleColor:MainColor forState:UIControlStateNormal];
     [self.view addSubview:otherButton];
     [otherButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.bottom.equalTo(copyLabel.mas_top).offset(-12);
@@ -152,7 +152,7 @@ static NSString *kAuthOpenID = @"oiwjW06FGjIYZZdY4AszU3O6hLlk";
     
     // 微信快速登录
     UIView *wechatView = [[UIView alloc]initWithFrame:CGRectZero];
-    wechatView.backgroundColor = GoldColor;
+    wechatView.backgroundColor = MainColor;
     wechatView.userInteractionEnabled = YES;
     wechatView.layer.masksToBounds = YES;
     wechatView.layer.cornerRadius = 24;

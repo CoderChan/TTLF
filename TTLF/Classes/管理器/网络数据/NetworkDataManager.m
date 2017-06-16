@@ -1008,7 +1008,7 @@
     }];
 }
 
-#warning 下载
+
 // 下载佛典
 - (void)downLoadBookWithModel:(BookInfoModel *)model Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
 {
@@ -1018,17 +1018,107 @@
         return;
     }
     
-    NSString *urlStr = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/downloadFd?userID=%@&book_id=%@",account.userID.base64EncodedString,model.book_id.base64EncodedString];
-    NSLog(@"下载佛典 = %@",urlStr);
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/downloadFd?userID=%@&book_id=%@",account.userID.base64EncodedString,model.book_id.base64EncodedString];
+    NSLog(@"下载佛典 = %@",url);
     
-    NSURL *url = [NSURL URLWithString:urlStr];
     
-    [HTTPManager GET:urlStr params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
-        NSLog(@"responseObject = %@",responseObject);
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        NSLog(@"---%f---",downloadProgress.fractionCompleted);
+        progressBlock(downloadProgress);
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        NSURL *returnURL = [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+        return returnURL;
+        
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        if (!error) {
+            
+            NSLog(@"F文件下载到: %@", filePath);// 需要去掉file:///
+            NSString *filePathStr = [NSString stringWithFormat:@"%@",filePath];
+            filePathStr = [filePathStr substringWithRange:NSMakeRange(8, filePathStr.length - 8)];
+            model.cachePath = filePathStr;
+            [[BookCacheManager sharedManager] saveBookArrayWithModel:model];
+            
+            success(filePathStr);
+        }else{
+            fail(error.localizedDescription);
+        }
+        
+    }];
+    
+    [downloadTask resume];
+    
+}
+
+// 搜索佛典
+- (void)searchBookByKeyWord:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Buddist/searchFd";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:keyWord.base64EncodedString forKey:@"book_name"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/searchFd?userID=%@&book_name=%@",account.userID.base64EncodedString,keyWord.base64EncodedString];
+    NSLog(@"搜索佛典 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [BookInfoModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
     } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];
     
+}
+
+// 发布佛典评论
+- (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Buddist/commentFd";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:model.book_id.base64EncodedString forKey:@"book_id"];
+    [param setValue:content.base64EncodedString forKey:@"book_comment"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/commentFd?userID=%@&book_id=%@&book_comment=%@",account.userID.base64EncodedString,model.book_id.base64EncodedString,content.base64EncodedString];
+    NSLog(@"发表佛典评论 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
 
 #pragma mark - 禅修板块——天天礼佛

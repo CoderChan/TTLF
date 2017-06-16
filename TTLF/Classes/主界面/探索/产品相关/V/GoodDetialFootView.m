@@ -74,7 +74,7 @@
         [button setTitle:titleArray[i] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
         button.titleLabel.font = [UIFont systemFontOfSize:14];
-        [button setTitleColor:GoldColor forState:UIControlStateNormal];
+        [button setTitleColor:MainColor forState:UIControlStateNormal];
         button.frame = frame;
         [button centerImageAndTitle:5];
         [self addSubview:button];

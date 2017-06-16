@@ -22,11 +22,15 @@
 @property (copy,nonatomic) NSString *book_type;
 // 佛典描述
 @property (copy,nonatomic) NSString *book_info;
+// 分享链接
+@property (copy,nonatomic) NSString *web_url;
 
 // 缓存路径
 @property (copy,nonatomic) NSString *cachePath;
+// 下载下来的文件名
+@property (copy,nonatomic) NSString *name;
 
-// 其他说明--暂时没用
-//@property (copy,nonatomic) NSString *book_desc;
+// 一个PDF网页
+@property (copy,nonatomic) NSString *book_desc;
 
 @end

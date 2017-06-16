@@ -11,6 +11,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import <MJExtension/MJExtension.h>
 #import "BookDetialViewController.h"
+#import "SearchBookVController.h"
 
 
 
@@ -113,6 +114,7 @@
                 if (page > sumPage) {
                     // 没有更多的了
                     [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.tableView.mj_header endRefreshing];
                     [self.tableView.mj_footer endRefreshing];
                 }else{
                     page++;
@@ -126,6 +128,7 @@
                 if (page > sumPage) {
                     // 没有更多的了
                     [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.tableView.mj_header endRefreshing];
                     [self.tableView.mj_footer endRefreshing];
                 }else{
                     page++;
@@ -147,7 +150,8 @@
 
 - (void)searchBookAction
 {
-    
+    SearchBookVController *search = [[SearchBookVController alloc]init];
+    [self.navigationController pushViewController:search animated:YES];
 }
 
 #pragma mark - CollectionView代理
