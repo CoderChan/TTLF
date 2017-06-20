@@ -81,7 +81,7 @@
     footView.userInteractionEnabled = YES;
     [self.view addSubview:footView];
     
-    [self.button setTitle:@"开始阅读" forState:UIControlStateNormal];
+    
     [footView addSubview:self.button];
     
     // 分享事件
@@ -106,7 +106,8 @@
             }else if (status == AFNetworkReachabilityStatusNotReachable){
                 [MBProgressHUD showError:@"网络未连接"];
             }else if (status == AFNetworkReachabilityStatusReachableViaWWAN){
-                [self showTwoAlertWithMessage:@"当前网络将消耗您的流量，是否继续？" ConfirmClick:^{
+                NSString *title = [NSString stringWithFormat:@"没有WiFi，当前网络将消耗您%@MB流量，是否继续？",[self returnMBWithbyte:self.model.book_size]];
+                [self showTwoAlertWithMessage:title ConfirmClick:^{
                     [self downLoadPDFFileAction];
                 }];
             }else if (status == AFNetworkReachabilityStatusReachableViaWiFi){
@@ -170,6 +171,7 @@
 - (void)dismissReaderViewController:(ReaderViewController *)viewController
 {
     
+    [self.button setTitle:@"开始阅读" forState:UIControlStateNormal];
     [self dismissViewControllerAnimated:YES completion:nil];
 
 }
@@ -310,7 +312,29 @@
         req.scene = 1;
         [WXApi sendReq:req];
     }else if (clickType == StoreClickType){
-        [MBProgressHUD showError:@"暂不支持收藏佛典"];
+        NSData *imageData = UIImageJPEGRepresentation(self.headView.bookCoverImgView.image, 0.01);
+        NSInteger len = imageData.length / 1024;
+        
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = self.model.book_name;
+        message.description = self.model.book_info;
+        if (len > 32) {
+            [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        }else{
+            [message setThumbData:imageData];
+        }
+        
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = shareURL;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 2;
+        [WXApi sendReq:req];
+        
     }else if (clickType == QQFriendType){
         NSString *shareUrl = shareURL;
         NSString *title = self.model.book_name;
@@ -370,10 +394,26 @@
         [_button setBackgroundColor:MainColor];
         _button.layer.masksToBounds = YES;
         _button.layer.cornerRadius = 4;
+        NSString *filePath = [self searchFilePathByFileName:self.model.name];
+        if (filePath) {
+            // 已缓存，立即阅读
+            [_button setTitle:@"立即阅读" forState:UIControlStateNormal];
+        }else{
+            // 没有缓存，添加到书架（2.5MB）
+            NSString *title = [NSString stringWithFormat:@"添加到书架(%@MB)",[self returnMBWithbyte:self.model.book_size]];
+            [_button setTitle:title forState:UIControlStateNormal];
+        }
         [_button addTarget:self action:@selector(startReadingAction:) forControlEvents:UIControlEventTouchUpInside];
         _button.titleLabel.font = [UIFont boldSystemFontOfSize:18];
     }
     return _button;
+}
+- (NSString *)returnMBWithbyte:(NSString *)byte
+{
+    CGFloat byteFloat = [byte floatValue];
+    CGFloat mbFloat = byteFloat/1024/1024;
+    NSString *mb = [NSString stringWithFormat:@"%.2f",mbFloat];
+    return mb;
 }
 - (UITextView *)bookDetialView
 {

@@ -24,6 +24,8 @@
 @property (copy,nonatomic) NSString *book_info;
 // 分享链接
 @property (copy,nonatomic) NSString *web_url;
+// 文件大小
+@property (copy,nonatomic) NSString *book_size;
 
 // 缓存路径
 @property (copy,nonatomic) NSString *cachePath;

@@ -20,9 +20,9 @@ static FMDatabase *_db;
     NSString *path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent:@"t_book.sqlite"];
     _db = [FMDatabase databaseWithPath:path];
     [_db open];
-    // book_id,book_name,book_author,book_logo,book_type,book_info,web_url,cachePath,book_desc,name
+    // book_id,book_name,book_author,book_logo,book_type,book_info,web_url,cachePath,book_desc,name,book_size
     
-    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_book (id integer PRIMARY KEY AUTOINCREMENT,book_id varchar,book_name varchar,book_author varchar,book_logo varchar,book_type varchar,book_info varchar,web_url varchar,cachePath varchar,book_desc varchar,name varchar);"];
+    [_db executeUpdate:@"CREATE TABLE IF NOT EXISTS t_book (id integer PRIMARY KEY AUTOINCREMENT,book_id varchar,book_name varchar,book_author varchar,book_logo varchar,book_type varchar,book_info varchar,web_url varchar,cachePath varchar,book_desc varchar,name varchar,book_size varchar);"];
     
 }
 
@@ -42,8 +42,8 @@ static FMDatabase *_db;
     if (![_db open]) {
         NSLog(@"数据库未打开");
     }else{
-        //book_id,book_name,book_author,book_logo,book_type,book_info,cachePath,name
-        NSString *sql = [NSString stringWithFormat:@"insert into t_book (book_id,book_name,book_author,book_logo,book_type,book_info,web_url,cachePath,book_desc,name) values ('%@','%@','%@','%@','%@','%@','%@','%@','%@','%@')",bookModel.book_id,bookModel.book_name,bookModel.book_author,bookModel.book_logo,bookModel.book_type,bookModel.book_info,bookModel.web_url,bookModel.cachePath,bookModel.book_desc,bookModel.name];
+        //book_id,book_name,book_author,book_logo,book_type,book_info,cachePath,name,book_size
+        NSString *sql = [NSString stringWithFormat:@"insert into t_book (book_id,book_name,book_author,book_logo,book_type,book_info,web_url,cachePath,book_desc,name,book_size) values ('%@','%@','%@','%@','%@','%@','%@','%@','%@','%@','%@')",bookModel.book_id,bookModel.book_name,bookModel.book_author,bookModel.book_logo,bookModel.book_type,bookModel.book_info,bookModel.web_url,bookModel.cachePath,bookModel.book_desc,bookModel.name,bookModel.book_size];
         
         [_db executeUpdate:sql];
     }
@@ -60,7 +60,7 @@ static FMDatabase *_db;
     
     NSMutableArray *array = [NSMutableArray array];
     
-    // book_id,book_name,book_author,book_logo,book_type,book_info,cachePath,name
+    // book_id,book_name,book_author,book_logo,book_type,book_info,cachePath,name,book_size
     while (result.next) {
         BookInfoModel *model = [[BookInfoModel alloc]init];
         model.book_id = [result stringForColumn:@"book_id"];
@@ -73,6 +73,7 @@ static FMDatabase *_db;
         model.cachePath = [result stringForColumn:@"cachePath"];
         model.book_desc = [result stringForColumn:@"book_desc"];
         model.name = [result stringForColumn:@"name"];
+        model.book_size = [result stringForColumn:@"book_size"];
         
         [array addObject:model];
     }
@@ -87,6 +88,17 @@ static FMDatabase *_db;
     return resultArray;
 }
 
+#pragma mark - 删除某本典籍缓存
+- (void)deleteOneBookByBookID:(NSString *)bookID
+{
+    if (![_db open]) {
+        NSLog(@"数据库未打开");
+    }else{
+        NSString *sql = [NSString stringWithFormat:@"DELETE FROM t_book WHERE book_id = %@",bookID];
+        [_db executeUpdate:sql];
+        
+    }
+}
 #pragma mark - 清空全部缓存数据
 - (void)deleBookCache
 {

@@ -15,6 +15,8 @@
 #import "PlaceListViewController.h"
 #import "GoodnessViewController.h"
 #import <SVWebViewController.h>
+#import "PlayingRightBarView.h"
+#import "MusicListViewController.h"
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -43,6 +45,14 @@
     self.tableView.delegate = self;
     self.tableView.rowHeight = 50;
     [self.view addSubview:self.tableView];
+    
+    PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    play.ClickBlock = ^{
+        MusicPlayingController *musicPlaying = [[MusicPlayingController alloc]init];
+        [self.navigationController pushViewController:musicPlaying animated:YES];
+    };
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:play];
+    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -81,7 +91,7 @@
             [self.navigationController pushViewController:myBook animated:YES];
         }else{
             // 梵音
-            MusicPlayingController *music = [MusicPlayingController new];
+            MusicListViewController *music = [MusicListViewController new];
             [self.navigationController pushViewController:music animated:YES];
         }
     }else if (indexPath.section == 1){

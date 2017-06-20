@@ -35,6 +35,13 @@
 - (NSArray *)getBookCacheArray;
 
 /**
+ 删除某本典籍
+
+ @param bookID 典籍ID
+ */
+- (void)deleteOneBookByBookID:(NSString *)bookID;
+
+/**
  清理缓存
  */
 - (void)deleBookCache;

@@ -92,6 +92,41 @@
     return foot;
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete;
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BookInfoModel *model = self.array[indexPath.row];
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"除移" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        [[BookCacheManager sharedManager] deleteOneBookByBookID:model.book_id];
+        // 还需要清理PDF文件缓存
+        [self deleteOneCacheFile:model.name];
+        self.array = [[BookCacheManager sharedManager] getBookCacheArray];
+        [self.tableView reloadData];
+    }];
+    action.backgroundColor = DisAbledColor;
+    return @[action];
+}
+// 根据文件名删除某个缓存文件
+- (void)deleteOneCacheFile:(NSString *)fileName
+{
+    NSFileManager *fileManager=[NSFileManager defaultManager];
+    
+    NSArray * paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths firstObject];
+    if ([fileManager fileExistsAtPath:path]) {
+        NSArray *childerFiles=[fileManager subpathsAtPath:path];
+        for (NSString *file_name in childerFiles) {
+            if ([fileName isEqualToString:file_name]) {
+                NSError *error;
+                NSString *absolutePath=[path stringByAppendingPathComponent:fileName];
+                [fileManager removeItemAtPath:absolutePath error:&error];
+            }
+        }
+    }
+}
 #pragma mark - 其他方法
 - (void)BookStoreAction
 {
@@ -110,6 +145,7 @@
     popTipView.textColor = [UIColor whiteColor];
     [popTipView presentPointingAtBarButtonItem:self.navigationItem.rightBarButtonItem animated:YES];
 }
+
 
 
 - (void)viewWillAppear:(BOOL)animated

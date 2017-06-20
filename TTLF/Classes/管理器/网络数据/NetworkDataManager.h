@@ -29,6 +29,7 @@
 #import "GoodsInfoModel.h"
 #import "GoodsOrderModel.h"
 #import "BookInfoModel.h"
+#import "BookCommentModel.h"
 
 
 
@@ -122,6 +123,9 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)searchBookByKeyWord:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 发布佛典评论
 - (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 获取佛典下的评论列表
+- (void)getBookCommentWithModel:(BookInfoModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+
 
 #pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息

@@ -7,7 +7,7 @@
 //
 
 #import "CommentBookController.h"
-#import "NormalTableViewCell.h"
+#import "CommentBookTableCell.h"
 #import <MJRefresh/MJRefresh.h>
 
 @interface CommentBookController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
@@ -43,12 +43,28 @@
 - (void)setupSubViews
 {
     // 绘制表格
-    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64) style:UITableViewStyleGrouped];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - 50) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = self.view.backgroundColor;
-    self.tableView.rowHeight = 100*CKproportion;
+    self.tableView.rowHeight = 120*CKproportion;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [self.array removeAllObjects];
+        [[TTLFManager sharedManager].networkManager getBookCommentWithModel:self.model Success:^(NSArray *array) {
+            
+            [self hideMessageAction];
+            [self.tableView.mj_header endRefreshing];
+            [self.array addObjectsFromArray:array];
+            [self.tableView reloadData];
+            
+        } Fail:^(NSString *errorMsg) {
+            [self showEmptyViewWithMessage:errorMsg];
+            [self.tableView.mj_header endRefreshing];
+        }];
+    }];
+    [self.tableView.mj_header beginRefreshing];
     
     // 底部输入框
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 50)];
@@ -71,6 +87,7 @@
     self.textField.returnKeyType = UIReturnKeySend;
     [self.view addSubview:self.textField];
     
+    
 }
 
 #pragma mark - 表格相关
@@ -80,13 +97,13 @@
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.array.count;
-    return 20;
+    return self.array.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-    
+    CommentBookTableCell *cell = [CommentBookTableCell sharedBoomCell:tableView];
+    BookCommentModel *model = self.array[indexPath.row];
+    cell.model = model;
     return cell;
 }
 
@@ -102,7 +119,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 0.f;
+    return 0.1f;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -111,6 +128,33 @@
     return footView;
 }
 
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 管理员、发布者可以删除
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+    BookCommentModel *model = self.array[indexPath.row];
+    if (userModel.type == 6 || [userModel.userID isEqualToString:model.comment_id]) {
+        return UITableViewCellEditingStyleDelete;
+    }else{
+        return UITableViewCellEditingStyleNone;
+    }
+}
+
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    // 管理员、发布者可以删除
+    UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+    BookCommentModel *model = self.array[indexPath.row];
+    if (userModel.type == 6 || [userModel.userID isEqualToString:model.comment_id]) {
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            [MBProgressHUD showError:@"删除"];
+        }];
+        action.backgroundColor = WarningColor;
+        return @[action];
+    }else{
+        return NULL;
+    }
+}
 
 #pragma mark - 键盘跟随
 -(void)textFieldDidBeginEditing:(UITextField *)textField
@@ -122,9 +166,9 @@
     [UIView setAnimationDuration:0.5f];
     
     //将视图的Y坐标向上移动offset个单位，以使下面腾出地方用于软键盘的显示
-    if(offset > 0)
+    if(offset > 0){
         self.view.frame = CGRectMake(0.0f, -offset, self.view.frame.size.width, self.view.frame.size.height);
-    
+    }
     [UIView commitAnimations];
 }
 
@@ -150,6 +194,14 @@
         [self sendAlertAction:errorMsg];
     }];
     return YES;
+}
+
+- (NSMutableArray *)array
+{
+    if (!_array) {
+        _array = [NSMutableArray array];
+    }
+    return _array;
 }
 
 @end
