@@ -9,12 +9,16 @@
 #import "AlbumListViewController.h"
 #import "PlayingRightBarView.h"
 #import "MusicPlayingController.h"
-#import "NormalTableViewCell.h"
+#import "AlumListTableCell.h"
 #import "AlbumHeadView.h"
+#import <MJRefresh/MJRefresh.h>
+
 
 @interface AlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
 // 表格
 @property (strong,nonatomic) UITableView *tableView;
+// 分类模型
+@property (strong,nonatomic) MusicCateModel *cateModel;
 // 数据源
 @property (copy,nonatomic) NSArray *array;
 // 头部
@@ -24,6 +28,16 @@
 
 @implementation AlbumListViewController
 
+
+- (instancetype)initWithModel:(MusicCateModel *)cateModel
+{
+    self = [super init];
+    if (self) {
+        self.cateModel = cateModel;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"专辑列表";
@@ -32,7 +46,6 @@
 
 - (void)setupSubViews
 {
-    self.view.backgroundColor = [UIColor grayColor];
     // 右侧播放器
     PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     play.ClickBlock = ^{
@@ -50,34 +63,57 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
-    // 头部
-    self.headView = [[AlbumHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [[TTLFManager sharedManager].networkManager albumListByModel:self.cateModel Success:^(NSArray *array) {
+            
+            [self.tableView.mj_header endRefreshing];
+            [self hideMessageAction];
+            self.array = array;
+            // 头部
+            self.tableView.tableHeaderView = self.headView;
+            [self.tableView reloadData];
+            
+        } Fail:^(NSString *errorMsg) {
+            [self.tableView.mj_header endRefreshing];
+            [self showEmptyViewWithMessage:errorMsg];
+        }];
+    }];
+    [self.tableView.mj_header beginRefreshing];
     
-    self.tableView.tableHeaderView = self.headView;
+    
     
 }
-
+- (AlbumHeadView *)headView
+{
+    if (!_headView) {
+        _headView = [[AlbumHeadView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
+        _headView.model = self.cateModel;
+    }
+    return _headView;
+}
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-//    return self.array.count;
-    return 20;
+    return self.array.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
-    NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-    
+    AlbumInfoModel *model = self.array[indexPath.row];
+    model.index = indexPath.row + 1;
+    AlumListTableCell *cell = [AlumListTableCell sharedAlumCell:tableView];
+    cell.model = model;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    AlbumInfoModel *model = self.array[indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    MusicPlayingController *play = [[MusicPlayingController alloc]initWithModel:model];
+    [self.navigationController pushViewController:play animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

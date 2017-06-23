@@ -17,12 +17,12 @@
 // 评论文字
 @property (copy,nonatomic) NSString *book_comment;
 // 评论者UID
-@property (copy,nonatomic) NSString *commenter_id;
+@property (copy,nonatomic) NSString *creater_id;
 // 评论者昵称
 @property (copy,nonatomic) NSString *commenter_name;
 // 评论者头像
 @property (copy,nonatomic) NSString *commenter_head;
 // 发布时间
-@property (copy,nonatomic) NSString *time;
+@property (copy,nonatomic) NSString *create_time;
 
 @end

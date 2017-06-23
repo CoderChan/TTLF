@@ -9,7 +9,7 @@
 #import "MusicCollectionViewCell.h"
 
 
-#define Space 3
+#define Space 5
 @interface MusicCollectionViewCell ()
 
 // 封面
@@ -36,9 +36,18 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.backgroundColor = [UIColor whiteColor];
         [self setupSubViews];
     }
     return self;
+}
+
+- (void)setModel:(MusicCateModel *)model
+{
+    _model = model;
+    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:model.cate_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    _nameLabel.text = model.cate_name;
+    _writerLabel.text = model.cate_info;
 }
 
 - (void)setupSubViews
@@ -46,9 +55,11 @@
     CGFloat width = (SCREEN_WIDTH - 3*Space)/2;
     
     // 模板缩略图
-    self.backgroundColor = [UIColor whiteColor];
     self.coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, width, width)];
-    self.coverImgView.image = [UIImage imageWithColor:HWRandomColor];
+    self.coverImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.coverImgView.layer.masksToBounds = YES;
+    self.coverImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     [self.contentView addSubview:self.coverImgView];
     
     // 模板昵称

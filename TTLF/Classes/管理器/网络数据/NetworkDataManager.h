@@ -30,6 +30,8 @@
 #import "GoodsOrderModel.h"
 #import "BookInfoModel.h"
 #import "BookCommentModel.h"
+#import "MusicCateModel.h"
+#import "AlbumInfoModel.h"
 
 
 
@@ -126,6 +128,13 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 获取佛典下的评论列表
 - (void)getBookCommentWithModel:(BookInfoModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
+#pragma mark - 梵音板块
+// 梵音分类列表
+- (void)musicCateListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 根据梵音分类获取mp3专辑列表
+- (void)albumListByModel:(MusicCateModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 搜索梵音
+- (void)searchMusicByKey:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 #pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息

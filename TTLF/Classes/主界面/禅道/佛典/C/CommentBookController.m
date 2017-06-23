@@ -9,6 +9,8 @@
 #import "CommentBookController.h"
 #import "CommentBookTableCell.h"
 #import <MJRefresh/MJRefresh.h>
+#import "VisitUserViewController.h"
+
 
 @interface CommentBookController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 
@@ -101,16 +103,30 @@
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     CommentBookTableCell *cell = [CommentBookTableCell sharedBoomCell:tableView];
     BookCommentModel *model = self.array[indexPath.row];
+    cell.UserClickBlock = ^(BookCommentModel *commentModel) {
+        VisitUserViewController *visit = [[VisitUserViewController alloc]initWithUserID:commentModel.creater_id];
+        [self.navigationController pushViewController:visit animated:YES];
+    };
     cell.model = model;
     return cell;
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.view endEditing:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    BookCommentModel *model = self.array[indexPath.row];
+    CGSize size = [model.book_comment boundingRectWithSize:CGSizeMake(self.view.width - 15 - 36 - 10 - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
+    
+    return size.height + 12 + 20 + 3 + 25;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

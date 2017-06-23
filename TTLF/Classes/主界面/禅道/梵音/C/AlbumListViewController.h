@@ -10,4 +10,6 @@
 
 @interface AlbumListViewController : SuperViewController
 
+- (instancetype)initWithModel:(MusicCateModel *)cateModel;
+
 @end

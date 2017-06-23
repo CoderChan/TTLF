@@ -11,7 +11,8 @@
 
 @interface MusicPlayerManager ()
 
-@property (strong,nonatomic) AVAudioPlayer *player;
+
+@property (strong,nonatomic) AVPlayer *player;
 
 @end
 
@@ -38,19 +39,16 @@
     return self;
 }
 
+#pragma mark - 播放网络音乐
+- (void)playNetMusic
+{
+    [self.player play];
+}
+
 #pragma mark - 播放本地音乐
 - (void)playLocalMusic
 {
-    self.isPlaying = YES;
-    NSString *path = [[NSBundle mainBundle]pathForResource:@"消灾吉祥神咒" ofType:@"mp3"];
-    NSURL *url = [[NSURL alloc]initFileURLWithPath:path];
-    NSError *error;
-    self.player = [[AVAudioPlayer alloc]initWithContentsOfURL:url error:&error];
-    if (error) {
-        [MBProgressHUD showError:error.localizedDescription];
-    }
-    self.player.numberOfLoops = -1;
-    [self.player play];
+    
     
 }
 #pragma mark - 暂停播放
@@ -62,16 +60,16 @@
 #pragma mark - 停止播放
 - (void)stop
 {
-    self.isPlaying = NO;
-    [self.player stop];
+    [self.player pause];
 }
 
-//- (AVAudioPlayer *)player
-//{
-//    if (!_player) {
-//        _player = [[AVAudioPlayer alloc]init];
-//    }
-//    return _player;
-//}
+- (AVPlayer *)player
+{
+    if (!_player) {
+        AVPlayerItem *playItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@"http://app.yangruyi.com/Uploads/admin/2017-06-23/594c8fa376a60.mp3"]];
+        _player = [[AVPlayer alloc]initWithPlayerItem:playItem];
+    }
+    return _player;
+}
 
 @end

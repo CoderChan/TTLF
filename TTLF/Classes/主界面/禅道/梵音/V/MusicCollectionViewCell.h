@@ -10,6 +10,8 @@
 
 @interface MusicCollectionViewCell : UICollectionViewCell
 
+@property (strong,nonatomic) MusicCateModel *model;
+
 /** 初始化 */
 + (instancetype)sharedCell:(UICollectionView *)collectionView Path:(NSIndexPath *)indexPath;
 

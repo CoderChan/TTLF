@@ -15,7 +15,7 @@
 
 
 #define TopViewH 180*CKproportion
-#define Space 3
+#define Space 5
 
 @interface MusicListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
 
@@ -48,6 +48,21 @@
     [self.collectionView registerClass:[MusicCollectionViewCell class] forCellWithReuseIdentifier:@"MusicCollectionViewCell"];
     [self.view addSubview:self.collectionView];
     
+    self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [[TTLFManager sharedManager].networkManager musicCateListSuccess:^(NSArray *array) {
+            [self hideMessageAction];
+            [self.collectionView.mj_header endRefreshing];
+            self.array = array;
+            [self.collectionView reloadData];
+        } Fail:^(NSString *errorMsg) {
+            [self.collectionView.mj_header endRefreshing];
+            self.array = @[];
+            [self.collectionView reloadData];
+            [self showEmptyViewWithMessage:errorMsg];
+        }];
+    }];
+    [self.collectionView.mj_header beginRefreshing];
+    
     // 右侧播放按钮
     PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     play.ClickBlock = ^{
@@ -65,19 +80,20 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-//    return self.array.count;
-    return 40;
+    return self.array.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     
     MusicCollectionViewCell *cell = [MusicCollectionViewCell sharedCell:collectionView Path:indexPath];
-    
+    MusicCateModel *model = self.array[indexPath.row];
+    cell.model = model;
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    AlbumListViewController *album = [[AlbumListViewController alloc]init];
+    MusicCateModel *model = self.array[indexPath.row];
+    AlbumListViewController *album = [[AlbumListViewController alloc]initWithModel:model];
     [self.navigationController pushViewController:album animated:YES];
     
 }

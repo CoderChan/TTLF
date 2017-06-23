@@ -47,6 +47,20 @@
     return self;
 }
 
+- (void)setModel:(BookCommentModel *)model
+{
+    _model = model;
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:model.commenter_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = model.commenter_name;
+    _contentLabel.text = model.book_comment;
+    if (model.create_time.length >= 10) {
+        _timeLabel.text = [model.create_time substringWithRange:NSMakeRange(0, 10)];
+    }else{
+        _timeLabel.text = model.create_time;
+    }
+    
+}
+
 - (void)setupSubViews
 {
     // 头像
@@ -84,7 +98,7 @@
     // 评论的文字
     self.contentLabel = [[UILabel alloc]init];
     self.contentLabel.textColor = RGBACOLOR(87, 87, 87, 1);
-    self.contentLabel.font = [UIFont systemFontOfSize:14];
+    self.contentLabel.font = [UIFont systemFontOfSize:15];
     self.contentLabel.numberOfLines = 0;
     self.contentLabel.text = @"马卡卡玛卡没卡么卡卡没课吗看看嘛卡马克，蛇口蛇口马上开始科目是。请救救我鸡尾酒那我就借钱交加QQ。";
     [self.contentView addSubview:self.contentLabel];

@@ -11,6 +11,9 @@
 
 @interface MusicPlayingController ()
 
+// 音乐模型
+@property (strong,nonatomic) AlbumInfoModel *model;
+
 /** 进度条 */
 @property (strong,nonatomic) UISlider *slider;
 /** 进度时间 */
@@ -23,14 +26,28 @@
 
 @implementation MusicPlayingController
 
+
+- (instancetype)initWithModel:(AlbumInfoModel *)model
+{
+    self = [super init];
+    if (self) {
+        self.model = model;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"大悲咒";
+    self.title = self.model.music_name;
     [self setupSubViews];
 }
 
 - (void)setupSubViews
 {
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
+    
+    
     NSString *circleName;
     if (SCREEN_WIDTH == 375) {
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cm2_fm_bg_ip6"]];
@@ -39,41 +56,6 @@
         self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cm2_fm_bg"]];
         circleName = @"music_circle";
     }
-    
-    // 伪造导航栏
-    UIView *navView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 64)];
-    navView.userInteractionEnabled = YES;
-    navView.backgroundColor = self.view.backgroundColor;
-    [self.view addSubview:navView];
-    
-    // 标题
-    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.width/2 - 60, 24, 120, 30)];
-    titleLabel.text = self.title;
-    titleLabel.textColor = [UIColor whiteColor];
-    titleLabel.font = [UIFont boldSystemFontOfSize:18];
-    titleLabel.textAlignment = NSTextAlignmentCenter;
-    [navView addSubview:titleLabel];
-    
-    // 线
-    UIImageView *xian = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"xian"]];
-    xian.frame = CGRectMake(0, 63, self.view.width, 1);
-    [navView addSubview:xian];
-    
-    // 左侧返回键
-    UIButton *leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [leftButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }];
-    leftButton.frame = CGRectMake(5, 24, 38, 38);
-    [leftButton setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [navView addSubview:leftButton];
-    
-    // 右边分享键
-    UIButton *rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [rightButton setImage:[UIImage imageNamed:@"right_share"] forState:UIControlStateNormal];
-    [rightButton addTarget:self action:@selector(shareAction) forControlEvents:UIControlEventTouchUpInside];
-    [rightButton setFrame:CGRectMake(self.view.width - 8 - 38, 24, 38, 38)];
-    [navView addSubview:rightButton];
     
     
     UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:circleName]];
@@ -90,6 +72,7 @@
     UIButton *playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [playBtn setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateNormal];
     [playBtn setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateHighlighted];
+    [playBtn addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:playBtn];
     [playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
@@ -167,7 +150,7 @@
         make.height.equalTo(@20);
     }];
     
-    // 开始时间
+    // 结束时间
     self.endTime = [[UILabel alloc]init];
     self.endTime.text = @"23:48";
     self.endTime.font = [UIFont systemFontOfSize:8];
@@ -183,22 +166,19 @@
 
 }
 
+- (void)playAction
+{
+    MusicPlayerManager *musicPlayer = [MusicPlayerManager sharedManager];
+    
+    [musicPlayer playNetMusic];
+}
+
 - (void)shareAction
 {
     
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
-}
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
-}
 
 
 @end

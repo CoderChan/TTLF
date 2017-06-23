@@ -10,4 +10,6 @@
 
 @interface AlbumHeadView : UIView
 
+@property (strong,nonatomic) MusicCateModel *model;
+
 @end

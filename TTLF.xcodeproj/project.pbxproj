@@ -26,6 +26,8 @@
 		3B0AF0311ED80A8C007436AE /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0301ED80A8C007436AE /* CMPopTipView.m */; };
 		3B0AF0341ED81AC5007436AE /* PayOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0331ED81AC5007436AE /* PayOrderView.m */; };
 		3B0AF0371ED8204D007436AE /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0361ED8204D007436AE /* AddressModel.m */; };
+		3B0B638A1EFC081C006AD84D /* MusicCateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B63891EFC081C006AD84D /* MusicCateModel.m */; };
+		3B0B638D1EFCB92D006AD84D /* AlbumInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B638C1EFCB92D006AD84D /* AlbumInfoModel.m */; };
 		3B0BBECB1EEF77560071A77E /* AllOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */; };
 		3B11DB7C1ED43DD90037AABA /* GoodDetialFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */; };
 		3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7E1ED54B300037AABA /* PlaceCacheManager.m */; };
@@ -296,6 +298,10 @@
 		3B0AF0331ED81AC5007436AE /* PayOrderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PayOrderView.m; sourceTree = "<group>"; };
 		3B0AF0351ED8204D007436AE /* AddressModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressModel.h; sourceTree = "<group>"; };
 		3B0AF0361ED8204D007436AE /* AddressModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressModel.m; sourceTree = "<group>"; };
+		3B0B63881EFC081C006AD84D /* MusicCateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicCateModel.h; sourceTree = "<group>"; };
+		3B0B63891EFC081C006AD84D /* MusicCateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicCateModel.m; sourceTree = "<group>"; };
+		3B0B638B1EFCB92D006AD84D /* AlbumInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumInfoModel.h; sourceTree = "<group>"; };
+		3B0B638C1EFCB92D006AD84D /* AlbumInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlbumInfoModel.m; sourceTree = "<group>"; };
 		3B0BBEC91EEF77560071A77E /* AllOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrderViewController.h; sourceTree = "<group>"; };
 		3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderViewController.m; sourceTree = "<group>"; };
 		3B11DB7A1ED43DD90037AABA /* GoodDetialFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetialFootView.h; sourceTree = "<group>"; };
@@ -1585,6 +1591,10 @@
 		3B332EC01EF774D2004B2135 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3B0B63881EFC081C006AD84D /* MusicCateModel.h */,
+				3B0B63891EFC081C006AD84D /* MusicCateModel.m */,
+				3B0B638B1EFCB92D006AD84D /* AlbumInfoModel.h */,
+				3B0B638C1EFCB92D006AD84D /* AlbumInfoModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2511,6 +2521,7 @@
 				3B1F14FF1EA7536D00DFAFAE /* LiFoViewController.m in Sources */,
 				3B7217FC1EBF12AE00C79B69 /* VageDetialViewController.m in Sources */,
 				3B6872ED1EABADDB00A12FF4 /* CommentTableViewCell.m in Sources */,
+				3B0B638D1EFCB92D006AD84D /* AlbumInfoModel.m in Sources */,
 				3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */,
 				3BAC6A951EAEF58000D3CB8C /* PYPhotosViewController.m in Sources */,
 				3BF197C31EBDB28100E8EA03 /* FindVageViewController.m in Sources */,
@@ -2584,6 +2595,7 @@
 				3B036EE41EE502B400A5B89C /* GoodsOrderModel.m in Sources */,
 				3BF197C71EBDB28100E8EA03 /* StoreVageViewController.m in Sources */,
 				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
+				3B0B638A1EFC081C006AD84D /* MusicCateModel.m in Sources */,
 				3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */,
 				3B2670471E6FDEBB0078379B /* WXApiResponseHandler.m in Sources */,
 				3BE187A31EAF2A9500EDDD8F /* TZPhotoPreviewController.m in Sources */,

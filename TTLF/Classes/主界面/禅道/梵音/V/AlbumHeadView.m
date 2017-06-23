@@ -27,16 +27,23 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor grayColor];
+        self.backgroundColor = RGBACOLOR(63, 65, 70, 1);
         self.userInteractionEnabled = YES;
         [self setupSubViews];
     }
     return self;
 }
 
+- (void)setModel:(MusicCateModel *)model
+{
+    _model = model;
+    [_coverImageView sd_setImageWithURL:[NSURL URLWithString:model.cate_img] placeholderImage:[UIImage imageWithColor:MainColor]];
+    _nameLabel.text = model.cate_name;
+}
+
 - (void)setupSubViews
 {
-    self.coverImageView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"user_place"]];
+    self.coverImageView = [[UIImageView alloc]init];
     self.coverImageView.backgroundColor = [UIColor clearColor];
     self.coverImageView.layer.masksToBounds = YES;
     self.coverImageView.contentMode = UIViewContentModeScaleAspectFill;

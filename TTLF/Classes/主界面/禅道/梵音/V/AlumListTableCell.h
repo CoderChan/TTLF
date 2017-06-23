@@ -10,6 +10,9 @@
 
 @interface AlumListTableCell : UITableViewCell
 
+
+@property (strong,nonatomic) AlbumInfoModel *model;
+
 + (instancetype)sharedAlumCell:(UITableView *)tableView;
 
 @end

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 @interface MusicPlayerManager : NSObject
 
 
@@ -18,8 +19,17 @@
  */
 + (instancetype)sharedManager;
 
+// 梵音模型
+@property (strong,nonatomic) AlbumInfoModel *model;
+
 // 是否正在播放
 @property (assign,nonatomic) BOOL isPlaying;
+
+
+/**
+ 播放网络音乐
+ */
+- (void)playNetMusic;
 
 /**
  播放本地音乐

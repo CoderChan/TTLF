@@ -10,4 +10,6 @@
 
 @interface MusicPlayingController : SuperViewController
 
+- (instancetype)initWithModel:(AlbumInfoModel *)model;
+
 @end

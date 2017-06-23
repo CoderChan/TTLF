@@ -26,7 +26,7 @@
 // DisEnbled颜色
 #define DisAbledColor RGBACOLOR(108, 80, 77, 1)
 // 导航控制器颜色
-#define NavColor RGBACOLOR(43, 45, 50, 1)
+#define NavColor RGBACOLOR(55, 61, 65, 1)
 // 文字颜色
 #define TitleColor RGBACOLOR(0, 0, 0, 1)
 // 警告的偏红颜色
