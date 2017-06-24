@@ -15,6 +15,7 @@
 #import "WechatLoginViewController.h"
 #import "RootTabbarController.h"
 #import <SMS_SDK/SMSSDK.h>
+#import <AVFoundation/AVFoundation.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "PhoneLoginViewController.h"
 
@@ -87,6 +88,15 @@
     
     // QQ
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQAppID andDelegate:nil];
+    
+    // 后台播放音乐控制
+    //获取音频会话11
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    //设置类型是播放。
+    [session setCategory:AVAudioSessionCategoryPlayback error:nil];
+    //激活音频会话。
+    [session setActive:YES error:nil];
+
     
 }
 

@@ -12,6 +12,7 @@
 #import "AlumListTableCell.h"
 #import "AlbumHeadView.h"
 #import <MJRefresh/MJRefresh.h>
+#import "RootNavgationController.h"
 
 
 @interface AlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -46,14 +47,6 @@
 
 - (void)setupSubViews
 {
-    // 右侧播放器
-    PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    play.ClickBlock = ^{
-        MusicPlayingController *musicPlaying = [[MusicPlayingController alloc]init];
-        [self.navigationController pushViewController:musicPlaying animated:YES];
-    };
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:play];
-    self.navigationItem.rightBarButtonItem = rightItem;
     
     // 表格
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64) style:UITableViewStyleGrouped];
@@ -110,10 +103,15 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    AlbumInfoModel *model = self.array[indexPath.row];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    MusicPlayingController *play = [[MusicPlayingController alloc]initWithModel:model];
-    [self.navigationController pushViewController:play animated:YES];
+    
+    MusicPlayingController *play = [[MusicPlayingController alloc]initWithArray:self.array CurrentIndex:indexPath.row];
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:play];
+    nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+    nav.modalPresentationStyle = UIModalPresentationFullScreen;
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

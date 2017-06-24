@@ -2,183 +2,454 @@
 //  MusicPlayingController.m
 //  TTLF
 //
-//  Created by Chan_Sir on 2017/4/2.
+//  Created by Chan_Sir on 2017/6/23.
 //  Copyright © 2017年 陈振超. All rights reserved.
 //
 
 #import "MusicPlayingController.h"
+#import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import <Masonry.h>
 
 @interface MusicPlayingController ()
 
-// 音乐模型
-@property (strong,nonatomic) AlbumInfoModel *model;
+// 当前播放的mp3模型
+@property (strong,nonatomic) AlbumInfoModel *currentModel;
+// 播放列表
+@property (copy,nonatomic) NSArray *dataSource;
+// 当前播放的索引
+@property (assign,nonatomic) NSInteger currentIndex;
+// 播放器
+@property (strong,nonatomic) AVPlayer *player;
+// 背景图
+@property (weak, nonatomic) IBOutlet UIImageView *backImgView;
+// 歌曲图
+@property (weak, nonatomic) IBOutlet UIImageView *centerImgView;
+// 歌名
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+// 作者
+@property (weak, nonatomic) IBOutlet UILabel *writerLabel;
+// 进度条
+@property (weak, nonatomic) IBOutlet UIProgressView *loadTimeProgress;
+// 进度条控制器
+@property (weak, nonatomic) IBOutlet UISlider *sliderView;
+// 下载按钮
+@property (weak, nonatomic) IBOutlet UIButton *downButton;
+// 播放按钮
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+// 评论按钮
+@property (weak, nonatomic) IBOutlet UIButton *commentButton;
+// 开始时间
+@property (weak, nonatomic) IBOutlet UILabel *startTimeLabel;
+// 结束时间
+@property (weak, nonatomic) IBOutlet UILabel *endTimeLabel;
+// 顺序按钮
+@property (weak, nonatomic) IBOutlet UIButton *shunxuButton;
+// 歌单按钮
+@property (weak, nonatomic) IBOutlet UIButton *musicListButton;
 
-/** 进度条 */
-@property (strong,nonatomic) UISlider *slider;
-/** 进度时间 */
-@property (strong,nonatomic) UILabel *startTime;
-/** 总时间 */
-@property (strong,nonatomic) UILabel *endTime;
-
+//当前歌曲进度监听者
+@property(nonatomic,strong) id timeObserver;
 
 @end
 
 @implementation MusicPlayingController
 
 
-- (instancetype)initWithModel:(AlbumInfoModel *)model
+- (instancetype)initWithArray:(NSArray *)dataSource CurrentIndex:(NSInteger)currentIndex
 {
     self = [super init];
     if (self) {
-        self.model = model;
+        self.dataSource = dataSource;
+        self.currentIndex = currentIndex;
+        self.currentModel = self.dataSource[currentIndex];
     }
     return self;
 }
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = self.model.music_name;
+    
     [self setupSubViews];
 }
 
 - (void)setupSubViews
 {
-    
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
-    
-    
-    NSString *circleName;
     if (SCREEN_WIDTH == 375) {
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cm2_fm_bg_ip6"]];
-        circleName = @"music_circle_ip6";
+        self.backImgView.image = [UIImage imageNamed:@"cm2_fm_bg_ip6"];
     }else{
-        self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"cm2_fm_bg"]];
-        circleName = @"music_circle";
+        self.backImgView.image = [UIImage imageNamed:@"cm2_fm_bg"];
     }
     
-    
-    UIImageView *imageV = [[UIImageView alloc]initWithImage:[UIImage imageNamed:circleName]];
-    [self.view addSubview:imageV];
-    [imageV mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(self.view.mas_top).offset(120*CKproportion);
-        make.width.and.height.equalTo(@(SCREEN_WIDTH * 0.7));
+    [self.downButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.centerImgView.mas_left);
+        make.bottom.equalTo(self.sliderView.mas_top).offset(-20);
+        make.width.and.height.equalTo(@40);
     }];
     
-    CGFloat space = (SCREEN_WIDTH - 48 * 5)/6;
-    
-    //    播放按钮
-    UIButton *playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [playBtn setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateNormal];
-    [playBtn setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateHighlighted];
-    [playBtn addTarget:self action:@selector(playAction) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:playBtn];
-    [playBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
-        make.width.and.height.equalTo(@48);
+    [self.commentButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(self.centerImgView.mas_right);
+        make.centerY.equalTo(self.downButton.mas_centerY);
+        make.width.and.height.equalTo(@40);
     }];
     
-    //    上一首
-    UIButton *lastBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [lastBtn setImage:[UIImage imageNamed:@"music_btn_last_prs"] forState:UIControlStateNormal];
-    [lastBtn setImage:[UIImage imageNamed:@"music_btn_last_prs"] forState:UIControlStateHighlighted];
-    [self.view addSubview:lastBtn];
-    [lastBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(playBtn.mas_left).offset(-space);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
-        make.width.and.height.equalTo(@48);
+    // 封面图
+    [self.centerImgView sd_setImageWithURL:[NSURL URLWithString:self.currentModel.music_logo] placeholderImage:[UIImage imageWithColor:MainColor]];
+    self.centerImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [self.centerImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    self.centerImgView.layer.masksToBounds = YES;
+    self.centerImgView.layer.cornerRadius = 100.f;
+    self.centerImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
+    UITapGestureRecognizer *centerImgTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+        
     }];
+    [self.centerImgView addGestureRecognizer:centerImgTap];
     
-    // 下一首
-    UIButton *nextBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [nextBtn setImage:[UIImage imageNamed:@"music_btn_next_prs"] forState:UIControlStateNormal];
-    [nextBtn setImage:[UIImage imageNamed:@"music_btn_next_prs"] forState:UIControlStateHighlighted];
-    [self.view addSubview:nextBtn];
-    [nextBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(playBtn.mas_right).offset(space);
-        make.bottom.equalTo(self.view.mas_bottom).offset(-10);
-        make.width.and.height.equalTo(@48);
-    }];
-    
-    // 歌单
-    UIButton *listBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [listBtn setImage:[UIImage imageNamed:@"music_play_btn_list_prs"] forState:UIControlStateNormal];
-    [listBtn setImage:[UIImage imageNamed:@"music_play_btn_list_prs"] forState:UIControlStateHighlighted];
-    [self.view addSubview:listBtn];
-    [listBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.view.mas_right).offset(-space);
-        make.centerY.equalTo(playBtn.mas_centerY);
-        make.width.and.height.equalTo(@42);
-    }];
-    
-    // 顺序
-    UIButton *orderBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [orderBtn setImage:[UIImage imageNamed:@"music_play_btn_shuffle_prs"] forState:UIControlStateNormal];
-    [orderBtn setImage:[UIImage imageNamed:@"music_play_btn_shuffle_prs"] forState:UIControlStateHighlighted];
-    [self.view addSubview:orderBtn];
-    [orderBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view.mas_left).offset(space);
-        make.centerY.equalTo(playBtn.mas_centerY);
-        make.width.and.height.equalTo(@42);
-    }];
+    // 标题
+    self.titleLabel.text = self.currentModel.music_name;
+    // 作者
+    NSString *sumStr = [NSString stringWithFormat:@"- %@ -",self.currentModel.music_author];
+    NSRange range = [sumStr rangeOfString:self.currentModel.music_author];
+    NSMutableAttributedString * graytext = [[NSMutableAttributedString alloc] initWithString:sumStr];
+    [graytext beginEditing];
+    [graytext addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],NSForegroundColorAttributeName:MainColor} range:range];
+    self.writerLabel.attributedText =  graytext;
     
     // 进度条
-    self.slider = [[UISlider alloc]init];
-    self.slider.minimumValue = 0.f;
-    self.slider.maximumValue = 2.35f;
-    [self.slider setThumbImage:[UIImage imageNamed:@"music_dian"] forState:UIControlStateNormal];
-    [self.view addSubview:self.slider];
-    [self.slider mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(playBtn.mas_top).offset(-5);
-        make.left.equalTo(self.view.mas_left).offset(40);
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.height.equalTo(@20);
-    }];
-    // 开始时间
-    self.startTime = [[UILabel alloc]init];
-    self.startTime.text = @"00:00";
-    self.startTime.font = [UIFont systemFontOfSize:8];
-    self.startTime.textAlignment = NSTextAlignmentCenter;
-    self.startTime.textColor = [UIColor lightGrayColor];
-    [self.view addSubview:self.startTime];
-    [self.startTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.slider.mas_centerY);
-        make.right.equalTo(self.slider.mas_left);
-        make.left.equalTo(self.view.mas_left);
-        make.height.equalTo(@20);
-    }];
+    self.sliderView.tintColor = MainColor;
+    [self.sliderView setThumbImage:[UIImage imageNamed:@"slider_icon"] forState:UIControlStateNormal];
+    [self.sliderView setThumbImage:[UIImage imageNamed:@"slider_icon"] forState:UIControlStateHighlighted];
     
-    // 结束时间
-    self.endTime = [[UILabel alloc]init];
-    self.endTime.text = @"23:48";
-    self.endTime.font = [UIFont systemFontOfSize:8];
-    self.endTime.textAlignment = NSTextAlignmentCenter;
-    self.endTime.textColor = [UIColor lightGrayColor];
-    [self.view addSubview:self.endTime];
-    [self.endTime mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.centerY.equalTo(self.slider.mas_centerY);
-        make.left.equalTo(self.slider.mas_right);
-        make.right.equalTo(self.view.mas_right);
-        make.height.equalTo(@20);
-    }];
-
+    self.loadTimeProgress.tintColor = MainColor;
+    
+    
+    // 开始播放
+    [self playClickAction:self.playButton];
 }
 
-- (void)playAction
+#pragma mark - NSNotification
+-(void)addNSNotificationForPlayMusicFinish
 {
-    MusicPlayerManager *musicPlayer = [MusicPlayerManager sharedManager];
-    
-    [musicPlayer playNetMusic];
+    [YLNotificationCenter removeObserver:self];
+    //给AVPlayerItem添加播放完成通知
+    [YLNotificationCenter addObserver:self selector:@selector(playFinished:) name:AVPlayerItemDidPlayToEndTimeNotification object:_player.currentItem];
 }
-
-- (void)shareAction
+- (void)playFinished:(NSNotification *)noti
+{
+    //播放下一首
+    [self nextBtnAction:nil];
+}
+#pragma mark - 监听音乐各种状态
+//通过KVO监听播放器状态
+-(void)addPlayStatus
 {
     
+//    [self.player.currentItem addObserver:self forKeyPath:@"status" options:NSKeyValueObservingOptionNew context:nil];
+    
+}
+//移除监听播放器状态
+-(void)removePlayStatus
+{
+    if (self.currentModel == nil) {return;}
+    
+//    [self.player.currentItem removeObserver:self forKeyPath:@"status"];
+}
+//移除监听音乐缓冲状态
+-(void)removePlayLoadTime
+{
+    if (self.currentModel == nil) {return;}
+//    [self.player.currentItem removeObserver:self forKeyPath:@"loadedTimeRanges"];
+}
+//KVO监听音乐缓冲状态
+-(void)addPlayLoadTime
+{
+//    [self.player.currentItem addObserver:self forKeyPath:@"loadedTimeRanges" options:NSKeyValueObservingOptionNew context:nil];
+    
+}
+
+//监听音乐播放的进度
+-(void)addMusicProgressWithItem:(AVPlayerItem *)item
+{
+    //移除监听音乐播放进度
+    [self removeTimeObserver];
+    __weak typeof(self) weakSelf = self;
+    self.timeObserver =  [self.player addPeriodicTimeObserverForInterval:CMTimeMake(1.0, 1.0) queue:dispatch_get_main_queue() usingBlock:^(CMTime time) {
+        //当前播放的时间
+        float current = CMTimeGetSeconds(time);
+        //总时间
+        float total = CMTimeGetSeconds(item.duration);
+        if (current) {
+            float progress = current / total;
+            //更新播放进度条
+            weakSelf.sliderView.value = progress;
+            weakSelf.startTimeLabel.text = [weakSelf timeFormatted:current];
+        }
+    }];
+    
+}
+//移除监听音乐播放进度
+-(void)removeTimeObserver
+{
+    if (self.timeObserver) {
+        [self.player removeTimeObserver:self.timeObserver];
+        self.timeObserver = nil;
+    }
+}
+
+
+#pragma mark - 点击事件
+// 关闭
+- (IBAction)dismissAction:(UIButton *)sender
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
+// 分享
+- (IBAction)shareAction:(id)sender
+{
+    
+}
+// 切换播放顺序
+- (IBAction)switchTypeClick:(UIButton *)sender
+{
+    
+}
+// 歌单列表
+- (IBAction)musicListClick:(UIButton *)sender
+{
+    
+}
+// 点击下载
+- (IBAction)downLoadAction:(UIButton *)sender
+{
+    
+}
+// 点击评论按钮
+- (IBAction)commentClick:(UIButton *)sender
+{
+    
+}
+
+// 播放
+- (IBAction)playClickAction:(UIButton *)sender
+{
+    if (!sender.selected) {
+        // 开始播放中
+        [self playWithModel:self.currentModel];
+        sender.selected = YES;
+        [sender setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateNormal];
+    }else{
+        // 没有播放
+        [sender setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateNormal];
+        [self.player pause];
+        [self removePlayStatus];
+        [self removePlayLoadTime];
+        self.currentModel = nil;
+        sender.selected = NO;
+    }
+}
+- (void)playWithModel:(AlbumInfoModel *)model
+{
+    AVPlayerItem *item = [[AVPlayerItem alloc] initWithURL:[NSURL URLWithString:model.music_desc]];
+    
+    //替换当前音乐资源
+    [self.player replaceCurrentItemWithPlayerItem:item];
+    
+    //刷新界面UI
+    [self reloadUI:model];
+    
+    //监听音乐播放完成通知
+    [self addNSNotificationForPlayMusicFinish];
+    
+    //开始播放
+    [self.player play];
+    
+    //监听播放器状态
+    [self addPlayStatus];
+    
+    //监听音乐缓冲进度
+    [self addPlayLoadTime];
+    
+    //监听音乐播放的进度
+    [self addMusicProgressWithItem:item];
+    
+    //音乐锁屏信息展示
+    [self setupLockScreenInfo];
+}
+// 刷新界面
+-(void)reloadUI:(AlbumInfoModel*)model
+{
+    NSURL *url = [NSURL URLWithString:model.music_desc];
+    NSString *durationStr = [self durationWithVideo:url];
+    self.endTimeLabel.text = [NSString stringWithFormat:@"%@",durationStr];
+    self.titleLabel.text = model.music_name;
+    // 作者
+    NSString *sumStr = [NSString stringWithFormat:@"- %@ -",self.currentModel.music_author];
+    NSRange range = [sumStr rangeOfString:self.currentModel.music_author];
+    NSMutableAttributedString * graytext = [[NSMutableAttributedString alloc] initWithString:sumStr];
+    [graytext beginEditing];
+    [graytext addAttributes:@{NSFontAttributeName:[UIFont boldSystemFontOfSize:17],NSForegroundColorAttributeName:MainColor} range:range];
+    self.writerLabel.attributedText =  graytext;
+    [self.centerImgView sd_setImageWithURL:[NSURL URLWithString:model.music_logo] placeholderImage:[UIImage imageWithColor:MainColor]];
+    self.playButton.selected = YES;
+    self.sliderView.value = 0;
+    self.loadTimeProgress.progress = 0;
+    
+}
+- (NSString *)durationWithVideo:(NSURL *)videoUrl{
+    
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:videoUrl options:opts]; // 初始化视频媒体文件
+    NSUInteger second = 0;
+    second = urlAsset.duration.value / urlAsset.duration.timescale; // 获取视频总时长,单位秒
+    NSString *time = [self timeFormatted:second];
+    
+    return time;
+}
+- (NSString *)timeFormatted:(NSUInteger)totalSeconds
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    
+    return [NSString stringWithFormat:@"%02d:%02d",minutes,seconds];
+}
+
+#pragma mark - 设置锁屏信息
+//音乐锁屏信息展示
+- (void)setupLockScreenInfo
+{
+    // 1.获取锁屏中心
+    MPNowPlayingInfoCenter *playingInfoCenter = [MPNowPlayingInfoCenter defaultCenter];
+    
+    //初始化一个存放音乐信息的字典
+    NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
+    // 2、设置歌曲名
+    if (self.currentModel.music_name) {
+        [playingInfoDict setObject:self.currentModel.music_name forKey:MPMediaItemPropertyAlbumTitle];
+    }
+    // 设置歌手名
+    if (self.currentModel.music_author) {
+        [playingInfoDict setObject:self.currentModel.music_author forKey:MPMediaItemPropertyArtist];
+    }
+    // 3设置封面的图片
+    UIImage *image = [self getMusicImageWithMusicId:self.currentModel];
+    if (image) {
+        MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+        [playingInfoDict setObject:artwork forKey:MPMediaItemPropertyArtwork];
+    }
+    
+    // 4设置歌曲的总时长
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:self.currentModel.music_desc] options:opts]; // 初始化视频媒体文件
+    NSUInteger second = 0;
+    second = urlAsset.duration.value / urlAsset.duration.timescale; // 获取视频总时长,单位秒
+    [playingInfoDict setObject:@(second) forKey:MPMediaItemPropertyPlaybackDuration];
+    
+    //音乐信息赋值给获取锁屏中心的nowPlayingInfo属性
+    playingInfoCenter.nowPlayingInfo = playingInfoDict;
+    
+    // 5.开启远程交互
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+}
+//获取远程网络图片，如有缓存取缓存，没有缓存，远程加载并缓存
+- (UIImage*)getMusicImageWithMusicId:(AlbumInfoModel *)model
+{
+    UIImage *image = [UIImage imageNamed:@"goods_place"];
+    
+    return image;
+}
+
+
+//监听远程交互方法
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    
+    switch (event.subtype) {
+            //播放
+        case UIEventSubtypeRemoteControlPlay:{
+            [self.player play];
+        }
+            break;
+            //停止
+        case UIEventSubtypeRemoteControlPause:{
+            [self.player pause];
+        }
+            break;
+            //下一首
+        case UIEventSubtypeRemoteControlNextTrack:
+            [self nextBtnAction:nil];
+            break;
+            //上一首
+        case UIEventSubtypeRemoteControlPreviousTrack:
+            [self lastBtnAction:nil];
+            break;
+            
+        default:
+            break;
+    }
 }
 
 
 
+- (IBAction)biaozhunClick:(UIButton *)sender
+{
+    [sender setImage:[UIImage imageNamed:@"player_btn_bz_sel_normal"] forState:UIControlStateHighlighted];
+}
+
+- (IBAction)sqClick:(UIButton *)sender
+{
+    [sender setImage:[UIImage imageNamed:@"player_btn_sq_sel_normal"] forState:UIControlStateHighlighted];
+}
+- (IBAction)nextBtnAction:(UIButton *)sender
+{
+    //取出下一首音乐模型
+    if (self.currentIndex +1 > self.dataSource.count -1) {
+        self.currentIndex = 0;
+    }else{
+        self.currentIndex += 1;
+    }
+    
+    [self addPlayStatus];
+    [self removePlayStatus];
+    [self removePlayLoadTime];
+    AlbumInfoModel *model = self.dataSource[self.currentIndex];
+    [self playWithModel:model];
+}
+- (IBAction)lastBtnAction:(UIButton *)sender
+{
+    //取出下一首音乐模型
+    if (self.currentIndex - 1 < 0) {
+        self.currentIndex = self.dataSource.count -1;
+    }else{
+        self.currentIndex -= 1;
+    }
+    [self removePlayStatus];
+    [self removePlayLoadTime];
+    AlbumInfoModel *model = self.dataSource[self.currentIndex];
+    [self playWithModel:model];
+}
+
+#pragma mark - 懒加载
+- (AVPlayer *)player
+{
+    if (!_player) {
+        AVPlayerItem *playItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@""]];
+        _player = [[AVPlayer alloc]initWithPlayerItem:playItem];
+    }
+    return _player;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
+    
+}
 
 @end

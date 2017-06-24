@@ -12,6 +12,7 @@
 #import "AlbumListViewController.h"
 #import "MusicPlayingController.h"
 #import "PlayingRightBarView.h"
+#import "RootNavgationController.h"
 
 
 #define TopViewH 180*CKproportion
@@ -63,14 +64,6 @@
     }];
     [self.collectionView.mj_header beginRefreshing];
     
-    // 右侧播放按钮
-    PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    play.ClickBlock = ^{
-        MusicPlayingController *musicPlaying = [[MusicPlayingController alloc]init];
-        [self.navigationController pushViewController:musicPlaying animated:YES];
-    };
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:play];
-    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 #pragma mark - 表格相关

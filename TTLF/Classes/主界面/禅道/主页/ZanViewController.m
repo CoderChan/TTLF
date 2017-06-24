@@ -17,6 +17,7 @@
 #import <SVWebViewController.h>
 #import "PlayingRightBarView.h"
 #import "MusicListViewController.h"
+#import "RootNavgationController.h"
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -48,8 +49,13 @@
     
     PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     play.ClickBlock = ^{
-        MusicPlayingController *musicPlaying = [[MusicPlayingController alloc]init];
-        [self.navigationController pushViewController:musicPlaying animated:YES];
+//        MusicPlayingController *play = [[MusicPlayingController alloc]initWithModel:nil];
+//        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:play];
+//        nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//        nav.modalPresentationStyle = UIModalPresentationFullScreen;
+//        [self presentViewController:nav animated:YES completion:^{
+//            
+//        }];
     };
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:play];
     self.navigationItem.rightBarButtonItem = rightItem;

@@ -160,8 +160,8 @@
     if (document) {
         ReaderViewController *readerViewController = [[ReaderViewController alloc] initWithReaderDocument:document];
         readerViewController.delegate = self;
-        readerViewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
-        readerViewController.modalPresentationStyle = UIModalPresentationPageSheet;
+        readerViewController.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+        readerViewController.modalPresentationStyle = UIModalPresentationFullScreen;
         [self presentViewController:readerViewController animated:YES completion:nil];
     }else{
         [MBProgressHUD showError:@"本地暂无PDF文件"];

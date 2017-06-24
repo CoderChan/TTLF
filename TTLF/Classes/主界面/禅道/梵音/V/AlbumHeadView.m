@@ -39,6 +39,7 @@
     _model = model;
     [_coverImageView sd_setImageWithURL:[NSURL URLWithString:model.cate_img] placeholderImage:[UIImage imageWithColor:MainColor]];
     _nameLabel.text = model.cate_name;
+    _writerLabel.text = model.cate_info;
 }
 
 - (void)setupSubViews
@@ -79,7 +80,7 @@
     self.writerLabel.textColor = [UIColor whiteColor];
     [self addSubview:self.writerLabel];
     [self.writerLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.nameLabel.mas_left);
+        make.centerX.equalTo(self.nameLabel.mas_centerX);
         make.top.equalTo(self.nameLabel.mas_bottom);
         make.height.equalTo(@21);
     }];
