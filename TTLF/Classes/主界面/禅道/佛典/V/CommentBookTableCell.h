@@ -12,10 +12,13 @@
 @interface CommentBookTableCell : UITableViewCell
 
 // 佛典评论模型
-@property (strong,nonatomic) BookCommentModel *model;
+@property (strong,nonatomic) BookCommentModel *bookCommentModel;
+// 梵音评论模型
+@property (strong,nonatomic) MusicCommentModel *musciCommentModel;
 
 /** 点击头像和昵称的回调 */
-@property (copy,nonatomic) void (^UserClickBlock)(BookCommentModel *commentModel);
+@property (copy,nonatomic) void (^UserClickBookBlock)(BookCommentModel *commentModel);
+@property (copy,nonatomic) void (^UserClickMusicBlock)(MusicCommentModel *commentModel);
 
 + (instancetype)sharedBoomCell:(UITableView *)tableView;
 

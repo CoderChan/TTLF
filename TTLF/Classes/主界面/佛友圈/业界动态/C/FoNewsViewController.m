@@ -59,6 +59,7 @@
         [self.array removeAllObjects];
         [self getArticleCurrentPage:CurrentPage Success:^(NSArray *modelArray) {
             
+            [self hideMessageAction];
             [self.tableView.mj_header endRefreshing];
             [self.array addObjectsFromArray:modelArray];
             [self.tableView reloadData];
@@ -66,7 +67,7 @@
         } Fail:^(NSString *errorMsg) {
             CurrentPage = 1;
             [self.tableView.mj_header endRefreshing];
-            [MBProgressHUD showError:errorMsg];
+            [self showEmptyViewWithMessage:errorMsg];
         }];
     }];
     

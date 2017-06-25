@@ -57,7 +57,7 @@
                 </label>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H2z-ft-fkT" userLabel="分享按钮">
                     <rect key="frame" x="330" y="25" width="40" height="30"/>
-                    <state key="normal" image="share_space"/>
+                    <state key="normal" image="share_icon"/>
                     <connections>
                         <action selector="shareAction:" destination="-1" eventType="touchUpInside" id="Xja-QY-nmI"/>
                     </connections>
@@ -273,6 +273,6 @@
         <image name="music_play_btn_shuffle_prs" width="28" height="28"/>
         <image name="player_btn_bz_sel_normal" width="50" height="18"/>
         <image name="player_btn_sq_sel_normal" width="50" height="18"/>
-        <image name="share_space" width="30" height="30"/>
+        <image name="share_icon" width="30" height="30"/>
     </resources>
 </document>

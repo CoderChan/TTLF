@@ -42,15 +42,20 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.array removeAllObjects];
         [[TTLFManager sharedManager].networkManager storeListSuccess:^(NSArray *array) {
+            
+            self.tableView.hidden = NO;
+            [self hideMessageAction];
+            [self.tableView.mj_header endRefreshing];
             [self.array addObjectsFromArray:array];
             [self.tableView reloadData];
-            [self.tableView.mj_header endRefreshing];
-            self.tableView.mj_footer = [MJRefreshAutoNormalFooter footerWithRefreshingBlock:^{
+            
+            self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
                 
             }];
             [self.tableView.mj_footer endRefreshingWithNoMoreData];
         } Fail:^(NSString *errorMsg) {
-            [MBProgressHUD showError:errorMsg];
+            self.tableView.hidden = YES;
+            [self showEmptyViewWithMessage:errorMsg];
             [self.tableView.mj_header endRefreshing];
         }];
     }];

@@ -22,12 +22,14 @@
 @property (copy,nonatomic) NSString *music_logo;
 // 类型ID
 @property (copy,nonatomic) NSString *music_type;
-// 1233
+// 简介、歌词
 @property (copy,nonatomic) NSString *music_info;
 // 文件大小
 @property (copy,nonatomic) NSString *music_size;
 // 分享页
 @property (copy,nonatomic) NSString *web_url;
+// 下载文件夹
+@property (copy,nonatomic) NSString *name;
 
 // 列表序号 索引
 @property (assign,nonatomic) NSInteger index;

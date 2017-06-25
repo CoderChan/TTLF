@@ -30,6 +30,10 @@
 		3B0B638D1EFCB92D006AD84D /* AlbumInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B638C1EFCB92D006AD84D /* AlbumInfoModel.m */; };
 		3B0B63911EFD2E76006AD84D /* MusicPlayingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B638F1EFD2E76006AD84D /* MusicPlayingController.m */; };
 		3B0B63921EFD2E76006AD84D /* MusicPlayingController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3B0B63901EFD2E76006AD84D /* MusicPlayingController.xib */; };
+		3B0B63951EFE7EFD006AD84D /* CommentMusicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B63941EFE7EFD006AD84D /* CommentMusicController.m */; };
+		3B0B63981EFE8E97006AD84D /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B63971EFE8E97006AD84D /* ShareView.m */; };
+		3B0B639B1EFEC2D4006AD84D /* MusicCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B639A1EFEC2D4006AD84D /* MusicCommentModel.m */; };
+		3B0B639E1EFF88CC006AD84D /* MusicCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B639D1EFF88CC006AD84D /* MusicCacheManager.m */; };
 		3B0BBECB1EEF77560071A77E /* AllOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */; };
 		3B11DB7C1ED43DD90037AABA /* GoodDetialFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */; };
 		3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7E1ED54B300037AABA /* PlaceCacheManager.m */; };
@@ -306,6 +310,14 @@
 		3B0B638E1EFD2E76006AD84D /* MusicPlayingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayingController.h; sourceTree = "<group>"; };
 		3B0B638F1EFD2E76006AD84D /* MusicPlayingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayingController.m; sourceTree = "<group>"; };
 		3B0B63901EFD2E76006AD84D /* MusicPlayingController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MusicPlayingController.xib; sourceTree = "<group>"; };
+		3B0B63931EFE7EFD006AD84D /* CommentMusicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentMusicController.h; sourceTree = "<group>"; };
+		3B0B63941EFE7EFD006AD84D /* CommentMusicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentMusicController.m; sourceTree = "<group>"; };
+		3B0B63961EFE8E97006AD84D /* ShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareView.h; sourceTree = "<group>"; };
+		3B0B63971EFE8E97006AD84D /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
+		3B0B63991EFEC2D4006AD84D /* MusicCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicCommentModel.h; sourceTree = "<group>"; };
+		3B0B639A1EFEC2D4006AD84D /* MusicCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicCommentModel.m; sourceTree = "<group>"; };
+		3B0B639C1EFF88CC006AD84D /* MusicCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicCacheManager.h; sourceTree = "<group>"; };
+		3B0B639D1EFF88CC006AD84D /* MusicCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicCacheManager.m; sourceTree = "<group>"; };
 		3B0BBEC91EEF77560071A77E /* AllOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllOrderViewController.h; sourceTree = "<group>"; };
 		3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderViewController.m; sourceTree = "<group>"; };
 		3B11DB7A1ED43DD90037AABA /* GoodDetialFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetialFootView.h; sourceTree = "<group>"; };
@@ -1494,6 +1506,8 @@
 				3B2670BE1E6FE2B40078379B /* NavigationView.m */,
 				3B6872D21EAA4BC800A12FF4 /* StoreTableViewCell.h */,
 				3B6872D31EAA4BC800A12FF4 /* StoreTableViewCell.m */,
+				3B0B63961EFE8E97006AD84D /* ShareView.h */,
+				3B0B63971EFE8E97006AD84D /* ShareView.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1587,6 +1601,8 @@
 				3B0B638E1EFD2E76006AD84D /* MusicPlayingController.h */,
 				3B0B638F1EFD2E76006AD84D /* MusicPlayingController.m */,
 				3B0B63901EFD2E76006AD84D /* MusicPlayingController.xib */,
+				3B0B63931EFE7EFD006AD84D /* CommentMusicController.h */,
+				3B0B63941EFE7EFD006AD84D /* CommentMusicController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -1598,6 +1614,8 @@
 				3B0B63891EFC081C006AD84D /* MusicCateModel.m */,
 				3B0B638B1EFCB92D006AD84D /* AlbumInfoModel.h */,
 				3B0B638C1EFCB92D006AD84D /* AlbumInfoModel.m */,
+				3B0B63991EFEC2D4006AD84D /* MusicCommentModel.h */,
+				3B0B639A1EFEC2D4006AD84D /* MusicCommentModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -1696,6 +1714,8 @@
 			children = (
 				3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */,
 				3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */,
+				3B0B639C1EFF88CC006AD84D /* MusicCacheManager.h */,
+				3B0B639D1EFF88CC006AD84D /* MusicCacheManager.m */,
 				3BAD0AE11EF1005500903EF3 /* BookCacheManager.h */,
 				3BAD0AE21EF1005500903EF3 /* BookCacheManager.m */,
 			);
@@ -2536,6 +2556,7 @@
 				3B036EE51EE502B400A5B89C /* OrderListTableCell.m in Sources */,
 				3BF197C61EBDB28100E8EA03 /* FindVageTableViewCell.m in Sources */,
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
+				3B0B639B1EFEC2D4006AD84D /* MusicCommentModel.m in Sources */,
 				3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */,
 				3B1F15051EA7536D00DFAFAE /* TodayLifoInfoModel.m in Sources */,
 				3B4838401EB8CBAC0053BC8D /* ThumbsMainToolbar.m in Sources */,
@@ -2576,6 +2597,7 @@
 				3B2231EC1E7F853700B43322 /* MineTableHeadView.m in Sources */,
 				3B2670681E6FE0F30078379B /* TTLFManager.m in Sources */,
 				3B6872D01EAA495700A12FF4 /* StoreListViewController.m in Sources */,
+				3B0B63951EFE7EFD006AD84D /* CommentMusicController.m in Sources */,
 				3B2670E31E6FE2B40078379B /* ProvinceCityModel.m in Sources */,
 				3B1F15091EA7536D00DFAFAE /* FopaiCollectionViewCell.m in Sources */,
 				3BAC6A9B1EAEF58000D3CB8C /* PYPhotoCell.m in Sources */,
@@ -2634,6 +2656,7 @@
 				3B1F01601EF39AAD00154E4A /* BookCommentModel.m in Sources */,
 				3B3B3D801EA7168B00A32E56 /* CommentFootView.m in Sources */,
 				3B2670651E6FE0070078379B /* TTLFTabbar.m in Sources */,
+				3B0B639E1EFF88CC006AD84D /* MusicCacheManager.m in Sources */,
 				3B4838321EB8CBAC0053BC8D /* ReaderContentTile.m in Sources */,
 				3B4838361EB8CBAC0053BC8D /* ReaderMainPagebar.m in Sources */,
 				3B7787491ECD954A00C2E5F6 /* UIButton+Category.m in Sources */,
@@ -2672,6 +2695,7 @@
 				3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */,
 				3B2670F51E6FE2B40078379B /* SuggestViewController.m in Sources */,
 				3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */,
+				3B0B63981EFE8E97006AD84D /* ShareView.m in Sources */,
 				3BE187A51EAF2A9500EDDD8F /* UIView+Layout.m in Sources */,
 				3B3B3D741EA715FA00A32E56 /* LocationModel.m in Sources */,
 				3BAC6A9C1EAEF58000D3CB8C /* PYPhotosView.m in Sources */,

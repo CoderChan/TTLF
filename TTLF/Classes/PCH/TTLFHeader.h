@@ -34,6 +34,10 @@
 #define UMPush_AppKey @"58d12a06c62dca22da001944"
 #define UMPush_AppSecret @"v0tzeuqjm3kaskykndwlb7rgxhc5byoo"
 
+// 极光推送
+#define Jpush_AppKey @"44ce49782db6341d765a1ca4"
+#define Jpush_Secret @"f695f46112e9700d86fe53f9"
+
 //   微信SDK
 #define WeChatAppID @"wx817d7d973e5cdca8"
 #define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"

@@ -72,6 +72,8 @@
     self.title = @"天天礼佛";
     [self setupSubViews];
     
+    [YLNotificationCenter addObserver:self selector:@selector(beginLightingAction) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
     [[TTLFManager sharedManager].networkManager getLifoInfoSuccess:^(TodayLifoInfoModel *lifoModel) {
         NSString *lastPusa = [[NSUserDefaults standardUserDefaults] objectForKey:LastPusaImgURL];
         lifoModel.pusa = lifoModel.pusa.length > 7 ? lifoModel.pusa : lastPusa;
@@ -433,7 +435,6 @@
     [self.lightImageView1.layer addAnimation:self.rotationAnimation1 forKey:@"rotationAnimation"];//开始动画
     [self.lightImageView2.layer addAnimation:self.rotationAnimation2 forKey:@"rotationAnimation"];
     // 太阳光圈扩散
-    
     
 }
 - (void)viewWillAppear:(BOOL)animated

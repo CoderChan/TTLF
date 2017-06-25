@@ -1,21 +1,19 @@
 //
-//  CommentBookController.m
+//  CommentMusicController.m
 //  TTLF
 //
-//  Created by Chan_Sir on 2017/6/14.
+//  Created by Chan_Sir on 2017/6/24.
 //  Copyright © 2017年 陈振超. All rights reserved.
 //
 
-#import "CommentBookController.h"
+#import "CommentMusicController.h"
 #import "CommentBookTableCell.h"
 #import <MJRefresh/MJRefresh.h>
 #import "VisitUserViewController.h"
 
 
-@interface CommentBookController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface CommentMusicController ()<UITextFieldDelegate,UITableViewDelegate,UITableViewDataSource>
 
-// 佛典模型
-@property (strong,nonatomic) BookInfoModel *model;
 // 输入框
 @property (strong,nonatomic) UITextField *textField;
 // 表格
@@ -23,11 +21,13 @@
 // 数据源
 @property (strong,nonatomic) NSMutableArray *array;
 
+@property (strong,nonatomic) AlbumInfoModel *model;
+
 @end
 
-@implementation CommentBookController
+@implementation CommentMusicController
 
-- (instancetype)initWithModel:(BookInfoModel *)model
+- (instancetype)initWithModel:(AlbumInfoModel *)model
 {
     self = [super init];
     if (self) {
@@ -38,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"精彩书评";
+    self.title = @"梵音评论";
     [self setupSubViews];
 }
 
@@ -54,7 +54,7 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.array removeAllObjects];
-        [[TTLFManager sharedManager].networkManager getBookCommentWithModel:self.model Success:^(NSArray *array) {
+        [[TTLFManager sharedManager].networkManager musicCommentListWithModel:self.model Success:^(NSArray *array) {
             
             [self hideMessageAction];
             [self.tableView.mj_header endRefreshing];
@@ -88,8 +88,6 @@
     self.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.textField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     self.textField.returnKeyType = UIReturnKeySend;
     [self.view addSubview:self.textField];
-    
-    
 }
 
 #pragma mark - 表格相关
@@ -105,12 +103,12 @@
 {
     
     CommentBookTableCell *cell = [CommentBookTableCell sharedBoomCell:tableView];
-    BookCommentModel *model = self.array[indexPath.row];
-    cell.UserClickBookBlock = ^(BookCommentModel *commentModel) {
+    MusicCommentModel *model = self.array[indexPath.row];
+    cell.UserClickMusicBlock = ^(MusicCommentModel *commentModel) {
         VisitUserViewController *visit = [[VisitUserViewController alloc]initWithUserID:commentModel.creater_id];
         [self.navigationController pushViewController:visit animated:YES];
     };
-    cell.bookCommentModel = model;
+    cell.musciCommentModel = model;
     return cell;
     
 }
@@ -123,8 +121,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    BookCommentModel *model = self.array[indexPath.row];
-    CGSize size = [model.book_comment boundingRectWithSize:CGSizeMake(self.view.width - 15 - 36 - 10 - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
+    MusicCommentModel *model = self.array[indexPath.row];
+    CGSize size = [model.music_comment boundingRectWithSize:CGSizeMake(self.view.width - 15 - 36 - 10 - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15]} context:nil].size;
     
     return size.height + 12 + 20 + 3 + 25;
 }
@@ -148,7 +146,7 @@
 {
     // 管理员、发布者可以删除
     UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
-    BookCommentModel *model = self.array[indexPath.row];
+    MusicCommentModel *model = self.array[indexPath.row];
     if (userModel.type == 6 || [userModel.userID isEqualToString:model.comment_id]) {
         return UITableViewCellEditingStyleDelete;
     }else{
@@ -160,10 +158,10 @@
 {
     // 管理员、发布者可以删除
     UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
-    BookCommentModel *model = self.array[indexPath.row];
+    MusicCommentModel *model = self.array[indexPath.row];
     if (userModel.type == 6 || [userModel.userID isEqualToString:model.comment_id]) {
         UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
-            [[TTLFManager sharedManager].networkManager deleteBookCommentWithModel:model Success:^{
+            [[TTLFManager sharedManager].networkManager deleteMusicCommentWithModel:model Success:^{
                 [self.array removeObjectAtIndex:indexPath.row];
                 [self.tableView reloadData];
             } Fail:^(NSString *errorMsg) {
@@ -204,9 +202,8 @@
     [self.view endEditing:YES];
     // 发布评论
     [MBProgressHUD showMessage:nil];
-    [[TTLFManager sharedManager].networkManager sendCommentWithModel:self.model Content:textField.text Success:^(BookCommentModel *commentModel) {
+    [[TTLFManager sharedManager].networkManager commentMusicWithModel:self.model Content:textField.text Success:^(MusicCommentModel *commentModel) {
         textField.text = nil;
-        [MBProgressHUD hideHUD];
         [self.array insertObject:commentModel atIndex:0];
         [self.tableView reloadData];
     } Fail:^(NSString *errorMsg) {
@@ -223,5 +220,7 @@
     }
     return _array;
 }
+
+
 
 @end

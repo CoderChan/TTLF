@@ -11,6 +11,7 @@
 
 
 @interface RightMoreView ()
+
 {
     UIButton *mengButton;
 }

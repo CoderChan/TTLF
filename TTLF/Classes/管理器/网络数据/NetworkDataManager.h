@@ -32,6 +32,7 @@
 #import "BookCommentModel.h"
 #import "MusicCateModel.h"
 #import "AlbumInfoModel.h"
+#import "MusicCommentModel.h"
 
 
 
@@ -124,9 +125,11 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 搜索佛典
 - (void)searchBookByKeyWord:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 发布佛典评论
-- (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(void (^)(BookCommentModel *commentModel))success Fail:(FailBlock)fail;
 // 获取佛典下的评论列表
 - (void)getBookCommentWithModel:(BookInfoModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 删除佛典下的某条评论
+- (void)deleteBookCommentWithModel:(BookCommentModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 #pragma mark - 梵音板块
 // 梵音分类列表
@@ -135,6 +138,14 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)albumListByModel:(MusicCateModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 搜索梵音
 - (void)searchMusicByKey:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 下载梵音到本地
+- (void)downLoadMusicWithModel:(AlbumInfoModel *)model Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
+// 获取梵音下的评论
+- (void)musicCommentListWithModel:(AlbumInfoModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 评论某个梵音
+- (void)commentMusicWithModel:(AlbumInfoModel *)model Content:(NSString *)content Success:(void (^)(MusicCommentModel *commentModel))success Fail:(FailBlock)fail;
+// 删除梵音下的某条评论
+- (void)deleteMusicCommentWithModel:(MusicCommentModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 #pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息

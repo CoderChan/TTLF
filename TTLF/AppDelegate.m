@@ -108,11 +108,6 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
-#pragma mark - 程序即将进入前台
-- (void)applicationWillEnterForeground:(UIApplication *)application
-{
-    [[TTLFManager sharedManager].lifoVC beginLightingAction];
-}
 
 
 

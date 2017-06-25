@@ -47,18 +47,31 @@
     return self;
 }
 
-- (void)setModel:(BookCommentModel *)model
+
+- (void)setBookCommentModel:(BookCommentModel *)bookCommentModel
 {
-    _model = model;
-    [_headImgView sd_setImageWithURL:[NSURL URLWithString:model.commenter_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
-    _nameLabel.text = model.commenter_name;
-    _contentLabel.text = model.book_comment;
-    if (model.create_time.length >= 10) {
-        _timeLabel.text = [model.create_time substringWithRange:NSMakeRange(0, 10)];
+    _bookCommentModel = bookCommentModel;
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:bookCommentModel.commenter_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = bookCommentModel.commenter_name;
+    _contentLabel.text = bookCommentModel.book_comment;
+    if (bookCommentModel.create_time.length >= 10) {
+        _timeLabel.text = [bookCommentModel.create_time substringWithRange:NSMakeRange(0, 10)];
     }else{
-        _timeLabel.text = model.create_time;
+        _timeLabel.text = bookCommentModel.create_time;
     }
     
+}
+- (void)setMusciCommentModel:(MusicCommentModel *)musciCommentModel
+{
+    _musciCommentModel = musciCommentModel;
+    [_headImgView sd_setImageWithURL:[NSURL URLWithString:musciCommentModel.commenter_head] placeholderImage:[UIImage imageNamed:@"user_place"]];
+    _nameLabel.text = musciCommentModel.commenter_name;
+    _contentLabel.text = musciCommentModel.music_comment;
+    if (musciCommentModel.create_time.length >= 10) {
+        _timeLabel.text = [musciCommentModel.create_time substringWithRange:NSMakeRange(0, 10)];
+    }else{
+        _timeLabel.text = musciCommentModel.create_time;
+    }
 }
 
 - (void)setupSubViews
@@ -75,8 +88,11 @@
     self.headImgView.layer.cornerRadius = 18;
     [self.contentView addSubview:self.headImgView];
     UITapGestureRecognizer *headTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        if (self.UserClickBlock) {
-            _UserClickBlock(_model);
+        if (self.UserClickBookBlock) {
+            _UserClickBookBlock(_bookCommentModel);
+        }
+        if (self.UserClickMusicBlock) {
+            _UserClickMusicBlock(_musciCommentModel);
         }
     }];
     [self.headImgView addGestureRecognizer:headTap];
@@ -89,8 +105,11 @@
     self.nameLabel.textColor = RGBACOLOR(151, 171, 209, 1);
     [self.contentView addSubview:self.nameLabel];
     UITapGestureRecognizer *nameTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        if (self.UserClickBlock) {
-            _UserClickBlock(_model);
+        if (self.UserClickBookBlock) {
+            _UserClickBookBlock(_bookCommentModel);
+        }
+        if (self.UserClickMusicBlock) {
+            _UserClickMusicBlock(_musciCommentModel);
         }
     }];
     [self.nameLabel addGestureRecognizer:nameTap];

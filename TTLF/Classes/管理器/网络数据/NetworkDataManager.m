@@ -13,6 +13,7 @@
 #import "AddressCacheManager.h"
 #import "PlaceCacheManager.h"
 #import "BookCacheManager.h"
+#import "MusicCacheManager.h"
 
 
 @implementation NetworkDataManager
@@ -228,10 +229,11 @@
         for (NSString *fileName in childerFiles) {
             //如有需要，加入条件，过滤掉不想删除的文件
             
-            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"]) {
+            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"]) {
                 // 不删除这些。用户信息、离线订单、归档
                 [[AddressCacheManager sharedManager] deleteAddressCache];
                 [[BookCacheManager sharedManager] deleBookCache];
+                [[MusicCacheManager sharedManager] deleMusicCache];
                 completion();
                 
             }else{
@@ -1057,6 +1059,8 @@
     
 }
 
+
+
 // 搜索佛典
 - (void)searchBookByKeyWord:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
@@ -1091,7 +1095,7 @@
 }
 
 // 发布佛典评论
-- (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(SuccessBlock)success Fail:(FailBlock)fail
+- (void)sendCommentWithModel:(BookInfoModel *)model Content:(NSString *)content Success:(void (^)(BookCommentModel *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
     if (!account) {
@@ -1110,9 +1114,12 @@
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSLog(@"发布佛典评论返回 = %@",responseObject);
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
-            success();
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            BookCommentModel *resultModel = [BookCommentModel mj_objectWithKeyValues:result];
+            success(resultModel);
         }else{
             fail(message);
         }
@@ -1144,6 +1151,36 @@
             NSArray *result = [responseObject objectForKey:@"result"];
             NSArray *modelArray = [BookCommentModel mj_objectArrayWithKeyValuesArray:result];
             success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+// 删除梵音下的某条评论
+- (void)deleteBookCommentWithModel:(BookCommentModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Buddist/deleteFd";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:model.comment_id.base64EncodedString forKey:@"comment_id"];
+    [param setValue:model.book_id.base64EncodedString forKey:@"book_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Buddist/deleteFd?userID=%@&comment_id=%@&book_id=%@",account.userID.base64EncodedString,model.comment_id.base64EncodedString,model.book_id.base64EncodedString];
+    NSLog(@"删除佛典评论 = %@",allurl);
+    
+    [HTTPManager GET:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
         }else{
             fail(message);
         }
@@ -1214,6 +1251,47 @@
     }];
 }
 
+// 下载梵音到本地
+- (void)downLoadMusicWithModel:(AlbumInfoModel *)model Progress:(void (^)(NSProgress *))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/downloadFy?userID=%@&music_id=%@",account.userID.base64EncodedString,model.music_id.base64EncodedString];
+    NSLog(@"下载佛典 = %@",url);
+    
+    
+    NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+    AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];
+    
+    NSURL *URL = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+    NSURLSessionDownloadTask *downloadTask = [manager downloadTaskWithRequest:request progress:^(NSProgress * _Nonnull downloadProgress) {
+        progressBlock(downloadProgress);
+    } destination:^NSURL * _Nonnull(NSURL * _Nonnull targetPath, NSURLResponse * _Nonnull response) {
+        NSURL *documentsDirectoryURL = [[NSFileManager defaultManager] URLForDirectory:NSDocumentDirectory inDomain:NSUserDomainMask appropriateForURL:nil create:NO error:nil];
+        NSURL *returnURL = [documentsDirectoryURL URLByAppendingPathComponent:[response suggestedFilename]];
+        return returnURL;
+    } completionHandler:^(NSURLResponse * _Nonnull response, NSURL * _Nullable filePath, NSError * _Nullable error) {
+        if (!error) {
+            
+            NSLog(@"F文件下载到: %@", filePath);// 需要去掉file:///
+            NSString *filePathStr = [NSString stringWithFormat:@"%@",filePath];
+            filePathStr = [filePathStr substringWithRange:NSMakeRange(8, filePathStr.length - 8)];
+            [[MusicCacheManager sharedManager] saveMusicArrayWithModel:model];
+            
+            success(filePathStr);
+        }else{
+            fail(error.localizedDescription);
+        }
+    }];
+    
+    [downloadTask resume];
+}
+
 // 搜索梵音
 - (void)searchMusicByKey:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail
 {
@@ -1237,6 +1315,100 @@
             NSArray *result = [responseObject objectForKey:@"result"];
             NSArray *modelArray = [AlbumInfoModel mj_objectArrayWithKeyValuesArray:result];
             success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
+// 获取梵音下的评论
+- (void)musicCommentListWithModel:(AlbumInfoModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Music/fyCommentList";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:model.music_id.base64EncodedString forKey:@"music_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/fyCommentList?userID=%@&music_id=%@",account.userID.base64EncodedString,model.music_id.base64EncodedString];
+    NSLog(@"梵音评论列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [MusicCommentModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 评论某个梵音
+- (void)commentMusicWithModel:(AlbumInfoModel *)model Content:(NSString *)content Success:(void (^)(MusicCommentModel *))success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Music/commentFy";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:model.music_id.base64EncodedString forKey:@"music_id"];
+    [param setValue:content.base64EncodedString forKey:@"music_comment"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/commentFy?userID=%@&music_id=%@&music_comment=%@",account.userID.base64EncodedString,model.music_id.base64EncodedString,content.base64EncodedString];
+    NSLog(@"发表梵音评论 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        NSLog(@"发布梵音评论返回 = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            MusicCommentModel *model = [MusicCommentModel mj_objectWithKeyValues:result];
+            success(model);
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+// 删除梵音下的某条评论
+- (void)deleteMusicCommentWithModel:(MusicCommentModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Music/deleteFy";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:model.comment_id.base64EncodedString forKey:@"comment_id"];
+    [param setValue:model.music_id.base64EncodedString forKey:@"music_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/deleteFy?userID=%@&comment_id=%@&music_id=%@",account.userID.base64EncodedString,model.comment_id.base64EncodedString,model.music_id.base64EncodedString];
+    NSLog(@"删除梵音评论 = %@",allurl);
+    
+    [HTTPManager GET:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
         }else{
             fail(message);
         }

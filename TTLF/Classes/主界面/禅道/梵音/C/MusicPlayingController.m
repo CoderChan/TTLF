@@ -10,8 +10,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <Masonry.h>
+#import "ShareView.h"
+#import "CommentMusicController.h"
 
-@interface MusicPlayingController ()
+@interface MusicPlayingController ()<ShareViewDelegate>
 
 // 当前播放的mp3模型
 @property (strong,nonatomic) AlbumInfoModel *currentModel;
@@ -23,6 +25,7 @@
 @property (strong,nonatomic) AVPlayer *player;
 // 背景图
 @property (weak, nonatomic) IBOutlet UIImageView *backImgView;
+@property (strong,nonatomic) CABasicAnimation *rotationAnimation;
 // 歌曲图
 @property (weak, nonatomic) IBOutlet UIImageView *centerImgView;
 // 歌名
@@ -63,6 +66,8 @@
         self.dataSource = dataSource;
         self.currentIndex = currentIndex;
         self.currentModel = self.dataSource[currentIndex];
+//        NSString *testUrl = @"http://download.lingyongqian.cn/music/ForElise.mp3";
+//        self.currentModel.music_desc = testUrl;
     }
     return self;
 }
@@ -70,6 +75,8 @@
     [super viewDidLoad];
     
     [self setupSubViews];
+    
+    [YLNotificationCenter addObserver:self selector:@selector(beginLightingAction) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)setupSubViews
@@ -100,9 +107,17 @@
     self.centerImgView.layer.cornerRadius = 100.f;
     self.centerImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     UITapGestureRecognizer *centerImgTap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        
+        [MBProgressHUD showNormal:@"马克"];
     }];
     [self.centerImgView addGestureRecognizer:centerImgTap];
+    
+    // 添加旋转动画
+    self.rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    self.rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
+    self.rotationAnimation.duration = 7;
+    self.rotationAnimation.cumulative = YES;
+    self.rotationAnimation.repeatCount = 100000;
+    [self.centerImgView.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];//开始动画
     
     // 标题
     self.titleLabel.text = self.currentModel.music_name;
@@ -207,7 +222,10 @@
 // 分享
 - (IBAction)shareAction:(id)sender
 {
-    
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    ShareView *sharedView = [[ShareView alloc]initWithFrame:keyWindow.bounds];
+    sharedView.delegate = self;
+    [keyWindow addSubview:sharedView];
 }
 // 切换播放顺序
 - (IBAction)switchTypeClick:(UIButton *)sender
@@ -222,19 +240,30 @@
 // 点击下载
 - (IBAction)downLoadAction:(UIButton *)sender
 {
-    
+    [MBProgressHUD showMessage:nil];
+    [[TTLFManager sharedManager].networkManager downLoadMusicWithModel:self.currentModel Progress:^(NSProgress *progress) {
+        
+        NSLog(@"下载进度 = %g",progress.fractionCompleted);
+    } Success:^(NSString *string) {
+        [MBProgressHUD hideHUD];
+        [self sendAlertAction:string];
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD hideHUD];
+        [self sendAlertAction:errorMsg];
+    }];
 }
 // 点击评论按钮
 - (IBAction)commentClick:(UIButton *)sender
 {
-    
+    CommentMusicController *comment = [[CommentMusicController alloc]initWithModel:self.currentModel];
+    [self.navigationController pushViewController:comment animated:YES];
 }
 
 // 播放
 - (IBAction)playClickAction:(UIButton *)sender
 {
     if (!sender.selected) {
-        // 开始播放中
+        // 开始播放中/继续播放
         [self playWithModel:self.currentModel];
         sender.selected = YES;
         [sender setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateNormal];
@@ -280,6 +309,7 @@
 -(void)reloadUI:(AlbumInfoModel*)model
 {
     NSURL *url = [NSURL URLWithString:model.music_desc];
+    self.startTimeLabel.text = @"00:00";
     NSString *durationStr = [self durationWithVideo:url];
     self.endTimeLabel.text = [NSString stringWithFormat:@"%@",durationStr];
     self.titleLabel.text = model.music_name;
@@ -444,6 +474,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
+    [self beginLightingAction];
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -452,4 +483,98 @@
     
 }
 
+- (void)beginLightingAction
+{
+    // 继续发光
+    [self.centerImgView.layer addAnimation:self.rotationAnimation forKey:@"rotationAnimation"];//开始动画
+    
+}
+
+- (void)shareViewClickWithType:(ShareViewClickType)type
+{
+    
+    NSString *url = [NSString stringWithFormat:@"%@&userID=%@",self.currentModel.web_url,[AccountTool account].userID.base64EncodedString];
+//    NSString *url = self.currentModel.music_desc;
+    NSString *title = self.currentModel.music_name;
+    NSString *descStr = self.currentModel.music_author;
+    UIImage *image;
+    NSData *imageData = UIImageJPEGRepresentation(self.centerImgView.image, 0.01);
+    NSInteger len = imageData.length / 1024;
+    if (len > 32) {
+        image = [UIImage imageNamed:@"app_logo"];
+    }else{
+        image = self.centerImgView.image;
+    }
+    
+    if (type == WechatFriendType) {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *musicObject = [WXWebpageObject object];
+        musicObject.webpageUrl = url;
+        message.mediaObject = musicObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 0;
+        [WXApi sendReq:req];
+    }else if (type == WechatQuanType){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *musicObject = [WXWebpageObject object];
+        musicObject.webpageUrl = url;
+        message.mediaObject = musicObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 1;
+        [WXApi sendReq:req];
+    }else if (type == QQFriendType){
+        
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
+        
+    }else if (type == QQSpaceType){
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
+    }else if (type == SinaShareType){
+        [MBProgressHUD showSuccess:@"新浪微博"];
+    }else if (type == SysterShareType){
+        
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image,title,[NSURL URLWithString:url]] applicationActivities:nil];
+        [self presentViewController:activity animated:YES completion:^{
+            
+        }];
+    }else if (type == WechatStoreType){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 2;
+        [WXApi sendReq:req];
+    }
+}
+
+
+
 @end
+//

@@ -15,12 +15,13 @@
 #import "SetViewController.h"
 #import "NormalTableViewCell.h"
 #import "MBProgressHUD+MJ.h"
+#import "ShareView.h"
 #import "UserInfoViewController.h"
 #import "StoreListViewController.h"
 #import "VisitUserViewController.h"
 
 
-@interface WoViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface WoViewController ()<UITableViewDelegate,UITableViewDataSource,ShareViewDelegate>
 
 @property (strong,nonatomic) UITableView *tableView;
 
@@ -89,16 +90,100 @@
         [self.navigationController pushViewController:punna animated:YES];
     }else if(indexPath.section == 1){
         if (indexPath.row == 0) {
+            // 收藏
             StoreListViewController *store = [StoreListViewController new];
             [self.navigationController pushViewController:store animated:YES];
         }else if (indexPath.row == 1){
+            // 历史
+            
+        }else if (indexPath.row == 2){
+            // 消息
             
         }else {
-            
+            // 分享
+            UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+            ShareView *sharedView = [[ShareView alloc]initWithFrame:keyWindow.bounds];
+            sharedView.delegate = self;
+            [keyWindow addSubview:sharedView];
         }
     }else{
         SetViewController *set = [SetViewController new];
         [self.navigationController pushViewController:set animated:YES];
+    }
+}
+
+- (void)shareViewClickWithType:(ShareViewClickType)type
+{
+    NSString *url = OfficalWebURL;
+    NSString *title = @"推荐下载：佛缘生活";
+    NSString *descStr = @"集佛界头条、海量佛典梵音、素食生活馆、在线礼佛、佛教名山探索的APP。";
+    UIImage *image = [UIImage imageNamed:@"app_logo"];
+    
+    if (type == WechatFriendType) {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 0;
+        [WXApi sendReq:req];
+    }else if (type == WechatQuanType){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 1;
+        [WXApi sendReq:req];
+    }else if (type == QQFriendType){
+        
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
+        
+    }else if (type == QQSpaceType){
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
+    }else if (type == SinaShareType){
+        [MBProgressHUD showSuccess:@"新浪微博"];
+    }else if (type == SysterShareType){
+        
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image,title,[NSURL URLWithString:url]] applicationActivities:nil];
+        [self presentViewController:activity animated:YES completion:^{
+            
+        }];
+    }else if (type == WechatStoreType){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 2;
+        [WXApi sendReq:req];
     }
 }
 

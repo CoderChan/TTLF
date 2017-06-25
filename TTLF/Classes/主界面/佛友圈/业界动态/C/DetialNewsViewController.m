@@ -47,7 +47,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"天天阅读";
+    self.title = @"加载中···";
     [self addProgressView];
     [self setupSubViews];
 }
@@ -342,8 +342,8 @@
 {
     theBool = true;
     // 标题
-    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    self.title = title.length >= 1 ? title : @"天天阅读";
+//    NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    self.title = self.newsModel.keywords;
     //这里是js，主要目的实现对url的获取
     static  NSString * const jsGetImages =
     @"function getImages(){\
