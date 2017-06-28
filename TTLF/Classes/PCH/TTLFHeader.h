@@ -27,12 +27,8 @@
 
 // 官方网站
 #define OfficalWebURL @"http://www.yangruyi.com/"
-// 壹基金官网
-#define YiJijinWebURL @"http://cf.lingxi360.com/p/LXEimxXhz1CW-XA="
-
-// 友盟推送
-#define UMPush_AppKey @"58d12a06c62dca22da001944"
-#define UMPush_AppSecret @"v0tzeuqjm3kaskykndwlb7rgxhc5byoo"
+// 日行一善调查问卷
+#define YiJijinWebURL @"https://sojump.com/jq/14805801.aspx"
 
 // 极光推送
 #define Jpush_AppKey @"44ce49782db6341d765a1ca4"
@@ -41,6 +37,7 @@
 //   微信SDK
 #define WeChatAppID @"wx817d7d973e5cdca8"
 #define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"
+
 //  QQ互联
 #define QQAppID @"101403576"
 #define QQAppKey @"ac825fcb38e723f32b70271643f8a77e"
@@ -51,6 +48,9 @@
 // MOb短信验证码
 #define Mob_AppKey @"1b1697bd31c74"
 #define Mob_Secret @"b6da9384059a306a64f7779a36658491"
+
+// 新浪微博
+
 
 // 淘宝店铺URL
 #define TaobaoShopURL @"http://c.b1za.com/h.2YSG4Q?cv=u68FSigZYp&sm=edfca7"

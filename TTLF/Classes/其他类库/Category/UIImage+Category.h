@@ -28,4 +28,7 @@
  */
 + (UIImage *)resizeImage:(NSString *)imageName;
 
+
+
+
 @end

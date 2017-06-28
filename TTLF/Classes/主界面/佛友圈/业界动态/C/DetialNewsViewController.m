@@ -60,7 +60,7 @@
     CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
     myProgressView = [[UIProgressView alloc] initWithFrame:barFrame];
     myProgressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    myProgressView.progressTintColor = RGBACOLOR(10, 160, 79, 1);
+    myProgressView.progressTintColor = GreenColor;
     [self.navigationController.navigationBar addSubview:myProgressView];
     
 }
@@ -393,6 +393,7 @@
                 page = i;
             }
         }
+        NSLog(@"图片地址 = %@",self.imgUrlArray);
         PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:self.imgUrlArray originalUrls:self.imgUrlArray];
         [self.view addSubview:photosView];
         

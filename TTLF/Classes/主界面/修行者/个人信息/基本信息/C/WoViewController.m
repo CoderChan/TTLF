@@ -14,12 +14,22 @@
 #import "RootNavgationController.h"
 #import "SetViewController.h"
 #import "NormalTableViewCell.h"
-#import "MBProgressHUD+MJ.h"
 #import "ShareView.h"
+#import "MessageListController.h"
 #import "UserInfoViewController.h"
 #import "StoreListViewController.h"
 #import "VisitUserViewController.h"
+#import "UIView+Toast.h"
+#import "TuiguangViewController.h"
+#import <Social/Social.h>
 
+
+
+static NSString *const SLServiceTypeWechat = @"com.tencent.xin.sharetimeline";
+static NSString *const SLServiceTypeQQ = @"com.tencent.mqq.ShareExtension";
+static NSString *const SLServiceTypeAlipay = @"com.alipay.iphoneclient.ExtensionSchemeShare";
+static NSString *const SLServiceTypeSms = @"com.apple.UIKit.activity.Message";
+static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
 
 @interface WoViewController ()<UITableViewDelegate,UITableViewDataSource,ShareViewDelegate>
 
@@ -59,7 +69,7 @@
     };
     self.tableView.tableHeaderView = self.headView;
     
-    self.array = @[@[@"功德值"],@[@"收藏",@"历史",@"消息",@"分享"],@[@"设置"]];
+    self.array = @[@[@"功德值"],@[@"收藏",@"推广",@"消息",@"分享"],@[@"设置"]];
     [self.view addSubview:self.tableView];
     
 }
@@ -76,10 +86,15 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSArray *iconArray = @[@[@"wo_gongde"],@[@"wo_store",@"wo_history",@"wo_message",@"wo_share"],@[@"wo_set"]];;
+    NSArray *iconArray = @[@[@"wo_gongde"],@[@"wo_store",@"wo_tuiguang",@"wo_message",@"wo_share"],@[@"wo_set"]];;
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.iconView.image = [UIImage imageNamed:iconArray[indexPath.section][indexPath.row]];
     cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+    [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.mas_left).offset(15);
+        make.centerY.equalTo(cell.mas_centerY);
+        make.width.and.height.equalTo(@30);
+    }];
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -94,11 +109,13 @@
             StoreListViewController *store = [StoreListViewController new];
             [self.navigationController pushViewController:store animated:YES];
         }else if (indexPath.row == 1){
-            // 历史
-            
+            // 推广
+            TuiguangViewController *tuiguang = [[TuiguangViewController alloc]init];
+            [self.navigationController pushViewController:tuiguang animated:YES];
         }else if (indexPath.row == 2){
             // 消息
-            
+            MessageListController *message = [[MessageListController alloc]init];
+            [self.navigationController pushViewController:message animated:YES];
         }else {
             // 分享
             UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
@@ -157,19 +174,41 @@
         [self sendToQQWithSendResult:qqFriend];
         
     }else if (type == QQSpaceType){
+        
         QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
         [self sendToQQWithSendResult:qqZone];
     }else if (type == SinaShareType){
-        [MBProgressHUD showSuccess:@"新浪微博"];
-    }else if (type == SysterShareType){
+        // 新浪微博
+        BOOL isAvailable = [SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo];
+        if (isAvailable == NO) {
+            [MBProgressHUD showError:@"应用不支持当前平台分享"];
+            return;
+        }
+        SLComposeViewController *composeVc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
+        [composeVc setInitialText:@"测试测试"];
+        [composeVc addImage:[UIImage imageNamed:@"app_logo"]];
+        [composeVc addURL:[NSURL URLWithString:OfficalWebURL]];
+        [self presentViewController:composeVc animated:YES completion:^{
+            
+        }];
+        composeVc.completionHandler = ^(SLComposeViewControllerResult reulst) {
+            if (reulst == SLComposeViewControllerResultDone) {
+//                [MBProgressHUD showSuccess:@"分享成功"];
+            } else {
+//                [MBProgressHUD showError:@"分析失败"];
+            }
+        };
         
+    }else if (type == SysterShareType){
+        // 系统分享
         UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image,title,[NSURL URLWithString:url]] applicationActivities:nil];
         [self presentViewController:activity animated:YES completion:^{
             
         }];
     }else if (type == WechatStoreType){
+        // 微信收藏
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = title;
         message.description = descStr;
@@ -235,6 +274,7 @@
 {
     [super viewDidDisappear:animated];
     // 恢复那条线
+    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController.navigationBar setBackgroundImage:[[UIImage alloc] init] forBarMetrics:UIBarMetricsDefaultPrompt];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
 }

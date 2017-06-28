@@ -91,6 +91,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_resource "SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari-iPad@2x.png"
   install_resource "SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari@2x.png"
   install_resource "SVWebViewController/SVWebViewController/SVWebViewController.bundle"
+  install_resource "WeiboSDK/libWeiboSDK/WeiboSDK.bundle"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "AMap2DMap-NO-IDFA/MAMapKit.framework/AMap.bundle"
@@ -107,6 +108,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_resource "SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari-iPad@2x.png"
   install_resource "SVWebViewController/SVWebViewController/UIActivities/Safari/SVWebViewControllerActivitySafari@2x.png"
   install_resource "SVWebViewController/SVWebViewController/SVWebViewController.bundle"
+  install_resource "WeiboSDK/libWeiboSDK/WeiboSDK.bundle"
 fi
 
 mkdir -p "${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}"

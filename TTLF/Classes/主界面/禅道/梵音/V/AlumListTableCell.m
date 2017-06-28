@@ -11,12 +11,6 @@
 
 @interface AlumListTableCell ()
 
-// 序号
-@property (strong,nonatomic) UILabel *orderLabel;
-// 名称
-@property (strong,nonatomic) UILabel *nameLabel;
-// 播放按钮
-@property (strong,nonatomic) UIButton *button;
 
 
 @end
@@ -54,25 +48,25 @@
 - (void)setupSubViews
 {
     // 序号
-    self.orderLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, 20, 30)];
+    self.orderLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, 30, 30)];
     self.orderLabel.font = [UIFont systemFontOfSize:15];
     self.orderLabel.textColor = [UIColor grayColor];
     [self.contentView addSubview:self.orderLabel];
     
     // 名称
-    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(41, 15, SCREEN_WIDTH - 50 - 50, 30)];
+    self.nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(48, 15, SCREEN_WIDTH - 50 - 50, 30)];
     self.nameLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [self.contentView addSubview:self.nameLabel];
     
     // 按钮
-    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateHighlighted];
-    [button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateNormal];
+    [self.button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateHighlighted];
+    [self.button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         
     }];
-    button.frame = CGRectMake(SCREEN_WIDTH - 15 - 30, 15, 30, 30);
-    [self.contentView addSubview:button];
+    self.button.frame = CGRectMake(SCREEN_WIDTH - 15 - 30, 15, 30, 30);
+    [self.contentView addSubview:self.button];
     
 }
 

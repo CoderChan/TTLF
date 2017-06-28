@@ -10,6 +10,8 @@
 
 @interface CommentMusicController : SuperViewController
 
-- (instancetype)initWithModel:(AlbumInfoModel *)model;
+- (instancetype)initWithModel:(AlbumInfoModel *)model WithArray:(NSArray *)array;
+
+@property (copy,nonatomic) void (^CommentNumBlock)(NSArray *commentArray);
 
 @end

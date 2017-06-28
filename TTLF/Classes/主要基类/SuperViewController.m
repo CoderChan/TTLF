@@ -95,7 +95,7 @@
         case EQQAPITIMNOTSUPPORTAPI:
         {
             
-            [self sendAlertAction:@"API接口不支持"];
+            [self sendAlertAction:@"未安装QQ"];
             
             break;
         }

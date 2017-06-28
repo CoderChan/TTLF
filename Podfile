@@ -11,6 +11,8 @@ target 'TTLF' do
     pod 'MJRefresh', '~> 3.1.12'
     pod 'YYKit'
     pod 'FMDB'
+    pod 'JPush'
+    pod 'WeiboSDK'
     pod 'FDFullscreenPopGesture'
     pod 'LCActionSheet'
     pod 'YYKeyboardManager'

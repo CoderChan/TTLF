@@ -48,14 +48,14 @@
     NSLog(@"根目录 = %@",path);
     
     FoNewsViewController *vc1 = [[FoNewsViewController alloc] init];
-    [self addChildVC:vc1 Title:@"佛界头条" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:1];
+    [self addChildVC:vc1 Title:@"佛界头条" image:@"tabbar_news" selectedImage:@"tabbar_news" Tag:1];
     
     ZanViewController *vc2 = [[ZanViewController alloc] init];
-    [self addChildVC:vc2 Title:@"禅道" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:2];
+    [self addChildVC:vc2 Title:@"禅道" image:@"tabbar_chan" selectedImage:@"tabbar_chan" Tag:2];
     
     DiscoverViewController *vc3 = [[DiscoverViewController alloc] init];
     vc3.tabBarItem.badgeValue = @"12";
-    [self addChildVC:vc3 Title:@"发现" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:3];
+    [self addChildVC:vc3 Title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover" Tag:3];
     
     WoViewController *vc4 = [[WoViewController alloc]init];
     [self addChildVC:vc4 Title:@"修行者" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:4];

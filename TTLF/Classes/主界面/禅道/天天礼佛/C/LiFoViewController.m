@@ -93,9 +93,9 @@
         [self.rightFloerV sd_setImageWithURL:[NSURL URLWithString:lifoModel.flower] placeholderImage:[UIImage imageNamed:@"lifo_flower_place"]];
         [self.leftFruitV sd_setImageWithURL:[NSURL URLWithString:lifoModel.fruit] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
         [self.rightFruitV sd_setImageWithURL:[NSURL URLWithString:lifoModel.fruit] placeholderImage:[UIImage imageNamed:@"gy_lifo_tray"]];
-        [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
-        [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
-        [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+        [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"pai_place"]];
+        [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"pai_place"]];
+        [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:lifoModel.fopai] placeholderImage:[UIImage imageNamed:@"pai_place"]];
         
     } Fail:^(NSString *errorMsg) {
         [self sendAlertAction:errorMsg];
@@ -341,8 +341,12 @@
     CGFloat X3 = SCREEN_WIDTH - X1 - Fwidth;
     
     
-    self.fopaiImgV1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV1 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"pai_place"]];
     self.fopaiImgV1.tag = 1;
+    self.fopaiImgV1.contentMode = UIViewContentModeScaleAspectFill;
+//    [self.fopaiImgV1 setContentScaleFactor:[UIScreen mainScreen].scale];
+//    self.fopaiImgV1.layer.masksToBounds = YES;
+//    self.fopaiImgV1.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     self.fopaiImgV1.userInteractionEnabled = YES;
     self.fopaiImgV1.frame = CGRectMake(X1, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV1];
@@ -354,8 +358,9 @@
     }];
     [self.fopaiImgV1 addGestureRecognizer:paiTap1];
     
-    self.fopaiImgV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV2 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"pai_place"]];
     self.fopaiImgV2.tag = 2;
+    self.fopaiImgV2.contentMode = UIViewContentModeScaleAspectFill;
     self.fopaiImgV2.userInteractionEnabled = YES;
     self.fopaiImgV2.frame = CGRectMake(X2, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV2];
@@ -367,8 +372,9 @@
     }];
     [self.fopaiImgV2 addGestureRecognizer:paiTap2];
     
-    self.fopaiImgV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"chanxiu"]];
+    self.fopaiImgV3 = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"pai_place"]];
     self.fopaiImgV3.tag = 3;
+    self.fopaiImgV3.contentMode = UIViewContentModeScaleAspectFill;
     self.fopaiImgV3.userInteractionEnabled = YES;
     self.fopaiImgV3.frame = CGRectMake(X3, Y, Fwidth, Fheight);
     [self.view addSubview:self.fopaiImgV3];
@@ -395,9 +401,9 @@
 // 选中佛牌
 - (void)fopaiDidSelectFopaiModel:(FopaiModel *)fopaiModel
 {
-    [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
-    [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
-    [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"chanxiu"]];
+    [self.fopaiImgV1 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"pai_place"]];
+    [self.fopaiImgV2 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"pai_place"]];
+    [self.fopaiImgV3 sd_setImageWithURL:[NSURL URLWithString:fopaiModel.fopai_img] placeholderImage:[UIImage imageNamed:@"pai_place"]];
     
 }
 // 选中花瓶、香、果盘

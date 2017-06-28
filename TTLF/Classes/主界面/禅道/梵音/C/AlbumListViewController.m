@@ -106,12 +106,7 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     MusicPlayingController *play = [[MusicPlayingController alloc]initWithArray:self.array CurrentIndex:indexPath.row];
-    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:play];
-    nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-    nav.modalPresentationStyle = UIModalPresentationFullScreen;
-    [self presentViewController:nav animated:YES completion:^{
-        
-    }];
+    [self.navigationController pushViewController:play animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

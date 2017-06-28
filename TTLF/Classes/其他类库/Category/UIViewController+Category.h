@@ -33,4 +33,14 @@
 - (void)openSettingWithTips:(NSString *)tips;
 
 
+/**
+ 加文字水印
+
+ @param img 传入的图片
+ @param name 水印文字
+ @return 加完水印后的图片
+ */
+- (UIImage *)addWaterImage:(UIImage *)img Name:(NSString *)name;
+
+
 @end

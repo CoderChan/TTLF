@@ -15,6 +15,7 @@
 #import "WechatLoginViewController.h"
 #import "RootTabbarController.h"
 #import <SMS_SDK/SMSSDK.h>
+#import <JPUSHService.h>
 #import <AVFoundation/AVFoundation.h>
 #import <AMapFoundationKit/AMapFoundationKit.h>
 #import "PhoneLoginViewController.h"
@@ -22,7 +23,7 @@
 
 
 
-@interface AppDelegate ()
+@interface AppDelegate ()<JPUSHRegisterDelegate>
 
 @end
 
@@ -89,16 +90,26 @@
     // QQ
     self.tencentOAuth = [[TencentOAuth alloc] initWithAppId:QQAppID andDelegate:nil];
     
+    // 极光推送
+    BOOL isProduction;
+#ifdef DEBUG // 处于开发阶段
+    isProduction = NO;
+#else // 处于发布阶段
+    isProduction = YES;
+#endif
+    JPUSHRegisterEntity *entity = [[JPUSHRegisterEntity alloc] init];
+    entity.types = JPAuthorizationOptionAlert|JPAuthorizationOptionBadge|JPAuthorizationOptionSound;
+    [JPUSHService registerForRemoteNotificationConfig:entity delegate:self];
+    [JPUSHService setupWithOption:launchOptions appKey:Jpush_AppKey channel:@"AppStore" apsForProduction:isProduction];
+    
+    
     // 后台播放音乐控制
-    //获取音频会话11
     AVAudioSession *session = [AVAudioSession sharedInstance];
-    //设置类型是播放。
     [session setCategory:AVAudioSessionCategoryPlayback error:nil];
-    //激活音频会话。
     [session setActive:YES error:nil];
-
     
 }
+
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
@@ -108,7 +119,40 @@
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
+// 注册推送设备标示
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    [JPUSHService registerDeviceToken:deviceToken];
+}
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+    NSLog(@"注册推送失败 = %@", error);
+}
+#pragma mark - 极光推送代理
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
+{
+    NSLog(@"推送消息 = %@",userInfo);
+}
+// notification ：前台得到的的通知对象
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(NSInteger))completionHandler
+{
+    NSLog(@"notification = %@",notification);
+}
+// response 通知响应对象
+- (void)jpushNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler
+{
+    NSLog(@"response = %@",response);
+}
 
+#pragma mark - APP进入后台/从后台返回
+- (void)applicationDidEnterBackground:(UIApplication *)application
+{
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+}
+
+- (void)applicationWillEnterForeground:(UIApplication *)application
+{
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+}
 
 
 

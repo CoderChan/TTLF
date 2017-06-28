@@ -253,10 +253,16 @@
     NSLog(@"分享页 == %@",shareUrl);
     if (clickType == WechatFriendType) {
         NSData *thumbData = UIImageJPEGRepresentation(self.coverImgView.image, 0.1);
+        NSInteger len = thumbData.length / 1024;
+        
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = @"发现一道精选素食，送给素食生活的你。";
         message.description = self.vegeModel.vege_desc;
-        [message setThumbData:thumbData];
+        if (len > 32) {
+            [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        }else{
+            [message setThumbData:thumbData];
+        }
         
         WXWebpageObject *webObject = [WXWebpageObject object];
         webObject.webpageUrl = shareUrl;
@@ -269,10 +275,15 @@
         [WXApi sendReq:req];
     }else if(clickType == WechatQuanType){
         NSData *thumbData = UIImageJPEGRepresentation(self.coverImgView.image, 0.1);
+        NSInteger len = thumbData.length / 1024;
         WXMediaMessage *message = [WXMediaMessage message];
         message.title = @"发现一道精选素食，送给素食生活的你。";
         message.description = self.vegeModel.vege_desc;
-        [message setThumbData:thumbData];
+        if (len > 32) {
+            [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
+        }else{
+            [message setThumbData:thumbData];
+        }
         
         WXWebpageObject *webObject = [WXWebpageObject object];
         webObject.webpageUrl = shareUrl;
@@ -355,7 +366,7 @@
         _descLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _descLabel.text = @"素食背后的故事：";
         _descLabel.font = [UIFont boldSystemFontOfSize:20];
-        _descLabel.textColor = RGBACOLOR(10, 160, 79, 1);
+        _descLabel.textColor = GreenColor;
     }
     return _descLabel;
 }
@@ -405,7 +416,7 @@
         _foodLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _foodLabel.text = @"食材准备：";
         _foodLabel.font = [UIFont boldSystemFontOfSize:20];
-        _foodLabel.textColor = RGBACOLOR(10, 160, 79, 1);
+        _foodLabel.textColor = GreenColor;
     }
     return _foodLabel;
 }
@@ -429,7 +440,7 @@
         _stepsLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _stepsLabel.font = [UIFont boldSystemFontOfSize:20];
         _stepsLabel.text = @"烹饪步骤：";
-        _stepsLabel.textColor = RGBACOLOR(10, 160, 79, 1);
+        _stepsLabel.textColor = GreenColor;
     }
     return _stepsLabel;
 }
@@ -451,7 +462,7 @@
         _imagesLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, 200, 30)];
         _imagesLabel.font = [UIFont boldSystemFontOfSize:20];
         _imagesLabel.text = @"素食配图：";
-        _imagesLabel.textColor = RGBACOLOR(10, 160, 79, 1);
+        _imagesLabel.textColor = GreenColor;
     }
     return _imagesLabel;
 }

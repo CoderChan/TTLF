@@ -14,6 +14,7 @@
 #import "SharkNameViewController.h"
 #import "NewFetherViewController.h"
 #import "SuggestViewController.h"
+#import <Masonry.h>
 #import "RootNavgationController.h"
 #import "WechatLoginViewController.h"
 #import "PhoneLoginViewController.h"
@@ -65,6 +66,11 @@
         NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
         cell.iconView.image = [UIImage imageNamed:self.iconArray[indexPath.section][indexPath.row]];
         cell.titleLabel.text = self.titleArray[indexPath.section][indexPath.row];
+        [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.mas_left).offset(15);
+            make.centerY.equalTo(cell.mas_centerY);
+            make.width.and.height.equalTo(@30);
+        }];
         return cell;
     }else{
         TitleTableCell *cell = [TitleTableCell sharedTitleTableCell:tableView];

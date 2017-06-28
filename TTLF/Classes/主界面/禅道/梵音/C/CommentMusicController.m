@@ -20,30 +20,34 @@
 @property (strong,nonatomic) UITableView *tableView;
 // 数据源
 @property (strong,nonatomic) NSMutableArray *array;
-
+// 传过来的Mp3模型
 @property (strong,nonatomic) AlbumInfoModel *model;
+// 头部
+@property (strong,nonatomic) UIView *headView;
 
 @end
 
 @implementation CommentMusicController
 
-- (instancetype)initWithModel:(AlbumInfoModel *)model
+- (instancetype)initWithModel:(AlbumInfoModel *)model WithArray:(NSArray *)array
 {
     self = [super init];
     if (self) {
         self.model = model;
+        [self.array addObjectsFromArray:array];
     }
     return self;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"梵音评论";
+    self.title = @"梵音感悟";
     [self setupSubViews];
 }
 
 - (void)setupSubViews
 {
+    self.view.backgroundColor = [UIColor whiteColor];
     // 绘制表格
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - 50) style:UITableViewStyleGrouped];
     self.tableView.backgroundColor = self.view.backgroundColor;
@@ -51,6 +55,32 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     [self.view addSubview:self.tableView];
+    
+    self.headView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 100)];
+    self.headView.backgroundColor = [UIColor whiteColor];
+    self.headView.userInteractionEnabled = YES;
+    self.tableView.tableHeaderView = self.headView;
+    
+    // 封面
+    UIImageView *coverImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 20, 60, 60)];
+    [coverImgView sd_setImageWithURL:[NSURL URLWithString:self.model.music_logo] placeholderImage:[UIImage imageWithColor:MainColor]];
+    coverImgView.contentMode = UIViewContentModeScaleAspectFill;
+    [coverImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+    coverImgView.layer.masksToBounds = YES;
+    coverImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
+    coverImgView.layer.masksToBounds = YES;
+    coverImgView.layer.cornerRadius = 4;
+    [self.headView addSubview:coverImgView];
+    
+    UILabel *titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(coverImgView.frame) + 10, 20, self.view.width - 75 - 10 - 10, 25)];
+    titleLabel.text = self.model.music_name;
+    titleLabel.font = [UIFont systemFontOfSize:16];
+    [self.headView addSubview:titleLabel];
+    
+    UILabel *descLabel = [[UILabel alloc]initWithFrame:CGRectMake(titleLabel.x, CGRectGetMaxY(titleLabel.frame) + 5, titleLabel.width, 21)];
+    descLabel.font = [UIFont systemFontOfSize:14];
+    descLabel.text = [NSString stringWithFormat:@"©%@",self.model.music_author];
+    [self.headView addSubview:descLabel];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.array removeAllObjects];
@@ -66,7 +96,12 @@
             [self.tableView.mj_header endRefreshing];
         }];
     }];
-    [self.tableView.mj_header beginRefreshing];
+    
+    if (self.array.count == 0) {
+        [self showEmptyViewWithMessage:@"还没有人发表感悟\r成为第一个发表者？"];
+    }else{
+        [self.tableView reloadData];
+    }
     
     // 底部输入框
     UIView *leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 40, 50)];
@@ -84,7 +119,7 @@
     self.textField.leftViewMode = UITextFieldViewModeAlways;
     self.textField.rightView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 15, self.textField.height)];
     self.textField.rightViewMode = UITextFieldViewModeAlways;
-    self.textField.placeholder = @"发表读后感";
+    self.textField.placeholder = @"发表感悟";
     self.textField.attributedPlaceholder = [[NSAttributedString alloc]initWithString:self.textField.placeholder attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]}];
     self.textField.returnKeyType = UIReturnKeySend;
     [self.view addSubview:self.textField];
@@ -204,6 +239,7 @@
     [MBProgressHUD showMessage:nil];
     [[TTLFManager sharedManager].networkManager commentMusicWithModel:self.model Content:textField.text Success:^(MusicCommentModel *commentModel) {
         textField.text = nil;
+        [self hideMessageAction];
         [self.array insertObject:commentModel atIndex:0];
         [self.tableView reloadData];
     } Fail:^(NSString *errorMsg) {
@@ -221,6 +257,12 @@
     return _array;
 }
 
-
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (self.CommentNumBlock) {
+        _CommentNumBlock(self.array);
+    }
+}
 
 @end

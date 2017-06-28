@@ -103,7 +103,7 @@
     }];
     callButton.titleLabel.font = [UIFont systemFontOfSize:13];
     callButton.frame = CGRectMake(30, 10, 100, 30);
-    [callButton setTitleColor:RGBACOLOR(10, 160, 79, 1) forState:UIControlStateNormal];
+    [callButton setTitleColor:GreenColor forState:UIControlStateNormal];
     [bottomView addSubview:callButton];
     
     // 距离

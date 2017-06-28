@@ -42,7 +42,7 @@
     [self.navigationItem.leftBarButtonItem setTintColor:[UIColor whiteColor]];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"下一步" style:UIBarButtonItemStylePlain target:self action:@selector(nextStepAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:RGBACOLOR(10, 160, 79, 1)];
+    [self.navigationItem.rightBarButtonItem setTintColor:GreenColor];
     
     // 精品提示
     UIView *topView = [[UIView alloc]initWithFrame:CGRectMake(0, 5, self.view.width, 50)];
@@ -52,7 +52,7 @@
     
     UILabel *tipLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 15, topView.width - 20 - 40, 20)];
     tipLabel.text = @"如何使自己的素食菜谱成为精品推荐？";
-    tipLabel.textColor = RGBACOLOR(10, 160, 79, 1);
+    tipLabel.textColor = GreenColor;
     tipLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     [topView addSubview:tipLabel];
     
@@ -61,7 +61,7 @@
     [topView addSubview:jiantouImgV];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-        NormalWebViewController *web = [[NormalWebViewController alloc]initWithUrlStr:@"http://app.yangruyi.com/Home/Vegetarian/showvege/?id=MTM=&userID=NzU="];
+        NormalWebViewController *web = [[NormalWebViewController alloc]initWithUrlStr:@"http://app.yangruyi.com/Home/Vegetarian/showvege/?id=MzU=&userID=Nzc="];
         [self.navigationController pushViewController:web animated:YES];
     }];
     [topView addGestureRecognizer:tap];
@@ -120,14 +120,9 @@
     self.addTipLabel.text = @"添加封面";
     self.addTipLabel.font = [UIFont systemFontOfSize:14];
     self.addTipLabel.textAlignment = NSTextAlignmentCenter;
-    self.addTipLabel.textColor = RGBACOLOR(10, 160, 79, 1);
+    self.addTipLabel.textColor = GreenColor;
     [self.coverImgView addSubview:self.addTipLabel];
     
-#ifdef DEBUG // 处于开发阶段
-    
-#else // 处于发布阶段
-    
-#endif
 }
 
 
@@ -170,6 +165,18 @@
 - (void)nextStepAction
 {
     [self.view endEditing:YES];
+    if (self.nameField.text.length < 2) {
+        [self showPopTipsWithMessage:@"请输入" AtView:self.nameField inView:self.view];
+        return;
+    }
+    if (self.storyTextView.text.length < 10 || [self.storyTextView.text isEqualToString:TextPlace]) {
+        [self showPopTipsWithMessage:@"请详细至少10字" AtView:self.storyTextView inView:self.view];
+        return;
+    }
+    if (!self.addTipLabel.hidden) {
+        [self showPopTipsWithMessage:@"请选择封面" AtView:self.coverImgView inView:self.view];
+        return;
+    }
     VageNextStepController *nextStep = [VageNextStepController new];
     nextStep.coverImage = self.coverImgView.image;
     nextStep.vageName = self.nameField.text;

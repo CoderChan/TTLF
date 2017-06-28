@@ -14,6 +14,7 @@
 #import "PlaceCacheManager.h"
 #import "BookCacheManager.h"
 #import "MusicCacheManager.h"
+#import <JPUSHService.h>
 
 
 @implementation NetworkDataManager
@@ -49,6 +50,9 @@
         if (code == 1) {
             NSDictionary *result = [responseObject objectForKey:@"result"];
             UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
+            [JPUSHService setTags:nil alias:userModel.userID fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                NSLog(@"极光推送 iResCode =%d,iTags = %@,iAlias = %@",iResCode,iTags,iAlias);
+            }];
             [self saveUserInfo:userModel Success:^{
                 success();
             } Fail:^(NSString *errorMsg) {
@@ -81,6 +85,9 @@
         if (code == 1) {
             NSDictionary *result = [responseObject objectForKey:@"result"];
             UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
+            [JPUSHService setTags:nil alias:userModel.userID fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                NSLog(@"极光推送 iResCode =%d,iTags = %@,iAlias = %@",iResCode,iTags,iAlias);
+            }];
             [self saveUserInfo:userModel Success:^{
                 success();
             } Fail:^(NSString *errorMsg) {
@@ -175,6 +182,9 @@
         if (code == 1) {
             NSDictionary *result = [responseObject objectForKey:@"result"];
             UserInfoModel *userModel = [UserInfoModel mj_objectWithKeyValues:result];
+            [JPUSHService setTags:nil alias:userModel.userID fetchCompletionHandle:^(int iResCode, NSSet *iTags, NSString *iAlias) {
+                NSLog(@"极光推送 iResCode =%d,iTags = %@,iAlias = %@",iResCode,iTags,iAlias);
+            }];
             [self saveUserInfo:userModel Success:^{
                 success();
             } Fail:^(NSString *errorMsg) {
@@ -1261,7 +1271,7 @@
     }
     
     NSString *url = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/downloadFy?userID=%@&music_id=%@",account.userID.base64EncodedString,model.music_id.base64EncodedString];
-    NSLog(@"下载佛典 = %@",url);
+    NSLog(@"下载mp3 = %@",url);
     
     
     NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];

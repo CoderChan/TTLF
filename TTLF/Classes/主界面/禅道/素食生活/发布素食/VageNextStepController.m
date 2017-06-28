@@ -48,7 +48,7 @@
 {
     self.view.backgroundColor = [UIColor whiteColor];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAction)];
-    [self.navigationItem.rightBarButtonItem setTintColor:RGBACOLOR(10, 160, 79, 1)];
+    [self.navigationItem.rightBarButtonItem setTintColor:GreenColor];
     
     // 添加食材、烹饪步骤描述、上图
     self.array = @[@[@"需要的食材"],@[@"烹饪步骤"],@[@"素食辅助图"]];
@@ -139,7 +139,7 @@
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 7, self.view.width - 30, 30)];
     label.backgroundColor = headView.backgroundColor;
     label.text = titleArray.firstObject;
-    label.textColor = RGBACOLOR(10, 160, 79, 1);
+    label.textColor = GreenColor;
     label.userInteractionEnabled = YES;
     label.textAlignment = NSTextAlignmentLeft;
     label.font = [UIFont boldSystemFontOfSize:20];
@@ -323,7 +323,7 @@
     if (!_label) {
         _label = [[UILabel alloc]init];
         _label.text = @"图片至少3张，最多9张，建议9张拼成九宫格";
-        _label.textColor = RGBACOLOR(10, 160, 79, 1);
+        _label.textColor = GreenColor;
         _label.textAlignment = NSTextAlignmentRight;
         _label.font = [UIFont systemFontOfSize:10];
     }

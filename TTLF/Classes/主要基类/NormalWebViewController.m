@@ -8,9 +8,12 @@
 
 #import "NormalWebViewController.h"
 #import "PYPhotoBrowser.h"
+#import "ShareView.h"
+#import "UIView+Toast.h"
+#import <Social/Social.h>
 
 
-@interface NormalWebViewController ()<UIWebViewDelegate>
+@interface NormalWebViewController ()<UIWebViewDelegate,ShareViewDelegate>
 {
     BOOL theBool;
     UIProgressView* myProgressView;
@@ -51,7 +54,7 @@
     CGRect barFrame = CGRectMake(0, navigationBarBounds.size.height - progressBarHeight, navigationBarBounds.size.width, progressBarHeight);
     myProgressView = [[UIProgressView alloc] initWithFrame:barFrame];
     myProgressView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    myProgressView.progressTintColor = RGBACOLOR(10, 160, 79, 1);
+    myProgressView.progressTintColor = GreenColor;
     [self.navigationController.navigationBar addSubview:myProgressView];
     
 }
@@ -92,8 +95,111 @@
 #pragma mark - 分享的方法
 - (void)commentAction
 {
-    
+    UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
+    ShareView *sharedView = [[ShareView alloc]initWithFrame:keyWindow.bounds];
+    sharedView.delegate = self;
+    [keyWindow addSubview:sharedView];
 }
+
+- (void)shareViewClickWithType:(ShareViewClickType)type
+{
+    NSString *url = self.urlStr;
+    NSString *docuTitle = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    
+    NSString *title = docuTitle.length > 1 ? docuTitle : @"推荐下载：佛缘生活";
+    NSString *descStr = @"集佛界头条、海量佛典梵音、素食生活馆、在线礼佛、佛教名山探索的APP。";
+    UIImage *image = [UIImage imageNamed:@"app_logo"];
+    
+    if (type == WechatFriendType) {
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 0;
+        [WXApi sendReq:req];
+    }else if (type == WechatQuanType){
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 1;
+        [WXApi sendReq:req];
+    }else if (type == QQFriendType){
+        
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        QQApiSendResultCode qqFriend = [QQApiInterface sendReq:req];
+        [self sendToQQWithSendResult:qqFriend];
+        
+    }else if (type == QQSpaceType){
+        
+        QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:url] title:title description:descStr previewImageData:UIImagePNGRepresentation(image)];
+        SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
+        QQApiSendResultCode qqZone = [QQApiInterface SendReqToQZone:req];
+        [self sendToQQWithSendResult:qqZone];
+    }else if (type == SinaShareType){
+        // 新浪微博
+        BOOL isAvailable = [SLComposeViewController isAvailableForServiceType:SLServiceTypeSinaWeibo];
+        if (isAvailable == NO) {
+            [MBProgressHUD showError:@"应用不支持当前平台分享"];
+            return;
+        }
+        SLComposeViewController *composeVc = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeSinaWeibo];
+        [composeVc setInitialText:descStr];
+        [composeVc addImage:[UIImage imageNamed:@"app_logo"]];
+        [composeVc addURL:[NSURL URLWithString:OfficalWebURL]];
+        [self presentViewController:composeVc animated:YES completion:^{
+            
+        }];
+        composeVc.completionHandler = ^(SLComposeViewControllerResult reulst) {
+            if (reulst == SLComposeViewControllerResultDone) {
+                //                [MBProgressHUD showSuccess:@"分享成功"];
+            } else {
+                //                [MBProgressHUD showError:@"分析失败"];
+            }
+        };
+        
+    }else if (type == SysterShareType){
+        // 系统分享
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[image,title,[NSURL URLWithString:url]] applicationActivities:nil];
+        [self presentViewController:activity animated:YES completion:^{
+            
+        }];
+    }else if (type == WechatStoreType){
+        // 微信收藏
+        WXMediaMessage *message = [WXMediaMessage message];
+        message.title = title;
+        message.description = descStr;
+        [message setThumbImage:image];
+        
+        WXWebpageObject *webObject = [WXWebpageObject object];
+        webObject.webpageUrl = url;
+        message.mediaObject = webObject;
+        
+        SendMessageToWXReq *req = [[SendMessageToWXReq alloc]init];
+        req.bText = NO;
+        req.message = message;
+        req.scene = 2;
+        [WXApi sendReq:req];
+    }
+}
+
 
 #pragma mark - 网页代理
 - (void)webViewDidStartLoad:(UIWebView *)webView

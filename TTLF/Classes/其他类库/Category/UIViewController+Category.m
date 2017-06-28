@@ -153,5 +153,26 @@
 }
 
 
+#pragma mark - 加文字水印
+- (UIImage *)addWaterImage:(UIImage *)img Name:(NSString *)name
+{
+    NSString* mark = name;
+    int w = img.size.width;
+    int h = img.size.height;
+    UIGraphicsBeginImageContext(img.size);
+    [img drawInRect:CGRectMake(0, 0, w, h)];
+    NSDictionary *attr = @{
+                           NSFontAttributeName: [UIFont boldSystemFontOfSize:22],
+                           NSForegroundColorAttributeName : [UIColor whiteColor]
+                           };
+//    [mark drawInRect:CGRectMake(0, 10, 80, 32) withAttributes:attr];   //左上角
+//    [mark drawInRect:CGRectMake(w - 80, 10, 80, 32) withAttributes:attr]; // 右上角
+    [mark drawInRect:CGRectMake(w/2 - 58, h - 145, 120, 32) withAttributes:attr];   //右下角
+//    [mark drawInRect:CGRectMake(0, h - 32 - 10, 80, 32) withAttributes:attr];        //左下角
+    UIImage *waterImg = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return waterImg;
+}
+
 
 @end

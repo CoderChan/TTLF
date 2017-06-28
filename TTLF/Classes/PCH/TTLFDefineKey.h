@@ -21,8 +21,10 @@
 #define SCREEN_WIDTH [UIScreen mainScreen].bounds.size.width
 #define SCREEN_HEIGHT [UIScreen mainScreen].bounds.size.height
 
-// 主色调
+// 主色调 FF503C(tabbar红)
 #define MainColor RGBACOLOR(253, 179, 20, 1)
+// 绿色
+#define GreenColor RGBACOLOR(10, 160, 79, 1)
 // DisEnbled颜色
 #define DisAbledColor RGBACOLOR(108, 80, 77, 1)
 // 导航控制器颜色

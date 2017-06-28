@@ -14,10 +14,11 @@
 #import "VegeViewController.h"
 #import "PlaceListViewController.h"
 #import "GoodnessViewController.h"
-#import <SVWebViewController.h>
+#import "NormalWebViewController.h"
 #import "PlayingRightBarView.h"
 #import "MusicListViewController.h"
 #import "RootNavgationController.h"
+#import <Masonry.h>
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -76,6 +77,11 @@
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
     cell.iconView.image = [UIImage imageNamed:imageArr[indexPath.section][indexPath.row]];
+    [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(cell.mas_left).offset(15);
+        make.centerY.equalTo(cell.mas_centerY);
+        make.width.and.height.equalTo(@30);
+    }];
     return cell;
     
 }
@@ -108,8 +114,8 @@
             [self.navigationController pushViewController:lifo animated:YES];
         }else{
             // 日行一善
-            SVWebViewController *about = [[SVWebViewController alloc]initWithAddress:YiJijinWebURL];
-            about.title = @"壹基金";
+            NormalWebViewController *about = [[NormalWebViewController alloc]initWithUrlStr:YiJijinWebURL];
+            about.title = @"日行一善";
             [self.navigationController pushViewController:about animated:YES];
         }
         

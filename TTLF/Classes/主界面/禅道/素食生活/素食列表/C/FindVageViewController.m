@@ -41,7 +41,7 @@
 - (void)setupSubViews
 {
     CurrentPage = 1;
-    PageNum = 4;
+    PageNum = 15;
     
     
     self.automaticallyAdjustsScrollViewInsets = NO;
