@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>FreeStreamer.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>LCActionSheet.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -50,6 +55,11 @@
 			<false/>
 		</dict>
 		<key>Pods-TTLFUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Reachability.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -92,22 +102,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>2C4025F6316910C7E31502C24A2C2196</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>2D4C1D1C81ED4586A5EE0C9EAF402B9A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>33AA9B8D8A989BE2989A38D78A0025AF</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>3F796E9D7F555B94E672C5C93EF82186</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -117,22 +112,32 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>5D6C622EE04923364F5922DD11A4A2FD</key>
+		<key>55CE09530112BD66751FD0DEF0A340ED</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6FF7B0B045DC747F67D6F038E1F7C8D2</key>
+		<key>7A53ABBC13603E87E8942E07C1D69208</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>734618CC1AE724F107377E6593A89BD8</key>
+		<key>7A75D5BA3EF515C91306B691B3B2BEC1</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9C3B6E993B7ABFE6B3A66E7C1F7DF1FB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>9CEC67882388E6882D0FDEFDE4488176</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -148,6 +153,21 @@
 			<true/>
 		</dict>
 		<key>B6494C8EAD57343FDAC7E6D588B28712</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>BCB9EEE76C912314650D027BB15054A2</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>C81ECD11E1DBE096FF086C416CE131FD</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>D4130F1B61B971DCAD7671D5045C717F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

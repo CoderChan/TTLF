@@ -12,6 +12,7 @@ target 'TTLF' do
     pod 'YYKit'
     pod 'FMDB'
     pod 'JPush'
+    pod 'FreeStreamer'
     pod 'WeiboSDK'
     pod 'FDFullscreenPopGesture'
     pod 'LCActionSheet'

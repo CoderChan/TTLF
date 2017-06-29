@@ -9,6 +9,7 @@
 #import "MusicPlayingController.h"
 #import "ShareView.h"
 #import "PlayListView.h"
+#import <AVFoundation/AVFoundation.h>
 #import "MusicDetialView.h"
 #import "CommentMusicController.h"
 
@@ -228,11 +229,13 @@
     
     // 播放总时长
     self.sumTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.width - self.currentTimeLabel.width, self.currentTimeLabel.y, self.currentTimeLabel.width, self.currentTimeLabel.height)];
-    self.sumTimeLabel.text = @"12:23";
+    self.sumTimeLabel.text = @"00:00";
     self.sumTimeLabel.textAlignment = NSTextAlignmentCenter;
     self.sumTimeLabel.textColor = [UIColor whiteColor];
     self.sumTimeLabel.font = [UIFont systemFontOfSize:11];
     [self.view addSubview:self.sumTimeLabel];
+    
+    
     
     // 进度条
     self.progressView = [[UIProgressView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.currentTimeLabel.frame) + 3, self.currentTimeLabel.y + (self.currentTimeLabel.height - 4)/2, self.view.width - self.currentTimeLabel.width*2 - 6, 4)];
@@ -375,10 +378,36 @@
 
 }
 
+#pragma mark - 辅助方法
+// 获取播放总时长
+- (NSString *)durationTimeWithVideo:(NSURL *)videoUrl
+{
+    
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:videoUrl options:opts]; // 初始化视频媒体文件
+    NSUInteger second = 0;
+    second = urlAsset.duration.value / urlAsset.duration.timescale; // 获取视频总时长,单位秒
+    NSString *time = [self timeFormatted:second];
+    
+    return time;
+}
+- (NSString *)timeFormatted:(NSUInteger)totalSeconds
+{
+    
+    int seconds = totalSeconds % 60;
+    int minutes = (totalSeconds / 60) % 60;
+    NSString *totlaTime = [NSString stringWithFormat:@"%02d:%02d",minutes,seconds];
+    self.sumTimeLabel.text = totlaTime;
+    return totlaTime;
+}
+
+
+
 #pragma mark - 其他周期
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self becomeFirstResponder];
     [self.navigationController.navigationBar setHidden:YES];
     
     [self beginLightingAction];
