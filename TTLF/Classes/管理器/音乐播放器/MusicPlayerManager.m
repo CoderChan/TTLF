@@ -7,12 +7,12 @@
 //
 
 #import "MusicPlayerManager.h"
-#import <AVFoundation/AVFoundation.h>
+#import "MusicCacheManager.h"
 
-@interface MusicPlayerManager ()
+@interface MusicPlayerManager ()<FSAudioControllerDelegate>
 
 
-@property (strong,nonatomic) AVPlayer *player;
+@property (strong,nonatomic) FSAudioController *fsController;
 
 @end
 
@@ -34,42 +34,79 @@
     self = [super init];
     if (self) {
         // 预设一些信息
-        self.isPlaying = NO;
+        
     }
     return self;
 }
 
-#pragma mark - 播放网络音乐
-- (void)playNetMusic
+#pragma mark - 开始播放
+- (void)beginPlayWithModel:(AlbumInfoModel *)model
 {
-    [self.player play];
+    // 先检测有没有缓存，有缓存就播放
+    NSString *cachePath = [self searchFilePathByFileName:model.name];
+    if (cachePath) {
+        // 已经下载。直接播放本地音乐
+        
+    }else{
+        // 没有下载，播放网络流媒体
+        self.fsController = nil;
+        self.fsController = [[FSAudioController alloc]initWithUrl:[NSURL URLWithString:model.music_desc]];
+        self.fsController.delegate = self;
+        [self.fsController play];
+        
+        // 记录当前播放的音乐ID
+        NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+        [UD setObject:model.music_id forKey:LastMusicID];
+        [UD synchronize];
+        
+    }
 }
-
-#pragma mark - 播放本地音乐
-- (void)playLocalMusic
+#pragma mark - 继续播放
+- (void)continuePlay
 {
-    
-    
+//    [self.fsController play];
+}
+#pragma mark - 是否正在播放
+- (BOOL)isPlaying
+{
+    return [self.fsController isPlaying];
 }
 #pragma mark - 暂停播放
 - (void)pause
 {
-    self.isPlaying = NO;
-    [self.player pause];
+    [self.fsController pause];
 }
+
 #pragma mark - 停止播放
 - (void)stop
 {
-    [self.player pause];
+    [self.fsController stop];
+    // 清除当前播放的音乐ID
+    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+    [UD removeObjectForKey:LastMusicID];
 }
 
-- (AVPlayer *)player
+#pragma mark - 代理
+- (BOOL)audioController:(FSAudioController *)audioController allowPreloadingForStream:(FSAudioStream *)stream
 {
-    if (!_player) {
-        AVPlayerItem *playItem = [[AVPlayerItem alloc]initWithURL:[NSURL URLWithString:@"http://app.yangruyi.com/Uploads/admin/2017-06-23/594c8fa376a60.mp3"]];
-        _player = [[AVPlayer alloc]initWithPlayerItem:playItem];
-    }
-    return _player;
+    return YES;
 }
+
+// 判断文件是否已经在沙盒中已经存在？
+- (NSString *)searchFilePathByFileName:(NSString *)fileName
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *path = [paths objectAtIndex:0];
+    NSString *filePath = [path stringByAppendingPathComponent:fileName];
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL result = [fileManager fileExistsAtPath:filePath];
+    NSLog(@"这个文件已经存在：%@",result?@"是的":@"不存在");
+    if (result) {
+        return filePath;
+    }else{
+        return nil;
+    }
+}
+
 
 @end

@@ -9,9 +9,12 @@
 #import "MusicPlayingController.h"
 #import "ShareView.h"
 #import "PlayListView.h"
+#import <FSAudioController.h>
+#import <FSAudioStream.h>
 #import <AVFoundation/AVFoundation.h>
 #import "MusicDetialView.h"
 #import "CommentMusicController.h"
+
 
 @interface MusicPlayingController ()<ShareViewDelegate>
 // 播放清单
@@ -55,6 +58,9 @@
 @property (copy,nonatomic) NSArray *commentArray;
 // 评论数
 @property (strong,nonatomic) UILabel *commentNumLabel;
+
+/// 播放控制器
+@property (strong,nonatomic) FSAudioController *fsController;
 
 
 @end
@@ -236,7 +242,6 @@
     [self.view addSubview:self.sumTimeLabel];
     
     
-    
     // 进度条
     self.progressView = [[UIProgressView alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.currentTimeLabel.frame) + 3, self.currentTimeLabel.y + (self.currentTimeLabel.height - 4)/2, self.view.width - self.currentTimeLabel.width*2 - 6, 4)];
     self.progressView.tintColor = MainColor;
@@ -291,6 +296,7 @@
         self.commentNumLabel.text = @"0";
         self.commentArray = @[];
     }];
+    
 }
 
 #pragma mark - 点击事件
@@ -318,15 +324,21 @@
 - (void)playButtonClick:(UIButton *)sender
 {
     if (!sender.selected) {
-        // 继续播放
+        // 开始/继续播放
         sender.selected = YES;
         [sender setImage:[UIImage imageNamed:@"music_btn_pause"] forState:UIControlStateNormal];
         [sender setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateHighlighted];
+        
+        AlbumInfoModel *model = self.dataSource[self.currentIndex];
+        [self.fsController playFromURL:[NSURL URLWithString:model.music_desc]];
+        
     }else{
-        // 暂停播放
+        // 暂停播放，进入界面不自动执行暂停事件
         sender.selected = NO;
         [sender setImage:[UIImage imageNamed:@"music_btn_play"] forState:UIControlStateNormal];
         [sender setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateHighlighted];
+        
+        [self.fsController pause];
     }
 
 }
@@ -407,18 +419,74 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self becomeFirstResponder];
-    [self.navigationController.navigationBar setHidden:YES];
     
+    [self.navigationController.navigationBar setHidden:YES];
     [self beginLightingAction];
+    
+}
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    UIDevice *device = [UIDevice currentDevice];
+    BOOL backgroundSupported = NO;
+    if ([device respondsToSelector:@selector(isMultitaskingSupported)] ){
+        backgroundSupported = device.multitaskingSupported;
+    }
+    
+    if (backgroundSupported == YES ){
+        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+        //注意这里，告诉系统已经准备好了
+        [self becomeFirstResponder];
+    }
     
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    // 结束远程控制 为添加到音频中心后台播放做准备
+    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
+    [self resignFirstResponder];
+    
     [self.navigationController.navigationBar setHidden:NO];
     
 }
+- (BOOL)canBecomeFirstResponder
+{
+    return YES;
+}
+// 重写父类方法，接受外部事件的的处理
+- (void)remoteControlReceivedWithEvent:(UIEvent *)event
+{
+    [super remoteControlReceivedWithEvent:event];
+    if (event.type == UIEventTypeRemoteControl) {
+        switch (event.subtype) {
+            case UIEventSubtypeRemoteControlTogglePlayPause:
+                // 暂停 iOS6
+                [self.fsController pause];
+                break;
+            case UIEventSubtypeRemoteControlPreviousTrack:
+                // 上一首
+                
+                break;
+            case UIEventSubtypeRemoteControlNextTrack:
+                // 下一首
+                
+                break;
+            case UIEventSubtypeRemoteControlPlay:
+                // 播放
+                [self.fsController play];
+                break;
+            case UIEventSubtypeRemoteControlPause:
+                // 暂停 iOS7
+                [self.fsController pause];
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+// 传递信息到锁屏状态下此方法在播放歌曲与切换歌曲时调用即可
 
 - (void)beginLightingAction
 {
@@ -513,7 +581,14 @@
     }
 }
 
-
+- (FSAudioController *)fsController
+{
+    if (!_fsController) {
+        _fsController = [[FSAudioController alloc]init];
+        _fsController.delegate = self;
+    }
+    return _fsController;
+}
 
 
 @end

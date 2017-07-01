@@ -486,6 +486,33 @@
         fail(error.localizedDescription);
     }];
 }
+// 推广成功之后增加功德值
+- (void)shareNineTableCompletion:(void (^)())completion
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        [MBProgressHUD showError:@"账户未登录"];
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Index/campaign";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            completion();
+        }else{
+            [MBProgressHUD showError:message];
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        [MBProgressHUD showError:error.localizedDescription];
+    }];
+    
+}
 // 根据用户ID查询用户信息
 - (void)searchUserByUserID:(NSString *)sideID Success:(void (^)(UserInfoModel *))success Fail:(FailBlock)fail
 {

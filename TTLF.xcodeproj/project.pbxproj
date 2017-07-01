@@ -1615,10 +1615,10 @@
 			children = (
 				3B332EBA1EF774D2004B2135 /* AlbumListViewController.h */,
 				3B332EBB1EF774D2004B2135 /* AlbumListViewController.m */,
-				3B332EBC1EF774D2004B2135 /* MusicListViewController.h */,
-				3B332EBD1EF774D2004B2135 /* MusicListViewController.m */,
 				3B0B639F1EFF9D78006AD84D /* MusicPlayingController.h */,
 				3B0B63A01EFF9D78006AD84D /* MusicPlayingController.m */,
+				3B332EBC1EF774D2004B2135 /* MusicListViewController.h */,
+				3B332EBD1EF774D2004B2135 /* MusicListViewController.m */,
 				3B0B63931EFE7EFD006AD84D /* CommentMusicController.h */,
 				3B0B63941EFE7EFD006AD84D /* CommentMusicController.m */,
 			);

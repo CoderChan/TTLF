@@ -21,9 +21,9 @@
 + (instancetype)sharedManager;
 
 /**
- 保存景区模型
+ 保存梵音模型
  
- @param musicModel 景区模型
+ @param musicModel 梵音模型
  */
 - (void)saveMusicArrayWithModel:(AlbumInfoModel *)musicModel;
 

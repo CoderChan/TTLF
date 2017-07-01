@@ -81,6 +81,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)uploadBackImage:(UIImage *)image Progress:(void (^)(NSProgress *progress))progressBlock Success:(SuccessStringBlock)success Fail:(FailBlock)fail;
 // 根据用户ID查询用户信息
 - (void)searchUserByUserID:(NSString *)sideID Success:(void (^)(UserInfoModel *userModel))success Fail:(FailBlock)fail;
+// 推广成功之后增加功德值
+- (void)shareNineTableCompletion:(void (^)())completion;
 
 
 // 获取摇一摇全部信息

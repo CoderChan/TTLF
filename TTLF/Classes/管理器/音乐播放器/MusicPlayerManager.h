@@ -7,44 +7,39 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "FSAudioController.h"
+#import "FSAudioStream.h"
 
+@class MusicPlayerManager;
+
+@protocol MusicPlayDelegate <NSObject>
+
+- (BOOL)musicManager:(MusicPlayerManager *)musicPlayManager allowPreloadingForStream:(FSAudioStream *)stream;
+
+- (void)musicManager:(MusicPlayerManager *)musicPlayManager preloadStartedForStream:(FSAudioStream *)stream;
+
+@end
 
 @interface MusicPlayerManager : NSObject
 
 
-/**
- 初始化
-
- @return MusicPlayerManager
- */
+// 单例初始化
 + (instancetype)sharedManager;
 
-// 梵音模型
-@property (strong,nonatomic) AlbumInfoModel *model;
+// 代理
+@property (weak,nonatomic) id<MusicPlayDelegate> delegate;
 
+// 播放
+- (void)beginPlayWithModel:(AlbumInfoModel *)model;
+// 继续播放
+- (void)continuePlay;
 // 是否正在播放
-@property (assign,nonatomic) BOOL isPlaying;
-
-
-/**
- 播放网络音乐
- */
-- (void)playNetMusic;
-
-/**
- 播放本地音乐
- */
-- (void)playLocalMusic;
-
-
-/**
- 暂停播放
- */
+- (BOOL)isPlaying;
+//  暂停播放
 - (void)pause;
-
-/**
- 停止播放
- */
+//  停止播放
 - (void)stop;
+
+
 
 @end

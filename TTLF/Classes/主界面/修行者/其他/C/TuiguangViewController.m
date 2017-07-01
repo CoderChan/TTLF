@@ -42,7 +42,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"推广";
+    self.title = @"扩散";
     
     [self setupSubViews];
 }
@@ -58,7 +58,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     self.descTextView = [[UITextView alloc]initWithFrame:CGRectMake(20, 10, self.view.width - 40, 100*CKproportion)];
     self.descTextView.editable = NO;
     self.descTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
-    self.descTextView.text = @"为方便广大佛友，开发团队耗时多年打造精品应用佛缘生活APP，如果您身边有佛学人士，我们欢迎您一键转发，此样式为九宫格格式，适合发送到朋友圈、QQ空间。我们致力于营造良好的佛学环境和开放的交流空间。为此我们将赠送您3点功德值，每日最多2次。谢谢！";
+    self.descTextView.text = @"为方便广大佛友，开发团队耗时多年打造精品应用佛缘生活APP，如果您身边有佛学人士，我们欢迎您一键转发，此样式为九宫格格式，适合发送到朋友圈、QQ空间。我们致力于营造良好的佛学环境和开放的交流空间。为此我们将赠送您1点功德值，每日最多2次。谢谢！";
     self.descTextView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.descTextView];
     
@@ -176,7 +176,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     
     // 创建分享控制器
     SLComposeViewController *composeVc = [SLComposeViewController composeViewControllerForServiceType:shareType];
-    [composeVc setTitle:TextPlace];
+    [composeVc setInitialText:TextPlace];
     for (int i = 0; i < photoArray.count; i++) {
         PYPhoto *photo = photoArray[i];
         UIImage *image = [self addWaterImage:photo.thumbnailImage Name:@"©佛缘生活"];
@@ -185,7 +185,9 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     }
     composeVc.completionHandler = ^(SLComposeViewControllerResult reulst) {
         if (reulst == SLComposeViewControllerResultDone) {
-            [MBProgressHUD showSuccess:@"分享成功"];
+            [[TTLFManager sharedManager].networkManager shareNineTableCompletion:^{
+                [self sendAlertAction:@"感谢推广"];
+            }];
         } else {
             [MBProgressHUD showError:@"分享失败"];
         }

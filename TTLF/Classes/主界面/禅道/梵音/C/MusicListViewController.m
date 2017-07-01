@@ -38,7 +38,7 @@
 - (void)setupSubViews
 {
     self.automaticallyAdjustsScrollViewInsets = YES;
-    self.view.backgroundColor = BackColor;
+    self.view.backgroundColor = [UIColor whiteColor];
     // 表格
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     [flowLayout setScrollDirection:UICollectionViewScrollDirectionVertical];

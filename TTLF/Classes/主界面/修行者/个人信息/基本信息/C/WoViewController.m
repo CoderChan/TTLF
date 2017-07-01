@@ -69,7 +69,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     };
     self.tableView.tableHeaderView = self.headView;
     
-    self.array = @[@[@"功德值"],@[@"收藏",@"推广",@"消息",@"分享"],@[@"设置"]];
+    self.array = @[@[@"功德值"],@[@"收藏",@"扩散",@"消息",@"分享"],@[@"设置"]];
     [self.view addSubview:self.tableView];
     
 }
@@ -109,7 +109,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
             StoreListViewController *store = [StoreListViewController new];
             [self.navigationController pushViewController:store animated:YES];
         }else if (indexPath.row == 1){
-            // 推广
+            // 扩散
             TuiguangViewController *tuiguang = [[TuiguangViewController alloc]init];
             [self.navigationController pushViewController:tuiguang animated:YES];
         }else if (indexPath.row == 2){
