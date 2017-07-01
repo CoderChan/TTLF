@@ -59,14 +59,14 @@
     [self.contentView addSubview:self.nameLabel];
     
     // 按钮
-    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateNormal];
-    [self.button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateHighlighted];
-    [self.button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        
-    }];
-    self.button.frame = CGRectMake(SCREEN_WIDTH - 15 - 30, 15, 30, 30);
-    [self.contentView addSubview:self.button];
+//    self.button = [UIButton buttonWithType:UIButtonTypeCustom];
+//    [self.button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateNormal];
+//    [self.button setImage:[UIImage imageNamed:@"music_more"] forState:UIControlStateHighlighted];
+//    [self.button addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+//        
+//    }];
+//    self.button.frame = CGRectMake(SCREEN_WIDTH - 15 - 30, 15, 30, 30);
+//    [self.contentView addSubview:self.button];
     
 }
 

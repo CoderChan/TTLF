@@ -106,7 +106,9 @@
             [self.navigationController pushViewController:suggest animated:YES];
         }else{
             // 清除缓存
-            
+            [[TTLFManager sharedManager].networkManager clearCacheCompletion:^{
+                [MBProgressHUD showSuccess:@"清理成功"];
+            }];
         }
     }else {
         // 退出当前账号

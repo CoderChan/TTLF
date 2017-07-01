@@ -97,6 +97,7 @@
     AlbumInfoModel *model = self.array[indexPath.row];
     model.index = indexPath.row + 1;
     AlumListTableCell *cell = [AlumListTableCell sharedAlumCell:tableView];
+    cell.accessoryType = UITableViewCellAccessoryDetailButton;
     cell.model = model;
     return cell;
 }

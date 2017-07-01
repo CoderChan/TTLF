@@ -260,7 +260,9 @@
 }
 - (void)clearCacheCompletion:(void (^)())completion
 {
-    completion();
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        completion();
+    }];
 }
 
 // 模拟器微信登录

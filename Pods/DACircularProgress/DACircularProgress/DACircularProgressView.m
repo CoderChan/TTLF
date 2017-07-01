@@ -222,6 +222,7 @@
     }
 }
 
+
 - (void)animationDidStop:(CAAnimation *)animation finished:(BOOL)flag
 {
    NSNumber *pinnedProgressNumber = [animation valueForKey:@"toValue"];

@@ -687,7 +687,7 @@ static CGSize originalSize;
     CGPoint cellAnchorPoint; // photoCell的虚拟锚点
     UIScrollView *scrollView = (UIScrollView *)[self superview];
     if ([gr isKindOfClass:[UIPinchGestureRecognizer class]]) { // 捏合手势
-        if (gr.numberOfTouches == 2) {
+        {
             // 当触摸开始时，获取两个触摸点
             // 获取滚动视图上的触摸点
             CGPoint point1 = [gr locationOfTouch:0 inView:scrollView];
