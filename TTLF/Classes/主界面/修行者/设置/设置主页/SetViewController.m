@@ -24,7 +24,6 @@
 
 @property (strong,nonatomic) UITableView *tableView;
 @property (copy,nonatomic) NSArray *titleArray;
-@property (copy,nonatomic) NSArray *iconArray;
 
 @end
 
@@ -39,7 +38,6 @@
 - (void)setupSubViews
 {
     self.titleArray = @[@[@"欢迎页",@"摇一摇花名",@"关于我们"],@[@"意见反馈",@"清除缓存"],@[@"退出登录"]];
-    self.iconArray = @[@[@"set_welcome",@"set_shark",@"set_about"],@[@"set_suggest",@"set_clean"],@"set_return"];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height) style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
@@ -64,13 +62,9 @@
 {
     if (indexPath.section != 2) {
         NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        cell.iconView.image = [UIImage imageNamed:self.iconArray[indexPath.section][indexPath.row]];
-        cell.titleLabel.text = self.titleArray[indexPath.section][indexPath.row];
-        [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(cell.mas_left).offset(15);
-            make.centerY.equalTo(cell.mas_centerY);
-            make.width.and.height.equalTo(@30);
-        }];
+        cell.textLabel.text = self.titleArray[indexPath.section][indexPath.row];
+        [cell.iconView removeFromSuperview];
+        [cell.titleLabel removeFromSuperview];
         return cell;
     }else{
         TitleTableCell *cell = [TitleTableCell sharedTitleTableCell:tableView];

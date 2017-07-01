@@ -10,7 +10,7 @@
 #import "RightMoreView.h"
 #import "NormalTableViewCell.h"
 #import "ImageTableViewCell.h"
-#import "PYPhotoBrowser.h"
+#import "XLPhotoBrowser.h"
 #import "AccountTool.h"
 #import "NoDequeTableViewCell.h"
 #import "VisitUserViewController.h"
@@ -172,8 +172,7 @@
     
     if (indexPath.section == 0) {
         // 封面
-        PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[self.vegeModel.vege_img] originalUrls:@[self.vegeModel.vege_img]];
-        [self.view addSubview:photosView];
+        [XLPhotoBrowser showPhotoBrowserWithImages:@[self.vegeModel.vege_img] currentImageIndex:0];
         
     }else if (indexPath.section == 1){
         // 简介

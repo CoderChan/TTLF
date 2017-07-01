@@ -351,7 +351,9 @@
 - (SDCycleScrollView *)scrollView
 {
     if (!_scrollView) {
-        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70) delegate:self placeholderImage:[UIImage imageWithColor:RGBACOLOR(63, 72, 123, 1)]];
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70) imageURLStringsGroup:@[self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo]];
+        _scrollView.delegate = self;
+        _scrollView.placeholderImage = [UIImage imageNamed:@"good_place"];
         _scrollView.autoScroll = NO;
         _scrollView.imageURLStringsGroup = @[self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo];
         

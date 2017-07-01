@@ -7,7 +7,7 @@
 //
 
 #import "NormalWebViewController.h"
-#import "PYPhotoBrowser.h"
+#import "XLPhotoBrowser.h"
 #import "ShareView.h"
 #import "UIView+Toast.h"
 #import <Social/Social.h>
@@ -76,14 +76,14 @@
     UIView *insertView = [[UIView alloc]initWithFrame:self.webView.bounds];
     insertView.backgroundColor = RGBACOLOR(73, 75, 80, 1);
     UILabel *topLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, 7, self.webView.width, 30)];
-    topLabel.text = @"点击分享，扩散正价值观";
+    topLabel.text = @"点击分享，弘扬正价值观";
     topLabel.textColor = RGBACOLOR(208, 208, 208, 1);
     topLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     topLabel.textAlignment = NSTextAlignmentCenter;
     [insertView addSubview:topLabel];
     
     UILabel *bottomLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, insertView.height - 37, self.webView.width, 30)];
-    bottomLabel.text = @"点击分享，扩散正价值观";
+    bottomLabel.text = @"点击分享，弘扬正价值观";
     bottomLabel.textColor = RGBACOLOR(208, 208, 208, 1);
     bottomLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleCaption1];
     bottomLabel.textAlignment = NSTextAlignmentCenter;
@@ -265,8 +265,7 @@
                 page = i;
             }
         }
-        PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:self.imgUrlArray originalUrls:self.imgUrlArray];
-        [self.view addSubview:photosView];
+        [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:0];
         
         return NO;
     }

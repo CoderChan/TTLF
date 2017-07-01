@@ -21,6 +21,7 @@ PODS:
     - AMapFoundation-NO-IDFA (~> 1.3)
   - AMapSearch-NO-IDFA (5.0.0):
     - AMapFoundation-NO-IDFA (~> 1.2)
+  - DACircularProgress (2.3.1)
   - FDFullscreenPopGesture (1.1)
   - FMDB (2.6.2):
     - FMDB/standard (= 2.6.2)
@@ -33,18 +34,20 @@ PODS:
   - LCActionSheet (2.7.0):
     - Masonry (~> 1.0.1)
   - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
   - MOBFoundation_IDFA (2.2.11)
+  - PYPhotoBrowser (1.2.5):
+    - DACircularProgress
+    - MBProgressHUD
+    - SDWebImage
   - Reachability (3.2)
-  - SDCycleScrollView (1.65):
-    - SDWebImage (~> 3.7)
-  - SDWebImage (3.8.2):
-    - SDWebImage/Core (= 3.8.2)
-  - SDWebImage/Core (3.8.2)
+  - SDCycleScrollView (1.3)
+  - SDWebImage (4.0.0):
+    - SDWebImage/Core (= 4.0.0)
+  - SDWebImage/Core (4.0.0)
   - SMSSDK (2.0.8)
-  - SVWebViewController (1.0)
-  - WeiboSDK (3.1.3)
   - YYKeyboardManager (1.0.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -64,11 +67,10 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh (~> 3.1.12)
   - MOBFoundation_IDFA
-  - SDCycleScrollView (~> 1.64)
-  - SDWebImage
+  - PYPhotoBrowser
+  - SDCycleScrollView
+  - SDWebImage (~> 4.0)
   - SMSSDK
-  - SVWebViewController
-  - WeiboSDK
   - YYKeyboardManager
   - YYKit
 
@@ -78,6 +80,7 @@ SPEC CHECKSUMS:
   AMapFoundation-NO-IDFA: 56b42e67233c8a883cfd448d94c4cb7380080741
   AMapLocation-NO-IDFA: 7df5ab4b618d96665551afb0c6426f79db72a4a6
   AMapSearch-NO-IDFA: 8fb4e844c27031f6791d5edce16fdd2a5cfac028
+  DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   FDFullscreenPopGesture: a8a620179e3d9c40e8e00256dcee1c1a27c6d0f0
   FMDB: 854a0341b4726e53276f2a8996f06f1b80f9259a
   FreeStreamer: 98f42f926bed70e3f8873930bc530aae83082d9f
@@ -85,18 +88,18 @@ SPEC CHECKSUMS:
   JPush: 8ea7c5bee363191cb5214f5d34ae11e1c5494722
   LCActionSheet: f9899232fbb4a1bd51213b1988f8a884259bc1ab
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   MOBFoundation_IDFA: 1354b2018282a9156b3306567ba7853a08951a12
+  PYPhotoBrowser: 832154ec5e61c2c321d9be0e69af1fda8731e5ac
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
-  SDCycleScrollView: f72904c77698a7f93a41bcbbc2d78b073bf7326c
-  SDWebImage: 098e97e6176540799c27e804c96653ee0833d13c
+  SDCycleScrollView: 90e43636fcc8e6a7f74e8b64d87418a8e96549b4
+  SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SMSSDK: 1fc8500bec6bc36b524e4de7fac4acdb784e0217
-  SVWebViewController: c36dda7326e81fcae0abf5d02bf7bbf7e41be901
-  WeiboSDK: acb067053668102cf07d01aa7604350162c2e466
   YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 5a1ad61bfa3e2fc67587f7bfce1505ef393f2d4e
+PODFILE CHECKSUM: 99f96de886e2ec1b462c0df48d5e159e7fc05cab
 
 COCOAPODS: 1.2.0.beta.1

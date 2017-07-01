@@ -12,6 +12,7 @@
 #import "CommentFootView.h"
 #import <LCActionSheet.h>
 #import "SendCommentView.h"
+#import "XLPhotoBrowser.h"
 #import "VisitUserViewController.h"
 
 

@@ -228,7 +228,9 @@
 #pragma mark - 退出登录，清除一些缓存
 - (void)reloginCompletion:(void (^)())completion
 {
-    [[SDImageCache sharedImageCache] cleanDisk];
+    [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
+        
+    }];
     [[TTLFManager sharedManager].userManager removeDataSave];
     NSFileManager *fileManager=[NSFileManager defaultManager];
     

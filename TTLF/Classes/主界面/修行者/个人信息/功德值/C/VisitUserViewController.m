@@ -14,7 +14,7 @@
 #import "PunnaListViewController.h"
 #import "AboutPunnaViewController.h"
 #import <Masonry.h>
-#import "PYPhotoBrowser.h"
+#import "XLPhotoBrowser.h"
 
 
 
@@ -280,10 +280,8 @@
                 LCActionSheet *sheet = [LCActionSheet sheetWithTitle:@"" cancelButtonTitle:@"取消" clicked:^(LCActionSheet *actionSheet, NSInteger buttonIndex) {
                     if (buttonIndex == 1) {
                         // 预览大图
-//                        [XLPhotoBrowser showPhotoBrowserWithImages:@[_backImageView.image] currentImageIndex:0];
+                        [XLPhotoBrowser showPhotoBrowserWithImages:@[_backImageView.image] currentImageIndex:0];
                         
-                        PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[_backImageView.image] originalUrls:@[_backImageView.image]];
-                        [self.view addSubview:photosView];
                     } else if(buttonIndex == 2){
                         // 更改背景图
                         [self pickerImageAction];
@@ -292,8 +290,7 @@
                 [sheet show];
             }else{
                 // 他人
-                PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[_backImageView.image] originalUrls:@[_backImageView.image]];
-                [self.view addSubview:photosView];
+                [XLPhotoBrowser showPhotoBrowserWithImages:@[_backImageView.image] currentImageIndex:0];
             }
         }];
         [_backImageView addGestureRecognizer:tap];
@@ -320,8 +317,8 @@
         _headImageView.layer.shadowRadius = 5.0;
         
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
-            PYPhotosView *photosView = [PYPhotosView photosViewWithThumbnailUrls:@[_backImageView.image] originalUrls:@[_backImageView.image]];
-            [self.view addSubview:photosView];
+            
+            [XLPhotoBrowser showPhotoBrowserWithImages:@[_headImageView.image] currentImageIndex:0];
         }];
         [_headImageView addGestureRecognizer:tap];
     }

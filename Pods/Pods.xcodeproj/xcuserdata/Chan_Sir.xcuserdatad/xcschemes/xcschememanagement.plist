@@ -9,6 +9,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>DACircularProgress.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>FDFullscreenPopGesture.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -29,6 +34,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>MBProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MJExtension.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -40,6 +50,11 @@
 			<false/>
 		</dict>
 		<key>Masonry.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>PYPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -74,11 +89,6 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>SVWebViewController.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 		<key>YYKeyboardManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -107,22 +117,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>53599F20BB45067047ED261F8EF4ED90</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>53CD8D841BEAE106A124811F85D5F909</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>54D9F8FAAE1F97004C71D24051B057A6</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>55CE09530112BD66751FD0DEF0A340ED</key>
+		<key>586F2DFA9BDCC6675C2546793A69E5CC</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7A53ABBC13603E87E8942E07C1D69208</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7A75D5BA3EF515C91306B691B3B2BEC1</key>
+		<key>66AC5301A17C0083C85FA1B0E752F399</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -132,12 +147,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9C3B6E993B7ABFE6B3A66E7C1F7DF1FB</key>
+		<key>9A4574029309668D4ED8E9ED085B6D13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9CEC67882388E6882D0FDEFDE4488176</key>
+		<key>9C3B6E993B7ABFE6B3A66E7C1F7DF1FB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -157,12 +172,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BCB9EEE76C912314650D027BB15054A2</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C81ECD11E1DBE096FF086C416CE131FD</key>
+		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,7 +182,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>DF3992E3AC29A4DDF9A66C720279F416</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>EE366E1E6962F82E6AEC8AE66FA66CBF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F92ABC02877AD56E981A54029EC9B1C6</key>
 		<dict>
 			<key>primary</key>
 			<true/>

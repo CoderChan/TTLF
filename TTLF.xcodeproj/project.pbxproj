@@ -87,7 +87,6 @@
 		3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FE91E6FDEBB0078379B /* UIView+Extension.m */; };
 		3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FEB1E6FDEBB0078379B /* UIViewController+Category.m */; };
 		3B26703F1E6FDEBB0078379B /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FF81E6FDEBB0078379B /* MBProgressHUD+MJ.m */; };
-		3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B266FFB1E6FDEBB0078379B /* MBProgressHUD.m */; };
 		3B2670421E6FDEBB0078379B /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B266FFE1E6FDEBB0078379B /* libWeChatSDK.a */; };
 		3B2670431E6FDEBB0078379B /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670041E6FDEBB0078379B /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m */; };
 		3B2670441E6FDEBB0078379B /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670061E6FDEBB0078379B /* SendMessageToWXReq+requestWithTextOrMediaMessage.m */; };
@@ -125,6 +124,17 @@
 		3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D51E6FE2B40078379B /* SetViewController.m */; };
 		3B2670F71E6FE2B40078379B /* SharedView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D71E6FE2B40078379B /* SharedView.m */; };
 		3B2670F81E6FE2B40078379B /* TitleTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2670D91E6FE2B40078379B /* TitleTableCell.m */; };
+		3B2AF8E01F07E78E0056BEB7 /* FSActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8C91F07E78E0056BEB7 /* FSActionSheet.m */; };
+		3B2AF8E11F07E78E0056BEB7 /* FSActionSheetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8CB1F07E78E0056BEB7 /* FSActionSheetCell.m */; };
+		3B2AF8E21F07E78E0056BEB7 /* FSActionSheetConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8CD1F07E78E0056BEB7 /* FSActionSheetConfig.m */; };
+		3B2AF8E31F07E78E0056BEB7 /* FSActionSheetItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8CF1F07E78E0056BEB7 /* FSActionSheetItem.m */; };
+		3B2AF8E41F07E78E0056BEB7 /* FSActionSheet_cancel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2AF8D11F07E78E0056BEB7 /* FSActionSheet_cancel@2x.png */; };
+		3B2AF8E51F07E78E0056BEB7 /* FSActionSheet_cancel@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3B2AF8D21F07E78E0056BEB7 /* FSActionSheet_cancel@3x.png */; };
+		3B2AF8E61F07E78E0056BEB7 /* UIImage+XLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8D51F07E78E0056BEB7 /* UIImage+XLExtension.m */; };
+		3B2AF8E71F07E78E0056BEB7 /* UIView+XLExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8D71F07E78E0056BEB7 /* UIView+XLExtension.m */; };
+		3B2AF8E81F07E78E0056BEB7 /* XLPhotoBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8D91F07E78E0056BEB7 /* XLPhotoBrowser.m */; };
+		3B2AF8E91F07E78E0056BEB7 /* XLProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8DD1F07E78E0056BEB7 /* XLProgressView.m */; };
+		3B2AF8EA1F07E78E0056BEB7 /* XLZoomingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2AF8DF1F07E78E0056BEB7 /* XLZoomingScrollView.m */; };
 		3B2FE3E51EE167C2006E7045 /* GoodsClassModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B2FE3E41EE167C2006E7045 /* GoodsClassModel.m */; };
 		3B332EC61EF774D2004B2135 /* AlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B332EBB1EF774D2004B2135 /* AlbumListViewController.m */; };
 		3B332EC71EF774D2004B2135 /* MusicListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B332EBD1EF774D2004B2135 /* MusicListViewController.m */; };
@@ -171,7 +181,6 @@
 		3B4838421EB8CBAC0053BC8D /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B48382E1EB8CBAC0053BC8D /* UIXToolbarView.m */; };
 		3B4838441EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4838431EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf */; };
 		3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */; };
-		3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */; };
 		3B4B41351EC83E9B00C66C63 /* VisitUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4B41341EC83E9B00C66C63 /* VisitUserViewController.m */; };
 		3B5A472A1EDC030900511A04 /* PayOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A47291EDC030900511A04 /* PayOrderViewController.m */; };
 		3B5A472D1EDEADCC00511A04 /* AddressCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A472C1EDEADCC00511A04 /* AddressCacheManager.m */; };
@@ -203,22 +212,6 @@
 		3BA06F7D1EE79987001EFD4D /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA06F7C1EE79987001EFD4D /* NSDate+Category.m */; };
 		3BA06F801EE79B88001EFD4D /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA06F7F1EE79B88001EFD4D /* NSDateFormatter+Category.m */; };
 		3BAB963D1EBDB35A00EB0562 /* VageStoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */; };
-		3BAC6A931EAEF58000D3CB8C /* PYPhotosPreviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */; };
-		3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */; };
-		3BAC6A951EAEF58000D3CB8C /* PYPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A7E1EAEF58000D3CB8C /* PYPhotosViewController.m */; };
-		3BAC6A961EAEF58000D3CB8C /* PYPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A811EAEF58000D3CB8C /* PYPhoto.m */; };
-		3BAC6A971EAEF58000D3CB8C /* PYPhotoBrowserConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A841EAEF58000D3CB8C /* PYPhotoBrowserConst.m */; };
-		3BAC6A981EAEF58000D3CB8C /* PYProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A861EAEF58000D3CB8C /* PYProgressView.m */; };
-		3BAC6A991EAEF58000D3CB8C /* PYPhotosView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC6A881EAEF58000D3CB8C /* PYPhotosView.bundle */; };
-		3BAC6A9A1EAEF58000D3CB8C /* PYPhotoBrowseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A8B1EAEF58000D3CB8C /* PYPhotoBrowseView.m */; };
-		3BAC6A9B1EAEF58000D3CB8C /* PYPhotoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A8D1EAEF58000D3CB8C /* PYPhotoCell.m */; };
-		3BAC6A9C1EAEF58000D3CB8C /* PYPhotosView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A8F1EAEF58000D3CB8C /* PYPhotosView.m */; };
-		3BAC6A9D1EAEF58000D3CB8C /* PYPhotoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6A911EAEF58000D3CB8C /* PYPhotoView.m */; };
-		3BAC6AA31EAEF5B500D3CB8C /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA01EAEF5B500D3CB8C /* FLAnimatedImage.m */; };
-		3BAC6AA41EAEF5B500D3CB8C /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA21EAEF5B500D3CB8C /* FLAnimatedImageView.m */; };
-		3BAC6AAA1EAEF5DF00D3CB8C /* DACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA71EAEF5DF00D3CB8C /* DACircularProgressView.m */; };
-		3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */; };
-		3BAC6AAE1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */; };
 		3BAD0AE01EF0D2D300903EF3 /* BookInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD0ADF1EF0D2D300903EF3 /* BookInfoModel.m */; };
 		3BAD0AE31EF1005500903EF3 /* BookCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAD0AE21EF1005500903EF3 /* BookCacheManager.m */; };
 		3BAFF4A21EC4A00100D81AD5 /* GoodnessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAFF4A11EC4A00100D81AD5 /* GoodnessViewController.m */; };
@@ -431,8 +424,6 @@
 		3B266FEB1E6FDEBB0078379B /* UIViewController+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Category.m"; sourceTree = "<group>"; };
 		3B266FF71E6FDEBB0078379B /* MBProgressHUD+MJ.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+MJ.h"; sourceTree = "<group>"; };
 		3B266FF81E6FDEBB0078379B /* MBProgressHUD+MJ.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+MJ.m"; sourceTree = "<group>"; };
-		3B266FFA1E6FDEBB0078379B /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
-		3B266FFB1E6FDEBB0078379B /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		3B266FFE1E6FDEBB0078379B /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		3B266FFF1E6FDEBB0078379B /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
 		3B2670001E6FDEBB0078379B /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
@@ -508,6 +499,28 @@
 		3B2670D81E6FE2B40078379B /* TitleTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleTableCell.h; sourceTree = "<group>"; };
 		3B2670D91E6FE2B40078379B /* TitleTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitleTableCell.m; sourceTree = "<group>"; };
 		3B2A18491E81650900578A1E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		3B2AF8C81F07E78E0056BEB7 /* FSActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSActionSheet.h; sourceTree = "<group>"; };
+		3B2AF8C91F07E78E0056BEB7 /* FSActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSActionSheet.m; sourceTree = "<group>"; };
+		3B2AF8CA1F07E78E0056BEB7 /* FSActionSheetCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSActionSheetCell.h; sourceTree = "<group>"; };
+		3B2AF8CB1F07E78E0056BEB7 /* FSActionSheetCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSActionSheetCell.m; sourceTree = "<group>"; };
+		3B2AF8CC1F07E78E0056BEB7 /* FSActionSheetConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSActionSheetConfig.h; sourceTree = "<group>"; };
+		3B2AF8CD1F07E78E0056BEB7 /* FSActionSheetConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSActionSheetConfig.m; sourceTree = "<group>"; };
+		3B2AF8CE1F07E78E0056BEB7 /* FSActionSheetItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FSActionSheetItem.h; sourceTree = "<group>"; };
+		3B2AF8CF1F07E78E0056BEB7 /* FSActionSheetItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FSActionSheetItem.m; sourceTree = "<group>"; };
+		3B2AF8D11F07E78E0056BEB7 /* FSActionSheet_cancel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FSActionSheet_cancel@2x.png"; sourceTree = "<group>"; };
+		3B2AF8D21F07E78E0056BEB7 /* FSActionSheet_cancel@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "FSActionSheet_cancel@3x.png"; sourceTree = "<group>"; };
+		3B2AF8D41F07E78E0056BEB7 /* UIImage+XLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+XLExtension.h"; sourceTree = "<group>"; };
+		3B2AF8D51F07E78E0056BEB7 /* UIImage+XLExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+XLExtension.m"; sourceTree = "<group>"; };
+		3B2AF8D61F07E78E0056BEB7 /* UIView+XLExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+XLExtension.h"; sourceTree = "<group>"; };
+		3B2AF8D71F07E78E0056BEB7 /* UIView+XLExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+XLExtension.m"; sourceTree = "<group>"; };
+		3B2AF8D81F07E78E0056BEB7 /* XLPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPhotoBrowser.h; sourceTree = "<group>"; };
+		3B2AF8D91F07E78E0056BEB7 /* XLPhotoBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLPhotoBrowser.m; sourceTree = "<group>"; };
+		3B2AF8DA1F07E78E0056BEB7 /* XLPhotoBrowserConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPhotoBrowserConfig.h; sourceTree = "<group>"; };
+		3B2AF8DB1F07E78E0056BEB7 /* XLPhotoBrowserTypeDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLPhotoBrowserTypeDefine.h; sourceTree = "<group>"; };
+		3B2AF8DC1F07E78E0056BEB7 /* XLProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLProgressView.h; sourceTree = "<group>"; };
+		3B2AF8DD1F07E78E0056BEB7 /* XLProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLProgressView.m; sourceTree = "<group>"; };
+		3B2AF8DE1F07E78E0056BEB7 /* XLZoomingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XLZoomingScrollView.h; sourceTree = "<group>"; };
+		3B2AF8DF1F07E78E0056BEB7 /* XLZoomingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XLZoomingScrollView.m; sourceTree = "<group>"; };
 		3B2FE3E31EE167C2006E7045 /* GoodsClassModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsClassModel.h; sourceTree = "<group>"; };
 		3B2FE3E41EE167C2006E7045 /* GoodsClassModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsClassModel.m; sourceTree = "<group>"; };
 		3B332EBA1EF774D2004B2135 /* AlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlbumListViewController.h; sourceTree = "<group>"; };
@@ -599,7 +612,6 @@
 		3B4838431EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "妙法莲华经 法师功德品第十九.pdf"; sourceTree = "<group>"; };
 		3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerManager.h; sourceTree = "<group>"; };
 		3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerManager.m; sourceTree = "<group>"; };
-		3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "消灾吉祥神咒.mp3"; sourceTree = "<group>"; };
 		3B4B41331EC83E9B00C66C63 /* VisitUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitUserViewController.h; sourceTree = "<group>"; };
 		3B4B41341EC83E9B00C66C63 /* VisitUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitUserViewController.m; sourceTree = "<group>"; };
 		3B5A47281EDC030900511A04 /* PayOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayOrderViewController.h; sourceTree = "<group>"; };
@@ -662,38 +674,6 @@
 		3BA06F7F1EE79B88001EFD4D /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
 		3BAB963B1EBDB35A00EB0562 /* VageStoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VageStoreTableViewCell.h; sourceTree = "<group>"; };
 		3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VageStoreTableViewCell.m; sourceTree = "<group>"; };
-		3BAC6A791EAEF58000D3CB8C /* PYPhotosPreviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosPreviewController.h; sourceTree = "<group>"; };
-		3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotosPreviewController.m; sourceTree = "<group>"; };
-		3BAC6A7B1EAEF58000D3CB8C /* PYPhotosReaderController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosReaderController.h; sourceTree = "<group>"; };
-		3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotosReaderController.m; sourceTree = "<group>"; };
-		3BAC6A7D1EAEF58000D3CB8C /* PYPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosViewController.h; sourceTree = "<group>"; };
-		3BAC6A7E1EAEF58000D3CB8C /* PYPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotosViewController.m; sourceTree = "<group>"; };
-		3BAC6A801EAEF58000D3CB8C /* PYPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhoto.h; sourceTree = "<group>"; };
-		3BAC6A811EAEF58000D3CB8C /* PYPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhoto.m; sourceTree = "<group>"; };
-		3BAC6A831EAEF58000D3CB8C /* PYPhotoBrowserConst.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotoBrowserConst.h; sourceTree = "<group>"; };
-		3BAC6A841EAEF58000D3CB8C /* PYPhotoBrowserConst.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotoBrowserConst.m; sourceTree = "<group>"; };
-		3BAC6A851EAEF58000D3CB8C /* PYProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYProgressView.h; sourceTree = "<group>"; };
-		3BAC6A861EAEF58000D3CB8C /* PYProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYProgressView.m; sourceTree = "<group>"; };
-		3BAC6A871EAEF58000D3CB8C /* PYPhotoBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotoBrowser.h; sourceTree = "<group>"; };
-		3BAC6A881EAEF58000D3CB8C /* PYPhotosView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = PYPhotosView.bundle; sourceTree = "<group>"; };
-		3BAC6A8A1EAEF58000D3CB8C /* PYPhotoBrowseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotoBrowseView.h; sourceTree = "<group>"; };
-		3BAC6A8B1EAEF58000D3CB8C /* PYPhotoBrowseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotoBrowseView.m; sourceTree = "<group>"; };
-		3BAC6A8C1EAEF58000D3CB8C /* PYPhotoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotoCell.h; sourceTree = "<group>"; };
-		3BAC6A8D1EAEF58000D3CB8C /* PYPhotoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotoCell.m; sourceTree = "<group>"; };
-		3BAC6A8E1EAEF58000D3CB8C /* PYPhotosView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotosView.h; sourceTree = "<group>"; };
-		3BAC6A8F1EAEF58000D3CB8C /* PYPhotosView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotosView.m; sourceTree = "<group>"; };
-		3BAC6A901EAEF58000D3CB8C /* PYPhotoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PYPhotoView.h; sourceTree = "<group>"; };
-		3BAC6A911EAEF58000D3CB8C /* PYPhotoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PYPhotoView.m; sourceTree = "<group>"; };
-		3BAC6A9F1EAEF5B500D3CB8C /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
-		3BAC6AA01EAEF5B500D3CB8C /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
-		3BAC6AA11EAEF5B500D3CB8C /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
-		3BAC6AA21EAEF5B500D3CB8C /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
-		3BAC6AA61EAEF5DF00D3CB8C /* DACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DACircularProgressView.h; sourceTree = "<group>"; };
-		3BAC6AA71EAEF5DF00D3CB8C /* DACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DACircularProgressView.m; sourceTree = "<group>"; };
-		3BAC6AA81EAEF5DF00D3CB8C /* DALabeledCircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DALabeledCircularProgressView.h; sourceTree = "<group>"; };
-		3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DALabeledCircularProgressView.m; sourceTree = "<group>"; };
-		3BAC6AAC1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FLAnimatedImageView+WebCache.h"; sourceTree = "<group>"; };
-		3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "FLAnimatedImageView+WebCache.m"; sourceTree = "<group>"; };
 		3BAD0ADE1EF0D2D300903EF3 /* BookInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookInfoModel.h; sourceTree = "<group>"; };
 		3BAD0ADF1EF0D2D300903EF3 /* BookInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookInfoModel.m; sourceTree = "<group>"; };
 		3BAD0AE11EF1005500903EF3 /* BookCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookCacheManager.h; sourceTree = "<group>"; };
@@ -1299,11 +1279,11 @@
 		3B266FEC1E6FDEBB0078379B /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				3B2AF8C61F07E78E0056BEB7 /* 图片浏览器 */,
 				3B0AF02E1ED80A8C007436AE /* 气泡提示 */,
 				3B062DA31ED1871B00886240 /* QQSDK */,
 				3B4838061EB8CBAC0053BC8D /* 电子书 */,
 				3BE187881EAF2A9500EDDD8F /* 图片多选 */,
-				3BAC6A741EAEF4F400D3CB8C /* 九宫格图片浏览 */,
 				3B266FF61E6FDEBB0078379B /* MBProgressHUD */,
 				3B266FFC1E6FDEBB0078379B /* WechatOpenSDK */,
 			);
@@ -1315,8 +1295,6 @@
 			children = (
 				3B266FF71E6FDEBB0078379B /* MBProgressHUD+MJ.h */,
 				3B266FF81E6FDEBB0078379B /* MBProgressHUD+MJ.m */,
-				3B266FFA1E6FDEBB0078379B /* MBProgressHUD.h */,
-				3B266FFB1E6FDEBB0078379B /* MBProgressHUD.m */,
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
@@ -1610,6 +1588,59 @@
 			path = "设置主页";
 			sourceTree = "<group>";
 		};
+		3B2AF8C61F07E78E0056BEB7 /* 图片浏览器 */ = {
+			isa = PBXGroup;
+			children = (
+				3B2AF8C71F07E78E0056BEB7 /* FSActionSheet */,
+				3B2AF8D31F07E78E0056BEB7 /* XLPhotoBrower */,
+			);
+			path = "图片浏览器";
+			sourceTree = "<group>";
+		};
+		3B2AF8C71F07E78E0056BEB7 /* FSActionSheet */ = {
+			isa = PBXGroup;
+			children = (
+				3B2AF8C81F07E78E0056BEB7 /* FSActionSheet.h */,
+				3B2AF8C91F07E78E0056BEB7 /* FSActionSheet.m */,
+				3B2AF8CA1F07E78E0056BEB7 /* FSActionSheetCell.h */,
+				3B2AF8CB1F07E78E0056BEB7 /* FSActionSheetCell.m */,
+				3B2AF8CC1F07E78E0056BEB7 /* FSActionSheetConfig.h */,
+				3B2AF8CD1F07E78E0056BEB7 /* FSActionSheetConfig.m */,
+				3B2AF8CE1F07E78E0056BEB7 /* FSActionSheetItem.h */,
+				3B2AF8CF1F07E78E0056BEB7 /* FSActionSheetItem.m */,
+				3B2AF8D01F07E78E0056BEB7 /* FSActionSheetResources */,
+			);
+			path = FSActionSheet;
+			sourceTree = "<group>";
+		};
+		3B2AF8D01F07E78E0056BEB7 /* FSActionSheetResources */ = {
+			isa = PBXGroup;
+			children = (
+				3B2AF8D11F07E78E0056BEB7 /* FSActionSheet_cancel@2x.png */,
+				3B2AF8D21F07E78E0056BEB7 /* FSActionSheet_cancel@3x.png */,
+			);
+			path = FSActionSheetResources;
+			sourceTree = "<group>";
+		};
+		3B2AF8D31F07E78E0056BEB7 /* XLPhotoBrower */ = {
+			isa = PBXGroup;
+			children = (
+				3B2AF8D41F07E78E0056BEB7 /* UIImage+XLExtension.h */,
+				3B2AF8D51F07E78E0056BEB7 /* UIImage+XLExtension.m */,
+				3B2AF8D61F07E78E0056BEB7 /* UIView+XLExtension.h */,
+				3B2AF8D71F07E78E0056BEB7 /* UIView+XLExtension.m */,
+				3B2AF8D81F07E78E0056BEB7 /* XLPhotoBrowser.h */,
+				3B2AF8D91F07E78E0056BEB7 /* XLPhotoBrowser.m */,
+				3B2AF8DA1F07E78E0056BEB7 /* XLPhotoBrowserConfig.h */,
+				3B2AF8DB1F07E78E0056BEB7 /* XLPhotoBrowserTypeDefine.h */,
+				3B2AF8DC1F07E78E0056BEB7 /* XLProgressView.h */,
+				3B2AF8DD1F07E78E0056BEB7 /* XLProgressView.m */,
+				3B2AF8DE1F07E78E0056BEB7 /* XLZoomingScrollView.h */,
+				3B2AF8DF1F07E78E0056BEB7 /* XLZoomingScrollView.m */,
+			);
+			path = XLPhotoBrower;
+			sourceTree = "<group>";
+		};
 		3B332EB91EF774D2004B2135 /* C */ = {
 			isa = PBXGroup;
 			children = (
@@ -1747,7 +1778,6 @@
 		3B494DC91E8BF72900D3679B /* Medio */ = {
 			isa = PBXGroup;
 			children = (
-				3B494DCA1E8BF72900D3679B /* 消灾吉祥神咒.mp3 */,
 			);
 			path = Medio;
 			sourceTree = "<group>";
@@ -1922,101 +1952,6 @@
 			children = (
 			);
 			path = M;
-			sourceTree = "<group>";
-		};
-		3BAC6A741EAEF4F400D3CB8C /* 九宫格图片浏览 */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6AA51EAEF5DF00D3CB8C /* DACircularProgress */,
-				3BAC6A9E1EAEF5B500D3CB8C /* FLAnimatedImage */,
-				3BAC6A751EAEF58000D3CB8C /* PYPhotoBrowser */,
-			);
-			path = "九宫格图片浏览";
-			sourceTree = "<group>";
-		};
-		3BAC6A751EAEF58000D3CB8C /* PYPhotoBrowser */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6A761EAEF58000D3CB8C /* Controller */,
-				3BAC6A7F1EAEF58000D3CB8C /* Model */,
-				3BAC6A821EAEF58000D3CB8C /* Other */,
-				3BAC6A871EAEF58000D3CB8C /* PYPhotoBrowser.h */,
-				3BAC6A881EAEF58000D3CB8C /* PYPhotosView.bundle */,
-				3BAC6A891EAEF58000D3CB8C /* View */,
-			);
-			path = PYPhotoBrowser;
-			sourceTree = "<group>";
-		};
-		3BAC6A761EAEF58000D3CB8C /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6A791EAEF58000D3CB8C /* PYPhotosPreviewController.h */,
-				3BAC6A7A1EAEF58000D3CB8C /* PYPhotosPreviewController.m */,
-				3BAC6A7B1EAEF58000D3CB8C /* PYPhotosReaderController.h */,
-				3BAC6A7C1EAEF58000D3CB8C /* PYPhotosReaderController.m */,
-				3BAC6A7D1EAEF58000D3CB8C /* PYPhotosViewController.h */,
-				3BAC6A7E1EAEF58000D3CB8C /* PYPhotosViewController.m */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		3BAC6A7F1EAEF58000D3CB8C /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6A801EAEF58000D3CB8C /* PYPhoto.h */,
-				3BAC6A811EAEF58000D3CB8C /* PYPhoto.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		3BAC6A821EAEF58000D3CB8C /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6A831EAEF58000D3CB8C /* PYPhotoBrowserConst.h */,
-				3BAC6A841EAEF58000D3CB8C /* PYPhotoBrowserConst.m */,
-				3BAC6A851EAEF58000D3CB8C /* PYProgressView.h */,
-				3BAC6A861EAEF58000D3CB8C /* PYProgressView.m */,
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
-		3BAC6A891EAEF58000D3CB8C /* View */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6A8A1EAEF58000D3CB8C /* PYPhotoBrowseView.h */,
-				3BAC6A8B1EAEF58000D3CB8C /* PYPhotoBrowseView.m */,
-				3BAC6A8C1EAEF58000D3CB8C /* PYPhotoCell.h */,
-				3BAC6A8D1EAEF58000D3CB8C /* PYPhotoCell.m */,
-				3BAC6A8E1EAEF58000D3CB8C /* PYPhotosView.h */,
-				3BAC6A8F1EAEF58000D3CB8C /* PYPhotosView.m */,
-				3BAC6A901EAEF58000D3CB8C /* PYPhotoView.h */,
-				3BAC6A911EAEF58000D3CB8C /* PYPhotoView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		3BAC6A9E1EAEF5B500D3CB8C /* FLAnimatedImage */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6AAC1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.h */,
-				3BAC6AAD1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m */,
-				3BAC6A9F1EAEF5B500D3CB8C /* FLAnimatedImage.h */,
-				3BAC6AA01EAEF5B500D3CB8C /* FLAnimatedImage.m */,
-				3BAC6AA11EAEF5B500D3CB8C /* FLAnimatedImageView.h */,
-				3BAC6AA21EAEF5B500D3CB8C /* FLAnimatedImageView.m */,
-			);
-			path = FLAnimatedImage;
-			sourceTree = "<group>";
-		};
-		3BAC6AA51EAEF5DF00D3CB8C /* DACircularProgress */ = {
-			isa = PBXGroup;
-			children = (
-				3BAC6AA61EAEF5DF00D3CB8C /* DACircularProgressView.h */,
-				3BAC6AA71EAEF5DF00D3CB8C /* DACircularProgressView.m */,
-				3BAC6AA81EAEF5DF00D3CB8C /* DALabeledCircularProgressView.h */,
-				3BAC6AA91EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m */,
-			);
-			path = DACircularProgress;
 			sourceTree = "<group>";
 		};
 		3BB8E04C1ECA96C1004BDE09 /* C */ = {
@@ -2371,15 +2306,15 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3B2AF8E51F07E78E0056BEB7 /* FSActionSheet_cancel@3x.png in Resources */,
 				3BDCE9D01E6EBB7600E2F8E0 /* LaunchScreen.storyboard in Resources */,
 				3BDCE9CD1E6EBB7600E2F8E0 /* Assets.xcassets in Resources */,
 				3BE1879F1EAF2A9500EDDD8F /* TZImagePickerController.bundle in Resources */,
 				3B2670F11E6FE2B40078379B /* shark.mp3 in Resources */,
-				3BAC6A991EAEF58000D3CB8C /* PYPhotosView.bundle in Resources */,
-				3B494DCB1E8BF72900D3679B /* 消灾吉祥神咒.mp3 in Resources */,
 				3B062DB91ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				3B2670E41E6FE2B40078379B /* ProvincesAndCities.plist in Resources */,
 				3B4838441EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf in Resources */,
+				3B2AF8E41F07E78E0056BEB7 /* FSActionSheet_cancel@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2570,26 +2505,24 @@
 				3B7217FC1EBF12AE00C79B69 /* VageDetialViewController.m in Sources */,
 				3B6872ED1EABADDB00A12FF4 /* CommentTableViewCell.m in Sources */,
 				3B0B638D1EFCB92D006AD84D /* AlbumInfoModel.m in Sources */,
-				3BAC6A941EAEF58000D3CB8C /* PYPhotosReaderController.m in Sources */,
-				3BAC6A951EAEF58000D3CB8C /* PYPhotosViewController.m in Sources */,
+				3B2AF8E31F07E78E0056BEB7 /* FSActionSheetItem.m in Sources */,
 				3BF197C31EBDB28100E8EA03 /* FindVageViewController.m in Sources */,
 				3B036EE51EE502B400A5B89C /* OrderListTableCell.m in Sources */,
 				3BF197C61EBDB28100E8EA03 /* FindVageTableViewCell.m in Sources */,
 				3B2670F71E6FE2B40078379B /* SharedView.m in Sources */,
 				3B0B639B1EFEC2D4006AD84D /* MusicCommentModel.m in Sources */,
-				3BAC6AAB1EAEF5DF00D3CB8C /* DALabeledCircularProgressView.m in Sources */,
 				3B1F15051EA7536D00DFAFAE /* TodayLifoInfoModel.m in Sources */,
 				3B4838401EB8CBAC0053BC8D /* ThumbsMainToolbar.m in Sources */,
 				3B4838311EB8CBAC0053BC8D /* ReaderContentPage.m in Sources */,
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
 				3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */,
+				3B2AF8E01F07E78E0056BEB7 /* FSActionSheet.m in Sources */,
 				3B5BA6281EC9CE7500A57DBF /* AddressListViewController.m in Sources */,
 				3BAD0AE01EF0D2D300903EF3 /* BookInfoModel.m in Sources */,
 				3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */,
 				3B11DB821ED556DA0037AABA /* NewsCacheManager.m in Sources */,
 				3B2670DD1E6FE2B40078379B /* UserProtocolController.m in Sources */,
-				3BAC6A9A1EAEF58000D3CB8C /* PYPhotoBrowseView.m in Sources */,
 				3B0AF0371ED8204D007436AE /* AddressModel.m in Sources */,
 				3B062D9A1ECE93BE00886240 /* AreaListModel.m in Sources */,
 				3B26703F1E6FDEBB0078379B /* MBProgressHUD+MJ.m in Sources */,
@@ -2599,10 +2532,10 @@
 				3B1F15041EA7536D00DFAFAE /* LifoResourceModel.m in Sources */,
 				3BB8E05D1ECA98A8004BDE09 /* GoodClassListController.m in Sources */,
 				3B1F150E1EA7536D00DFAFAE /* ZanViewController.m in Sources */,
-				3BAC6AA31EAEF5B500D3CB8C /* FLAnimatedImage.m in Sources */,
 				3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */,
 				3B2670481E6FDEBB0078379B /* WXMediaMessage+messageConstruct.m in Sources */,
 				3B1F05CD1E792BD2005173B9 /* PunnaListTableCell.m in Sources */,
+				3B2AF8E91F07E78E0056BEB7 /* XLProgressView.m in Sources */,
 				3B1F150D1EA7536D00DFAFAE /* PlayingRightBarView.m in Sources */,
 				3B4838391EB8CBAC0053BC8D /* ReaderThumbFetch.m in Sources */,
 				3B062D9D1ECE93F500886240 /* AreaDetialModel.m in Sources */,
@@ -2621,10 +2554,8 @@
 				3B0B63951EFE7EFD006AD84D /* CommentMusicController.m in Sources */,
 				3B2670E31E6FE2B40078379B /* ProvinceCityModel.m in Sources */,
 				3B1F15091EA7536D00DFAFAE /* FopaiCollectionViewCell.m in Sources */,
-				3BAC6A9B1EAEF58000D3CB8C /* PYPhotoCell.m in Sources */,
 				3B2670EF1E6FE2B40078379B /* NewFetherViewController.m in Sources */,
 				3B266FD41E6FDCB60078379B /* UserInfoModel.m in Sources */,
-				3BAC6AAE1EAEF83400D3CB8C /* FLAnimatedImageView+WebCache.m in Sources */,
 				3B5BA6191EC9CCB000A57DBF /* DiscoverViewController.m in Sources */,
 				3B332EC61EF774D2004B2135 /* AlbumListViewController.m in Sources */,
 				3B0AF02D1ED805F9007436AE /* GoodsStandardController.m in Sources */,
@@ -2634,10 +2565,12 @@
 				3B0BBECB1EEF77560071A77E /* AllOrderViewController.m in Sources */,
 				3B266FD31E6FDCB60078379B /* UserInfoManager.m in Sources */,
 				3B2670EC1E6FE2B40078379B /* ContentTableViewCell.m in Sources */,
+				3B2AF8E61F07E78E0056BEB7 /* UIImage+XLExtension.m in Sources */,
 				3B422DAB1EA5B573005F0762 /* DetialNewsViewController.m in Sources */,
 				3B5BA5F41EC9794500A57DBF /* PictureCollectionCell.m in Sources */,
 				3B3AB9511EC16443000D71BB /* ImageTableViewCell.m in Sources */,
 				3B4838331EB8CBAC0053BC8D /* ReaderContentView.m in Sources */,
+				3B2AF8EA1F07E78E0056BEB7 /* XLZoomingScrollView.m in Sources */,
 				3B38CC9A1F01444F00B76A75 /* MessageListController.m in Sources */,
 				3B2670F61E6FE2B40078379B /* SetViewController.m in Sources */,
 				3B2670EA1E6FE2B40078379B /* UserInfoViewController.m in Sources */,
@@ -2647,17 +2580,16 @@
 				3B1F05B11E7928A0005173B9 /* FoNewsViewController.m in Sources */,
 				3B036EE41EE502B400A5B89C /* GoodsOrderModel.m in Sources */,
 				3BF197C71EBDB28100E8EA03 /* StoreVageViewController.m in Sources */,
-				3B2670411E6FDEBB0078379B /* MBProgressHUD.m in Sources */,
 				3B0B638A1EFC081C006AD84D /* MusicCateModel.m in Sources */,
 				3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */,
 				3B2670471E6FDEBB0078379B /* WXApiResponseHandler.m in Sources */,
 				3BE187A31EAF2A9500EDDD8F /* TZPhotoPreviewController.m in Sources */,
 				3B1F05CC1E792BD2005173B9 /* PunaListHeadView.m in Sources */,
-				3BAC6A931EAEF58000D3CB8C /* PYPhotosPreviewController.m in Sources */,
 				3B2670611E6FDFE40078379B /* RootNavgationController.m in Sources */,
 				3B2670601E6FDFE40078379B /* NormalTableViewCell.m in Sources */,
 				3B26706B1E6FE14A0078379B /* HTTPLimiteCache.m in Sources */,
 				3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */,
+				3B2AF8E81F07E78E0056BEB7 /* XLPhotoBrowser.m in Sources */,
 				3B3FE9961ED6A445005C4922 /* GoodsInfoModel.m in Sources */,
 				3B5BA5F11EC9794500A57DBF /* PlaceDetialController.m in Sources */,
 				3BA06F801EE79B88001EFD4D /* NSDateFormatter+Category.m in Sources */,
@@ -2666,7 +2598,6 @@
 				3B2670371E6FDEBB0078379B /* UIBarButtonItem+Extension.m in Sources */,
 				3B1F15081EA7536D00DFAFAE /* DecorationTableCell.m in Sources */,
 				3B17102F1ECB3E8C00779F75 /* GoodClassHeadView.m in Sources */,
-				3BAC6A961EAEF58000D3CB8C /* PYPhoto.m in Sources */,
 				3B4295BD1E9B775C001374F2 /* NewsListTableCell.m in Sources */,
 				3B2670F31E6FE2B40078379B /* StageInfoViewController.m in Sources */,
 				3B332ECD1EF77BB9004B2135 /* AlumListTableCell.m in Sources */,
@@ -2690,15 +2621,13 @@
 				3BB8E0571ECA96C1004BDE09 /* GoodsDetialController.m in Sources */,
 				3B2670351E6FDEBB0078379B /* Foundation+Log.m in Sources */,
 				3B1F150C1EA7536D00DFAFAE /* PusaShowView.m in Sources */,
-				3BAC6AAA1EAEF5DF00D3CB8C /* DACircularProgressView.m in Sources */,
-				3BAC6A971EAEF58000D3CB8C /* PYPhotoBrowserConst.m in Sources */,
 				3B266FDF1E6FDD740078379B /* TTLFConstKey.m in Sources */,
 				3B1F05C81E792BD2005173B9 /* PunnaListViewController.m in Sources */,
 				3B38CC971F00DED100B76A75 /* UIView+Toast.m in Sources */,
 				3B2670451E6FDEBB0078379B /* WXApiManager.m in Sources */,
 				3B6872D41EAA4BC800A12FF4 /* StoreTableViewCell.m in Sources */,
 				3B2231E81E7F7B8200B43322 /* WoViewController.m in Sources */,
-				3BAC6A981EAEF58000D3CB8C /* PYProgressView.m in Sources */,
+				3B2AF8E21F07E78E0056BEB7 /* FSActionSheetConfig.m in Sources */,
 				3B266FD61E6FDCB60078379B /* WechatInfoModel.m in Sources */,
 				3B38CC9D1F014BCB00B76A75 /* TuiguangViewController.m in Sources */,
 				3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */,
@@ -2723,7 +2652,7 @@
 				3B0B63981EFE8E97006AD84D /* ShareView.m in Sources */,
 				3BE187A51EAF2A9500EDDD8F /* UIView+Layout.m in Sources */,
 				3B3B3D741EA715FA00A32E56 /* LocationModel.m in Sources */,
-				3BAC6A9C1EAEF58000D3CB8C /* PYPhotosView.m in Sources */,
+				3B2AF8E11F07E78E0056BEB7 /* FSActionSheetCell.m in Sources */,
 				3B2670E11E6FE2B40078379B /* PhoneViewController.m in Sources */,
 				3BF197C41EBDB28100E8EA03 /* SearchVageViewController.m in Sources */,
 				3B4838301EB8CBAC0053BC8D /* ReaderConstants.m in Sources */,
@@ -2731,7 +2660,6 @@
 				3B5BA5F31EC9794500A57DBF /* PlaceDetialModel.m in Sources */,
 				3B48383B1EB8CBAC0053BC8D /* ReaderThumbRender.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
-				3BAC6AA41EAEF5B500D3CB8C /* FLAnimatedImageView.m in Sources */,
 				3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */,
 				3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */,
 				3B1F15031EA7536D00DFAFAE /* FruitBowlModel.m in Sources */,
@@ -2751,7 +2679,6 @@
 				3B2670DB1E6FE2B40078379B /* PhoneLoginViewController.m in Sources */,
 				3B03082A1EB86C97004B9F53 /* MyBooksTableViewCell.m in Sources */,
 				3B26703A1E6FDEBB0078379B /* UIViewController+Category.m in Sources */,
-				3BAC6A9D1EAEF58000D3CB8C /* PYPhotoView.m in Sources */,
 				3B036EE31EE502B400A5B89C /* OrderListViewController.m in Sources */,
 				3BF197C11EBDB28100E8EA03 /* ShareVageViewController.m in Sources */,
 				3B266FD01E6FDCB60078379B /* NetworkDataManager.m in Sources */,
@@ -2773,6 +2700,7 @@
 				3B5BA5FE1EC99F4200A57DBF /* PlaceDiscussTableCell.m in Sources */,
 				3B2670431E6FDEBB0078379B /* GetMessageFromWXResp+responseWithTextOrMediaMessage.m in Sources */,
 				3B2670F21E6FE2B40078379B /* SharkNameViewController.m in Sources */,
+				3B2AF8E71F07E78E0056BEB7 /* UIView+XLExtension.m in Sources */,
 				3B4295BA1E9B7255001374F2 /* NewsArticleModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

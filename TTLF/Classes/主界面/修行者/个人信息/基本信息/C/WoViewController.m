@@ -41,6 +41,8 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
 
 @property (strong,nonatomic) MineTableHeadView *headView;
 
+@property (strong,nonatomic) UILabel *msgLabel;
+
 @end
 
 @implementation WoViewController
@@ -69,7 +71,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     };
     self.tableView.tableHeaderView = self.headView;
     
-    self.array = @[@[@"功德值"],@[@"收藏",@"扩散",@"消息",@"分享"],@[@"设置"]];
+    self.array = @[@[@"功德值"],@[@"收藏",@"弘扬",@"消息",@"分享"],@[@"设置"]];
     [self.view addSubview:self.tableView];
     
 }
@@ -95,6 +97,11 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
         make.centerY.equalTo(cell.mas_centerY);
         make.width.and.height.equalTo(@30);
     }];
+    if (indexPath.section == 1) {
+        if (indexPath.row == 1) {
+            [cell.contentView addSubview:self.msgLabel];
+        }
+    }
     return cell;
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -109,7 +116,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
             StoreListViewController *store = [StoreListViewController new];
             [self.navigationController pushViewController:store animated:YES];
         }else if (indexPath.row == 1){
-            // 扩散
+            // 弘扬
             TuiguangViewController *tuiguang = [[TuiguangViewController alloc]init];
             [self.navigationController pushViewController:tuiguang animated:YES];
         }else if (indexPath.row == 2){
@@ -254,7 +261,17 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     }
     return _tableView;
 }
-
+- (UILabel *)msgLabel
+{
+    if (!_msgLabel) {
+        _msgLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.width - 30 - 70, 10, 70, 30)];
+        _msgLabel.text = @"+1功德值";
+        _msgLabel.textAlignment = NSTextAlignmentRight;
+        _msgLabel.textColor = WarningColor;
+        _msgLabel.font = [UIFont boldSystemFontOfSize:14];
+    }
+    return _msgLabel;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {

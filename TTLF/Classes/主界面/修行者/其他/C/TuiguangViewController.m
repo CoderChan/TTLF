@@ -42,7 +42,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"扩散";
+    self.title = @"弘扬";
     
     [self setupSubViews];
 }

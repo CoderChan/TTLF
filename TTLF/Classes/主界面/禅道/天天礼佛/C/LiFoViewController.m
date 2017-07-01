@@ -440,7 +440,7 @@
     // 继续发光
     [self.lightImageView1.layer addAnimation:self.rotationAnimation1 forKey:@"rotationAnimation"];//开始动画
     [self.lightImageView2.layer addAnimation:self.rotationAnimation2 forKey:@"rotationAnimation"];
-    // 太阳光圈扩散
+    // 太阳光圈弘扬
     
 }
 - (void)viewWillAppear:(BOOL)animated

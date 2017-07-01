@@ -8,12 +8,12 @@
 
 #import "PlacePicturesController.h"
 #import "PictureCollectionCell.h"
-#import "PYPhotoBrowser.h"
+#import "XLPhotoBrowser.h"
 #import "PYPhotosReaderController.h"
 
 #define SpaceNum 2
 
-@interface PlacePicturesController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout,PYPhotoBrowseViewDataSource,PYPhotoBrowseViewDelegate>
+@interface PlacePicturesController ()<UICollectionViewDataSource,UICollectionViewDelegate,UICollectionViewDelegateFlowLayout>
 
 /** 表格 */
 @property (strong,nonatomic) UICollectionView *collectionView;
@@ -63,16 +63,6 @@
         [self hideMessageAction];
         self.collectionView.hidden = NO;
         [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
-//        [self.array addObjectsFromArray:array];
         [self.collectionView reloadData];
     } Fail:^(NSString *errorMsg) {
         self.collectionView.hidden = YES;
@@ -127,26 +117,12 @@
     
     NSLog(@"X = %f,Y = %f, W = %f,H = %f",frame.origin.x,frame.origin.y,frame.size.width,frame.size.height);
     
-    // 1.创建自己定义的browseView
-    PYPhotoBrowseView *browseView = [[PYPhotoBrowseView alloc] init];
-    browseView.currentIndex = indexPath.row;
-    // 2.设置数据源和代理并实现数据源和代理方法
-    browseView.dataSource = self;
-    browseView.imagesURL = self.array;
-    browseView.delegate = self;
-    browseView.showDuration = 0.3;
-    browseView.hiddenDuration = 0.3;
-    browseView.frameFormWindow = frame;
-    browseView.frameToWindow = frame;
-    // 3.显示（浏览）
-    [browseView show];
+    XLPhotoBrowser *brower = [XLPhotoBrowser showPhotoBrowserWithImages:self.array currentImageIndex:indexPath.row];
+    brower.browserStyle = XLPhotoBrowserStyleSimple;
+    brower.pageControlStyle = XLPhotoBrowserPageControlStyleAnimated;
+    [brower show];
     
     
-    
-}
-- (void)photoBrowseView:(PYPhotoBrowseView *)photoBrowseView didSingleClickedImage:(UIImage *)image index:(NSInteger)index
-{
-    [photoBrowseView hidden];
 }
 
 

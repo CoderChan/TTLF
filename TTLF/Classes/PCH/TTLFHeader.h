@@ -35,8 +35,8 @@
 #define Jpush_Secret @"f695f46112e9700d86fe53f9"
 
 //   微信SDK
-#define WeChatAppID @"wx817d7d973e5cdca8"
-#define WeChatAppKey @"aa9e6fd088a1e2db1964034083efa60c"
+#define WeChatAppID @"wxf2ad17091b377cbc" //老@"wx817d7d973e5cdca8"
+#define WeChatAppKey @"e92532ee18b5699dcc2cc6eb7c972ee2" //老@"aa9e6fd088a1e2db1964034083efa60c"
 
 //  QQ互联
 #define QQAppID @"101403576"

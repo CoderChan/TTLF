@@ -8,7 +8,7 @@
 
 #import "CommentTableViewCell.h"
 #import <Masonry.h>
-#import "PYPhotoBrowser.h"
+#import "XLPhotoBrowser.h"
 
 
 
@@ -138,7 +138,7 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
         // 查看评论附带的图_commentModel.comment_pic
-        [MBProgressHUD showSuccess:@"PYPhotoBrowseView"];
+        [XLPhotoBrowser showPhotoBrowserWithImages:@[self.insertImgView.image] currentImageIndex:0];
     }];
     [self.insertImgView addGestureRecognizer:tap];
     
