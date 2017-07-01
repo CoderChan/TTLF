@@ -26,19 +26,15 @@
 // 单例初始化
 + (instancetype)sharedManager;
 
+// 播放器
+@property (strong,nonatomic) FSAudioController *fsController;
+// 播放进度
+@property (nonatomic,copy) void (^progressBlock)(CGFloat f,NSString *loadTime,NSString *totalTime);
+
+
 // 代理
 @property (weak,nonatomic) id<MusicPlayDelegate> delegate;
 
-// 播放
-- (void)beginPlayWithModel:(AlbumInfoModel *)model;
-// 继续播放
-- (void)continuePlay;
-// 是否正在播放
-- (BOOL)isPlaying;
-//  暂停播放
-- (void)pause;
-//  停止播放
-- (void)stop;
 
 
 

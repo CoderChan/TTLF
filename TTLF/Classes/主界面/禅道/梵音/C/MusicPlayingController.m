@@ -59,8 +59,7 @@
 // 评论数
 @property (strong,nonatomic) UILabel *commentNumLabel;
 
-/// 播放控制器
-@property (strong,nonatomic) FSAudioController *fsController;
+
 
 
 @end
@@ -72,6 +71,7 @@
 {
     self = [super init];
     if (self) {
+        
         self.dataSource = dataSource;
         self.currentIndex = currentIndex;
     }
@@ -330,7 +330,13 @@
         [sender setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateHighlighted];
         
         AlbumInfoModel *model = self.dataSource[self.currentIndex];
-        [self.fsController playFromURL:[NSURL URLWithString:model.music_desc]];
+        [[MusicPlayerManager sharedManager].fsController playFromURL:[NSURL URLWithString:model.music_desc]];
+        [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
+            self.currentTimeLabel.text = loadTime;
+            self.sumTimeLabel.text = totalTime;
+            self.progressView.progress = f;
+            self.sliderView.value = f;
+        };
         
     }else{
         // 暂停播放，进入界面不自动执行暂停事件
@@ -338,7 +344,7 @@
         [sender setImage:[UIImage imageNamed:@"music_btn_play"] forState:UIControlStateNormal];
         [sender setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateHighlighted];
         
-        [self.fsController pause];
+        [[MusicPlayerManager sharedManager].fsController pause];
     }
 
 }
@@ -389,6 +395,8 @@
     [self.navigationController pushViewController:comment animated:YES];
 
 }
+
+
 
 #pragma mark - 辅助方法
 // 获取播放总时长
@@ -457,12 +465,12 @@
 // 重写父类方法，接受外部事件的的处理
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
 {
-    [super remoteControlReceivedWithEvent:event];
+//    [super remoteControlReceivedWithEvent:event];
     if (event.type == UIEventTypeRemoteControl) {
         switch (event.subtype) {
             case UIEventSubtypeRemoteControlTogglePlayPause:
                 // 暂停 iOS6
-                [self.fsController pause];
+                [[MusicPlayerManager sharedManager].fsController pause];
                 break;
             case UIEventSubtypeRemoteControlPreviousTrack:
                 // 上一首
@@ -474,11 +482,11 @@
                 break;
             case UIEventSubtypeRemoteControlPlay:
                 // 播放
-                [self.fsController play];
+                [[MusicPlayerManager sharedManager].fsController play];
                 break;
             case UIEventSubtypeRemoteControlPause:
                 // 暂停 iOS7
-                [self.fsController pause];
+                [[MusicPlayerManager sharedManager].fsController pause];
                 break;
                 
             default:
@@ -579,15 +587,6 @@
         req.scene = 2;
         [WXApi sendReq:req];
     }
-}
-
-- (FSAudioController *)fsController
-{
-    if (!_fsController) {
-        _fsController = [[FSAudioController alloc]init];
-        _fsController.delegate = self;
-    }
-    return _fsController;
 }
 
 

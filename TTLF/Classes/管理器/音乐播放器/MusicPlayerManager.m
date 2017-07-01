@@ -11,8 +11,9 @@
 
 @interface MusicPlayerManager ()<FSAudioControllerDelegate>
 
-
-@property (strong,nonatomic) FSAudioController *fsController;
+{
+    NSTimer *_progressUpdateTimer;
+}
 
 @end
 
@@ -89,9 +90,13 @@
 #pragma mark - 代理
 - (BOOL)audioController:(FSAudioController *)audioController allowPreloadingForStream:(FSAudioStream *)stream
 {
+    NSLog(@"stream1 = %@",stream);
     return YES;
 }
-
+- (void)audioController:(FSAudioController *)audioController preloadStartedForStream:(FSAudioStream *)stream
+{
+    NSLog(@"stream2 = %@",stream);
+}
 // 判断文件是否已经在沙盒中已经存在？
 - (NSString *)searchFilePathByFileName:(NSString *)fileName
 {
@@ -108,5 +113,117 @@
     }
 }
 
+- (FSAudioController *)fsController
+{
+    if (!_fsController) {
+        _fsController = [[FSAudioController alloc]init];
+        _fsController.delegate = self;
+        [YLNotificationCenter addObserver:self selector:@selector(audioStreamStateDidChange:) name:FSAudioStreamStateChangeNotification object:nil];
+        [YLNotificationCenter addObserver:self selector:@selector(audioStreamErrorOccurred:) name:FSAudioStreamErrorNotification object:nil];
+        [YLNotificationCenter addObserver:self selector:@selector(audioStreamMetaDataAvailable:) name:FSAudioStreamMetaDataNotification object:nil];
+    }
+    return _fsController;
+}
+
+- (void)audioStreamStateDidChange:(NSNotification *)notification {
+    
+    NSString *statusRetrievingURL = @"Retrieving stream URL";
+    NSString *statusBuffering = @"Buffering...";
+    NSString *statusSeeking = @"Seeking...";
+    NSString *statusEmpty = @"";
+    
+    NSDictionary *dict = [notification userInfo];
+    int state = [[dict valueForKey:FSAudioStreamNotificationKey_State] intValue];
+    switch (state) {
+        case kFsAudioStreamRetrievingURL:
+            if (_progressUpdateTimer) {
+                [_progressUpdateTimer invalidate];
+            }
+            NSLog(@"%@",statusRetrievingURL);
+            break;
+        case kFsAudioStreamStopped:
+            NSLog(@"%@",statusEmpty);
+            if (_progressUpdateTimer) {
+                [_progressUpdateTimer invalidate];
+            }
+            break;
+        case kFsAudioStreamBuffering:
+            NSLog(@"%@",statusBuffering);
+            if (_progressUpdateTimer) {
+                [_progressUpdateTimer invalidate];
+            }
+            break;
+        case kFsAudioStreamSeeking:
+            NSLog(@"%@",statusSeeking);
+            break;
+        case kFsAudioStreamPlaying:
+            if (_progressUpdateTimer) {
+                [_progressUpdateTimer invalidate];
+            }
+            _progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updatePlaybackProgress) userInfo:nil repeats:YES];
+            break;
+        case kFsAudioStreamFailed:
+            if (_progressUpdateTimer) {
+                [_progressUpdateTimer invalidate];
+            }
+            break;
+        default:
+            break;
+    }
+}
+- (void)updatePlaybackProgress
+{
+    if (self.fsController.activeStream.continuous) {
+        //        [self.progressTextFieldCell setTitle:@""];
+    } else {
+        FSStreamPosition cur = self.fsController.activeStream.currentTimePlayed;
+        FSStreamPosition end = self.fsController.activeStream.duration;
+        CGFloat loadTime = cur.minute *60 + cur.second;
+        CGFloat totalTime = end.minute*60 + end.second;
+        NSString *loadDate = [NSString stringWithFormat:@"%i:%02i",cur.minute, cur.second];
+        NSString *totalDate = [NSString stringWithFormat:@"%i:%02i",end.minute, end.second];
+        if (self.progressBlock) {
+            self.progressBlock(loadTime/totalTime,loadDate,totalDate);
+        }
+        NSLog(@"%@",[NSString stringWithFormat:@"%i:%02i / %i:%02i",
+                             cur.minute, cur.second,
+                             end.minute, end.second]);
+    }
+}
+
+- (void)audioStreamErrorOccurred:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    int errorCode = [[dict valueForKey:FSAudioStreamNotificationKey_Error] intValue];
+    
+    switch (errorCode) {
+        case kFsAudioStreamErrorOpen:
+            NSLog(@"Cannot open the audio stream");
+            break;
+        case kFsAudioStreamErrorStreamParse:
+            NSLog(@"Cannot read the audio stream");
+            break;
+        case kFsAudioStreamErrorNetwork:
+            NSLog(@"Network failed: cannot play the audio stream");
+            break;
+        default:
+            NSLog(@"Unknown error occurred");
+            break;
+    }
+}
+
+- (void)audioStreamMetaDataAvailable:(NSNotification *)notification {
+    NSDictionary *dict = [notification userInfo];
+    NSDictionary *metaData = [dict valueForKey:FSAudioStreamNotificationKey_MetaData];
+    NSString *streamTitle = [metaData objectForKey:@"StreamTitle"];
+    NSLog(@"%@",streamTitle);
+}
+
+- (void)dealloc {
+    [YLNotificationCenter removeObserver:self name:FSAudioStreamStateChangeNotification object:nil];
+    [YLNotificationCenter removeObserver:self name:FSAudioStreamErrorNotification object:nil];
+    [YLNotificationCenter removeObserver:self name:FSAudioStreamMetaDataNotification object:nil];
+    [_progressUpdateTimer invalidate];
+    _progressUpdateTimer = nil;
+}
 
 @end
