@@ -29,7 +29,7 @@
 // 播放器
 @property (strong,nonatomic) FSAudioController *fsController;
 // 播放进度
-@property (nonatomic,copy) void (^progressBlock)(CGFloat f,NSString *loadTime,NSString *totalTime);
+@property (nonatomic,copy) void (^progressBlock)(CGFloat f,NSString *loadTime,NSString *totalTime,BOOL isPlayCompletion);
 
 
 // 代理

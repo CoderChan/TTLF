@@ -18,14 +18,18 @@
 #import "PlayingRightBarView.h"
 #import "MusicListViewController.h"
 #import "RootNavgationController.h"
+#import "MusicPlayerManager.h"
 #import <Masonry.h>
 
 
 @interface ZanViewController ()<UITableViewDelegate,UITableViewDataSource>
 
+// 数据源
 @property (copy,nonatomic) NSArray *array;
-
+// 表格
 @property (strong,nonatomic) UITableView *tableView;
+// rightBar
+@property (strong,nonatomic) PlayingRightBarView *rightBar;
 
 @end
 
@@ -48,18 +52,6 @@
     self.tableView.rowHeight = 50;
     [self.view addSubview:self.tableView];
     
-    PlayingRightBarView *play = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
-    play.ClickBlock = ^{
-//        MusicPlayingController *play = [[MusicPlayingController alloc]initWithModel:nil];
-//        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:play];
-//        nav.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//        nav.modalPresentationStyle = UIModalPresentationFullScreen;
-//        [self presentViewController:nav animated:YES completion:^{
-//            
-//        }];
-    };
-    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:play];
-    self.navigationItem.rightBarButtonItem = rightItem;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -137,7 +129,46 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setBarTintColor:NavColor];
-}
+    __weak ZanViewController *copySelf = self;
+    
+    self.rightBar.ClickBlock = ^{
+        NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+        NSString *lastCateID = [UD objectForKey:LastMusicCateID];
+        NSString *lastIndex = [UD objectForKey:LastMusicIndex];
+        
+        if (lastCateID && lastIndex) {
+            // 之前选过
+            [[TTLFManager sharedManager].networkManager getCacheAlbumListByCateID:lastCateID Success:^(NSArray *array) {
+                MusicPlayingController *play = [[MusicPlayingController alloc]initWithArray:array CurrentIndex:[lastIndex integerValue]];
+                [copySelf.navigationController pushViewController:play animated:YES];
+            } Fail:^(NSString *errorMsg) {
+                [copySelf showPopTipsWithMessage:errorMsg AtView:copySelf.rightBar inView:copySelf.view];
+            }];
+        }else{
+            // 第一次进来，或者是新登录
+            [copySelf showPopTipsWithMessage:@"请先进入梵音界面，选中列表播放" AtView:copySelf.rightBar inView:copySelf.view];
+        }
+        
+    };
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightBar];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    
+    // 动画
+    if ([[MusicPlayerManager sharedManager].fsController isPlaying]) {
+        // 播放，旋转
+        [copySelf.rightBar remoteAnimation];
+    }else{
+        // 没有播放，不旋转
+        [copySelf.rightBar stopAnimation];
+    }
 
+}
+- (PlayingRightBarView *)rightBar
+{
+    if (!_rightBar) {
+        _rightBar = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
+    }
+    return _rightBar;
+}
 
 @end

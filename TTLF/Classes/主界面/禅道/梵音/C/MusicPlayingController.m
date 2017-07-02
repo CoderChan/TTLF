@@ -269,6 +269,7 @@
     
     // UISlider
     self.sliderView = [[UISlider alloc]initWithFrame:CGRectMake(self.progressView.x - 2, self.progressView.y - 14, self.progressView.width + 4, 30)];
+    [self.sliderView addTarget:self action:@selector(sliderMoveAction:) forControlEvents:UIControlEventValueChanged];
     [self.sliderView setTintColor:MainColor];
     [self.sliderView setThumbImage:[UIImage imageNamed:@"music_slider"] forState:UIControlStateNormal];
     [self.sliderView setThumbImage:[UIImage imageNamed:@"music_slider"] forState:UIControlStateNormal];
@@ -303,7 +304,7 @@
     [YLNotificationCenter addObserver:self selector:@selector(beginLightingAction) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     // 判断播放状态
-    [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
+    [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime, BOOL isPlayCompletion) {
         self.currentTimeLabel.text = loadTime;
         self.sumTimeLabel.text = totalTime;
         self.progressView.progress = f;
@@ -358,11 +359,31 @@
         
         [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
         [self setupLockScreenInfo]; // 刷新锁屏信息
-        [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
-            self.currentTimeLabel.text = loadTime;
-            self.sumTimeLabel.text = totalTime;
-            self.progressView.progress = f;
-            self.sliderView.value = f;
+        [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime, BOOL isPlayCompletion) {
+            if (isPlayCompletion) {
+                // 播放完毕
+                FSPlaylistItem *currentItem = [[MusicPlayerManager sharedManager].fsController currentPlaylistItem];
+                NSInteger currentIndex = self.currentIndex;
+                for (FSPlaylistItem *item in self.playItemArray) {
+                    if ([item isEqual:currentItem]) {
+                        currentIndex = item.listID;
+                    }
+                }
+                self.currentIndex = currentIndex;
+                AlbumInfoModel *model = self.dataSource[self.currentIndex];
+                [self reloadULAction:model];
+                
+                self.currentTimeLabel.text = loadTime;
+                self.sumTimeLabel.text = totalTime;
+                self.progressView.progress = f;
+                self.sliderView.value = f;
+                
+            }else{
+                self.currentTimeLabel.text = loadTime;
+                self.sumTimeLabel.text = totalTime;
+                self.progressView.progress = f;
+                self.sliderView.value = f;
+            }
         };
         
     }else{
@@ -374,6 +395,16 @@
         [[MusicPlayerManager sharedManager].fsController pause];
     }
 
+}
+// 滑动UISlider
+- (void)sliderMoveAction:(UISlider *)slider
+{
+    KGLog(@"slider进度 = %f",slider.value);
+    CGFloat sliderValue = slider.value;
+    FSStreamPosition position;
+    position.position = sliderValue;
+    [[MusicPlayerManager sharedManager].fsController.activeStream seekToPosition:position];
+    [[MusicPlayerManager sharedManager].fsController.activeStream play];
 }
 // 歌曲换了或其他问题，刷新UI界面
 - (void)reloadULAction:(AlbumInfoModel *)model
@@ -393,7 +424,12 @@
         [[MusicPlayerManager sharedManager].fsController playPreviousItem];
         [self setupLockScreenInfo]; // 刷新锁屏信息
     }else{
-        [self showPopTipsWithMessage:@"已经是第一首" AtView:self.lastButton inView:self.view];
+        self.currentIndex = self.playItemArray.count - 1;
+        AlbumInfoModel *model = self.dataSource[self.currentIndex];
+        [self reloadULAction:model];
+        
+        [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
+        [self setupLockScreenInfo]; // 刷新锁屏信息
     }
 }
 // 下一首
@@ -407,7 +443,12 @@
         [[MusicPlayerManager sharedManager].fsController playNextItem];
         [self setupLockScreenInfo]; // 刷新锁屏信息
     }else{
-        [self showPopTipsWithMessage:@"已经是最后一首" AtView:self.nextButton inView:self.view];
+        self.currentIndex = 0;
+        AlbumInfoModel *model = self.dataSource[self.currentIndex];
+        [self reloadULAction:model];
+        
+        [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
+        [self setupLockScreenInfo]; // 刷新锁屏信息
     }
 }
 // 播放顺序
@@ -430,11 +471,30 @@
             [[MusicPlayerManager sharedManager].fsController stop];
             [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
             [self setupLockScreenInfo]; // 刷新锁屏信息
-            [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
-                self.currentTimeLabel.text = loadTime;
-                self.sumTimeLabel.text = totalTime;
-                self.progressView.progress = f;
-                self.sliderView.value = f;
+            [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime, BOOL isPlayCompletion) {
+                if (isPlayCompletion) {
+                    // 播放完毕
+                    FSPlaylistItem *currentItem = [[MusicPlayerManager sharedManager].fsController currentPlaylistItem];
+                    NSInteger currentIndex = self.currentIndex;
+                    for (FSPlaylistItem *item in self.playItemArray) {
+                        if ([item isEqual:currentItem]) {
+                            currentIndex = item.listID;
+                        }
+                    }
+                    self.currentIndex = currentIndex;
+                    AlbumInfoModel *model = self.dataSource[self.currentIndex];
+                    [self reloadULAction:model];
+                    self.currentTimeLabel.text = loadTime;
+                    self.sumTimeLabel.text = totalTime;
+                    self.progressView.progress = f;
+                    self.sliderView.value = f;
+                }else{
+                    // 还在播放
+                    self.currentTimeLabel.text = loadTime;
+                    self.sumTimeLabel.text = totalTime;
+                    self.progressView.progress = f;
+                    self.sliderView.value = f;
+                }
             };
             // 修改刷新UI界面
             [self reloadULAction:self.dataSource[self.currentIndex]];
@@ -528,9 +588,9 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    // 结束远程控制 为添加到音频中心后台播放做准备
-    [[UIApplication sharedApplication] endReceivingRemoteControlEvents];
-    [self resignFirstResponder];
+//    // 结束远程控制 为添加到音频中心后台播放做准备
+//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+//    [self resignFirstResponder];
     
     [self.navigationController.navigationBar setHidden:NO];
     
@@ -597,8 +657,8 @@
                 [self nextButtonClick:self.nextButton];
                 break;
             case UIEventSubtypeRemoteControlPlay:
-                // 播放
-                [[MusicPlayerManager sharedManager].fsController play];
+                // 继续播放，有问题
+                [[MusicPlayerManager sharedManager].fsController.activeStream play];
                 break;
             case UIEventSubtypeRemoteControlPause:
                 // 暂停 iOS7

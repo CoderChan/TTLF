@@ -138,6 +138,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)musicCateListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 根据梵音分类获取mp3专辑列表
 - (void)albumListByModel:(MusicCateModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 根据缓存的梵音分类ID获取MP3列表
+- (void)getCacheAlbumListByCateID:(NSString *)cateID Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 搜索梵音
 - (void)searchMusicByKey:(NSString *)keyWord Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 下载梵音到本地
@@ -148,6 +150,7 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)commentMusicWithModel:(AlbumInfoModel *)model Content:(NSString *)content Success:(void (^)(MusicCommentModel *commentModel))success Fail:(FailBlock)fail;
 // 删除梵音下的某条评论
 - (void)deleteMusicCommentWithModel:(MusicCommentModel *)model Success:(SuccessBlock)success Fail:(FailBlock)fail;
+
 
 #pragma mark - 禅修板块——天天礼佛
 // 查看当天礼佛信息

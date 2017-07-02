@@ -73,8 +73,6 @@
     }];
     [self.tableView.mj_header beginRefreshing];
     
-    
-    
 }
 - (AlbumHeadView *)headView
 {
@@ -105,6 +103,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+    [UD setObject:self.cateModel.cate_id forKey:LastMusicCateID];
+    [UD setObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row] forKey:LastMusicIndex];
+    [UD synchronize];
     
     MusicPlayingController *play = [[MusicPlayingController alloc]initWithArray:self.array CurrentIndex:indexPath.row];
     [self.navigationController pushViewController:play animated:YES];

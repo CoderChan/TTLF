@@ -12,7 +12,8 @@
 @interface MusicPlayerManager ()<FSAudioControllerDelegate>
 
 {
-    NSTimer *_progressUpdateTimer;
+    NSTimer *_progressUpdateTimer; // 进度监听timer
+    BOOL _isPlayCompletion; // 是否播放完毕
 }
 
 @end
@@ -35,7 +36,7 @@
     self = [super init];
     if (self) {
         // 预设一些信息
-        
+        _isPlayCompletion = NO;
     }
     return self;
 }
@@ -107,7 +108,7 @@
     NSString *statusRetrievingURL = @"Retrieving stream URL";
     NSString *statusBuffering = @"Buffering...";
     NSString *statusSeeking = @"Seeking...";
-    NSString *statusEmpty = @"";
+    //NSString *statusEmpty = @"状态为空";
     
     NSDictionary *dict = [notification userInfo];
     int state = [[dict valueForKey:FSAudioStreamNotificationKey_State] intValue];
@@ -116,22 +117,25 @@
             if (_progressUpdateTimer) {
                 [_progressUpdateTimer invalidate];
             }
-            NSLog(@"%@",statusRetrievingURL);
+            NSLog(@"kFsAudioStreamStopped = %@",statusRetrievingURL);
             break;
         case kFsAudioStreamStopped:
-            NSLog(@"%@",statusEmpty);
+            // 播放完了一首，自动切换到下一首
             if (_progressUpdateTimer) {
                 [_progressUpdateTimer invalidate];
             }
+            _isPlayCompletion = YES;
+            _progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updatePlaybackProgress) userInfo:nil repeats:YES];
             break;
         case kFsAudioStreamBuffering:
-            NSLog(@"%@",statusBuffering);
+            NSLog(@"开始播放了 = %@",statusBuffering);
+            _isPlayCompletion = NO;
             if (_progressUpdateTimer) {
                 [_progressUpdateTimer invalidate];
             }
             break;
         case kFsAudioStreamSeeking:
-            NSLog(@"%@",statusSeeking);
+            NSLog(@"kFsAudioStreamSeeking = %@",statusSeeking);
             break;
         case kFsAudioStreamPlaying:
             if (_progressUpdateTimer) {
@@ -139,8 +143,12 @@
             }
             _progressUpdateTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(updatePlaybackProgress) userInfo:nil repeats:YES];
             break;
+        case kFsAudioStreamPlaybackCompleted:
+            NSLog(@"kFsAudioStreamPlaybackCompleted---&&&");
+            break;
         case kFsAudioStreamFailed:
             if (_progressUpdateTimer) {
+                [MBProgressHUD showError:@"缓存中，可回退进度"];
                 [_progressUpdateTimer invalidate];
             }
             break;
@@ -151,8 +159,8 @@
 - (void)updatePlaybackProgress
 {
     if (self.fsController.activeStream.continuous) {
-        //        [self.progressTextFieldCell setTitle:@""];
-        NSLog(@"self.fsController.activeStream.continuous = %d",self.fsController.activeStream.continuous);
+        // 下一首?
+        NSLog(@"下一首？ = %d",self.fsController.activeStream.continuous);
     } else {
         FSStreamPosition cur = self.fsController.activeStream.currentTimePlayed;
         FSStreamPosition end = self.fsController.activeStream.duration;
@@ -161,11 +169,8 @@
         NSString *loadDate = [NSString stringWithFormat:@"%i:%02i",cur.minute, cur.second];
         NSString *totalDate = [NSString stringWithFormat:@"%i:%02i",end.minute, end.second];
         if (self.progressBlock) {
-            self.progressBlock(loadTime/totalTime,loadDate,totalDate);
+            self.progressBlock(loadTime/totalTime,loadDate,totalDate,_isPlayCompletion);
         }
-        KGLog(@"%@",[NSString stringWithFormat:@"%i:%02i / %i:%02i",
-                             cur.minute, cur.second,
-                             end.minute, end.second]);
     }
 }
 

@@ -98,6 +98,8 @@
     
     // 其他缓存
     [UD removeObjectForKey:LastPusaImgURL];
+    [UD removeObjectForKey:LastMusicID];
+    [UD removeObjectForKey:LastMusicCateID];
     
 }
 

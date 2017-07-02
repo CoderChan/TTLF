@@ -10,8 +10,10 @@
 
 
 @interface PlayingRightBarView ()
-
+// 音乐图标
 @property (strong,nonatomic) UIImageView *imageView;
+// 选择动画
+@property (strong,nonatomic) CABasicAnimation *xuanzhuanAnimation;
 
 @end
 
@@ -37,6 +39,22 @@
         }
     }];
     [self addGestureRecognizer:tap];
+    
+    self.xuanzhuanAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    self.xuanzhuanAnimation.toValue = [NSNumber numberWithFloat: M_PI * 2.0];
+    self.xuanzhuanAnimation.duration = 8;
+    self.xuanzhuanAnimation.speed = 0.5;
+    self.xuanzhuanAnimation.cumulative = YES;
+    self.xuanzhuanAnimation.repeatCount = 100000;
+    [self.imageView.layer addAnimation:self.xuanzhuanAnimation forKey:@"rotationAnimation"];
+}
+- (void)remoteAnimation
+{
+    [self.imageView.layer addAnimation:self.xuanzhuanAnimation forKey:@"rotationAnimation"];
+}
+- (void)stopAnimation
+{
+    [self.imageView.layer removeAnimationForKey:@"rotationAnimation"];
 }
 
 - (UIImageView *)imageView

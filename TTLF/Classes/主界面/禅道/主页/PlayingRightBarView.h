@@ -12,6 +12,9 @@
 
 @property (copy,nonatomic) void (^ClickBlock)();
 
-// - (void)addTarget:(id)target action:(SEL)action forControlEvents:(UIControlEvents)controlEvents;
+// 开始动画
+- (void)remoteAnimation;
+// 停止动画
+- (void)stopAnimation;
 
 @end
