@@ -121,6 +121,7 @@
                 if (CurrentPage > sumPage) {
                     // 没有更多的了
                     [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.tableView.mj_header endRefreshing];
                     [self.tableView.mj_footer endRefreshing];
                 }else{
                     CurrentPage++;

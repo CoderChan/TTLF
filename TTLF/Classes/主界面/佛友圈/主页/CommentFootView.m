@@ -86,7 +86,7 @@
     // 评论数
     self.discussNumLabel = [[UILabel alloc]init];
     self.discussNumLabel.text = @"0";
-    self.discussNumLabel.textColor = MainColor;
+    self.discussNumLabel.textColor = WarningColor;
     [self.discussNumLabel sizeToFit];
     self.discussNumLabel.backgroundColor = self.backgroundColor;
     self.discussNumLabel.font = [UIFont boldSystemFontOfSize:10];

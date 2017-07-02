@@ -48,11 +48,11 @@
         _typeLabel.textColor = RGBACOLOR(253, 199, 40, 1);;
         _typeLabel.text = @"普通管理员";
     }else if (userModel.type == 8){
-//        [_typeLabel removeFromSuperview];
-        _typeLabel.text = @"普通用户";
+        //        _typeLabel.text = @"普通用户";
+        [_typeLabel removeFromSuperview];
     }else{
-        _typeLabel.text = [NSString stringWithFormat:@"type=%d",userModel.type];
-//        [_typeLabel removeFromSuperview];
+//        _typeLabel.text = [NSString stringWithFormat:@"type=%d",userModel.type];
+        [_typeLabel removeFromSuperview];
     }
 }
 
