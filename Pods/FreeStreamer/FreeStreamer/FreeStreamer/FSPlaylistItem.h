@@ -14,6 +14,8 @@
 @interface FSPlaylistItem : NSObject {
 }
 
+// ID 为了排序
+@property (assign,nonatomic) NSInteger listID;
 /**
  * The title of the playlist item.
  */

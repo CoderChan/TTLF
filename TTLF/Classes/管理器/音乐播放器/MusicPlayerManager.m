@@ -62,30 +62,7 @@
         
     }
 }
-#pragma mark - 继续播放
-- (void)continuePlay
-{
-//    [self.fsController play];
-}
-#pragma mark - 是否正在播放
-- (BOOL)isPlaying
-{
-    return [self.fsController isPlaying];
-}
-#pragma mark - 暂停播放
-- (void)pause
-{
-    [self.fsController pause];
-}
 
-#pragma mark - 停止播放
-- (void)stop
-{
-    [self.fsController stop];
-    // 清除当前播放的音乐ID
-    NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
-    [UD removeObjectForKey:LastMusicID];
-}
 
 #pragma mark - 代理
 - (BOOL)audioController:(FSAudioController *)audioController allowPreloadingForStream:(FSAudioStream *)stream
@@ -105,7 +82,7 @@
     NSString *filePath = [path stringByAppendingPathComponent:fileName];
     NSFileManager *fileManager = [NSFileManager defaultManager];
     BOOL result = [fileManager fileExistsAtPath:filePath];
-    NSLog(@"这个文件已经存在：%@",result?@"是的":@"不存在");
+    KGLog(@"这个文件已经存在：%@",result?@"是的":@"不存在");
     if (result) {
         return filePath;
     }else{
@@ -175,6 +152,7 @@
 {
     if (self.fsController.activeStream.continuous) {
         //        [self.progressTextFieldCell setTitle:@""];
+        NSLog(@"self.fsController.activeStream.continuous = %d",self.fsController.activeStream.continuous);
     } else {
         FSStreamPosition cur = self.fsController.activeStream.currentTimePlayed;
         FSStreamPosition end = self.fsController.activeStream.duration;
@@ -211,11 +189,12 @@
     }
 }
 
-- (void)audioStreamMetaDataAvailable:(NSNotification *)notification {
+- (void)audioStreamMetaDataAvailable:(NSNotification *)notification
+{
     NSDictionary *dict = [notification userInfo];
     NSDictionary *metaData = [dict valueForKey:FSAudioStreamNotificationKey_MetaData];
     NSString *streamTitle = [metaData objectForKey:@"StreamTitle"];
-    NSLog(@"%@",streamTitle);
+    NSLog(@"streamTitle = %@",streamTitle);
 }
 
 - (void)dealloc {

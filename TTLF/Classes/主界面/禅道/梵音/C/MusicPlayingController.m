@@ -11,7 +11,9 @@
 #import "PlayListView.h"
 #import <FSAudioController.h>
 #import <FSAudioStream.h>
+#import <FSPlaylistItem.h>
 #import <AVFoundation/AVFoundation.h>
+#import <MediaPlayer/MediaPlayer.h>
 #import "MusicDetialView.h"
 #import "CommentMusicController.h"
 
@@ -59,7 +61,7 @@
 // 评论数
 @property (strong,nonatomic) UILabel *commentNumLabel;
 
-
+@property (strong,nonatomic) NSMutableArray *playItemArray;
 
 
 @end
@@ -74,6 +76,23 @@
         
         self.dataSource = dataSource;
         self.currentIndex = currentIndex;
+        
+        for (int i = 0; i < self.dataSource.count; i++) {
+            AlbumInfoModel *model = self.dataSource[i];
+            FSPlaylistItem *item = [[FSPlaylistItem alloc]init];
+            item.listID = i;
+            item.title = model.music_name;
+            item.url = [NSURL URLWithString:model.music_desc];
+            item.originatingUrl = [NSURL URLWithString:model.music_desc];
+            [self.playItemArray addObject:item];
+        }
+        
+        [self.playItemArray sortUsingComparator:^NSComparisonResult(FSPlaylistItem  *obj1, FSPlaylistItem  *obj2) {
+            NSString *musicID1 = [NSString stringWithFormat:@"%ld",obj1.listID];
+            NSString *musicID2 = [NSString stringWithFormat:@"%ld",obj2.listID];;
+            return [musicID1 localizedStandardCompare:musicID2];
+        }];
+        
     }
     return self;
 }
@@ -235,7 +254,7 @@
     
     // 播放总时长
     self.sumTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.width - self.currentTimeLabel.width, self.currentTimeLabel.y, self.currentTimeLabel.width, self.currentTimeLabel.height)];
-    self.sumTimeLabel.text = @"00:00";
+    self.sumTimeLabel.text = @"0:00";
     self.sumTimeLabel.textAlignment = NSTextAlignmentCenter;
     self.sumTimeLabel.textColor = [UIColor whiteColor];
     self.sumTimeLabel.font = [UIFont systemFontOfSize:11];
@@ -337,8 +356,8 @@
         [sender setImage:[UIImage imageNamed:@"music_btn_pause"] forState:UIControlStateNormal];
         [sender setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateHighlighted];
         
-        AlbumInfoModel *model = self.dataSource[self.currentIndex];
-        [[MusicPlayerManager sharedManager].fsController playFromURL:[NSURL URLWithString:model.music_desc]];
+        [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
+        [self setupLockScreenInfo]; // 刷新锁屏信息
         [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
             self.currentTimeLabel.text = loadTime;
             self.sumTimeLabel.text = totalTime;
@@ -366,17 +385,35 @@
 // 上一首
 - (void)lastButtonClick:(UIButton *)sender
 {
-    
+    if ([[MusicPlayerManager sharedManager].fsController hasPreviousItem]) {
+        self.currentIndex--;
+        AlbumInfoModel *model = self.dataSource[self.currentIndex];
+        [self reloadULAction:model];
+        
+        [[MusicPlayerManager sharedManager].fsController playPreviousItem];
+        [self setupLockScreenInfo]; // 刷新锁屏信息
+    }else{
+        [self showPopTipsWithMessage:@"已经是第一首" AtView:self.lastButton inView:self.view];
+    }
 }
 // 下一首
 - (void)nextButtonClick:(UIButton *)sender
 {
-    
+    if ([[MusicPlayerManager sharedManager].fsController hasNextItem]) {
+        self.currentIndex++;
+        AlbumInfoModel *model = self.dataSource[self.currentIndex];
+        [self reloadULAction:model];
+        
+        [[MusicPlayerManager sharedManager].fsController playNextItem];
+        [self setupLockScreenInfo]; // 刷新锁屏信息
+    }else{
+        [self showPopTipsWithMessage:@"已经是最后一首" AtView:self.nextButton inView:self.view];
+    }
 }
 // 播放顺序
 - (void)typeButtonClick:(UIButton *)sender
 {
-    
+    [self showPopTipsWithMessage:@"暂只支持顺便播放" AtView:self.playTypeButton inView:self.view];
 }
 // 播放列表
 - (void)listButtonClick:(UIButton *)sender
@@ -391,7 +428,8 @@
             // 选择其他的
             self.currentIndex = selectIndex;
             [[MusicPlayerManager sharedManager].fsController stop];
-            [[MusicPlayerManager sharedManager].fsController playFromURL:[NSURL URLWithString:model.music_desc]];
+            [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
+            [self setupLockScreenInfo]; // 刷新锁屏信息
             [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
                 self.currentTimeLabel.text = loadTime;
                 self.sumTimeLabel.text = totalTime;
@@ -408,7 +446,15 @@
 // 下载
 - (void)downLoadButtonClick:(UIButton *)sender
 {
-    
+    [[TTLFManager sharedManager].networkManager downLoadMusicWithModel:self.dataSource[self.currentIndex] Progress:^(NSProgress *progress) {
+        
+        KGLog(@"下载进度 = %g",progress.fractionCompleted);
+        
+    } Success:^(NSString *string) {
+        [self sendAlertAction:string];
+    } Fail:^(NSString *errorMsg) {
+        [self sendAlertAction:errorMsg];
+    }];
 }
 // 评论
 - (void)commentButtonClick:(UIButton *)sender
@@ -493,6 +539,45 @@
 {
     return YES;
 }
+//音乐锁屏信息展示
+- (void)setupLockScreenInfo
+{
+    AlbumInfoModel *model = self.dataSource[self.currentIndex];
+    MPNowPlayingInfoCenter *playingInfoCenter = [MPNowPlayingInfoCenter defaultCenter];
+    // 歌名
+    NSMutableDictionary *playingInfoDict = [NSMutableDictionary dictionary];
+    [playingInfoDict setObject:model.music_name forKey:MPMediaItemPropertyAlbumTitle];
+    // 作者
+    [playingInfoDict setObject:model.music_author forKey:MPMediaItemPropertyArtist];
+    // 封面
+    UIImage *image = [self getMusicImageWithMusicId:model];
+    MPMediaItemArtwork *artwork = [[MPMediaItemArtwork alloc] initWithImage:image];
+    [playingInfoDict setObject:artwork forKey:MPMediaItemPropertyArtwork];
+    // 播放时长
+    NSDictionary *opts = [NSDictionary dictionaryWithObject:@(NO) forKey:AVURLAssetPreferPreciseDurationAndTimingKey];
+    AVURLAsset *urlAsset = [AVURLAsset URLAssetWithURL:[NSURL URLWithString:model.music_desc] options:opts]; // 初始化视频媒体文件
+    NSUInteger second = 0;
+    second = urlAsset.duration.value / urlAsset.duration.timescale; // 获取视频总时长,单位秒
+    [playingInfoDict setObject:@(second) forKey:MPMediaItemPropertyPlaybackDuration];
+    
+    playingInfoCenter.nowPlayingInfo = playingInfoDict;
+    // 开启远程交互
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    
+}
+//获取远程网络图片，如有缓存取缓存，没有缓存，远程加载并缓存
+- (UIImage*)getMusicImageWithMusicId:(AlbumInfoModel *)model
+{
+    
+    UIImage *cachedImage = [[SDImageCache sharedImageCache] imageFromDiskCacheForKey:model.music_logo];
+    if (cachedImage) {
+        return cachedImage;
+    }else{
+        UIImage *image = self.centerImgView.image;
+        return image;
+    }
+}
+
 // 重写父类方法，接受外部事件的的处理
 - (void)remoteControlReceivedWithEvent:(UIEvent *)event
 {
@@ -505,11 +590,11 @@
                 break;
             case UIEventSubtypeRemoteControlPreviousTrack:
                 // 上一首
-                
+                [self lastButtonClick:self.lastButton];
                 break;
             case UIEventSubtypeRemoteControlNextTrack:
                 // 下一首
-                
+                [self nextButtonClick:self.nextButton];
                 break;
             case UIEventSubtypeRemoteControlPlay:
                 // 播放
@@ -620,5 +705,12 @@
     }
 }
 
+- (NSMutableArray *)playItemArray
+{
+    if (!_playItemArray) {
+        _playItemArray = [NSMutableArray array];
+    }
+    return _playItemArray;
+}
 
 @end
