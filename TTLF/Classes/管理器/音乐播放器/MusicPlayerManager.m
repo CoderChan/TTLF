@@ -185,7 +185,7 @@
         if (self.progressBlock) {
             self.progressBlock(loadTime/totalTime,loadDate,totalDate);
         }
-        NSLog(@"%@",[NSString stringWithFormat:@"%i:%02i / %i:%02i",
+        KGLog(@"%@",[NSString stringWithFormat:@"%i:%02i / %i:%02i",
                              cur.minute, cur.second,
                              end.minute, end.second]);
     }

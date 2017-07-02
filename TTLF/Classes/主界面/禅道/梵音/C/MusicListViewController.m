@@ -12,6 +12,7 @@
 #import "AlbumListViewController.h"
 #import "MusicPlayingController.h"
 #import "PlayingRightBarView.h"
+#import <MJExtension/MJExtension.h>
 #import "RootNavgationController.h"
 
 
@@ -19,11 +20,14 @@
 #define Space 5
 
 @interface MusicListViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,UIScrollViewDelegate>
-
+{
+    int page; // 当前页
+    int pageNum; // 每页多少条
+}
 /** UICollectionView */
 @property (strong,nonatomic) UICollectionView *collectionView;
 /** 数据源--最新模板 */
-@property (copy,nonatomic) NSArray *array;
+@property (strong,nonatomic) NSMutableArray *array;
 
 @end
 
@@ -37,6 +41,9 @@
 
 - (void)setupSubViews
 {
+    page = 1;
+    pageNum = 10;
+    
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.view.backgroundColor = [UIColor whiteColor];
     // 表格
@@ -50,20 +57,97 @@
     [self.view addSubview:self.collectionView];
     
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-        [[TTLFManager sharedManager].networkManager musicCateListSuccess:^(NSArray *array) {
-            [self hideMessageAction];
+        [self.array removeAllObjects];
+        page = 1;
+        
+        [self getMusicCateSuccess:^(NSArray *array) {
             [self.collectionView.mj_header endRefreshing];
-            self.array = array;
+            [self hideMessageAction];
+            [self.array addObjectsFromArray:array];
             [self.collectionView reloadData];
         } Fail:^(NSString *errorMsg) {
+            page = 1;
             [self.collectionView.mj_header endRefreshing];
-            self.array = @[];
-            [self.collectionView reloadData];
             [self showEmptyViewWithMessage:errorMsg];
         }];
     }];
     [self.collectionView.mj_header beginRefreshing];
     
+    self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
+        [self getMusicCateSuccess:^(NSArray *array) {
+            [self.collectionView.mj_footer endRefreshing];
+            [self.array addObjectsFromArray:array];
+            [self.collectionView reloadData];
+        } Fail:^(NSString *errorMsg) {
+            [self.collectionView.mj_footer endRefreshing];
+            [MBProgressHUD showError:errorMsg];
+        }];
+    }];
+}
+
+#pragma mark - 获取数据
+- (void)getMusicCateSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Music/index";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:[NSString stringWithFormat:@"%d",page].base64EncodedString forKey:@"page"];
+    [param setValue:[NSString stringWithFormat:@"%d",pageNum].base64EncodedString forKey:@"pageNum"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/index?userID=%@&page=%@&pageNum=%@",account.userID.base64EncodedString,[NSString stringWithFormat:@"%d",page].base64EncodedString,[NSString stringWithFormat:@"%d",pageNum].base64EncodedString];
+    NSLog(@"梵音分类列表 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        int totalPage = [[[responseObject objectForKey:@"totalPage"] description] intValue];
+        
+        if (code == 1) {
+            int yushu = totalPage % pageNum;
+            if (yushu == 0) {
+                // 正好整除
+                int sumPage = totalPage/pageNum;
+                if (page > sumPage) {
+                    // 没有更多的了
+                    [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.collectionView.mj_header endRefreshing];
+                    [self.collectionView.mj_footer endRefreshing];
+                }else{
+                    page++;
+                    NSArray *result = [responseObject objectForKey:@"result"];
+                    NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
+                    success(modelArray);
+                }
+            }else{
+                // 没有整除，总页数=商+1
+                int sumPage = totalPage/pageNum + 1;
+                if (page > sumPage) {
+                    // 没有更多的了
+                    [MBProgressHUD showNormal:@"暂无更多"];
+                    [self.collectionView.mj_header endRefreshing];
+                    [self.collectionView.mj_footer endRefreshing];
+                }else{
+                    page++;
+                    NSArray *result = [responseObject objectForKey:@"result"];
+                    NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
+                    success(modelArray);
+                }
+            }
+            
+            
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
 }
 
 #pragma mark - 表格相关
@@ -116,7 +200,13 @@
 {
     return Space;
 }
-
+- (NSMutableArray *)array
+{
+    if (!_array) {
+        _array = [NSMutableArray array];
+    }
+    return _array;
+}
 
 
 

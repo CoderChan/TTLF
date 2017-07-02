@@ -227,7 +227,7 @@
     
     // 当前播放时间
     self.currentTimeLabel = [[UILabel alloc]initWithFrame:CGRectMake(0, self.playButton.y - 21 - 15, 40, 21)];
-    self.currentTimeLabel.text = @"00:00";
+    self.currentTimeLabel.text = @"0:00";
     self.currentTimeLabel.textAlignment = NSTextAlignmentCenter;
     self.currentTimeLabel.textColor = [UIColor whiteColor];
     self.currentTimeLabel.font = [UIFont systemFontOfSize:11];
@@ -282,6 +282,14 @@
     
     // 添加监听
     [YLNotificationCenter addObserver:self selector:@selector(beginLightingAction) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+    // 判断播放状态
+    [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
+        self.currentTimeLabel.text = loadTime;
+        self.sumTimeLabel.text = totalTime;
+        self.progressView.progress = f;
+        self.sliderView.value = f;
+    };
     
     // 获取其他数据
     self.commentArray = @[];
@@ -348,6 +356,13 @@
     }
 
 }
+// 歌曲换了或其他问题，刷新UI界面
+- (void)reloadULAction:(AlbumInfoModel *)model
+{
+    [self.centerImgView sd_setImageWithURL:[NSURL URLWithString:model.music_logo] placeholderImage:[UIImage imageWithColor:MainColor]];
+    self.titleLabel.text = model.music_name;
+    self.writerLabel.text = model.music_author;
+}
 // 上一首
 - (void)lastButtonClick:(UIButton *)sender
 {
@@ -369,7 +384,23 @@
     UIWindow *keyWindow = [UIApplication sharedApplication].keyWindow;
     PlayListView *playList = [[PlayListView alloc]initWithArray:self.dataSource CurrentIndex:self.currentIndex];
     playList.SelectModelBlock = ^(AlbumInfoModel *model, NSInteger selectIndex) {
-        [MBProgressHUD showSuccess:model.music_name];
+        if (self.currentIndex == selectIndex) {
+            // 选中的是同一首
+            
+        }else{
+            // 选择其他的
+            self.currentIndex = selectIndex;
+            [[MusicPlayerManager sharedManager].fsController stop];
+            [[MusicPlayerManager sharedManager].fsController playFromURL:[NSURL URLWithString:model.music_desc]];
+            [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime) {
+                self.currentTimeLabel.text = loadTime;
+                self.sumTimeLabel.text = totalTime;
+                self.progressView.progress = f;
+                self.sliderView.value = f;
+            };
+            // 修改刷新UI界面
+            [self reloadULAction:self.dataSource[self.currentIndex]];
+        }
     };
     playList.frame = keyWindow.bounds;
     [keyWindow addSubview:playList];

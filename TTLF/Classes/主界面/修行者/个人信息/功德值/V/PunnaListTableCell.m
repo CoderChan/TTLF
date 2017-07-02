@@ -60,6 +60,9 @@
     }else if ([model.option_type containsString:@"被收藏"]){
         _iconView.image = [UIImage imageNamed:@"puna_vege_store"];
         _contentLabel.text = model.option_type;
+    }else if ([model.option_type containsString:@"推广"]){
+        _iconView.image = [UIImage imageNamed:@"wo_tuiguang"];
+        _contentLabel.text = @"每日推广";
     }else{
         _contentLabel.text = model.option_type;
     }
