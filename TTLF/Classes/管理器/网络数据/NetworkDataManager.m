@@ -231,6 +231,7 @@
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         
     }];
+    [[MusicPlayerManager sharedManager].fsController stop];
     [[TTLFManager sharedManager].userManager removeDataSave];
     NSFileManager *fileManager=[NSFileManager defaultManager];
     
@@ -260,6 +261,7 @@
 }
 - (void)clearCacheCompletion:(void (^)())completion
 {
+    
     [[SDImageCache sharedImageCache] clearDiskOnCompletion:^{
         completion();
     }];

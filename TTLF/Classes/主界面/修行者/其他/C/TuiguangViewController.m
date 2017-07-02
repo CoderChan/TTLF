@@ -78,6 +78,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     self.photosView.y = CGRectGetMaxY(self.descTextView.frame) + 15;
     [self.view addSubview:self.photosView];
     
+    
     // 微信、QQ
     UIButton *wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
     wechatButton.frame = CGRectMake(self.view.width/2 - 80 - 20, CGRectGetMaxY(self.photosView.frame) + 30, 80*CKproportion, 80*CKproportion);
@@ -149,11 +150,11 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     sendButton.layer.cornerRadius = 4;
     [self.view addSubview:sendButton];
     
-    
 }
 
 - (void)shareToWechatAction
 {
+    
     
     NSString *shareType;
     if (self.type == WechatType) {
@@ -186,7 +187,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     composeVc.completionHandler = ^(SLComposeViewControllerResult reulst) {
         if (reulst == SLComposeViewControllerResultDone) {
             [[TTLFManager sharedManager].networkManager shareNineTableCompletion:^{
-                [self sendAlertAction:@"感谢推广"];
+                [self sendAlertAction:@"感谢您的转发，您可查看功德值增长变化。"];
             }];
         } else {
             [MBProgressHUD showError:@"分享失败"];
@@ -197,7 +198,6 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
         
     }];
 }
-
 
 // 提示
 - (void)tipAction

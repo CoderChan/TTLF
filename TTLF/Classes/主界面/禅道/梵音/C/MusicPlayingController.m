@@ -302,16 +302,28 @@
     
     // 添加监听
     [YLNotificationCenter addObserver:self selector:@selector(beginLightingAction) name:UIApplicationDidBecomeActiveNotification object:nil];
+    // 监听刚进来时的进度
+    [YLNotificationCenter addObserver:self selector:@selector(observerDurationAction) name:UIApplicationWillEnterForegroundNotification object:nil];
+    [self observerDurationAction];
     
     // 判断播放状态
-    [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime, BOOL isPlayCompletion) {
-        self.currentTimeLabel.text = loadTime;
-        self.sumTimeLabel.text = totalTime;
-        self.progressView.progress = f;
-        self.sliderView.value = f;
-    };
+    FSPlaylistItem *currentStream = [[MusicPlayerManager sharedManager].fsController currentPlaylistItem];
+    if ([[MusicPlayerManager sharedManager].fsController isPlaying]) {
+        // 正在播放，判断是不是当前播放的mp3
+        if ([model.music_desc isEqualToString:currentStream.url.absoluteString]) {
+            // 播放的是同一首
+            [self.playButton setImage:[UIImage imageNamed:@"music_btn_pause"] forState:UIControlStateNormal];
+            [self.playButton setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateHighlighted];
+        }else{
+            // 切换歌曲
+            [self playButtonClick:self.playButton];
+        }
+    }else{
+        // 没有播放
+        [self playButtonClick:self.playButton];
+    }
     
-    // 获取其他数据
+    // 获取评论数据数据
     self.commentArray = @[];
     [[TTLFManager sharedManager].networkManager musicCommentListWithModel:model Success:^(NSArray *array) {
         self.commentArray = array;
@@ -325,6 +337,17 @@
         self.commentArray = @[];
     }];
     
+}
+
+- (void)observerDurationAction
+{
+    // 监听播放状态
+    [MusicPlayerManager sharedManager].progressBlock = ^(CGFloat f, NSString *loadTime, NSString *totalTime, BOOL isPlayCompletion) {
+        self.currentTimeLabel.text = loadTime;
+        self.sumTimeLabel.text = totalTime;
+        self.progressView.progress = f;
+        self.sliderView.value = f;
+    };
 }
 
 #pragma mark - 点击事件
@@ -351,9 +374,9 @@
 // 播放
 - (void)playButtonClick:(UIButton *)sender
 {
-    if (!sender.selected) {
+    if (![[MusicPlayerManager sharedManager].fsController isPlaying]) {
         // 开始/继续播放
-        sender.selected = YES;
+//        sender.selected = YES;
         [sender setImage:[UIImage imageNamed:@"music_btn_pause"] forState:UIControlStateNormal];
         [sender setImage:[UIImage imageNamed:@"music_btn_pause_prs"] forState:UIControlStateHighlighted];
         
@@ -388,7 +411,7 @@
         
     }else{
         // 暂停播放，进入界面不自动执行暂停事件
-        sender.selected = NO;
+//        sender.selected = NO;
         [sender setImage:[UIImage imageNamed:@"music_btn_play"] forState:UIControlStateNormal];
         [sender setImage:[UIImage imageNamed:@"music_btn_play_prs"] forState:UIControlStateHighlighted];
         
@@ -464,10 +487,16 @@
     playList.SelectModelBlock = ^(AlbumInfoModel *model, NSInteger selectIndex) {
         if (self.currentIndex == selectIndex) {
             // 选中的是同一首
+            NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+            [UD setObject:[NSString stringWithFormat:@"%ld",selectIndex] forKey:LastMusicIndex];
+            [UD synchronize];
             
         }else{
             // 选择其他的
             self.currentIndex = selectIndex;
+            NSUserDefaults *UD = [NSUserDefaults standardUserDefaults];
+            [UD setObject:[NSString stringWithFormat:@"%ld",selectIndex] forKey:LastMusicIndex];
+            [UD synchronize];
             [[MusicPlayerManager sharedManager].fsController stop];
             [[MusicPlayerManager sharedManager].fsController playFromPlaylist:self.playItemArray itemIndex:self.currentIndex];
             [self setupLockScreenInfo]; // 刷新锁屏信息
@@ -572,27 +601,21 @@
 - (void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
-    UIDevice *device = [UIDevice currentDevice];
-    BOOL backgroundSupported = NO;
-    if ([device respondsToSelector:@selector(isMultitaskingSupported)] ){
-        backgroundSupported = device.multitaskingSupported;
-    }
     
-    if (backgroundSupported == YES ){
-        [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-        //注意这里，告诉系统已经准备好了
-        [self becomeFirstResponder];
-    }
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //注意这里，告诉系统已经准备好了
+    [self becomeFirstResponder];
     
 }
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-//    // 结束远程控制 为添加到音频中心后台播放做准备
-//    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
-//    [self resignFirstResponder];
-    
     [self.navigationController.navigationBar setHidden:NO];
+    
+    [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+    //注意这里，告诉系统已经准备好了
+    [self becomeFirstResponder];
+    
     
 }
 - (BOOL)canBecomeFirstResponder
@@ -658,7 +681,7 @@
                 break;
             case UIEventSubtypeRemoteControlPlay:
                 // 继续播放，有问题
-                [[MusicPlayerManager sharedManager].fsController.activeStream play];
+                [[MusicPlayerManager sharedManager].fsController play];
                 break;
             case UIEventSubtypeRemoteControlPause:
                 // 暂停 iOS7
