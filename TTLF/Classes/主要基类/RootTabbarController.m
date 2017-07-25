@@ -53,9 +53,9 @@
     ZanViewController *vc2 = [[ZanViewController alloc] init];
     [self addChildVC:vc2 Title:@"禅道" image:@"tabbar_chan" selectedImage:@"tabbar_chan" Tag:2];
     
-//    DiscoverViewController *vc3 = [[DiscoverViewController alloc] init];
-//    vc3.tabBarItem.badgeValue = @"12";
-//    [self addChildVC:vc3 Title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover" Tag:3];
+    DiscoverViewController *vc3 = [[DiscoverViewController alloc] init];
+    vc3.tabBarItem.badgeValue = @"12";
+    [self addChildVC:vc3 Title:@"发现" image:@"tabbar_discover" selectedImage:@"tabbar_discover" Tag:3];
     
     WoViewController *vc4 = [[WoViewController alloc]init];
     [self addChildVC:vc4 Title:@"修行者" image:@"tabbar_wo" selectedImage:@"tabbar_wo" Tag:4];
@@ -65,12 +65,12 @@
     [TTLFManager sharedManager].homeVC = vc1;
     [TTLFManager sharedManager].tabbar = self;
     
-    // 获取或更新一些缓存数据
-    [[TTLFManager sharedManager].networkManager getAddressListSuccess:^(NSArray *array) {
-        
-    } Fail:^(NSString *errorMsg) {
-        
-    }];
+//    // 获取或更新一些缓存数据
+//    [[TTLFManager sharedManager].networkManager getAddressListSuccess:^(NSArray *array) {
+//        
+//    } Fail:^(NSString *errorMsg) {
+//        
+//    }];
     
 }
 #pragma mark - 添加子控制器

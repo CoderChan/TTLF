@@ -50,7 +50,7 @@
     if (model.is_default) {
         [_defaultBtn setImage:[UIImage imageNamed:@"cm2_list_checkbox_ok"] forState:UIControlStateNormal];
         [_defaultBtn setTitleColor:RGBACOLOR(84, 172, 63, 1) forState:UIControlStateNormal];
-        [_defaultBtn setTitle:@"默认地址" forState:UIControlStateNormal];
+        [_defaultBtn setTitle:@"当前默认地址" forState:UIControlStateNormal];
     }else{
         [_defaultBtn setImage:[UIImage imageNamed:@"cm2_list_checkbox"] forState:UIControlStateNormal];
         [_defaultBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];

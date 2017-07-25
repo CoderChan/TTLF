@@ -10,7 +10,7 @@
 #import "AlbumInfoModel.h"
 
 
-/** 下载梵音的 */
+/** 梵音专辑列表 */
 @interface MusicCacheManager : NSObject
 
 /**

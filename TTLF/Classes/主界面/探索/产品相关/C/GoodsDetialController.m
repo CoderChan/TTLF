@@ -105,7 +105,7 @@
     [taobaoBtn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     [taobaoBtn addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         
-        NormalWebViewController *taobao = [[NormalWebViewController alloc]initWithUrlStr:self.model.article_describe];
+        NormalWebViewController *taobao = [[NormalWebViewController alloc]initWithUrlStr:self.model.taobao_url];
         [self.navigationController pushViewController:taobao animated:YES];
         
     }];
@@ -128,6 +128,7 @@
     [addButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
         
         [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:@"1" Remark:nil Success:^{
+            [YLNotificationCenter postNotificationName:OrderListChanged object:nil];
             [self showPopTipsWithMessage:@"添加成功" AtView:sender inView:self.view];
         } Fail:^(NSString *errorMsg) {
             [self sendAlertAction:errorMsg];
@@ -155,7 +156,7 @@
     
     
     // FootView
-    CGSize size = [self.model.article_desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
+    CGSize size = [self.model.goods_desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
     CGFloat space = 20;
     CGFloat iconHeight = (self.view.width - 30 - 4*space)/3;
     CGFloat footHeight = size.height + 15 + 10 + iconHeight + 10;
@@ -220,7 +221,7 @@
     if (indexPath.section == 0) {
         return (self.view.height - 64 - 50)*0.7;
     }else if (indexPath.section == 1){
-        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
+        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.goods_name,self.model.goods_name_desc];
         CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
         CGFloat height = size.height + 10 + 30 + 20;
         return height;
@@ -254,7 +255,7 @@
     NSString *shareUrl = [NSString stringWithFormat:@"%@%@",self.model.web_url,self.model.goods_id];
     if (clickType == WechatFriendType) {
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = self.model.article_name;
+        message.title = self.model.goods_name_desc;
         message.description = self.model.goods_desc;
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
@@ -269,7 +270,7 @@
         [WXApi sendReq:req];
     }else if(clickType == WechatQuanType){
         WXMediaMessage *message = [WXMediaMessage message];
-        message.title = self.model.article_name;
+        message.title = self.model.goods_name_desc;
         message.description = self.model.goods_desc;
         [message setThumbImage:[UIImage imageNamed:@"app_logo"]];
         
@@ -286,9 +287,9 @@
         [MBProgressHUD showSuccess:@"已收藏"];
     }else if (clickType == QQFriendType){
         
-        NSString *title = self.model.article_name;
+        NSString *title = self.model.goods_name_desc;
         NSString *description = self.model.goods_desc;
-        NSString *previewImageUrl = self.model.article_logo;
+        NSString *previewImageUrl = self.model.goods_logo;
         QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         //将内容分享到qq
@@ -297,9 +298,9 @@
         
     }else if (clickType == QQSpaceType){
         
-        NSString *title = self.model.article_name;
+        NSString *title = self.model.goods_name_desc;
         NSString *description = self.model.goods_desc;
-        NSString *previewImageUrl = self.model.article_logo;
+        NSString *previewImageUrl = self.model.goods_logo;
         QQApiNewsObject *newsObj = [QQApiNewsObject objectWithURL:[NSURL URLWithString:shareUrl] title:title description:description previewImageURL:[NSURL URLWithString:previewImageUrl]];
         SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
         //将内容分享到qzone
@@ -315,7 +316,7 @@
     }else if (clickType == SystermShareType){
         // 系统分享
         NSURL *url = [NSURL URLWithString:shareUrl];
-        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[[UIImage imageNamed:@"app_logo"],self.model.article_name,url] applicationActivities:nil];
+        UIActivityViewController *activity = [[UIActivityViewController alloc]initWithActivityItems:@[[UIImage imageNamed:@"app_logo"],self.model.goods_name_desc,url] applicationActivities:nil];
         [self presentViewController:activity animated:YES completion:^{
             
         }];
@@ -351,11 +352,11 @@
 - (SDCycleScrollView *)scrollView
 {
     if (!_scrollView) {
-        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70) imageURLStringsGroup:@[self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo]];
+        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70) imageURLStringsGroup:@[self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo]];
         _scrollView.delegate = self;
         _scrollView.placeholderImage = [UIImage imageNamed:@"good_place"];
         _scrollView.autoScroll = NO;
-        _scrollView.imageURLStringsGroup = @[self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo,self.model.article_logo];
+        _scrollView.imageURLStringsGroup = @[self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo];
         
     }
     return _scrollView;
@@ -364,7 +365,7 @@
 {
     if (!_nameLabel) {
         
-        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
+        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.goods_name,self.model.goods_name_desc];
         CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
         _nameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 10, self.view.width - 30, size.height + 10)];
         _nameLabel.numberOfLines = 2;

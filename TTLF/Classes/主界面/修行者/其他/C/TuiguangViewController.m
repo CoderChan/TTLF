@@ -12,7 +12,7 @@
 #import "PYPhoto.h"
 #import "UIButton+Category.h"
 #import "CMPopTipView.h"
-#import "PYPhotoBrowser.h"
+#import "XLPhotoBrowser.h"
 
 
 #define TextPlace @"推荐下载：佛缘生活APP。附谍照。"
@@ -28,9 +28,9 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
 
 // 文字说明
 @property (strong,nonatomic) UITextView *descTextView;
-// 九宫格
-@property (strong,nonatomic) PYPhotosView *photosView;
-// 装着按钮的数组
+// 图片数组
+@property (strong,nonatomic) NSMutableArray *imageArray;
+// 装着点击按钮的数组
 @property (strong,nonatomic) NSMutableArray *buttonArray;
 // 选择分享的平台
 @property (assign,nonatomic) ShareType type;
@@ -55,33 +55,54 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(tipAction)];
     
     // 文字说明
-    self.descTextView = [[UITextView alloc]initWithFrame:CGRectMake(20, 10, self.view.width - 40, 100*CKproportion)];
+    self.descTextView = [[UITextView alloc]initWithFrame:CGRectMake(20, 10, self.view.width - 40, 85*CKproportion)];
     self.descTextView.editable = NO;
     self.descTextView.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     self.descTextView.text = @"为方便广大佛友，开发团队耗时多年打造精品应用佛缘生活APP，如果您身边有佛学人士，我们欢迎您一键转发，此样式为九宫格格式，适合发送到朋友圈、QQ空间。我们致力于营造良好的佛学环境和开放的交流空间。为此我们将赠送您1点功德值，每日最多2次。谢谢！";
     self.descTextView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.descTextView];
     
-    NSArray *imageArray = @[@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488754311509.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488752865670.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488759186543.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488762208816.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488755646614.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488758676919.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488770230282.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488764584360.png",@"http://app.yangruyi.com/Project/Uploads/Ueditor/20170626/1498488774781098.png"];
+    self.imageArray = [NSMutableArray array];
+    for (int i = 1; i <= 9; i++) {
+        NSString *imgName = [NSString stringWithFormat:@"share_%d",i];
+        UIImage *image = [UIImage imageNamed:imgName];
+        [self.imageArray addObject:image];
+    }
     
     
     // 九宫格
-    self.photosView = [PYPhotosView photosViewWithThumbnailUrls:imageArray originalUrls:imageArray photosMaxCol:3];
-    CGFloat W = ((self.view.width - 4 * _photosView.photoMargin)/3 - 30*CKproportion)*CKproportion;
-    self.photosView.photosState = PYPhotosViewStateDidCompose;
-    self.photosView.photoMargin = 5;
-    self.photosView.photoWidth = W;
-    self.photosView.photoHeight = _photosView.photoWidth;
-    self.photosView.showDuration = 0.25;
-    self.photosView.hiddenDuration = 0.25;
-    self.photosView.x = (self.view.width - (W * 3 - self.photosView.photoMargin*2))/2;
-    self.photosView.y = CGRectGetMaxY(self.descTextView.frame) + 15;
-    [self.view addSubview:self.photosView];
     
+    CGFloat space = 5;
+    CGFloat width = (self.view.width - 30*CKproportion * 2 - space * 4)/3;
+    CGFloat height = width;
+    CGRect frame;
+    for (int i = 0; i < self.imageArray.count; i++) {
+        
+        frame.origin.x = (i%3) * (frame.size.width + space) + space + 30*CKproportion;
+        frame.origin.y = CGRectGetMaxY(self.descTextView.frame) + floor(i/3) * (frame.size.height + space) + 10;
+        frame.size.width = width;
+        frame.size.height = height;
+        
+        UIImageView *imageView = [[UIImageView alloc]initWithImage:self.imageArray[i]];
+        imageView.backgroundColor = NavColor;
+        imageView.userInteractionEnabled = YES;
+        imageView.frame = frame;
+        imageView.contentMode = UIViewContentModeScaleAspectFill;
+        [imageView setContentScaleFactor:[UIScreen mainScreen].scale];
+        imageView.layer.masksToBounds = YES;
+        imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
+        [self.view addSubview:imageView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithActionBlock:^(id  _Nonnull sender) {
+            [XLPhotoBrowser showPhotoBrowserWithImages:self.imageArray currentImageIndex:i];
+        }];
+        [imageView addGestureRecognizer:tap];
+        
+    }
     
     // 微信、QQ
     UIButton *wechatButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    wechatButton.frame = CGRectMake(self.view.width/2 - 80 - 20, CGRectGetMaxY(self.photosView.frame) + 30, 80*CKproportion, 80*CKproportion);
+    wechatButton.frame = CGRectMake(self.view.width/2 - 80 - 20, CGRectGetMaxY(self.descTextView.frame) + 30*CKproportion + height * 3 + space * 4, 80*CKproportion, 80*CKproportion);
     wechatButton.backgroundColor = GreenColor;
     [wechatButton setTitle:@"微信" forState:UIControlStateNormal];
     [wechatButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -109,7 +130,7 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     
     
     UIButton *QQButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    QQButton.frame = CGRectMake(self.view.width/2 + 20, CGRectGetMaxY(self.photosView.frame) + 30, 80*CKproportion, 80*CKproportion);
+    QQButton.frame = CGRectMake(self.view.width/2 + 20, wechatButton.y, 80*CKproportion, 80*CKproportion);
     QQButton.backgroundColor = self.view.backgroundColor;
     [QQButton setTitle:@"QQ" forState:UIControlStateNormal];
     QQButton.titleLabel.font = [UIFont systemFontOfSize:15];
@@ -173,14 +194,13 @@ static NSString *const SLServiceTypeEmail = @"com.apple.UIKit.activity.Mail";
     [pasted setString:TextPlace];
     [MBProgressHUD showNormal:@"已复制到剪贴板"];
     
-    NSArray<PYPhoto *> *photoArray = self.photosView.photos;
     
     // 创建分享控制器
     SLComposeViewController *composeVc = [SLComposeViewController composeViewControllerForServiceType:shareType];
     [composeVc setInitialText:TextPlace];
-    for (int i = 0; i < photoArray.count; i++) {
-        PYPhoto *photo = photoArray[i];
-        UIImage *image = [self addWaterImage:photo.thumbnailImage Name:@"©佛缘生活"];
+    for (int i = 0; i < self.imageArray.count; i++) {
+        
+        UIImage *image = [self addWaterImage:self.imageArray[i] Name:@"©佛缘生活"];
         
         [composeVc addImage:image];
     }

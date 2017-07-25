@@ -22,6 +22,16 @@
 
 @implementation OrderListViewController
 
+
+- (instancetype)initWithOrderList:(NSArray *)orderArray
+{
+    self = [super init];
+    if (self) {
+        self.array = orderArray;
+    }
+    return self;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我的订单";
@@ -43,13 +53,21 @@
         [[TTLFManager sharedManager].networkManager orderListSuccess:^(NSArray *array) {
             [self.tableView.mj_header endRefreshing];
             self.array = array;
+            if (self.NewestOrderBlock) {
+                _NewestOrderBlock(self.array);
+            }
             [self.tableView reloadData];
         } Fail:^(NSString *errorMsg) {
             [self.tableView.mj_header endRefreshing];
             [self sendAlertAction:errorMsg];
         }];
     }];
-    [self.tableView.mj_header beginRefreshing];
+    
+    if (self.array.count >= 1) {
+        [self.tableView reloadData];
+    }else{
+        [self showEmptyViewWithMessage:@"您还没有订单数据"];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

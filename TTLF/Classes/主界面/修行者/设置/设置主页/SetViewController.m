@@ -15,6 +15,7 @@
 #import "NewFetherViewController.h"
 #import "SuggestViewController.h"
 #import <Masonry.h>
+#import "AboutUSViewController.h"
 #import "RootNavgationController.h"
 #import "WechatLoginViewController.h"
 #import "PhoneLoginViewController.h"
@@ -96,7 +97,7 @@
             [self.navigationController pushViewController:shark animated:YES];
         }else{
             // 关于我们
-            NormalWebViewController *web = [[NormalWebViewController alloc]initWithUrlStr:OfficalWebURL];
+            AboutUSViewController *web = [[AboutUSViewController alloc]init];
             [self.navigationController pushViewController:web animated:YES];
         }
     }else if (indexPath.section == 1) {

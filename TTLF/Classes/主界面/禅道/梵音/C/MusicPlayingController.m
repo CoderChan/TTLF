@@ -535,15 +535,15 @@
 // 下载
 - (void)downLoadButtonClick:(UIButton *)sender
 {
-    [[TTLFManager sharedManager].networkManager downLoadMusicWithModel:self.dataSource[self.currentIndex] Progress:^(NSProgress *progress) {
-        
-        KGLog(@"下载进度 = %g",progress.fractionCompleted);
-        
-    } Success:^(NSString *string) {
-        [self sendAlertAction:string];
-    } Fail:^(NSString *errorMsg) {
-        [self sendAlertAction:errorMsg];
-    }];
+//    [[TTLFManager sharedManager].networkManager downLoadMusicWithModel:self.dataSource[self.currentIndex] Progress:^(NSProgress *progress) {
+//        
+//        KGLog(@"下载进度 = %g",progress.fractionCompleted);
+//        
+//    } Success:^(NSString *string) {
+//        [self sendAlertAction:string];
+//    } Fail:^(NSString *errorMsg) {
+//        [self sendAlertAction:errorMsg];
+//    }];
 }
 // 评论
 - (void)commentButtonClick:(UIButton *)sender

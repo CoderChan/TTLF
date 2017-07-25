@@ -22,6 +22,7 @@ extern NSString *const LastPusaImgURL; // 上一次礼佛的佛像图片地址
 extern NSString *const LastMusicID; // 上一次播放音乐的ID
 extern NSString *const LastMusicCateID; // 上一次选中的梵音分类ID
 extern NSString *const LastMusicIndex; // 上一次选中的索引
+extern NSString *const OrderListChanged; // 订单列表数据有变化
 
 
 extern NSString *const UuserID; // 用户ID

@@ -45,7 +45,7 @@
 - (void)setModel:(MusicCateModel *)model
 {
     _model = model;
-    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:model.cate_img] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+    [_coverImgView sd_setImageWithURL:[NSURL URLWithString:model.cate_img] placeholderImage:[UIImage imageNamed:@"error_place"]];
     _nameLabel.text = model.cate_name;
     _writerLabel.text = model.cate_info;
 }

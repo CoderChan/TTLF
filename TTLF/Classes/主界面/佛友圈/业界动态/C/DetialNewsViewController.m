@@ -393,6 +393,7 @@
                 page = i;
             }
         }
+        NSLog(@"图片地址 = %@",self.imgUrlArray);
         [XLPhotoBrowser showPhotoBrowserWithImages:self.imgUrlArray currentImageIndex:0];
         
         return NO;

@@ -20,6 +20,7 @@ NSString *const LastPusaImgURL = @"LastPusaImgURL";
 NSString *const LastMusicID = @"LastMusicID";
 NSString *const LastMusicCateID = @"LastMusicCateID";
 NSString *const LastMusicIndex = @"LastMusicIndex";
+NSString *const OrderListChanged = @"OrderListChanged";
 
 
 

@@ -22,6 +22,8 @@
 /** 状态 */
 @property (strong,nonatomic) UILabel *statusLabel;
 
+// 没有订单时的提示
+@property (strong,nonatomic) UILabel *emptyLabel;
 
 @end
 
@@ -49,16 +51,30 @@
 
 - (void)setModel:(GoodsOrderModel *)model
 {
-    _model = model;
-    [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.article_logo] placeholderImage:[UIImage imageNamed:@"iPhone_place"]];
-    _nameLabel.text = [NSString stringWithFormat:@"%@--%@",model.goods.article_name,model.goods.goods_desc];
-    _dateLabel.text = model.check_time;
-    _orderIDLabel.text = [NSString stringWithFormat:@"订单号#：%@",model.ordernum];
-    if (model.status == 0) {
-        // 未支付
-        _statusLabel.text = @"状态：待支付";
+    if (!model) {
+        // 没有订单的UI显示
+        self.goodImgView.image = nil;
+        self.emptyLabel.hidden = NO;
+        self.nameLabel.text = nil;
+        self.dateLabel.text = nil;
+        self.orderIDLabel.text = nil;
+        self.statusLabel.text = nil;
+        
+        self.emptyLabel.text = @"您还没有订单数据";
     }else{
-        _statusLabel.text = @"看看看";
+        // 有订单的UI界面
+        _model = model;
+        self.emptyLabel.hidden = YES;
+        [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.goods_logo] placeholderImage:[UIImage imageNamed:@"iPhone_place"]];
+        _nameLabel.text = [NSString stringWithFormat:@"%@--%@",model.goods.goods_name,model.goods.goods_name_desc];
+        _dateLabel.text = model.check_time;
+        _orderIDLabel.text = [NSString stringWithFormat:@"订单号#：%@",model.ordernum];
+        if (model.status == 0) {
+            // 未支付
+            _statusLabel.text = @"状态：待支付";
+        }else{
+            _statusLabel.text = @"看看看";
+        }
     }
 }
 
@@ -97,7 +113,21 @@
     self.statusLabel.textColor = WarningColor;
     self.statusLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:self.statusLabel];
+    
+}
 
+- (UILabel *)emptyLabel
+{
+    if (!_emptyLabel) {
+        _emptyLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 160*CKproportion/2 - 20, SCREEN_WIDTH - 40, 40)];
+        _emptyLabel.textColor = [UIColor grayColor];
+        _emptyLabel.textAlignment = NSTextAlignmentCenter;
+        _emptyLabel.font = [UIFont boldSystemFontOfSize:24];
+        _emptyLabel.hidden = YES;
+        [self addSubview:_emptyLabel];
+        
+    }
+    return _emptyLabel;
 }
 
 @end

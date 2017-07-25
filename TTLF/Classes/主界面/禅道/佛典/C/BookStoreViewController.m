@@ -12,6 +12,7 @@
 #import <MJExtension/MJExtension.h>
 #import "BookDetialViewController.h"
 #import "SearchBookVController.h"
+#import "BookStoreCacheManager.h"
 
 
 
@@ -40,7 +41,7 @@
 - (void)setupSubViews
 {
     page = 1;
-    pageNum = 20;
+    pageNum = 30;
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
     self.tableView.delegate = self;
@@ -65,8 +66,9 @@
         }];
         
     }];
-    [self.tableView.mj_header beginRefreshing];
     
+    
+    // 加载更多
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self getBooksInstoreSuccess:^(NSArray *array) {
             [self.tableView.mj_footer endRefreshing];
@@ -78,6 +80,25 @@
         }];
     }];
     
+    NSArray *cateArray = [[BookStoreCacheManager sharedManager] getBookCacheArray];
+    if (cateArray.count >= 1) {
+        [self hideMessageAction];
+        [self.array addObjectsFromArray:cateArray];
+        [self.tableView reloadData];
+        page = 2;
+    }else{
+        [self.tableView.mj_header beginRefreshing];
+    }
+    
+    // 暗中加载最新的
+    [self getNewestDataSuccess:^(NSArray *array) {
+        [self.array removeAllObjects];
+        [self hideMessageAction];
+        [self.array addObjectsFromArray:array];
+        [self.tableView reloadData];
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
+    }];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemSearch target:self action:@selector(searchBookAction)];
     
@@ -147,6 +168,44 @@
         fail(error.localizedDescription);
     }];
 }
+// 暗中加载最新的
+- (void)getNewestDataSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Buddist/index";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:@"1".base64EncodedString forKey:@"page"];
+    [param setValue:[NSString stringWithFormat:@"%d",pageNum].base64EncodedString forKey:@"pageNum"];
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [BookInfoModel mj_objectArrayWithKeyValuesArray:result];
+            // 先删再存
+            [[BookStoreCacheManager sharedManager] deleBookCache];
+            for (int i = 0; i < modelArray.count; i++) {
+                BookInfoModel *bookModel = modelArray[i];
+                [[BookStoreCacheManager sharedManager] saveBookArrayWithModel:bookModel];
+            }
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
 
 - (void)searchBookAction
 {

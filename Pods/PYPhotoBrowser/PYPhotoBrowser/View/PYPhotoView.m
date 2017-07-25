@@ -700,7 +700,7 @@ static CGSize originalSize;
             cellAnchorPoint.x = (screenPoint1.x + screenPoint2.x) / 2.0 / gr.view.py_width;
             cellAnchorPoint.y = (screenPoint1.y + screenPoint2.y) / 2.0 / gr.view.py_height;
         }
-    } else if ([gr isKindOfClass:[UITapGestureRecognizer class]]) { // 点击手势
+    } else { // 点击手势
         // 获取scrollView触摸点
         CGPoint scrollViewPoint = [gr locationOfTouch:0 inView:scrollView];
         anchorPoint.x = scrollViewPoint.x / scrollView.contentSize.width;

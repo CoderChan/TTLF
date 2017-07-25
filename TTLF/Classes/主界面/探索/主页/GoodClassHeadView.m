@@ -35,8 +35,8 @@
 - (void)setModel:(GoodsInfoModel *)model
 {
     _model = model;
-    _nameLabel.text = model.article_name;
-    [_adImgView sd_setImageWithURL:[NSURL URLWithString:model.article_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
+    _nameLabel.text = model.goods_name;
+    [_adImgView sd_setImageWithURL:[NSURL URLWithString:model.goods_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
 }
 
 - (void)setupSubViews

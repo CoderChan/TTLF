@@ -19,6 +19,7 @@
 #import "PhoneViewController.h"
 #import "AccountTool.h"
 #import "RootNavgationController.h"
+#import "UserCountViewController.h"
 
 
 
@@ -60,6 +61,16 @@
     self.automaticallyAdjustsScrollViewInsets = YES;
     [self.view addSubview:self.tableView];
     
+    if (self.userModel.type == 6 || self.userModel.type == 7) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(userCountAction)];
+    }
+    
+}
+
+- (void)userCountAction
+{
+    UserCountViewController *userCount = [[UserCountViewController alloc]init];
+    [self.navigationController pushViewController:userCount animated:YES];
 }
 
 #pragma mark - 表格相关

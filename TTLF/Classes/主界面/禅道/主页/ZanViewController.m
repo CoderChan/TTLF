@@ -30,6 +30,8 @@
 @property (strong,nonatomic) UITableView *tableView;
 // rightBar
 @property (strong,nonatomic) PlayingRightBarView *rightBar;
+//
+@property (strong,nonatomic) UILabel *msgLabel;
 
 @end
 
@@ -69,6 +71,11 @@
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
     cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
     cell.iconView.image = [UIImage imageNamed:imageArr[indexPath.section][indexPath.row]];
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            [cell.contentView addSubview:self.msgLabel];
+        }
+    }
     [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.mas_left).offset(15);
         make.centerY.equalTo(cell.mas_centerY);
@@ -169,6 +176,17 @@
         _rightBar = [[PlayingRightBarView alloc]initWithFrame:CGRectMake(0, 0, 30, 30)];
     }
     return _rightBar;
+}
+- (UILabel *)msgLabel
+{
+    if (!_msgLabel) {
+        _msgLabel = [[UILabel alloc]initWithFrame:CGRectMake(self.view.width - 30 - 70, 10, 70, 30)];
+        _msgLabel.text = @"+1功德值";
+        _msgLabel.textAlignment = NSTextAlignmentRight;
+        _msgLabel.textColor = WarningColor;
+        _msgLabel.font = [UIFont boldSystemFontOfSize:14];
+    }
+    return _msgLabel;
 }
 
 @end

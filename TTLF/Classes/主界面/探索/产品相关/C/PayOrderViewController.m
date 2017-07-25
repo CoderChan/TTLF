@@ -107,6 +107,7 @@
     [self.view endEditing:YES];
     // 支付失败时添加到订单列表
     [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:self.numLabel.text Remark:self.msgField.text Success:^{
+        [YLNotificationCenter postNotificationName:OrderListChanged object:nil];
         [MBProgressHUD showSuccess:@"添加成功"];
     } Fail:^(NSString *errorMsg) {
         [self sendAlertAction:errorMsg];
@@ -346,7 +347,7 @@
 {
     if (!_goodsImgView) {
         _goodsImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 20, 60, 60)];
-        [_goodsImgView sd_setImageWithURL:[NSURL URLWithString:self.model.article_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
+        [_goodsImgView sd_setImageWithURL:[NSURL URLWithString:self.model.goods_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor]];
     }
     return _goodsImgView;
 }
@@ -355,7 +356,7 @@
 {
     if (!_goodsNameLabel) {
         _goodsNameLabel = [[UILabel alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.goodsImgView.frame) + 15, 15, self.view.width - 70 - 15 - 15, 42)];
-        _goodsNameLabel.text = [NSString stringWithFormat:@"%@——%@",self.model.article_name,self.model.goods_desc];
+        _goodsNameLabel.text = [NSString stringWithFormat:@"%@——%@",self.model.goods_name,self.model.goods_name_desc];
         _goodsNameLabel.numberOfLines = 2;
         _goodsNameLabel.font = [UIFont systemFontOfSize:16];
         _goodsNameLabel.textColor = [UIColor blackColor];

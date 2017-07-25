@@ -14,6 +14,7 @@
 #import "PlayingRightBarView.h"
 #import <MJExtension/MJExtension.h>
 #import "RootNavgationController.h"
+#import "MusicCateCacheManager.h"
 
 
 #define TopViewH 180*CKproportion
@@ -42,7 +43,7 @@
 - (void)setupSubViews
 {
     page = 1;
-    pageNum = 10;
+    pageNum = 40;
     
     self.automaticallyAdjustsScrollViewInsets = YES;
     self.view.backgroundColor = [UIColor whiteColor];
@@ -59,20 +60,43 @@
     self.collectionView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [self.array removeAllObjects];
         page = 1;
+        [[MusicCateCacheManager sharedManager] deleMusicCateCache];
         
         [self getMusicCateSuccess:^(NSArray *array) {
+            
             [self.collectionView.mj_header endRefreshing];
             [self hideMessageAction];
             [self.array addObjectsFromArray:array];
             [self.collectionView reloadData];
+            
         } Fail:^(NSString *errorMsg) {
             page = 1;
             [self.collectionView.mj_header endRefreshing];
             [self showEmptyViewWithMessage:errorMsg];
         }];
     }];
-    [self.collectionView.mj_header beginRefreshing];
     
+    NSArray *cateArray = [[MusicCateCacheManager sharedManager] getMusicCacheArray];
+    if (cateArray.count >= 1) {
+        [self hideMessageAction];
+        [self.array addObjectsFromArray:cateArray];
+        [self.collectionView reloadData];
+        page = 2;
+    }else{
+        [self.collectionView.mj_header beginRefreshing];
+    }
+    
+    // 暗中加载最新的
+    [self getNewestDataSuccess:^(NSArray *array) {
+        [self.array removeAllObjects];
+        [self hideMessageAction];
+        [self.array addObjectsFromArray:array];
+        [self.collectionView reloadData];
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD showError:errorMsg];
+    }];
+    
+    // 上拉加载更多
     self.collectionView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingBlock:^{
         [self getMusicCateSuccess:^(NSArray *array) {
             [self.collectionView.mj_footer endRefreshing];
@@ -82,6 +106,44 @@
             [self.collectionView.mj_footer endRefreshing];
             [MBProgressHUD showError:errorMsg];
         }];
+    }];
+}
+
+// 暗中加载最新的
+- (void)getNewestDataSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    NSString *url = @"http://app.yangruyi.com/home/Music/index";
+    
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:@"1".base64EncodedString forKey:@"page"];
+    [param setValue:[NSString stringWithFormat:@"%d",pageNum].base64EncodedString forKey:@"pageNum"];
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [responseObject objectForKey:@"message"];
+        
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
+            // 先删再存
+            [[MusicCateCacheManager sharedManager] deleMusicCateCache];
+            for (int i = 0; i < modelArray.count; i++) {
+                MusicCateModel *cateModel = modelArray[i];
+                [[MusicCateCacheManager sharedManager] saveMusicArrayWithModel:cateModel];
+            }
+            success(modelArray);
+        }else{
+            fail(message);
+        }
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
     }];
 }
 
@@ -122,6 +184,12 @@
                     page++;
                     NSArray *result = [responseObject objectForKey:@"result"];
                     NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
+#warning 加入缓存
+                    for (int i = 0; i < modelArray.count; i++) {
+                        MusicCateModel *cateModel = modelArray[i];
+                        [[MusicCateCacheManager sharedManager] saveMusicArrayWithModel:cateModel];
+                    }
+                    
                     success(modelArray);
                 }
             }else{
@@ -136,6 +204,11 @@
                     page++;
                     NSArray *result = [responseObject objectForKey:@"result"];
                     NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
+#warning 加入缓存
+                    for (int i = 0; i < modelArray.count; i++) {
+                        MusicCateModel *cateModel = modelArray[i];
+                        [[MusicCateCacheManager sharedManager] saveMusicArrayWithModel:cateModel];
+                    }
                     success(modelArray);
                 }
             }

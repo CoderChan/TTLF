@@ -181,6 +181,8 @@
 		3B4838421EB8CBAC0053BC8D /* UIXToolbarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B48382E1EB8CBAC0053BC8D /* UIXToolbarView.m */; };
 		3B4838441EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf in Resources */ = {isa = PBXBuildFile; fileRef = 3B4838431EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf */; };
 		3B494DC81E8BE6D100D3679B /* MusicPlayerManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */; };
+		3B4A066F1F1A3DF400958A2F /* AboutUSViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A066E1F1A3DF400958A2F /* AboutUSViewController.m */; };
+		3B4A06721F1CFBF000958A2F /* BookStoreCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4A06711F1CFBF000958A2F /* BookStoreCacheManager.m */; };
 		3B4B41351EC83E9B00C66C63 /* VisitUserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B4B41341EC83E9B00C66C63 /* VisitUserViewController.m */; };
 		3B5A472A1EDC030900511A04 /* PayOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A47291EDC030900511A04 /* PayOrderViewController.m */; };
 		3B5A472D1EDEADCC00511A04 /* AddressCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B5A472C1EDEADCC00511A04 /* AddressCacheManager.m */; };
@@ -220,6 +222,10 @@
 		3BB8E0571ECA96C1004BDE09 /* GoodsDetialController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E04E1ECA96C1004BDE09 /* GoodsDetialController.m */; };
 		3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */; };
 		3BB8E05D1ECA98A8004BDE09 /* GoodClassListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */; };
+		3BC216881F0BE49B0047F0B6 /* UserCountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC216871F0BE49B0047F0B6 /* UserCountViewController.m */; };
+		3BC2168B1F0BEA8A0047F0B6 /* AllUserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2168A1F0BEA8A0047F0B6 /* AllUserTableViewCell.m */; };
+		3BC2168E1F0BEBDD0047F0B6 /* AllUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC2168D1F0BEBDD0047F0B6 /* AllUserModel.m */; };
+		3BC5638B1F16485100D19DD8 /* MusicCateCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5638A1F16485100D19DD8 /* MusicCateCacheManager.m */; };
 		3BCB1C261EF1693600FFEC30 /* CommentBookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C251EF1693600FFEC30 /* CommentBookController.m */; };
 		3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
@@ -612,6 +618,10 @@
 		3B4838431EB8CDAC0053BC8D /* 妙法莲华经 法师功德品第十九.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = "妙法莲华经 法师功德品第十九.pdf"; sourceTree = "<group>"; };
 		3B494DC61E8BE6D100D3679B /* MusicPlayerManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicPlayerManager.h; sourceTree = "<group>"; };
 		3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicPlayerManager.m; sourceTree = "<group>"; };
+		3B4A066D1F1A3DF400958A2F /* AboutUSViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutUSViewController.h; sourceTree = "<group>"; };
+		3B4A066E1F1A3DF400958A2F /* AboutUSViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutUSViewController.m; sourceTree = "<group>"; };
+		3B4A06701F1CFBF000958A2F /* BookStoreCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStoreCacheManager.h; sourceTree = "<group>"; };
+		3B4A06711F1CFBF000958A2F /* BookStoreCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStoreCacheManager.m; sourceTree = "<group>"; };
 		3B4B41331EC83E9B00C66C63 /* VisitUserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitUserViewController.h; sourceTree = "<group>"; };
 		3B4B41341EC83E9B00C66C63 /* VisitUserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitUserViewController.m; sourceTree = "<group>"; };
 		3B5A47281EDC030900511A04 /* PayOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayOrderViewController.h; sourceTree = "<group>"; };
@@ -690,6 +700,14 @@
 		3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsListTableCell.m; sourceTree = "<group>"; };
 		3BB8E05B1ECA98A8004BDE09 /* GoodClassListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodClassListController.h; sourceTree = "<group>"; };
 		3BB8E05C1ECA98A8004BDE09 /* GoodClassListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodClassListController.m; sourceTree = "<group>"; };
+		3BC216861F0BE49B0047F0B6 /* UserCountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCountViewController.h; sourceTree = "<group>"; };
+		3BC216871F0BE49B0047F0B6 /* UserCountViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCountViewController.m; sourceTree = "<group>"; };
+		3BC216891F0BEA8A0047F0B6 /* AllUserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllUserTableViewCell.h; sourceTree = "<group>"; };
+		3BC2168A1F0BEA8A0047F0B6 /* AllUserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllUserTableViewCell.m; sourceTree = "<group>"; };
+		3BC2168C1F0BEBDD0047F0B6 /* AllUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllUserModel.h; sourceTree = "<group>"; };
+		3BC2168D1F0BEBDD0047F0B6 /* AllUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllUserModel.m; sourceTree = "<group>"; };
+		3BC563891F16485100D19DD8 /* MusicCateCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicCateCacheManager.h; sourceTree = "<group>"; };
+		3BC5638A1F16485100D19DD8 /* MusicCateCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicCateCacheManager.m; sourceTree = "<group>"; };
 		3BCB1C241EF1693600FFEC30 /* CommentBookController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentBookController.h; sourceTree = "<group>"; };
 		3BCB1C251EF1693600FFEC30 /* CommentBookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentBookController.m; sourceTree = "<group>"; };
 		3BCB1C271EF2167800FFEC30 /* SearchBookVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBookVController.h; sourceTree = "<group>"; };
@@ -1480,6 +1498,8 @@
 				3B2231E71E7F7B8200B43322 /* WoViewController.m */,
 				3B2670B31E6FE2B40078379B /* UserInfoViewController.h */,
 				3B2670B41E6FE2B40078379B /* UserInfoViewController.m */,
+				3BC216861F0BE49B0047F0B6 /* UserCountViewController.h */,
+				3BC216871F0BE49B0047F0B6 /* UserCountViewController.m */,
 				3B6872CE1EAA495700A12FF4 /* StoreListViewController.h */,
 				3B6872CF1EAA495700A12FF4 /* StoreListViewController.m */,
 			);
@@ -1501,6 +1521,8 @@
 				3B6872D31EAA4BC800A12FF4 /* StoreTableViewCell.m */,
 				3B0B63961EFE8E97006AD84D /* ShareView.h */,
 				3B0B63971EFE8E97006AD84D /* ShareView.m */,
+				3BC216891F0BEA8A0047F0B6 /* AllUserTableViewCell.h */,
+				3BC2168A1F0BEA8A0047F0B6 /* AllUserTableViewCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -1555,6 +1577,8 @@
 		3B2670C61E6FE2B40078379B /* 关于我们 */ = {
 			isa = PBXGroup;
 			children = (
+				3B4A066D1F1A3DF400958A2F /* AboutUSViewController.h */,
+				3B4A066E1F1A3DF400958A2F /* AboutUSViewController.m */,
 			);
 			path = "关于我们";
 			sourceTree = "<group>";
@@ -1769,8 +1793,12 @@
 				3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */,
 				3B0B639C1EFF88CC006AD84D /* MusicCacheManager.h */,
 				3B0B639D1EFF88CC006AD84D /* MusicCacheManager.m */,
+				3BC563891F16485100D19DD8 /* MusicCateCacheManager.h */,
+				3BC5638A1F16485100D19DD8 /* MusicCateCacheManager.m */,
 				3BAD0AE11EF1005500903EF3 /* BookCacheManager.h */,
 				3BAD0AE21EF1005500903EF3 /* BookCacheManager.m */,
+				3B4A06701F1CFBF000958A2F /* BookStoreCacheManager.h */,
+				3B4A06711F1CFBF000958A2F /* BookStoreCacheManager.m */,
 			);
 			path = "音乐播放器";
 			sourceTree = "<group>";
@@ -1950,6 +1978,8 @@
 		3B6872D11EAA497800A12FF4 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3BC2168C1F0BEBDD0047F0B6 /* AllUserModel.h */,
+				3BC2168D1F0BEBDD0047F0B6 /* AllUserModel.m */,
 			);
 			path = M;
 			sourceTree = "<group>";
@@ -2496,6 +2526,7 @@
 				3B5BA5F61EC9794500A57DBF /* ProvinceViewController.m in Sources */,
 				3B2670DE1E6FE2B40078379B /* WechatLoginViewController.m in Sources */,
 				3B3B3D821EA7168B00A32E56 /* ReportDetialViewController.m in Sources */,
+				3BC5638B1F16485100D19DD8 /* MusicCateCacheManager.m in Sources */,
 				3B2670DC1E6FE2B40078379B /* RegisterViewController.m in Sources */,
 				3B48383A1EB8CBAC0053BC8D /* ReaderThumbQueue.m in Sources */,
 				3B4838411EB8CBAC0053BC8D /* ThumbsViewController.m in Sources */,
@@ -2516,8 +2547,10 @@
 				3B4838311EB8CBAC0053BC8D /* ReaderContentPage.m in Sources */,
 				3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */,
 				3B2670391E6FDEBB0078379B /* UIView+Extension.m in Sources */,
+				3BC216881F0BE49B0047F0B6 /* UserCountViewController.m in Sources */,
 				3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */,
 				3B2AF8E01F07E78E0056BEB7 /* FSActionSheet.m in Sources */,
+				3B4A06721F1CFBF000958A2F /* BookStoreCacheManager.m in Sources */,
 				3B5BA6281EC9CE7500A57DBF /* AddressListViewController.m in Sources */,
 				3BAD0AE01EF0D2D300903EF3 /* BookInfoModel.m in Sources */,
 				3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */,
@@ -2594,6 +2627,7 @@
 				3B5BA5F11EC9794500A57DBF /* PlaceDetialController.m in Sources */,
 				3BA06F801EE79B88001EFD4D /* NSDateFormatter+Category.m in Sources */,
 				3B1F150A1EA7536D00DFAFAE /* FopaiShowView.m in Sources */,
+				3BC2168E1F0BEBDD0047F0B6 /* AllUserModel.m in Sources */,
 				3B2670EE1E6FE2B40078379B /* NavigationView.m in Sources */,
 				3B2670371E6FDEBB0078379B /* UIBarButtonItem+Extension.m in Sources */,
 				3B1F15081EA7536D00DFAFAE /* DecorationTableCell.m in Sources */,
@@ -2638,6 +2672,7 @@
 				3B266FCF1E6FDCB60078379B /* HTTPManager.m in Sources */,
 				3B2670461E6FDEBB0078379B /* WXApiRequestHandler.m in Sources */,
 				3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */,
+				3B4A066F1F1A3DF400958A2F /* AboutUSViewController.m in Sources */,
 				3B2670441E6FDEBB0078379B /* SendMessageToWXReq+requestWithTextOrMediaMessage.m in Sources */,
 				3B1F150B1EA7536D00DFAFAE /* PusaCollectionViewCell.m in Sources */,
 				3B11DB7C1ED43DD90037AABA /* GoodDetialFootView.m in Sources */,
@@ -2670,6 +2705,7 @@
 				3B2670F41E6FE2B40078379B /* StageModel.m in Sources */,
 				3B0EF28B1F0013690052ECDE /* PlayListView.m in Sources */,
 				3B3B3D811EA7168B00A32E56 /* DynamicModel.m in Sources */,
+				3BC2168B1F0BEA8A0047F0B6 /* AllUserTableViewCell.m in Sources */,
 				3BE1879C1EAF2A9500EDDD8F /* TZAssetCell.m in Sources */,
 				3B1F05C71E792BD2005173B9 /* AboutPunnaViewController.m in Sources */,
 				3B5BA5F01EC9794500A57DBF /* BigMapViewController.m in Sources */,
@@ -2843,7 +2879,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TTLF/TTLF.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y9A76R3UZY;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/高德地图",
@@ -2872,7 +2908,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = TTLF/TTLF.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = Y9A76R3UZY;
+				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/高德地图",

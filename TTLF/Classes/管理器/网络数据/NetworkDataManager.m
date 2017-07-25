@@ -13,7 +13,9 @@
 #import "AddressCacheManager.h"
 #import "PlaceCacheManager.h"
 #import "BookCacheManager.h"
+#import "MusicCateCacheManager.h"
 #import "MusicCacheManager.h"
+#import "BookStoreCacheManager.h"
 #import <JPUSHService.h>
 
 
@@ -242,11 +244,13 @@
         for (NSString *fileName in childerFiles) {
             //如有需要，加入条件，过滤掉不想删除的文件
             
-            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"]) {
+            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"] || [fileName isEqualToString:@"t_music.sqlite"] || [fileName isEqualToString:@"t_music_cate.sqlite"] || [fileName isEqualToString:@"t_book_store.sqlite"]) {
                 // 不删除这些。用户信息、离线订单、归档
                 [[AddressCacheManager sharedManager] deleteAddressCache];
                 [[BookCacheManager sharedManager] deleBookCache];
                 [[MusicCacheManager sharedManager] deleMusicCache];
+                [[MusicCateCacheManager sharedManager] deleMusicCateCache];
+                [[BookStoreCacheManager sharedManager] deleBookCache];
                 completion();
                 
             }else{
@@ -270,7 +274,7 @@
 // 模拟器微信登录
 - (void)simulatorLoginSuccess:(SuccessBlock)success Fail:(FailBlock)fail
 {
-    NSString *getUrl = @"http://app.yangruyi.com/home/Index/wechatRegister?nickName=T2JqY0NoaW5h&unionid=b0tEY3Z3ekh2VTQ2RVhwNjd1S0xVWGJfd21Gdw==&sex=MQ==&headUrl=aHR0cDovL3d4LnFsb2dvLmNuL21tb3Blbi9GTHZocFp3QnhoNzZzMFU5V2M0ZGwzMEFvT1lmeXBRSjduckNvMlpoZ1AxbURuaWF3T0VKVjNRbzJzN25SdzdpYmFPWDJiUUNvYTFDek9GV2F1SHhkYVRrRjVaZEpsRldpY2wvMA==&city=SGFpZGlhbg==&from=Nw==";
+    NSString *getUrl = @"http://app.yangruyi.com/home/Index/wechatRegister?nickName=T2JqY0NoaW5h&unionid=b2htYnB3bnc3a2wwdEdZODNBZU5Xa0dETjkxNA==&sex=MQ==&headUrl=aHR0cDovL3d4LnFsb2dvLmNuL21taGVhZC91SHdMWHR5SDRJVXhMR3VQdUpkM2wwRktJenRSS3NyWkZBVkRsWGJpY0VUdEwyMjRTV2NIQ2JRLzA=&city=&from=Nw==";
     [HTTPManager GET:getUrl params:nil success:^(NSURLSessionDataTask *task, id responseObject) {
         KGLog(@"模拟器微信登录返回的信息 = %@",responseObject);
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -436,7 +440,7 @@
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     
     // 上传头像 模糊度如果是1会出现失败
-    NSData *data = UIImageJPEGRepresentation(image, 0.9);
+    NSData *data = UIImageJPEGRepresentation(image, 0.5);
     NSString *name = @"file";
     NSString *fileName = @"head.jpeg";
     
@@ -470,8 +474,8 @@
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     
-    // 上传头像 模糊度如果是1会出现失败
-    NSData *data = UIImageJPEGRepresentation(image, 0.9);
+    // 上传背景图 模糊度如果是1会出现失败
+    NSData *data = UIImageJPEGRepresentation(image, 0.5);
     NSString *name = @"file";
     NSString *fileName = @"back.jpeg";
     
@@ -557,6 +561,7 @@
         fail(error.localizedDescription);
     }];
 }
+
 
 #pragma mark - 获取功德值列表
 - (void)getPunaNumWithMonth:(NSString *)month Success:(SuccessModelBlock)success Fail:(FailBlock)fail
@@ -2261,7 +2266,6 @@
         return;
     }
     
-    account.userID = @"65";
     NSString *url = @"http://app.yangruyi.com/home/Order/showUserAllOrder";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];

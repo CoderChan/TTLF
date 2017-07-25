@@ -46,6 +46,18 @@
     [self.view addSubview:self.tableView];
     
     
+    UIView *footView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 120)];
+    footView.backgroundColor = [UIColor clearColor];
+    UILabel *tipsLabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 20, footView.width - 40, 100)];
+    tipsLabel.text = @"温馨提示：点击某个客服，将会跳转到手机QQ，发起客服聊天咨询。请确保您已安装手机QQ，腾讯的手机QQ简化版TIM暂不支持发起聊天。若您未安装手机QQ将会自动复制QQ号到剪切板。";
+    tipsLabel.numberOfLines = 0;
+    tipsLabel.font = [UIFont systemFontOfSize:16];
+    tipsLabel.textAlignment = NSTextAlignmentLeft;
+    [footView addSubview:tipsLabel];
+    
+    self.tableView.tableFooterView = footView;
+    
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -72,6 +84,7 @@
     if (!isInstallQQ) {
         [self showTwoAlertWithMessage:@"当前设备未安装手机QQ，已复制QQ号，请根据该QQ号联系客服。" ConfirmClick:^{
             [[UIPasteboard generalPasteboard] setString:qq];
+            
         }];
         return;
     }

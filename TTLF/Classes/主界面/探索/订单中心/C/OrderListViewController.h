@@ -10,4 +10,8 @@
 
 @interface OrderListViewController : SuperViewController
 
+- (instancetype)initWithOrderList:(NSArray *)orderArray;
+
+@property (copy,nonatomic) void (^NewestOrderBlock)(NSArray *orderArray);
+
 @end

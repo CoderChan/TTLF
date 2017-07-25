@@ -93,6 +93,7 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)getPunaNumWithMonth:(NSString *)month Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 
 
+
 #pragma mark - 佛友圈板块
 // 收藏文章
 - (void)storeNewsWithModel:(NewsArticleModel *)newsModel Success:(SuccessBlock)success Fail:(FailBlock)fail;

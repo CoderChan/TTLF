@@ -51,8 +51,10 @@
 - (void)setModel:(NewsArticleModel *)model
 {
     _model = model;
-    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageWithColor:HWRandomColor] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
-        _newsImgView.image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:10];
+    [_newsImgView sd_setImageWithURL:[NSURL URLWithString:model.news_logo] placeholderImage:[UIImage imageNamed:@"error_place"] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL) {
+        if (!error) {
+            _newsImgView.image = [image stretchableImageWithLeftCapWidth:20 topCapHeight:10];
+        }
     }];
     _titleLabel.text = model.news_name;
     _fromLabel.text = [NSString stringWithFormat:@"#%@#",model.keywords];
@@ -64,7 +66,7 @@
 - (void)setupSubViews
 {
     // 封面
-    self.newsImgView = [[UIImageView alloc]initWithImage:[UIImage imageWithColor:HWRandomColor]];
+    self.newsImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"error_place"]];
     self.newsImgView.contentMode = UIViewContentModeScaleAspectFill;
     [self.newsImgView setContentScaleFactor:[UIScreen mainScreen].scale];
     self.newsImgView.layer.masksToBounds = YES;

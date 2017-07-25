@@ -104,8 +104,8 @@
 {
     GoodsInfoModel *goodsInfo = self.array[indexPath.row];
     NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-    cell.titleLabel.text = goodsInfo.article_name;
-    [cell.iconView sd_setImageWithURL:[NSURL URLWithString:goodsInfo.article_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
+    cell.titleLabel.text = goodsInfo.goods_name;
+    [cell.iconView sd_setImageWithURL:[NSURL URLWithString:goodsInfo.goods_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
     [cell.iconView mas_updateConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(cell.mas_left).offset(15);
         make.centerY.equalTo(cell.mas_centerY);
