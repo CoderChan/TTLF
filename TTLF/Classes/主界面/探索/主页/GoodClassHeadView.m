@@ -44,6 +44,10 @@
     
     // 广告宣传图
     self.adImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_place"]];
+//    self.adImgView.contentMode = UIViewContentModeScaleAspectFill;
+//    [self.adImgView setContentScaleFactor:[UIScreen mainScreen].scale];
+//    self.adImgView.layer.masksToBounds = YES;
+//    self.adImgView.autoresizingMask = UIViewAutoresizingFlexibleHeight & UIViewAutoresizingFlexibleWidth;
     [self addSubview:self.adImgView];
     [self.adImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left);

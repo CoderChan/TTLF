@@ -127,6 +127,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AddressModel *addressModel = self.array[indexPath.section];
+    if (self.SelectAddressBlock) {
+        _SelectAddressBlock(addressModel);
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {

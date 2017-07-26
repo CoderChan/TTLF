@@ -10,4 +10,6 @@
 
 @interface AddressListViewController : SuperViewController
 
+@property (copy,nonatomic) void (^SelectAddressBlock)(AddressModel *model);
+
 @end

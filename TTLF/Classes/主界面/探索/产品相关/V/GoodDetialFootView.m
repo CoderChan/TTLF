@@ -35,51 +35,49 @@
 - (void)setModel:(GoodsInfoModel *)model
 {
     _model = model;
-    CGSize size = [model.goods_desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
-    CGFloat space = 20;
-    CGFloat iconHeight = (self.width - 4*space)/3;
     _contentLabel.text = model.goods_desc;
-    _contentLabel.height = size.height + 15 + 10 + iconHeight + 10;
+    
 }
 
 - (void)setupSubViews
 {
-    CGSize size = [PlaceText boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
+    
     // 产品的其他说明
-    self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, SCREEN_WIDTH - 30, size.height)];
+    self.contentLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 0, SCREEN_WIDTH - 30, 150)];
     self.contentLabel.backgroundColor = [UIColor clearColor];
     self.contentLabel.text = PlaceText;
+//    [self.contentLabel sizeToFit];
     self.contentLabel.textColor = [UIColor blackColor];
     self.contentLabel.numberOfLines = 0;
     self.contentLabel.font = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
     [self addSubview:self.contentLabel];
     
     
-    CGFloat space = 20;
-    CGFloat W = (self.width - 4*space)/3;
-    CGFloat H = W;
-    NSArray *titleArray = @[@"免费包邮",@"老少皆宜",@"专柜正品"];
-    NSArray *iconArray = @[@"goods_baoyou",@"goods_person",@"goods_zheng"];
-    // 三个描述
-    for (int i = 0; i < titleArray.count; i++) {
-        CGRect frame;
-        frame.size.width = W;
-        frame.size.height = H;
-        frame.origin.x = (i%3) * (frame.size.width + space) + space;
-        frame.origin.y = CGRectGetMaxY(self.contentLabel.frame) + 10;
-        
-        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.enabled = NO;
-        button.backgroundColor = [UIColor clearColor];
-        [button setTitle:titleArray[i] forState:UIControlStateNormal];
-        [button setImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
-        button.titleLabel.font = [UIFont systemFontOfSize:14];
-        [button setTitleColor:MainColor forState:UIControlStateNormal];
-        button.frame = frame;
-        [button centerImageAndTitle:5];
-        [self addSubview:button];
-        
-    }
+//    CGFloat space = 20;
+//    CGFloat W = (self.width - 4*space)/3;
+//    CGFloat H = W;
+//    NSArray *titleArray = @[@"免费包邮",@"老少皆宜",@"专柜正品"];
+//    NSArray *iconArray = @[@"goods_baoyou",@"goods_person",@"goods_zheng"];
+//    // 三个描述
+//    for (int i = 0; i < titleArray.count; i++) {
+//        CGRect frame;
+//        frame.size.width = W;
+//        frame.size.height = H;
+//        frame.origin.x = (i%3) * (frame.size.width + space) + space;
+//        frame.origin.y = CGRectGetMaxY(self.contentLabel.frame) + 10;
+//        
+//        UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
+//        button.enabled = NO;
+//        button.backgroundColor = [UIColor clearColor];
+//        [button setTitle:titleArray[i] forState:UIControlStateNormal];
+//        [button setImage:[UIImage imageNamed:iconArray[i]] forState:UIControlStateNormal];
+//        button.titleLabel.font = [UIFont systemFontOfSize:14];
+//        [button setTitleColor:MainColor forState:UIControlStateNormal];
+//        button.frame = frame;
+//        [button centerImageAndTitle:5];
+//        [self addSubview:button];
+//        
+//    }
     
 }
 

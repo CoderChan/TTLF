@@ -44,20 +44,21 @@
 - (void)setCateModel:(GoodsClassModel *)cateModel
 {
     _cateModel = cateModel;
-    [_goodsImgView sd_setImageWithURL:[NSURL URLWithString:cateModel.cate_img] placeholderImage:[UIImage imageNamed:@"mac_place"]];
+    [_goodsImgView sd_setImageWithURL:[NSURL URLWithString:cateModel.cate_img] placeholderImage:[UIImage imageNamed:@"goods_place"]];
     _goodsClassLabel.text = cateModel.cate_name;
 }
 
 - (void)setupSubViews
 {
     // 商品分类的封面图
-    self.goodsImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"mac_place"]];
+    self.goodsImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_place"]];
+    self.goodsImgView.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.goodsImgView];
     [self.goodsImgView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.contentView.mas_left).offset(15);
-        make.right.equalTo(self.contentView.mas_centerX).offset(-15);
-        make.top.equalTo(self.contentView.mas_top).offset(10);
-        make.bottom.equalTo(self.contentView.mas_bottom).offset(-10);
+        make.top.equalTo(self.contentView.mas_top).offset(15);
+        make.width.equalTo(@130);
+        make.height.equalTo(@120);
     }];
     
     // 商品分类的名称

@@ -54,7 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"饰品详情";
+    self.title = self.model.goods_name;
     
     [self setupSubViews];
 }
@@ -64,6 +64,7 @@
 {
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(shareAction)];
+    self.view.backgroundColor = [UIColor whiteColor];
     
     // 添加表格
     self.array = @[@[@"封面轮播图"],@[@"商品名称.商品价格"],@[@"产品规格"]];
@@ -156,12 +157,8 @@
     
     
     // FootView
-    CGSize size = [self.model.goods_desc boundingRectWithSize:CGSizeMake(SCREEN_WIDTH - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody]} context:nil].size;
-    CGFloat space = 20;
-    CGFloat iconHeight = (self.view.width - 30 - 4*space)/3;
-    CGFloat footHeight = size.height + 15 + 10 + iconHeight + 10;
     
-    GoodDetialFootView *footView = [[GoodDetialFootView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, footHeight)];
+    GoodDetialFootView *footView = [[GoodDetialFootView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
     footView.model = self.model;
     self.tableView.tableFooterView = footView;
 }
@@ -221,7 +218,7 @@
     if (indexPath.section == 0) {
         return (self.view.height - 64 - 50)*0.7;
     }else if (indexPath.section == 1){
-        NSString *nameStr = [NSString stringWithFormat:@"%@——%@",self.model.goods_name,self.model.goods_name_desc];
+        NSString *nameStr = self.model.goods_name_desc;
         CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
         CGFloat height = size.height + 10 + 30 + 20;
         return height;

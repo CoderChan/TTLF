@@ -65,7 +65,7 @@
         // 有订单的UI界面
         _model = model;
         self.emptyLabel.hidden = YES;
-        [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.goods_logo] placeholderImage:[UIImage imageNamed:@"iPhone_place"]];
+        [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.goods_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
         _nameLabel.text = [NSString stringWithFormat:@"%@--%@",model.goods.goods_name,model.goods.goods_name_desc];
         _dateLabel.text = model.check_time;
         _orderIDLabel.text = [NSString stringWithFormat:@"订单号#：%@",model.ordernum];
@@ -82,7 +82,7 @@
 {
 //    高度160*比例
     // 商品封面
-    self.goodImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"iPhone_place"]];
+    self.goodImgView = [[UIImageView alloc]initWithImage:[UIImage imageNamed:@"goods_place"]];
     self.goodImgView.frame = CGRectMake(15, 30, 100*CKproportion, 100*CKproportion);
     [self.contentView addSubview:self.goodImgView];
     

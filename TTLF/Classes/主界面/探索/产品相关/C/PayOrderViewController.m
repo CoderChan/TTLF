@@ -9,7 +9,9 @@
 #import "PayOrderViewController.h"
 #import "AddressTableViewCell.h"
 #import "NormalTableViewCell.h"
+#import "AddressCacheManager.h"
 #import <Masonry.h>
+#import "AddressListViewController.h"
 
 @interface PayOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -30,7 +32,7 @@
 @property (strong,nonatomic) UIButton *addButton;
 @property (strong,nonatomic) UIButton *miniteButton;
 /** 我的留言 */
-@property (strong,nonatomic) UITextField *msgField;
+@property (strong,nonatomic) YYTextView *msgField;
 
 /** 总计数量 */
 @property (strong,nonatomic) UILabel *sumCountLabel;
@@ -43,6 +45,9 @@
 @property (strong,nonatomic) UIImageView *wechatPayIcon;
 /** 是否为支付宝 */
 @property (assign,nonatomic) BOOL isZhifubaoPay;
+
+// 收货地址模型
+@property (strong,nonatomic) AddressModel *addressModel;
 
 
 @end
@@ -100,6 +105,16 @@
     [sendButton addTarget:self action:@selector(payOrderAction) forControlEvents:UIControlEventTouchUpInside];
     [footView addSubview:sendButton];
     
+    
+    // 收货地址
+    NSArray *addressList = [[AddressCacheManager sharedManager] getAddressArray];
+    for (AddressModel *model in addressList) {
+        if (model.is_default) {
+            self.addressModel = model;
+            [self.tableView reloadData];
+        }
+    }
+    
 }
 #pragma mark - 支付订单
 - (void)payOrderAction
@@ -144,6 +159,8 @@
             make.top.equalTo(cell.nameLabel.mas_bottom).offset(5);
             make.height.equalTo(@42);
         }];
+        cell.model = self.addressModel;
+        
         return cell;
     }else if (indexPath.section == 1){
         
@@ -219,7 +236,12 @@
     [self.view endEditing:YES];
     
     if (indexPath.section == 0) {
-        
+        AddressListViewController *address = [[AddressListViewController alloc]init];
+        address.SelectAddressBlock = ^(AddressModel *model) {
+            self.addressModel = model;
+            [self.tableView reloadData];
+        };
+        [self.navigationController pushViewController:address animated:YES];
     }else if (indexPath.section == 1){
         
     }else {
@@ -262,17 +284,15 @@
 
 #pragma mark - 懒加载
 // 留言
-- (UITextField *)msgField
+- (YYTextView *)msgField
 {
     if (!_msgField) {
-        _msgField = [[UITextField alloc]initWithFrame:CGRectMake(95, 10, self.view.width - 100, 40)];
-        _msgField.clearButtonMode = UITextFieldViewModeWhileEditing;
+        _msgField = [[YYTextView alloc]initWithFrame:CGRectMake(95, 15, self.view.width - 100, 35)];
         _msgField.backgroundColor = [UIColor clearColor];
-        _msgField.placeholder = @"选填(您想备注的留言)";
-        _msgField.clearsOnBeginEditing = YES;
-        _msgField.attributedPlaceholder = [[NSMutableAttributedString alloc]initWithString:_msgField.placeholder attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSForegroundColorAttributeName:[UIColor lightGrayColor]}];
-        _msgField.attributedText = [[NSMutableAttributedString alloc]initWithString:_msgField.placeholder attributes:@{NSFontAttributeName:[UIFont preferredFontForTextStyle:UIFontTextStyleBody],NSForegroundColorAttributeName:[UIColor grayColor]}];
-        
+        _msgField.placeholderText = @"选填(您想备注的留言)";
+        _msgField.placeholderFont = [UIFont systemFontOfSize:14];
+        _msgField.placeholderTextColor = [UIColor lightGrayColor];
+        _msgField.font = [UIFont systemFontOfSize:16];
     }
     return _msgField;
 }

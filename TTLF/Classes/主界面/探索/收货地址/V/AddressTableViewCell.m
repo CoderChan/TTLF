@@ -44,6 +44,19 @@
 - (void)setModel:(AddressModel *)model
 {
     _model = model;
+    if (!model) {
+        _defaultBtn.hidden = YES;
+        _nameLabel.hidden = YES;
+        _addressLabel.hidden = YES;
+        _phoneLabel.hidden = YES;
+        self.nameLabel.text = @"您还没有添加地址";
+        return;
+    }
+    _defaultBtn.hidden = NO;
+    _nameLabel.hidden = NO;
+    _addressLabel.hidden = NO;
+    _phoneLabel.hidden = NO;
+    
     _nameLabel.text = model.name;
     _phoneLabel.text = model.phone;
     _addressLabel.text = model.address_detail;
