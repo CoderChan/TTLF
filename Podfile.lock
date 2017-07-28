@@ -48,6 +48,7 @@ PODS:
     - SDWebImage/Core (= 4.0.0)
   - SDWebImage/Core (4.0.0)
   - SMSSDK (2.0.8)
+  - WechatOpenSDK (1.7.7)
   - YYKeyboardManager (1.0.1)
   - YYKit (1.0.9):
     - YYKit/no-arc (= 1.0.9)
@@ -71,6 +72,7 @@ DEPENDENCIES:
   - SDCycleScrollView
   - SDWebImage (~> 4.0)
   - SMSSDK
+  - WechatOpenSDK
   - YYKeyboardManager
   - YYKit
 
@@ -97,9 +99,10 @@ SPEC CHECKSUMS:
   SDCycleScrollView: 90e43636fcc8e6a7f74e8b64d87418a8e96549b4
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
   SMSSDK: 1fc8500bec6bc36b524e4de7fac4acdb784e0217
+  WechatOpenSDK: cbd332148eb792d444ed4eec94f421d98f2046ee
   YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 99f96de886e2ec1b462c0df48d5e159e7fc05cab
+PODFILE CHECKSUM: 765c54fb7f13fe6ec2ca2460312c1a73904e0c5c
 
 COCOAPODS: 1.2.0.beta.1

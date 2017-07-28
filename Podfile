@@ -12,6 +12,7 @@ target 'TTLF' do
     pod 'YYKit'
     pod 'FMDB'
     pod 'JPush'
+    pod 'WechatOpenSDK'
     pod 'FreeStreamer'
     pod 'PYPhotoBrowser'
     pod 'FDFullscreenPopGesture'

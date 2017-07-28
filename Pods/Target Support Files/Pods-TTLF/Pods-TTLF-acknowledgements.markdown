@@ -402,6 +402,11 @@ THE SOFTWARE.
 
 Copyright © 2012-2015 mob.com
 
+## WechatOpenSDK
+
+Copyright 2017 tencent.com. All rights reserved.
+
+
 ## YYKeyboardManager
 
 The MIT License (MIT)
