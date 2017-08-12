@@ -35,7 +35,6 @@
 		3B0B63A11EFF9D78006AD84D /* MusicPlayingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0B63A01EFF9D78006AD84D /* MusicPlayingController.m */; };
 		3B0BBECB1EEF77560071A77E /* AllOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */; };
 		3B0EF28B1F0013690052ECDE /* PlayListView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0EF28A1F0013690052ECDE /* PlayListView.m */; };
-		3B11DB7C1ED43DD90037AABA /* GoodDetialFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */; };
 		3B11DB7F1ED54B300037AABA /* PlaceCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB7E1ED54B300037AABA /* PlaceCacheManager.m */; };
 		3B11DB821ED556DA0037AABA /* NewsCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB811ED556DA0037AABA /* NewsCacheManager.m */; };
 		3B11DB851ED56D230037AABA /* NormalWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B11DB841ED56D230037AABA /* NormalWebViewController.m */; };
@@ -210,6 +209,7 @@
 		3B7D801B1F2B7D7000C6E588 /* WXApiRequestHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D80131F2B7D7000C6E588 /* WXApiRequestHandler.m */; };
 		3B7D801C1F2B7D7000C6E588 /* WXApiResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D80151F2B7D7000C6E588 /* WXApiResponseHandler.m */; };
 		3B7D801D1F2B7D7000C6E588 /* WXMediaMessage+messageConstruct.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D80171F2B7D7000C6E588 /* WXMediaMessage+messageConstruct.m */; };
+		3B7D80201F2C54A600C6E588 /* GoodsDetialTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B7D801F1F2C54A600C6E588 /* GoodsDetialTableCell.m */; };
 		3BA06F7D1EE79987001EFD4D /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA06F7C1EE79987001EFD4D /* NSDate+Category.m */; };
 		3BA06F801EE79B88001EFD4D /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BA06F7F1EE79B88001EFD4D /* NSDateFormatter+Category.m */; };
 		3BAB963D1EBDB35A00EB0562 /* VageStoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BAB963C1EBDB35A00EB0562 /* VageStoreTableViewCell.m */; };
@@ -323,8 +323,6 @@
 		3B0BBECA1EEF77560071A77E /* AllOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllOrderViewController.m; sourceTree = "<group>"; };
 		3B0EF2891F0013690052ECDE /* PlayListView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayListView.h; sourceTree = "<group>"; };
 		3B0EF28A1F0013690052ECDE /* PlayListView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayListView.m; sourceTree = "<group>"; };
-		3B11DB7A1ED43DD90037AABA /* GoodDetialFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodDetialFootView.h; sourceTree = "<group>"; };
-		3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GoodDetialFootView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3B11DB7D1ED54B300037AABA /* PlaceCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaceCacheManager.h; sourceTree = "<group>"; };
 		3B11DB7E1ED54B300037AABA /* PlaceCacheManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceCacheManager.m; sourceTree = "<group>"; };
 		3B11DB801ED556DA0037AABA /* NewsCacheManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewsCacheManager.h; sourceTree = "<group>"; };
@@ -673,6 +671,8 @@
 		3B7D80151F2B7D7000C6E588 /* WXApiResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiResponseHandler.m; sourceTree = "<group>"; };
 		3B7D80161F2B7D7000C6E588 /* WXMediaMessage+messageConstruct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WXMediaMessage+messageConstruct.h"; sourceTree = "<group>"; };
 		3B7D80171F2B7D7000C6E588 /* WXMediaMessage+messageConstruct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "WXMediaMessage+messageConstruct.m"; sourceTree = "<group>"; };
+		3B7D801E1F2C54A600C6E588 /* GoodsDetialTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsDetialTableCell.h; sourceTree = "<group>"; };
+		3B7D801F1F2C54A600C6E588 /* GoodsDetialTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsDetialTableCell.m; sourceTree = "<group>"; };
 		3BA06F7B1EE79987001EFD4D /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
 		3BA06F7C1EE79987001EFD4D /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
 		3BA06F7E1EE79B88001EFD4D /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
@@ -1991,8 +1991,8 @@
 				3B0AF0331ED81AC5007436AE /* PayOrderView.m */,
 				3BB8E0531ECA96C1004BDE09 /* GoodsListTableCell.h */,
 				3BB8E0541ECA96C1004BDE09 /* GoodsListTableCell.m */,
-				3B11DB7A1ED43DD90037AABA /* GoodDetialFootView.h */,
-				3B11DB7B1ED43DD90037AABA /* GoodDetialFootView.m */,
+				3B7D801E1F2C54A600C6E588 /* GoodsDetialTableCell.h */,
+				3B7D801F1F2C54A600C6E588 /* GoodsDetialTableCell.m */,
 			);
 			path = V;
 			sourceTree = "<group>";
@@ -2553,6 +2553,7 @@
 				3BF197C51EBDB28100E8EA03 /* VegeViewController.m in Sources */,
 				3B2670381E6FDEBB0078379B /* UIImage+Category.m in Sources */,
 				3BE187A11EAF2A9500EDDD8F /* TZPhotoPickerController.m in Sources */,
+				3B7D80201F2C54A600C6E588 /* GoodsDetialTableCell.m in Sources */,
 				3B3FE96F1ED57E2B005C4922 /* PoiDetialView.m in Sources */,
 				3B2231EC1E7F853700B43322 /* MineTableHeadView.m in Sources */,
 				3B2670681E6FE0F30078379B /* TTLFManager.m in Sources */,
@@ -2649,7 +2650,6 @@
 				3B1F05CA1E792BD2005173B9 /* PunaNumListModel.m in Sources */,
 				3B4A066F1F1A3DF400958A2F /* AboutUSViewController.m in Sources */,
 				3B1F150B1EA7536D00DFAFAE /* PusaCollectionViewCell.m in Sources */,
-				3B11DB7C1ED43DD90037AABA /* GoodDetialFootView.m in Sources */,
 				3B332EC71EF774D2004B2135 /* MusicListViewController.m in Sources */,
 				3B0308271EB86C8B004B9F53 /* BookStoreTableViewCell.m in Sources */,
 				3B5BA5F81EC9794500A57DBF /* PlaceTableViewCell.m in Sources */,

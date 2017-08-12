@@ -11,7 +11,7 @@
 #import "UIButton+Category.h"
 #import "NormalWebViewController.h"
 #import "ServersViewController.h"
-#import "GoodDetialFootView.h"
+#import "GoodsDetialTableCell.h"
 #import <SDCycleScrollView.h>
 #import "PYPhotoBrowser.h"
 #import "GoodsInfoModel.h"
@@ -21,7 +21,7 @@
 #import "GoodsStandardController.h"
 
 
-@interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,RightMoreViewDelegate>
+@interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,RightMoreViewDelegate,UIWebViewDelegate>
 
 // 商品模型
 @property (strong,nonatomic) GoodsInfoModel *model;
@@ -37,6 +37,8 @@
 @property (strong,nonatomic) UILabel *salePriceLabel;
 /** 商品原价 */
 @property (strong,nonatomic) UILabel *oldPriceLabel;
+/** UIWebView */
+@property (strong,nonatomic) UIWebView *webView;
 
 
 @end
@@ -67,7 +69,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     // 添加表格
-    self.array = @[@[@"封面轮播图"],@[@"商品名称.商品价格"],@[@"产品规格"]];
+    self.array = @[@[@"封面轮播图"],@[@"商品名称.商品价格",@"商品说明"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64 - 50)];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -156,12 +158,29 @@
     [self.view addSubview:buyButton];
     
     
-    // FootView
     
-    GoodDetialFootView *footView = [[GoodDetialFootView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, 150)];
-    footView.model = self.model;
-    self.tableView.tableFooterView = footView;
+    self.webView = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height)];
+    self.webView.scrollView.showsVerticalScrollIndicator = NO;
+    self.webView.scrollView.showsHorizontalScrollIndicator = NO;
+    self.webView.backgroundColor = self.view.backgroundColor;
+    self.webView.delegate = self;
+    [self.view addSubview:self.webView];
+    
+    NSURL *url = [NSURL URLWithString:self.model.standard];
+    NSURLRequest *request = [[NSURLRequest alloc]initWithURL:url cachePolicy:NSURLRequestReturnCacheDataElseLoad timeoutInterval:200*30*5*200];
+    [self.webView loadRequest:request];
+    
+    self.tableView.tableFooterView = self.webView;
+    
 }
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    float height = [[self.webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"] floatValue];
+    self.webView.height = height;
+    self.tableView.tableFooterView = self.webView;
+}
+
 
 #pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -183,57 +202,56 @@
         cell.accessoryType = UITableViewCellAccessoryNone;
         [cell.contentView addSubview:self.scrollView];
         return cell;
-    }else if (indexPath.section == 1){
-        // 商品名称价格
-        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.iconView removeFromSuperview];
-        [cell.titleLabel removeFromSuperview];
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell.contentView addSubview:self.nameLabel];
-        [cell.contentView addSubview:self.salePriceLabel];
-        //[cell.contentView addSubview:self.oldPriceLabel];
-        return cell;
     }else{
-        // 产品规格
-        NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        [cell.titleLabel removeFromSuperview];
-        [cell.iconView removeFromSuperview];
-        cell.textLabel.text = self.array[indexPath.section][indexPath.row];
-        return cell;
+        if (indexPath.row == 0) {
+            // 商品名称价格
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            [cell.iconView removeFromSuperview];
+            [cell.titleLabel removeFromSuperview];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            [cell.contentView addSubview:self.nameLabel];
+            [cell.contentView addSubview:self.salePriceLabel];
+            //[cell.contentView addSubview:self.oldPriceLabel];
+            return cell;
+        } else {
+            GoodsDetialTableCell *cell = [GoodsDetialTableCell sharedCell:tableView];
+            cell.model = self.model;
+            return cell;
+        }
+        
     }
+    
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 2) {
-        GoodsStandardController *tandard = [[GoodsStandardController alloc]initWithModel:self.model];
-        [self.navigationController pushViewController:tandard animated:YES];
-    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         return (self.view.height - 64 - 50)*0.7;
-    }else if (indexPath.section == 1){
-        NSString *nameStr = self.model.goods_name_desc;
-        CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
-        CGFloat height = size.height + 10 + 30 + 20;
-        return height;
     }else {
-        return 55;
+        if (indexPath.row == 0) {
+            NSString *nameStr = self.model.goods_name_desc;
+            CGSize size = [nameStr boundingRectWithSize:CGSizeMake(self.view.width - 30, 2000) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16]} context:nil].size;
+            CGFloat height = size.height + 10 + 30 + 20;
+            return height;
+        }else{
+            return 140;
+        }
     }
+    
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *footV = [UIView new];
-    footV.backgroundColor = [UIColor clearColor];
+    footV.backgroundColor = [UIColor whiteColor];
     return footV;
 }
 

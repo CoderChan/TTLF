@@ -71,7 +71,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager goodsListWithCateModel:self.goodsCateModel Success:^(NSArray *array) {
             
-            [self hidesBottomBarWhenPushed];
+            [self hideMessageAction];
             [self.tableView.mj_header endRefreshing];
             self.tableView.tableHeaderView = self.headView;
             self.array = array;
