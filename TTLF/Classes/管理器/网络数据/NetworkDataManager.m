@@ -17,6 +17,7 @@
 #import "MusicCacheManager.h"
 #import "BookStoreCacheManager.h"
 #import <JPUSHService.h>
+#import "MusicAlumListManager.h"
 
 
 @implementation NetworkDataManager
@@ -244,13 +245,14 @@
         for (NSString *fileName in childerFiles) {
             //如有需要，加入条件，过滤掉不想删除的文件
             
-            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"] || [fileName isEqualToString:@"t_music.sqlite"] || [fileName isEqualToString:@"t_music_cate.sqlite"] || [fileName isEqualToString:@"t_book_store.sqlite"]) {
+            if ([fileName isEqualToString:@"t_address.sqlite"] || [fileName isEqualToString:@"t_book.sqlite"] || [fileName isEqualToString:@"t_music.sqlite"] || [fileName isEqualToString:@"t_music_cate.sqlite"] || [fileName isEqualToString:@"t_book_store.sqlite"] || [fileName isEqualToString:@"t_music_album"]) {
                 // 不删除这些。用户信息、离线订单、归档
                 [[AddressCacheManager sharedManager] deleteAddressCache];
                 [[BookCacheManager sharedManager] deleBookCache];
                 [[MusicCacheManager sharedManager] deleMusicCache];
                 [[MusicCateCacheManager sharedManager] deleMusicCateCache];
                 [[BookStoreCacheManager sharedManager] deleBookCache];
+                [[MusicAlumListManager sharedManager] deleMusicCateCache];
                 completion();
                 
             }else{
@@ -1284,24 +1286,21 @@
     NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/allMusic?userID=%@&cate_id=%@",account.userID.base64EncodedString,model.cate_id.base64EncodedString];
     NSLog(@"梵音专辑列表 = %@",allurl);
     
-    [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
-        
-        NSError *error;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
-        if (!error) {
-            int code = [[[json objectForKey:@"code"] description] intValue];
-            NSString *message = [[json objectForKey:@"message"] description];
-            if (code == 1) {
-                NSArray *result = [json objectForKey:@"result"];
-                NSArray *modelArray = [AlbumInfoModel mj_objectArrayWithKeyValuesArray:result];
-                success(modelArray);
-            }else{
-                fail(message);
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [AlbumInfoModel mj_objectArrayWithKeyValuesArray:result];
+#warning 保存到本地数据库
+            for (AlbumInfoModel *model in modelArray) {
+                [[MusicAlumListManager sharedManager] saveMusicArrayWithModel:model];
             }
+            success(modelArray);
         }else{
-            fail(@"数据解析失败");
+            fail(message);
         }
-    } failure:^(NSError *error) {
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];
 }
@@ -1314,6 +1313,13 @@
         fail(@"用户未登录");
         return;
     }
+    
+    NSArray *cacheArray = [[MusicAlumListManager sharedManager] getLastMusicListCacheArray];
+    if (cacheArray.count >= 1) {
+        success(cacheArray);
+        return;
+    }
+    
     NSString *url = @"http://app.yangruyi.com/home/Music/allMusic";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
@@ -1322,24 +1328,19 @@
     NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/allMusic?userID=%@&cate_id=%@",account.userID.base64EncodedString,cateID.base64EncodedString];
     NSLog(@"缓存中的梵音专辑列表 = %@",allurl);
     
-    [HTTPManager GETCache:url parameter:param success:^(id responseObject) {
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         
-        NSError *error;
-        NSDictionary *json = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableLeaves error:&error];
-        if (!error) {
-            int code = [[[json objectForKey:@"code"] description] intValue];
-            NSString *message = [[json objectForKey:@"message"] description];
-            if (code == 1) {
-                NSArray *result = [json objectForKey:@"result"];
-                NSArray *modelArray = [AlbumInfoModel mj_objectArrayWithKeyValuesArray:result];
-                success(modelArray);
-            }else{
-                fail(message);
-            }
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            NSArray *result = [responseObject objectForKey:@"result"];
+            NSArray *modelArray = [AlbumInfoModel mj_objectArrayWithKeyValuesArray:result];
+            success(modelArray);
         }else{
-            fail(@"请先进入梵音界面，选中列表播放");
+            fail(message);
         }
-    } failure:^(NSError *error) {
+        
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
         fail(error.localizedDescription);
     }];
 }

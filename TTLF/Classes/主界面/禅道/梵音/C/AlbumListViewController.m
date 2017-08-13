@@ -13,6 +13,7 @@
 #import "AlbumHeadView.h"
 #import <MJRefresh/MJRefresh.h>
 #import "RootNavgationController.h"
+#import "MusicAlumListManager.h"
 
 
 @interface AlbumListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -55,6 +56,17 @@
     self.tableView.rowHeight = 60;
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
+    
+    NSArray *albumArray = [[MusicAlumListManager sharedManager] getAlbumListByCateID:self.cateModel];
+    if (albumArray.count >= 1) {
+        self.array = albumArray;
+        // 头部
+        self.tableView.tableHeaderView = self.headView;
+        [self.tableView reloadData];
+#warning 再去获取一边新数据
+        
+        return;
+    }
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager albumListByModel:self.cateModel Success:^(NSArray *array) {

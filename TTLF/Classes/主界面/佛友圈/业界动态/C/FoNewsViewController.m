@@ -14,6 +14,8 @@
 #import <StoreKit/StoreKit.h>
 #import <MJExtension/MJExtension.h>
 #import "NewsCacheManager.h"
+#import "PhoneViewController.h"
+#import "RootNavgationController.h"
 
 
 @interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SKStoreProductViewControllerDelegate>
@@ -86,6 +88,20 @@
             [MBProgressHUD showError:errorMsg];
         }];
     }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
+        if (![userModel.phoneNum isPhoneNum]) {
+            [self showTwoAlertWithMessage:@"感谢使用佛缘生活APP，我们极力推荐您设置已绑定微信的手机号码，以方便加入佛缘生活微信群，当然，您可以自由退出。是否继续？" ConfirmClick:^{
+                PhoneViewController *phone = [[PhoneViewController alloc]init];
+                phone.isPresent = YES;
+                RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:phone];
+                [self presentViewController:nav animated:YES completion:^{
+                    
+                }];
+            }];
+        }
+    });
 }
 
 - (void)openAppStoreAction

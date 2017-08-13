@@ -228,6 +228,7 @@
 		3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */; };
 		3BD046481F3F069A003E6854 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD046471F3F069A003E6854 /* StoreKit.framework */; };
 		3BD0464E1F3F453B003E6854 /* WechatPayInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0464D1F3F453B003E6854 /* WechatPayInfoModel.m */; };
+		3BD046541F4096B4003E6854 /* MusicAlumListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD046531F4096B4003E6854 /* MusicAlumListManager.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
@@ -709,6 +710,8 @@
 		3BD046471F3F069A003E6854 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		3BD0464C1F3F453B003E6854 /* WechatPayInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatPayInfoModel.h; sourceTree = "<group>"; };
 		3BD0464D1F3F453B003E6854 /* WechatPayInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WechatPayInfoModel.m; sourceTree = "<group>"; };
+		3BD046521F4096B4003E6854 /* MusicAlumListManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MusicAlumListManager.h; sourceTree = "<group>"; };
+		3BD046531F4096B4003E6854 /* MusicAlumListManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MusicAlumListManager.m; sourceTree = "<group>"; };
 		3BD049C11EAC967B0054F9EF /* TTLFSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLFSettingManager.h; sourceTree = "<group>"; };
 		3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLFSettingManager.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1770,6 +1773,8 @@
 				3B494DC71E8BE6D100D3679B /* MusicPlayerManager.m */,
 				3B0B639C1EFF88CC006AD84D /* MusicCacheManager.h */,
 				3B0B639D1EFF88CC006AD84D /* MusicCacheManager.m */,
+				3BD046521F4096B4003E6854 /* MusicAlumListManager.h */,
+				3BD046531F4096B4003E6854 /* MusicAlumListManager.m */,
 				3BC563891F16485100D19DD8 /* MusicCateCacheManager.h */,
 				3BC5638A1F16485100D19DD8 /* MusicCateCacheManager.m */,
 				3BAD0AE11EF1005500903EF3 /* BookCacheManager.h */,
@@ -2600,6 +2605,7 @@
 				3B1F05CC1E792BD2005173B9 /* PunaListHeadView.m in Sources */,
 				3B2670611E6FDFE40078379B /* RootNavgationController.m in Sources */,
 				3B2670601E6FDFE40078379B /* NormalTableViewCell.m in Sources */,
+				3BD046541F4096B4003E6854 /* MusicAlumListManager.m in Sources */,
 				3B26706B1E6FE14A0078379B /* HTTPLimiteCache.m in Sources */,
 				3BD0464E1F3F453B003E6854 /* WechatPayInfoModel.m in Sources */,
 				3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */,

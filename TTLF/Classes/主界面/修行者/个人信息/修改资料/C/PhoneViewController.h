@@ -10,4 +10,11 @@
 
 @interface PhoneViewController : SuperViewController
 
+
+/**
+ 是否为modal出来的
+ */
+@property (assign,nonatomic) BOOL isPresent;
+
+
 @end

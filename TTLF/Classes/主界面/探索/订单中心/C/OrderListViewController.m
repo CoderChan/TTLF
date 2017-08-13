@@ -51,6 +51,7 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager orderListSuccess:^(NSArray *array) {
+            [self hideMessageAction];
             [self.tableView.mj_header endRefreshing];
             self.array = array;
             if (self.NewestOrderBlock) {

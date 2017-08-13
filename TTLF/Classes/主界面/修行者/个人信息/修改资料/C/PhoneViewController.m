@@ -40,6 +40,11 @@
     self.view.backgroundColor = [UIColor whiteColor];
     UserInfoModel *model = [[TTLFManager sharedManager].userManager getUserInfo];
     
+    if (self.isPresent) {
+        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
+        [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
+    }
+    
     if (model.phoneNum.length > 3) {
         self.phoneStr = model.phoneNum;
         [self setupPhoneVies];
@@ -51,6 +56,9 @@
 #pragma mark - 没有绑定手机号码的界面
 - (void)setupNoPhoneViews
 {
+    
+    
+    
     self.label = [[UILabel alloc]initWithFrame:CGRectZero];
     self.label.text = @"请输入有效的手机号";
     self.label.font = [UIFont systemFontOfSize:24];
@@ -107,7 +115,12 @@
         make.height.equalTo(@40);
     }];
 }
-
+- (void)dismissAction
+{
+    [self.navigationController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+}
 #pragma mark - 点击绑定手机号
 - (void)sendNewPhone:(UIButton *)sender
 {

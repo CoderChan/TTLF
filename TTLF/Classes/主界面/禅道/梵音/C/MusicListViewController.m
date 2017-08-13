@@ -163,7 +163,7 @@
     [param setValue:[NSString stringWithFormat:@"%d",pageNum].base64EncodedString forKey:@"pageNum"];
     
     NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Music/index?userID=%@&page=%@&pageNum=%@",account.userID.base64EncodedString,[NSString stringWithFormat:@"%d",page].base64EncodedString,[NSString stringWithFormat:@"%d",pageNum].base64EncodedString];
-    NSLog(@"梵音分类列表 = %@",allurl);
+    KGLog(@"梵音分类列表 = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
@@ -184,7 +184,6 @@
                     page++;
                     NSArray *result = [responseObject objectForKey:@"result"];
                     NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
-#warning 加入缓存
                     for (int i = 0; i < modelArray.count; i++) {
                         MusicCateModel *cateModel = modelArray[i];
                         [[MusicCateCacheManager sharedManager] saveMusicArrayWithModel:cateModel];
@@ -204,7 +203,6 @@
                     page++;
                     NSArray *result = [responseObject objectForKey:@"result"];
                     NSArray *modelArray = [MusicCateModel mj_objectArrayWithKeyValuesArray:result];
-#warning 加入缓存
                     for (int i = 0; i < modelArray.count; i++) {
                         MusicCateModel *cateModel = modelArray[i];
                         [[MusicCateCacheManager sharedManager] saveMusicArrayWithModel:cateModel];
