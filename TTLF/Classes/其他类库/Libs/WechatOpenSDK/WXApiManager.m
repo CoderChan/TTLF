@@ -51,6 +51,8 @@
             WXChooseCardResp *chooseCardResp = (WXChooseCardResp *)resp;
             [_delegate managerDidRecvChooseCardResponse:chooseCardResp];
         }
+    }else if ([resp isKindOfClass:[PayResp class]]){
+        [YLNotificationCenter postNotificationName:WechatPayResultNoti object:nil userInfo:nil];
     }
 }
 

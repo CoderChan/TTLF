@@ -227,6 +227,8 @@
 		3BC5638B1F16485100D19DD8 /* MusicCateCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5638A1F16485100D19DD8 /* MusicCateCacheManager.m */; };
 		3BCB1C261EF1693600FFEC30 /* CommentBookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C251EF1693600FFEC30 /* CommentBookController.m */; };
 		3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */; };
+		3BD046481F3F069A003E6854 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD046471F3F069A003E6854 /* StoreKit.framework */; };
+		3BD0464E1F3F453B003E6854 /* WechatPayInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0464D1F3F453B003E6854 /* WechatPayInfoModel.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
 		3BDCE9C21E6EBB7600E2F8E0 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C11E6EBB7600E2F8E0 /* main.m */; };
 		3BDCE9C51E6EBB7600E2F8E0 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BDCE9C41E6EBB7600E2F8E0 /* AppDelegate.m */; };
@@ -707,6 +709,9 @@
 		3BCB1C251EF1693600FFEC30 /* CommentBookController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentBookController.m; sourceTree = "<group>"; };
 		3BCB1C271EF2167800FFEC30 /* SearchBookVController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchBookVController.h; sourceTree = "<group>"; };
 		3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchBookVController.m; sourceTree = "<group>"; };
+		3BD046471F3F069A003E6854 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		3BD0464C1F3F453B003E6854 /* WechatPayInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatPayInfoModel.h; sourceTree = "<group>"; };
+		3BD0464D1F3F453B003E6854 /* WechatPayInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WechatPayInfoModel.m; sourceTree = "<group>"; };
 		3BD049C11EAC967B0054F9EF /* TTLFSettingManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTLFSettingManager.h; sourceTree = "<group>"; };
 		3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTLFSettingManager.m; sourceTree = "<group>"; };
 		3BDCE9BD1E6EBB7600E2F8E0 /* TTLF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TTLF.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -773,6 +778,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3BD046481F3F069A003E6854 /* StoreKit.framework in Frameworks */,
 				3B062DB81ED18AAC00886240 /* TencentOpenAPI.framework in Frameworks */,
 				177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */,
 			);
@@ -1976,6 +1982,8 @@
 		3BB8E0511ECA96C1004BDE09 /* M */ = {
 			isa = PBXGroup;
 			children = (
+				3BD0464C1F3F453B003E6854 /* WechatPayInfoModel.h */,
+				3BD0464D1F3F453B003E6854 /* WechatPayInfoModel.m */,
 				3B3FE9941ED6A445005C4922 /* GoodsInfoModel.h */,
 				3B3FE9951ED6A445005C4922 /* GoodsInfoModel.m */,
 				3B2FE3E31EE167C2006E7045 /* GoodsClassModel.h */,
@@ -2176,6 +2184,7 @@
 		AC977B15F99E39867E54D4DD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3BD046471F3F069A003E6854 /* StoreKit.framework */,
 				3B2A18491E81650900578A1E /* libz.tbd */,
 				7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */,
 				97F19F1377E210EA5E748A30 /* libPods-TTLFTests.a */,
@@ -2264,6 +2273,9 @@
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.InAppPurchase = {
 								enabled = 1;
 							};
 							com.apple.Push = {
@@ -2396,7 +2408,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A5E3464022174CA5162823A0 /* [CP] Embed Pods Frameworks */ = {
@@ -2441,7 +2453,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DE6056EC0E648DBF3912CA9D /* [CP] Copy Pods Resources */ = {
@@ -2471,7 +2483,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2595,6 +2607,7 @@
 				3B2670611E6FDFE40078379B /* RootNavgationController.m in Sources */,
 				3B2670601E6FDFE40078379B /* NormalTableViewCell.m in Sources */,
 				3B26706B1E6FE14A0078379B /* HTTPLimiteCache.m in Sources */,
+				3BD0464E1F3F453B003E6854 /* WechatPayInfoModel.m in Sources */,
 				3BB8E0591ECA96C1004BDE09 /* GoodsListTableCell.m in Sources */,
 				3B2AF8E81F07E78E0056BEB7 /* XLPhotoBrowser.m in Sources */,
 				3B3FE9961ED6A445005C4922 /* GoodsInfoModel.m in Sources */,

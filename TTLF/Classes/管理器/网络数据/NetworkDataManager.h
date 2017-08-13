@@ -33,6 +33,7 @@
 #import "MusicCateModel.h"
 #import "AlbumInfoModel.h"
 #import "MusicCommentModel.h"
+#import "WechatPayInfoModel.h"
 
 
 
@@ -219,7 +220,7 @@ typedef void (^SuccessStringBlock)(NSString *string);
 // 获取商品分类下的商品列表
 - (void)goodsListWithCateModel:(GoodsClassModel *)model Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 添加商品到订单列表
-- (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark Success:(SuccessBlock)success Fail:(FailBlock)fail;
+- (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark PayType:(int)payType PlaceModel:(AddressModel *)addressModel Success:(void (^)(WechatPayInfoModel *wechatPayModel))success Fail:(FailBlock)fail;
 // 获取用户订单列表
 - (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 管理员获取全部订单列表

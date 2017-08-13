@@ -42,7 +42,7 @@
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64) style:UITableViewStyleGrouped];
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    self.tableView.rowHeight = 60;
+    self.tableView.rowHeight = 110;
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.contentInset = UIEdgeInsetsMake(8, 0, 0, 0);
     [self.view addSubview:self.tableView];

@@ -20,6 +20,10 @@
 @property (strong,nonatomic) UILabel *timeLabel;
 /** 功德值 */
 @property (strong,nonatomic) UILabel *punnaLabel;
+/** 手机号码 */
+@property (strong,nonatomic) UILabel *phoneLabel;
+/** 安卓还是iOS */
+@property (strong,nonatomic) UILabel *fromLabel;
 
 @end
 
@@ -53,6 +57,13 @@
     _nameLabel.text = model.nickname;
     _timeLabel.text = model.register_time;
     _punnaLabel.text = model.punnanum;
+    if (model.from == 7) {
+        _fromLabel.text = @"安卓";
+    }else if (model.from == 8){
+        _fromLabel.text = @"苹果";
+    }
+    
+    _phoneLabel.text = model.phonenum.length > 3 ? model.phonenum : @"未绑定手机号码";
 }
 
 - (void)setupSubViews
@@ -65,7 +76,7 @@
     [self.contentView addSubview:self.iconView];
     [self.iconView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.mas_left).offset(15);
-        make.centerY.equalTo(self.mas_centerY);
+        make.top.equalTo(self.mas_top).offset(12);
         make.width.and.height.equalTo(@48);
     }];
     
@@ -97,6 +108,26 @@
         make.right.equalTo(self.contentView.mas_right).offset(-1);
         make.height.equalTo(@21);
         make.centerY.equalTo(self.contentView.mas_centerY);
+    }];
+    
+    self.fromLabel = [[UILabel alloc]init];
+    self.fromLabel.font = [UIFont systemFontOfSize:15];
+    self.fromLabel.textColor = MainColor;
+    [self.contentView addSubview:self.fromLabel];
+    [self.fromLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.timeLabel.mas_left);
+        make.top.equalTo(self.timeLabel.mas_bottom);
+        make.height.equalTo(@21);
+    }];
+    
+    self.phoneLabel = [[UILabel alloc]initWithFrame:CGRectZero];
+    self.phoneLabel.font = [UIFont systemFontOfSize:16];
+    self.phoneLabel.textColor = [UIColor blackColor];
+    [self.contentView addSubview:self.phoneLabel];
+    [self.phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.fromLabel.mas_left);
+        make.top.equalTo(self.fromLabel.mas_bottom);
+        make.height.equalTo(@22);
     }];
 }
 

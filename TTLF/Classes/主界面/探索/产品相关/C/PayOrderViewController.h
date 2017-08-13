@@ -8,6 +8,11 @@
 
 #import "SuperViewController.h"
 
+typedef NS_ENUM(NSInteger,PayType) {
+    WechatPayType = 2,  // 微信支付
+    AliPayType = 3  // 支付宝支付
+};
+
 @interface PayOrderViewController : SuperViewController
 
 - (instancetype)initWithModel:(GoodsInfoModel *)model;

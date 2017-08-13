@@ -118,39 +118,18 @@
     [leftView addSubview:taobaoBtn];
     [taobaoBtn centerImageAndTitle:2.5];
     
-    // 加入购物车
-    UIButton *addButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    addButton.backgroundColor = RGBACOLOR(63, 72, 123, 1);
-    addButton.frame = CGRectMake(leftView.width, CGRectGetMaxY(self.tableView.frame), self.view.width * 0.3, 50);
-    addButton.layer.shadowOpacity = 0.8;
-    addButton.layer.shadowColor = [UIColor blackColor].CGColor;
-    addButton.layer.shadowRadius = 5;
-    addButton.layer.shadowOffset = CGSizeMake(5, 5);
-    [addButton setTitle:@"加入购物车" forState:UIControlStateNormal];
-    addButton.titleLabel.font = [UIFont systemFontOfSize:15];
-    [addButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(UIButton *sender) {
-        
-        [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:@"1" Remark:nil Success:^{
-            [YLNotificationCenter postNotificationName:OrderListChanged object:nil];
-            [self showPopTipsWithMessage:@"添加成功" AtView:sender inView:self.view];
-        } Fail:^(NSString *errorMsg) {
-            [self sendAlertAction:errorMsg];
-        }];
-        
-    }];
-    [self.view addSubview:addButton];
     
     // 立即购买
     UIButton *buyButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    buyButton.backgroundColor = MainColor;
-    buyButton.frame = CGRectMake(leftView.width + addButton.width, CGRectGetMaxY(self.tableView.frame), self.view.width * 0.3, 50);
+    buyButton.backgroundColor = WarningColor;
+    buyButton.frame = CGRectMake(leftView.width, CGRectGetMaxY(self.tableView.frame), self.view.width * 0.6, 50);
     buyButton.layer.shadowOpacity = 0.8;
     buyButton.layer.shadowColor = [UIColor blackColor].CGColor;
     buyButton.layer.shadowRadius = 5;
     buyButton.layer.shadowOffset = CGSizeMake(5, 5);
     [buyButton setTitle:@"立即购买" forState:UIControlStateNormal];
     [buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    buyButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    buyButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     [buyButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
         PayOrderViewController *pay = [[PayOrderViewController alloc]initWithModel:self.model];
         [self.navigationController pushViewController:pay animated:YES];

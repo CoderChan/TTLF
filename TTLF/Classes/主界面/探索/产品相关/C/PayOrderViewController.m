@@ -12,8 +12,11 @@
 #import "AddressCacheManager.h"
 #import <Masonry.h>
 #import "AddressListViewController.h"
+#import "WXApiManager.h"
+#import <WXApiObject.h>
 
-@interface PayOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface PayOrderViewController ()<UITableViewDelegate,UITableViewDataSource,WXApiManagerDelegate>
 
 /** 表格 */
 @property (strong,nonatomic) UITableView *tableView;
@@ -48,6 +51,9 @@
 
 // 收货地址模型
 @property (strong,nonatomic) AddressModel *addressModel;
+// 微信支付模型
+@property (strong,nonatomic) WechatPayInfoModel *payModel;
+
 
 
 @end
@@ -115,19 +121,53 @@
         }
     }
     
+    // 监听支付回调
+    [YLNotificationCenter addObserver:self selector:@selector(payResultAction) name:WechatPayResultNoti object:nil];
+    // 从前台进入的话
+    [YLNotificationCenter addObserver:self selector:@selector(payResultAction) name:UIApplicationDidBecomeActiveNotification object:nil];
+    
+}
+
+- (void)payResultAction
+{
+    NSLog(@"查询微信支付结果");
 }
 #pragma mark - 支付订单
 - (void)payOrderAction
 {
     [self.view endEditing:YES];
     // 支付失败时添加到订单列表
-    [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:self.numLabel.text Remark:self.msgField.text Success:^{
+    [MBProgressHUD showMessage:@"正在获取支付信息"];
+    [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:self.numLabel.text Remark:self.msgField.text PayType:WechatPayType PlaceModel:self.addressModel Success:^(WechatPayInfoModel *wechatPayModel) {
+        [MBProgressHUD hideHUD];
         [YLNotificationCenter postNotificationName:OrderListChanged object:nil];
-        [MBProgressHUD showSuccess:@"添加成功"];
+        self.payModel = wechatPayModel;
+        [self openWechatPayWithModel:wechatPayModel];
+        
     } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD hideHUD];
         [self sendAlertAction:errorMsg];
     }];
 }
+
+#pragma mark - 微信支付
+- (void)openWechatPayWithModel:(WechatPayInfoModel *)payModel
+{
+    
+    PayReq *req = [[PayReq alloc] init];
+    
+    req.partnerId = payModel.partnerid; // 商家ID
+    req.prepayId = payModel.prepayid; // 预支付订单ID
+    req.nonceStr = payModel.noncestr; // 随机串，防重发
+    req.timeStamp = [payModel.timestamp unsignedIntValue]; // 时间戳，防重发
+    req.package = payModel.package; // 商家根据财付通文档填写的数据和签名
+    req.sign = payModel.sign;  // 商家根据微信开放平台文档对数据做的签名
+    
+    [WXApi sendReq:req];
+    
+    
+}
+
 
 #pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -440,6 +480,11 @@
         _wechatPayIcon = [[UIImageView alloc]initWithFrame:CGRectMake(self.view.width - 40, 19, 22, 22)];
     }
     return _wechatPayIcon;
+}
+- (void)dealloc
+{
+    //移除通知
+    [YLNotificationCenter removeObserver:self];
 }
 
 @end

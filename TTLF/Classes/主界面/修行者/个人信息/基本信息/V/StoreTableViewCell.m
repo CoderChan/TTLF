@@ -18,6 +18,8 @@
 /** 收藏时间 */
 @property (strong,nonatomic) UILabel *timeLabel;
 
+
+
 @end
 
 @implementation StoreTableViewCell

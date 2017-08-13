@@ -11,11 +11,12 @@
 #import "DetialNewsViewController.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
+#import <StoreKit/StoreKit.h>
 #import <MJExtension/MJExtension.h>
 #import "NewsCacheManager.h"
 
 
-@interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SKStoreProductViewControllerDelegate>
 {
     int CurrentPage; // 当前页
     int PageNum; // 每页多少条
@@ -51,6 +52,7 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAppStoreAction)];
     
     
     // 下拉加载，每次加载最新的。
@@ -84,6 +86,27 @@
             [MBProgressHUD showError:errorMsg];
         }];
     }];
+}
+
+- (void)openAppStoreAction
+{
+    SKStoreProductViewController *storeProductVC = [[SKStoreProductViewController alloc] init];
+    [storeProductVC.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    storeProductVC.delegate = self;
+    
+    NSDictionary *dict = [NSDictionary dictionaryWithObject:@"1212776820" forKey:SKStoreProductParameterITunesItemIdentifier];
+    [storeProductVC loadProductWithParameters:dict completionBlock:^(BOOL result, NSError *error)
+     {
+         if (result)
+         {
+             [self presentViewController:storeProductVC animated:YES completion:nil];
+         }
+     }];
+}
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+{
+    [viewController dismissViewControllerAnimated:YES completion:nil];
+    
 }
 
 #pragma mark - 获取数据

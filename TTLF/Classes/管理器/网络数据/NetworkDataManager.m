@@ -2195,7 +2195,7 @@
     }];
 }
 // 添加商品到订单列表
-- (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark Success:(SuccessBlock)success Fail:(FailBlock)fail
+- (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark PayType:(int)payType PlaceModel:(AddressModel *)addressModel Success:(void (^)(WechatPayInfoModel *))success Fail:(FailBlock)fail
 {
     Account *account = [AccountTool account];
     if (!account) {
@@ -2203,23 +2203,29 @@
         return;
     }
     
-    NSString *url = @"http://app.yangruyi.com/home/Order/index";
+    NSString *url = @"http://app.yangruyi.com/home/Order/addOrder";
     NSMutableDictionary *param = [NSMutableDictionary dictionary];
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:goodsModel.goods_id.base64EncodedString forKey:@"goods_id"];
     [param setValue:nums.base64EncodedString forKey:@"num"];
-    if (remark) {
+    [param setValue:[NSString stringWithFormat:@"%d",payType].base64EncodedString forKey:@"pay_type"];
+    [param setValue:addressModel.address_id.base64EncodedString forKey:@"Place_id"];
+    if (remark.length >= 1) {
         [param setValue:remark.base64EncodedString forKey:@"remark"];
+    }else{
+        [param setValue:@"暂无留言".base64EncodedString forKey:@"remark"];
     }
     
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/index?userID=%@&goods_id=%@&num=%@&remark=%@",account.userID.base64EncodedString,goodsModel.goods_id.base64EncodedString,nums.base64EncodedString,remark.base64EncodedString];
-    NSLog(@"添加商品到订单列表 = %@",allurl);
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/addOrder?userID=%@&goods_id=%@&num=%@&remark=%@&pay_type=%@&Place_id=%@",account.userID.base64EncodedString,goodsModel.goods_id.base64EncodedString,nums.base64EncodedString,remark.base64EncodedString,[NSString stringWithFormat:@"%d",payType].base64EncodedString,addressModel.address_id.base64EncodedString];
+    KGLog(@"发起支付 = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
         int code = [[[responseObject objectForKey:@"code"] description] intValue];
         NSString *message = [[responseObject objectForKey:@"message"] description];
         if (code == 1) {
-            success();
+            NSDictionary *result = [responseObject objectForKey:@"result"];
+            WechatPayInfoModel *wechatPay = [WechatPayInfoModel mj_objectWithKeyValues:result];
+            success(wechatPay);
         }else{
             fail(message);
         }
