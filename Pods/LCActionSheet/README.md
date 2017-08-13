@@ -4,7 +4,7 @@
 [![CocoaPods](https://img.shields.io/cocoapods/v/LCActionSheet.svg)](http://cocoadocs.org/docsets/LCActionSheet)
 [![CocoaPods](https://img.shields.io/cocoapods/l/LCActionSheet.svg)](https://raw.githubusercontent.com/iTofu/LCActionSheet/master/LICENSE)
 [![CocoaPods](https://img.shields.io/cocoapods/p/LCActionSheet.svg)](http://cocoadocs.org/docsets/LCActionSheet)
-[![LeoDev](https://img.shields.io/badge/blog-LeoDev.me-brightgreen.svg)](http://leodev.me)
+[![LeoDev](https://img.shields.io/badge/blog-LeoDev.me-brightgreen.svg)](https://leodev.me)
 
 ☀️ 一款简约而不失强大的 ActionSheet，微信和微博都采取了极其类似的样式。
 
@@ -18,7 +18,7 @@ In me the tiger sniffs the rose.
 心有猛虎，细嗅蔷薇。
 ```
 
-欢迎访问我的博客：http://LeoDev.me
+欢迎访问我的博客：https://LeoDev.me
 
 
 
@@ -30,11 +30,11 @@ In me the tiger sniffs the rose.
 
 * 格调高雅，风格百搭，怎么看怎么舒服。
 
-* 高度自定义，可能需要自定义的基本都考虑到了。详见 [LCActionSheet.h](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h) [Properties](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h#L82) 部分。
+* 高度自定义，可能需要自定义的基本都考虑到了。详见 [LCActionSheet.h](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h) [Properties](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h#L83) 部分。
 
 * 有代理，有 Block，可类方法，可实例方法，想怎样，就怎样。
 
-* 代理、Block 非常完善，从 will 到 did 都有，详见 [LCActionSheet.h](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h) [Delegate](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h#L45) & [Block](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h#L19) 部分。
+* 代理、Block 非常完善，从 will 到 did 都有，详见 [LCActionSheet.h](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h) [Delegate](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h#L46) & [Block](https://github.com/iTofu/LCActionSheet/blob/master/LCActionSheet/LCActionSheet.h#L20) 部分。
 
 * 支持统一配置 Config，作用于全局样式，告别冗余代码，更易维护，详见 [V 2.7.0](https://github.com/iTofu/LCActionSheet/releases/tag/2.7.0)。
 
@@ -66,9 +66,9 @@ In me the tiger sniffs the rose.
 
 * 在相应位置导入头文件：`#import "LCActionSheet.h"`，遵守协议 `<LCActionSheetDelegate>`
 
-* 调用列的任意方法即可：
+* 调用下列任意方法即可：
 
-  1. 默认样式，迅速搞定
+  1. 默认样式，初始化 + Show，两行搞定
 
     ```objc
     LCActionSheet *actionSheet = [LCActionSheet sheetWithTitle:@"Default LCActionSheet"
@@ -104,6 +104,9 @@ In me the tiger sniffs the rose.
     
     // V 2.7.0+
     actionSheet.titleEdgeInsets = UIEdgeInsetsMake(10, 20, 30, 40);
+    
+    // V 2.7.1+
+    actionSheet.separatorColor = [UIColor orangeColor];
     
     [actionSheet show];
     ```
@@ -211,6 +214,7 @@ In me the tiger sniffs the rose.
 
 | 名称 | 简介 |
 | :-: | :-: |
+| [见信](https://itunes.apple.com/cn/app/id1187571215) | 视频短信 |
 | [PrPr直播](https://itunes.apple.com/cn/app/id1150254794) | 二次元直播平台 |
 | [德玛西亚](https://itunes.apple.com/cn/app/id1067564880) | 英雄联盟<sup>&copy;</sup> 周边 App |
 | [揽梦云签](https://itunes.apple.com/cn/app/id1006513728) | 考勤打卡 + 移动办公 |
@@ -220,6 +224,28 @@ In me the tiger sniffs the rose.
 
 
 ## 版本 ChangeLog
+
+
+### V 2.7.2 (2017.01.06)
+
+* 修正按钮 Title 过长时的显示，[#31](https://github.com/iTofu/LCActionSheet/issues/31) by [Luyu](https://github.com/LuYu001).
+
+* 优化了一些 UI 效果。
+
+
+### V 2.7.1 (2017.01.03)
+
+* 新年快乐~
+
+* 添加 `separatorColor` 属性，默认值 `RGBA(170/255.0f, 170/255.0f, 170/255.0f, 0.5f)`，[#30](https://github.com/iTofu/LCActionSheet/issues/30) by [Abel94](https://github.com/Abel94)：
+
+  ```objc
+  @interface LCActionSheet : UIView
+
+  @property (nonatomic, strong) UIColor *separatorColor;
+
+  @end
+  ```
 
 
 ### V 2.7.0 (2016.11.29)
@@ -507,7 +533,7 @@ In me the tiger sniffs the rose.
 
 * 有疑问或建议请 [New Issue](https://github.com/iTofu/LCActionSheet/issues/new)，谢谢 :)
 
-* Mail: devtip@163.com
+* Mail: `echo ZGV2dGlwQDE2My5jb20K | base64 -D`
 
 * Blog: http://LeoDev.me
 

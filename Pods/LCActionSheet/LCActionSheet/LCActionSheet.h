@@ -8,7 +8,7 @@
 //  GitHub: http://github.com/iTofu
 //  Mail:   mailto:devtip@163.com
 //
-//  V 2.7.0
+//  V 2.7.2
 
 #import <UIKit/UIKit.h>
 #import "LCActionSheetConfig.h"
@@ -80,7 +80,7 @@ typedef void(^LCActionSheetDidDismissHandle)(LCActionSheet *actionSheet, NSInteg
 @interface LCActionSheet : UIView
 
 
-#pragma mark - Propreties
+#pragma mark - Properties
 
 /**
  *  Title.
@@ -105,7 +105,7 @@ typedef void(^LCActionSheetDidDismissHandle)(LCActionSheet *actionSheet, NSInteg
 /**
  *  Deprecated, use `destructiveButtonIndexSet` instead.
  */
-@property (nonatomic, strong) NSSet *redButtonIndexSet NS_DEPRECATED_IOS(2_0, 2_0, "Use destructiveButtonIndexSet");
+@property (nonatomic, strong) NSSet *redButtonIndexSet __deprecated_msg("Property deprecated. Use `destructiveButtonIndexSet`");
 
 /**
  *  All destructive buttons' set. You should give it the `NSNumber` type items.
@@ -177,6 +177,11 @@ typedef void(^LCActionSheetDidDismissHandle)(LCActionSheet *actionSheet, NSInteg
  *  Title's edge insets. Default is `UIEdgeInsetsMake(15.0f, 15.0f, 15.0f, 15.0f)`.
  */
 @property (nonatomic, assign) UIEdgeInsets titleEdgeInsets;
+
+/**
+ *  Cell's separator color. Default is `RGBA(170/255.0f, 170/255.0f, 170/255.0f, 0.5f)`.
+ */
+@property (nonatomic, strong) UIColor *separatorColor;
 
 
 /**

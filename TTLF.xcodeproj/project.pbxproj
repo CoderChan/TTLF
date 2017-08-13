@@ -22,7 +22,6 @@
 		3B062DA01ECEDF5000886240 /* PlaceDiscussModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B062D9F1ECEDF5000886240 /* PlaceDiscussModel.m */; };
 		3B062DB81ED18AAC00886240 /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B062DB61ED18AAC00886240 /* TencentOpenAPI.framework */; };
 		3B062DB91ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3B062DB71ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle */; };
-		3B0AF02D1ED805F9007436AE /* GoodsStandardController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF02C1ED805F9007436AE /* GoodsStandardController.m */; };
 		3B0AF0311ED80A8C007436AE /* CMPopTipView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0301ED80A8C007436AE /* CMPopTipView.m */; };
 		3B0AF0341ED81AC5007436AE /* PayOrderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0331ED81AC5007436AE /* PayOrderView.m */; };
 		3B0AF0371ED8204D007436AE /* AddressModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0AF0361ED8204D007436AE /* AddressModel.m */; };
@@ -299,8 +298,6 @@
 		3B062D9F1ECEDF5000886240 /* PlaceDiscussModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaceDiscussModel.m; sourceTree = "<group>"; };
 		3B062DB61ED18AAC00886240 /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		3B062DB71ED18AAC00886240 /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
-		3B0AF02B1ED805F9007436AE /* GoodsStandardController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GoodsStandardController.h; sourceTree = "<group>"; };
-		3B0AF02C1ED805F9007436AE /* GoodsStandardController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GoodsStandardController.m; sourceTree = "<group>"; };
 		3B0AF02F1ED80A8C007436AE /* CMPopTipView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CMPopTipView.h; sourceTree = "<group>"; };
 		3B0AF0301ED80A8C007436AE /* CMPopTipView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CMPopTipView.m; sourceTree = "<group>"; };
 		3B0AF0321ED81AC5007436AE /* PayOrderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PayOrderView.h; sourceTree = "<group>"; };
@@ -1973,8 +1970,6 @@
 				3B5A47291EDC030900511A04 /* PayOrderViewController.m */,
 				3B062D8F1ECE8AE400886240 /* ServersViewController.h */,
 				3B062D901ECE8AE400886240 /* ServersViewController.m */,
-				3B0AF02B1ED805F9007436AE /* GoodsStandardController.h */,
-				3B0AF02C1ED805F9007436AE /* GoodsStandardController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2577,7 +2572,6 @@
 				3B266FD41E6FDCB60078379B /* UserInfoModel.m in Sources */,
 				3B5BA6191EC9CCB000A57DBF /* DiscoverViewController.m in Sources */,
 				3B332EC61EF774D2004B2135 /* AlbumListViewController.m in Sources */,
-				3B0AF02D1ED805F9007436AE /* GoodsStandardController.m in Sources */,
 				3B4B41351EC83E9B00C66C63 /* VisitUserViewController.m in Sources */,
 				3B1F05CB1E792BD2005173B9 /* DrawCircleView.m in Sources */,
 				3B062D911ECE8AE400886240 /* ServersViewController.m in Sources */,
@@ -2873,7 +2867,7 @@
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
-				GCC_PREFIX_HEADER = "$SRCROOT/TTLF/Classes/PCH/TTLFHeader.h";
+				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2902,7 +2896,7 @@
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
-				GCC_PREFIX_HEADER = "$SRCROOT/TTLF/Classes/PCH/TTLFHeader.h";
+				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

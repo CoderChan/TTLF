@@ -27,9 +27,9 @@
         self.backgroundColor = [UIColor clearColor];
         
         UIView *highlightedView  = [[UIView alloc] init];
-        highlightedView.backgroundColor = LC_ACTION_SHEET_CELL_LINE_COLOR;
-        highlightedView.clipsToBounds = YES;
-        highlightedView.hidden        = YES;
+        highlightedView.backgroundColor = self.cellSeparatorColor;
+        highlightedView.clipsToBounds   = YES;
+        highlightedView.hidden          = YES;
         [self.contentView addSubview:highlightedView];
         self.highlightedView = highlightedView;
         [highlightedView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -38,14 +38,15 @@
         
         UILabel *titleLabel = [[UILabel alloc] init];
         titleLabel.textAlignment = NSTextAlignmentCenter;
+        titleLabel.adjustsFontSizeToFitWidth = YES;
         [self.contentView addSubview:titleLabel];
         self.titleLabel = titleLabel;
         [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.edges.equalTo(self.contentView);
+            make.edges.equalTo(self.contentView).insets(UIEdgeInsetsMake(0, 10.0f, 0, 10.0f));
         }];
         
         UIView *lineView  = [[UIView alloc] init];
-        lineView.backgroundColor = LC_ACTION_SHEET_CELL_LINE_COLOR;
+        lineView.backgroundColor = self.cellSeparatorColor;
         lineView.contentMode   = UIViewContentModeBottom;
         lineView.clipsToBounds = YES;
         [self.contentView addSubview:lineView];
@@ -58,7 +59,12 @@
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {}
+- (void)setCellSeparatorColor:(UIColor *)cellSeparatorColor {
+    _cellSeparatorColor = cellSeparatorColor;
+    
+    self.highlightedView.backgroundColor = cellSeparatorColor;
+    self.lineView.backgroundColor = cellSeparatorColor;
+}
 
 - (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated {
     if (self.tag == LC_ACTION_SHEET_CELL_HIDDE_LINE_TAG) {

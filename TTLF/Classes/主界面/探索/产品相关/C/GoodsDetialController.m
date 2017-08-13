@@ -18,7 +18,7 @@
 #import "RightMoreView.h"
 #import "CMPopTipView.h"
 #import "PayOrderViewController.h"
-#import "GoodsStandardController.h"
+
 
 
 @interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,RightMoreViewDelegate,UIWebViewDelegate>
