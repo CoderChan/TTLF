@@ -2235,6 +2235,39 @@
         fail(error.localizedDescription);
     }];
 }
+
+// 验证微信支付
+- (void)checkWechatPayWithModel:(WechatPayInfoModel *)payModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Order/checkOrder";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:payModel.out_trade_no.base64EncodedString forKey:@"out_trade_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/checkOrder?userID=%@&out_trade_id=%@",account.userID.base64EncodedString,payModel.out_trade_no.base64EncodedString];
+    NSLog(@"验证微信支付链接 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        
+        NSLog(@"支付验证 = %@",responseObject);
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
 // 获取用户订单列表
 - (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {

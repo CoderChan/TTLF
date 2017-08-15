@@ -124,20 +124,27 @@
     // 监听支付回调
     [YLNotificationCenter addObserver:self selector:@selector(payResultAction) name:WechatPayResultNoti object:nil];
     // 从前台进入的话
-    [YLNotificationCenter addObserver:self selector:@selector(payResultAction) name:UIApplicationDidBecomeActiveNotification object:nil];
+//    [YLNotificationCenter addObserver:self selector:@selector(payResultAction) name:UIApplicationDidBecomeActiveNotification object:nil];
     
 }
 
 - (void)payResultAction
 {
     NSLog(@"查询微信支付结果");
+    [MBProgressHUD showMessage:@"验证中···"];
+    [[TTLFManager sharedManager].networkManager checkWechatPayWithModel:self.payModel Success:^{
+        [MBProgressHUD hideHUD];
+        [self sendAlertAction:@"支付成功"];
+    } Fail:^(NSString *errorMsg) {
+        [MBProgressHUD hideHUD];
+        [self sendAlertAction:errorMsg];
+    }];
 }
 #pragma mark - 支付订单
 - (void)payOrderAction
 {
     [self.view endEditing:YES];
-    // 支付失败时添加到订单列表
-    [MBProgressHUD showMessage:@"正在获取支付信息"];
+    [MBProgressHUD showMessage:@"获取支付信息"];
     [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:self.numLabel.text Remark:self.msgField.text PayType:WechatPayType PlaceModel:self.addressModel Success:^(WechatPayInfoModel *wechatPayModel) {
         [MBProgressHUD hideHUD];
         [YLNotificationCenter postNotificationName:OrderListChanged object:nil];
@@ -485,6 +492,13 @@
 {
     //移除通知
     [YLNotificationCenter removeObserver:self];
+}
+- (WechatPayInfoModel *)payModel
+{
+    if (!_payModel) {
+        _payModel = [[WechatPayInfoModel alloc]init];
+    }
+    return _payModel;
 }
 
 @end
