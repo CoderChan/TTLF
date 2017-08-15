@@ -23,6 +23,7 @@
 @property (strong,nonatomic) UITextField *textField;
 @property (strong,nonatomic) UIImageView *xian;
 @property (strong,nonatomic) UILabel *label;
+//@property (strong,nonatomic) UILabel *tipLabel;
 /** 已添加手机的界面属性 */
 @property (strong,nonatomic) UIImageView *imageV;
 @property (strong,nonatomic) UILabel *phoneLabel;
@@ -41,11 +42,11 @@
     UserInfoModel *model = [[TTLFManager sharedManager].userManager getUserInfo];
     
     if (self.isPresent) {
-        self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
+        self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(dismissAction)];
         [self.navigationItem.rightBarButtonItem setTintColor:[UIColor whiteColor]];
     }
     
-    if (model.phoneNum.length > 3) {
+    if ([model.phoneNum isPhoneNum]) {
         self.phoneStr = model.phoneNum;
         [self setupPhoneVies];
     }else{
@@ -57,17 +58,16 @@
 - (void)setupNoPhoneViews
 {
     
-    
-    
     self.label = [[UILabel alloc]initWithFrame:CGRectZero];
-    self.label.text = @"请输入有效的手机号";
-    self.label.font = [UIFont systemFontOfSize:24];
+    self.label.text = @"感谢使用佛缘生活，我们极力推荐您设置已绑定微信的手机号码，以方便加入佛缘生活微信群，当然，您可以自由退出。";
+    self.label.font = [UIFont systemFontOfSize:20];
+    self.label.numberOfLines = 0;
     self.label.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:self.label];
     [self.label mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.height.equalTo(@24);
-        make.top.equalTo(self.view.mas_top).offset(75);
+        make.left.equalTo(self.view.mas_left).offset(25);
+        make.top.equalTo(self.view.mas_top).offset(60);
     }];
     
     self.textField = [[UITextField alloc]init];
@@ -80,7 +80,7 @@
     if (self.phoneStr) {
         self.textField.placeholder = [NSString stringWithFormat:@"如：%@",self.phoneStr];
     }else{
-        self.textField.placeholder = @"如：18233568284";
+        self.textField.placeholder = @"如：13522705114";
     }
     self.textField.delegate = self;
     [self.view addSubview:self.textField];
@@ -114,6 +114,8 @@
         make.right.equalTo(self.view.mas_right).offset(-25);
         make.height.equalTo(@40);
     }];
+    
+    
 }
 - (void)dismissAction
 {
@@ -124,12 +126,12 @@
 #pragma mark - 点击绑定手机号
 - (void)sendNewPhone:(UIButton *)sender
 {
-    if (self.textField.text.length <= 3) {
-        [MBProgressHUD showError:@"手机号码不正确"];
+    if (![self.textField.text isPhoneNum]) {
+        [self showPopTipsWithMessage:@"号码不正确" AtView:self.textField inView:self.view];
         return;
     }
     if ([self.textField.text isEqualToString:self.phoneStr]) {
-        [MBProgressHUD showError:@"手机号无变化"];
+        [self showPopTipsWithMessage:@"号码无变化" AtView:self.textField inView:self.view];
         return;
     }
     

@@ -11,14 +11,14 @@
 #import "DetialNewsViewController.h"
 #import <MJRefresh.h>
 #import <Masonry.h>
-#import <StoreKit/StoreKit.h>
+//#import <StoreKit/StoreKit.h>
 #import <MJExtension/MJExtension.h>
 #import "NewsCacheManager.h"
 #import "PhoneViewController.h"
 #import "RootNavgationController.h"
 
 
-@interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate,SKStoreProductViewControllerDelegate>
+@interface FoNewsViewController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 {
     int CurrentPage; // 当前页
     int PageNum; // 每页多少条
@@ -54,7 +54,7 @@
     self.tableView.backgroundColor = self.view.backgroundColor;
     [self.view addSubview:self.tableView];
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAppStoreAction)];
+//    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(openAppStoreAction)];
     
     
     // 下拉加载，每次加载最新的。
@@ -89,41 +89,49 @@
         }];
     }];
     
+    NSDate *date = [NSDate date];
+    NSString *dateStr = [NSString stringWithFormat:@"%@",date];
+    NSString *dayStr = [dateStr substringWithRange:NSMakeRange(8, 2)];
+    NSInteger day = [dayStr integerValue];
+    
+    
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         UserInfoModel *userModel = [[UserInfoManager sharedManager] getUserInfo];
         if (![userModel.phoneNum isPhoneNum]) {
-            [self showTwoAlertWithMessage:@"感谢使用佛缘生活APP，我们极力推荐您设置已绑定微信的手机号码，以方便加入佛缘生活微信群，当然，您可以自由退出。是否继续？" ConfirmClick:^{
+            if ((day == 3) || (day == 6) || (day == 9) || (day == 13) || (day == 16) || (day == 19) || (day == 23) || (day == 26) || (day == 29)) {
+                
                 PhoneViewController *phone = [[PhoneViewController alloc]init];
                 phone.isPresent = YES;
                 RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:phone];
                 [self presentViewController:nav animated:YES completion:^{
                     
                 }];
-            }];
+            }
         }
     });
 }
 
-- (void)openAppStoreAction
-{
-    SKStoreProductViewController *storeProductVC = [[SKStoreProductViewController alloc] init];
-    [storeProductVC.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-    storeProductVC.delegate = self;
-    
-    NSDictionary *dict = [NSDictionary dictionaryWithObject:@"1212776820" forKey:SKStoreProductParameterITunesItemIdentifier];
-    [storeProductVC loadProductWithParameters:dict completionBlock:^(BOOL result, NSError *error)
-     {
-         if (result)
-         {
-             [self presentViewController:storeProductVC animated:YES completion:nil];
-         }
-     }];
-}
-- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
-{
-    [viewController dismissViewControllerAnimated:YES completion:nil];
-    
-}
+//- (void)openAppStoreAction
+//{
+//    SKStoreProductViewController *storeProductVC = [[SKStoreProductViewController alloc] init];
+//    [storeProductVC.navigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+//    storeProductVC.delegate = self;
+//    
+//    NSDictionary *dict = [NSDictionary dictionaryWithObject:@"1212776820" forKey:SKStoreProductParameterITunesItemIdentifier];
+//    [storeProductVC loadProductWithParameters:dict completionBlock:^(BOOL result, NSError *error)
+//     {
+//         if (result)
+//         {
+//             [self presentViewController:storeProductVC animated:YES completion:nil];
+//         }
+//     }];
+//}
+
+//- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController
+//{
+//    [viewController dismissViewControllerAnimated:YES completion:nil];
+//    
+//}
 
 #pragma mark - 获取数据
 - (void)getArticleCurrentPage:(int)currentPage Success:(void (^)(NSArray *modelArray))success Fail:(FailBlock)fail

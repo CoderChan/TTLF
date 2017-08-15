@@ -226,7 +226,6 @@
 		3BC5638B1F16485100D19DD8 /* MusicCateCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BC5638A1F16485100D19DD8 /* MusicCateCacheManager.m */; };
 		3BCB1C261EF1693600FFEC30 /* CommentBookController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C251EF1693600FFEC30 /* CommentBookController.m */; };
 		3BCB1C291EF2167800FFEC30 /* SearchBookVController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BCB1C281EF2167800FFEC30 /* SearchBookVController.m */; };
-		3BD046481F3F069A003E6854 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD046471F3F069A003E6854 /* StoreKit.framework */; };
 		3BD0464E1F3F453B003E6854 /* WechatPayInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD0464D1F3F453B003E6854 /* WechatPayInfoModel.m */; };
 		3BD046541F4096B4003E6854 /* MusicAlumListManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD046531F4096B4003E6854 /* MusicAlumListManager.m */; };
 		3BD049C31EAC967B0054F9EF /* TTLFSettingManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3BD049C21EAC967B0054F9EF /* TTLFSettingManager.m */; };
@@ -778,7 +777,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3BD046481F3F069A003E6854 /* StoreKit.framework in Frameworks */,
 				3B062DB81ED18AAC00886240 /* TencentOpenAPI.framework in Frameworks */,
 				177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */,
 			);
