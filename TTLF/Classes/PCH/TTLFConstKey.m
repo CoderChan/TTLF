@@ -11,6 +11,7 @@
 /************  通知及监听 关键字  *****************/
 NSString *const CreateNewVegeNoti = @"CreateNewVegeNoti";
 NSString *const WechatPayResultNoti = @"WechatPayResultNoti";
+NSString *const PaySuccessNoti = @"PaySuccessNoti";
 
 
 /************* NSUserDefault 关键字 **************/

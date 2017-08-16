@@ -48,6 +48,8 @@
 @property (strong,nonatomic) UIImageView *wechatPayIcon;
 /** 是否为支付宝 */
 @property (assign,nonatomic) BOOL isZhifubaoPay;
+@property (strong, nonatomic) UIButton *sendButton;
+
 
 // 收货地址模型
 @property (strong,nonatomic) AddressModel *addressModel;
@@ -102,14 +104,14 @@
     [self createSumCount:self.numLabel.text SumPrice:self.model.sale_price];
     
     // 提交订单
-    UIButton *sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [sendButton setTitle:@"提交订单" forState:UIControlStateNormal];
-    sendButton.backgroundColor = WarningColor;
-    [sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:19];
-    sendButton.frame = CGRectMake(footView.width * 0.7, 0, footView.width * 0.3, footView.height);
-    [sendButton addTarget:self action:@selector(payOrderAction) forControlEvents:UIControlEventTouchUpInside];
-    [footView addSubview:sendButton];
+    self.sendButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.sendButton setTitle:@"提交订单" forState:UIControlStateNormal];
+    self.sendButton.backgroundColor = WarningColor;
+    [self.sendButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.sendButton.titleLabel.font = [UIFont boldSystemFontOfSize:19];
+    self.sendButton.frame = CGRectMake(footView.width * 0.7, 0, footView.width * 0.3, footView.height);
+    [self.sendButton addTarget:self action:@selector(payOrderAction) forControlEvents:UIControlEventTouchUpInside];
+    [footView addSubview:self.sendButton];
     
     
     // 收货地址
@@ -134,7 +136,9 @@
     [MBProgressHUD showMessage:@"验证中···"];
     [[TTLFManager sharedManager].networkManager checkWechatPayWithModel:self.payModel Success:^{
         [MBProgressHUD hideHUD];
-        [self sendAlertAction:@"支付成功"];
+        [YLNotificationCenter postNotificationName:PaySuccessNoti object:nil];
+        [self.navigationController popToRootViewControllerAnimated:NO];
+        
     } Fail:^(NSString *errorMsg) {
         [MBProgressHUD hideHUD];
         [self sendAlertAction:errorMsg];
@@ -153,7 +157,7 @@
         
     } Fail:^(NSString *errorMsg) {
         [MBProgressHUD hideHUD];
-        [self sendAlertAction:errorMsg];
+        [self showPopTipsWithMessage:errorMsg AtView:self.sendButton inView:self.view];
     }];
 }
 

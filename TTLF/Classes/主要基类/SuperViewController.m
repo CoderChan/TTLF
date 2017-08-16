@@ -132,7 +132,7 @@
     popTipView.backgroundColor = RGBACOLOR(25, 35, 45, 1);
     popTipView.animation = CMPopTipAnimationPop;
     popTipView.dismissTapAnywhere = YES;
-    [popTipView autoDismissAnimated:YES atTimeInterval:2.5];
+    [popTipView autoDismissAnimated:YES atTimeInterval:4];
     popTipView.textColor = [UIColor whiteColor];
     [popTipView presentPointingAtView:atView inView:inView animated:YES];
 }

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0634E00CE7196E61DA9AE0C4 /* libPods-TTLFUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6951712420153646DB45C8 /* libPods-TTLFUITests.a */; };
 		177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */; };
+		3A63D51B1F442BE700FD7E91 /* PaySuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A63D51A1F442BE700FD7E91 /* PaySuccessController.m */; };
 		3B0308271EB86C8B004B9F53 /* BookStoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0308261EB86C8B004B9F53 /* BookStoreTableViewCell.m */; };
 		3B03082A1EB86C97004B9F53 /* MyBooksTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0308291EB86C97004B9F53 /* MyBooksTableViewCell.m */; };
 		3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B03082C1EB8785D004B9F53 /* BookDetialViewController.m */; };
@@ -274,6 +275,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3A63D5191F442BE700FD7E91 /* PaySuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessController.h; sourceTree = "<group>"; };
+		3A63D51A1F442BE700FD7E91 /* PaySuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessController.m; sourceTree = "<group>"; };
 		3B0308251EB86C8B004B9F53 /* BookStoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStoreTableViewCell.h; sourceTree = "<group>"; };
 		3B0308261EB86C8B004B9F53 /* BookStoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStoreTableViewCell.m; sourceTree = "<group>"; };
 		3B0308281EB86C97004B9F53 /* MyBooksTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksTableViewCell.h; sourceTree = "<group>"; };
@@ -1971,6 +1974,8 @@
 				3BB8E04E1ECA96C1004BDE09 /* GoodsDetialController.m */,
 				3B5A47281EDC030900511A04 /* PayOrderViewController.h */,
 				3B5A47291EDC030900511A04 /* PayOrderViewController.m */,
+				3A63D5191F442BE700FD7E91 /* PaySuccessController.h */,
+				3A63D51A1F442BE700FD7E91 /* PaySuccessController.m */,
 				3B062D8F1ECE8AE400886240 /* ServersViewController.h */,
 				3B062D901ECE8AE400886240 /* ServersViewController.m */,
 			);
@@ -2491,6 +2496,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3A63D51B1F442BE700FD7E91 /* PaySuccessController.m in Sources */,
 				3B062DA01ECEDF5000886240 /* PlaceDiscussModel.m in Sources */,
 				3B5BA62B1EC9CF8600A57DBF /* AddressTableViewCell.m in Sources */,
 				3B4838381EB8CBAC0053BC8D /* ReaderThumbCache.m in Sources */,

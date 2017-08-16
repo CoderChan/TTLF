@@ -25,6 +25,7 @@ extern NSString *const LastMusicIndex; // 上一次选中的索引
 extern NSString *const OrderListChanged; // 订单列表数据有变化
 
 
+
 extern NSString *const UuserID; // 用户ID
 extern NSString *const Uunionid; // 微信标识ID
 extern NSString *const Utype; // 用户身份类型
@@ -45,6 +46,7 @@ extern NSString *const UuserBgImg; //  背景图片
 /********** 通知关键字 ***********/
 extern NSString *const CreateNewVegeNoti; // 新发布了素食的通知
 extern NSString *const WechatPayResultNoti; // 微信支付回调
+extern NSString *const PaySuccessNoti; // 支付成功通知
 
 
 NS_ASSUME_NONNULL_END

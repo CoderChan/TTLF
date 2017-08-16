@@ -15,6 +15,9 @@
 #import "GoodClassListController.h"
 #import <MJRefresh/MJRefresh.h>
 #import "AllOrderViewController.h"
+#import "PaySuccessController.h"
+#import "RootNavgationController.h"
+
 
 @interface DiscoverViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -40,7 +43,18 @@
     self.title = @"发现";
     [self setupSubViews];
     
+    [YLNotificationCenter addObserver:self selector:@selector(presentPaySuccessAction) name:PaySuccessNoti object:nil];
 }
+
+- (void)presentPaySuccessAction
+{
+    PaySuccessController *paySuccess = [[PaySuccessController alloc]init];
+    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:paySuccess];
+    [self presentViewController:nav animated:YES completion:^{
+        
+    }];
+}
+
 #pragma mark - 绘制表格
 - (void)setupSubViews
 {
