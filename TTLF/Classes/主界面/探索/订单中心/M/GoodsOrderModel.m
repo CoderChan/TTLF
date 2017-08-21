@@ -17,8 +17,11 @@
     
     GoodsOrderModel *orderModel = [super mj_objectWithKeyValues:keyValues];
     
-    NSDictionary *dict = [keyValues objectForKey:@"goods"];
-    orderModel.goods = [GoodsInfoModel mj_objectWithKeyValues:dict];
+    NSDictionary *goods = [keyValues objectForKey:@"goods"];
+    orderModel.goods = [GoodsInfoModel mj_objectWithKeyValues:goods];
+    
+    NSDictionary *address = [keyValues objectForKey:@"address"];
+    orderModel.address = [AddressModel mj_objectWithKeyValues:address];
     
     return orderModel;
 }

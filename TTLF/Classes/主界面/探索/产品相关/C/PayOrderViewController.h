@@ -15,6 +15,14 @@ typedef NS_ENUM(NSInteger,PayType) {
 
 @interface PayOrderViewController : SuperViewController
 
-- (instancetype)initWithModel:(GoodsInfoModel *)model;
+
+/**
+ 初始化
+
+ @param model 商品模型
+ @param isNewOrder 是否为新订单，如果不是，那就是待支付里过来的。发起支付时需要把之前的待支付订单删除。
+ @return 当前对象
+ */
+- (instancetype)initWithModel:(GoodsInfoModel *)model OrderType:(BOOL)isNewOrder;
 
 @end

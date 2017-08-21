@@ -2329,6 +2329,36 @@
     }];
 }
 
+// 删除未支付状态订单
+- (void)deleteUnPayOrder:(GoodsOrderModel *)orderModel Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Order/delOrder";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:orderModel.order_id.base64EncodedString forKey:@"order_id"];
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/delOrder?userID=%@&order_id=%@",account.userID.base64EncodedString,orderModel.order_id.base64EncodedString];
+    NSLog(@"删除未支付订单 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
 #pragma mark - 禅修板块 -- 佛教名山
 // 随机获取20个景区作为首页
 - (void)randomPlaceListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail

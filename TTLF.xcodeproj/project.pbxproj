@@ -10,6 +10,7 @@
 		0634E00CE7196E61DA9AE0C4 /* libPods-TTLFUITests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C6951712420153646DB45C8 /* libPods-TTLFUITests.a */; };
 		177C86B81638B2438292C426 /* libPods-TTLF.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7A060249CFA55CCDC4DE93DD /* libPods-TTLF.a */; };
 		3A63D51B1F442BE700FD7E91 /* PaySuccessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A63D51A1F442BE700FD7E91 /* PaySuccessController.m */; };
+		3A83145B1F46940F00524774 /* OrderDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A83145A1F46940F00524774 /* OrderDetialViewController.m */; };
 		3B0308271EB86C8B004B9F53 /* BookStoreTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0308261EB86C8B004B9F53 /* BookStoreTableViewCell.m */; };
 		3B03082A1EB86C97004B9F53 /* MyBooksTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B0308291EB86C97004B9F53 /* MyBooksTableViewCell.m */; };
 		3B03082D1EB8785D004B9F53 /* BookDetialViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3B03082C1EB8785D004B9F53 /* BookDetialViewController.m */; };
@@ -277,6 +278,8 @@
 /* Begin PBXFileReference section */
 		3A63D5191F442BE700FD7E91 /* PaySuccessController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessController.h; sourceTree = "<group>"; };
 		3A63D51A1F442BE700FD7E91 /* PaySuccessController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessController.m; sourceTree = "<group>"; };
+		3A8314591F46940F00524774 /* OrderDetialViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderDetialViewController.h; sourceTree = "<group>"; };
+		3A83145A1F46940F00524774 /* OrderDetialViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderDetialViewController.m; sourceTree = "<group>"; };
 		3B0308251EB86C8B004B9F53 /* BookStoreTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BookStoreTableViewCell.h; sourceTree = "<group>"; };
 		3B0308261EB86C8B004B9F53 /* BookStoreTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BookStoreTableViewCell.m; sourceTree = "<group>"; };
 		3B0308281EB86C97004B9F53 /* MyBooksTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyBooksTableViewCell.h; sourceTree = "<group>"; };
@@ -832,6 +835,8 @@
 			children = (
 				3B036EDB1EE502B400A5B89C /* OrderListViewController.h */,
 				3B036EDC1EE502B400A5B89C /* OrderListViewController.m */,
+				3A8314591F46940F00524774 /* OrderDetialViewController.h */,
+				3A83145A1F46940F00524774 /* OrderDetialViewController.m */,
 			);
 			path = C;
 			sourceTree = "<group>";
@@ -2411,7 +2416,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		A5E3464022174CA5162823A0 /* [CP] Embed Pods Frameworks */ = {
@@ -2456,7 +2461,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 		DE6056EC0E648DBF3912CA9D /* [CP] Copy Pods Resources */ = {
@@ -2486,7 +2491,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -2686,6 +2691,7 @@
 				3B5BA5F31EC9794500A57DBF /* PlaceDetialModel.m in Sources */,
 				3B48383B1EB8CBAC0053BC8D /* ReaderThumbRender.m in Sources */,
 				3B2670E21E6FE2B40078379B /* CityInfoModel.m in Sources */,
+				3A83145B1F46940F00524774 /* OrderDetialViewController.m in Sources */,
 				3B266FAF1E6FDC8F0078379B /* SuperViewController.m in Sources */,
 				3B70C8631E9B77E200FDD0A2 /* NewsTableViewCell.m in Sources */,
 				3B1F15031EA7536D00DFAFAE /* FruitBowlModel.m in Sources */,
@@ -2877,7 +2883,7 @@
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
-				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
+				GCC_PREFIX_HEADER = "$SRCROOT/TTLF/Classes/PCH/TTLFHeader.h";
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2906,7 +2912,7 @@
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
-				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
+				GCC_PREFIX_HEADER = "$SRCROOT/TTLF/Classes/PCH/TTLFHeader.h";
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

@@ -9,12 +9,14 @@
 #import "OrderListViewController.h"
 #import "OrderListTableCell.h"
 #import <MJRefresh/MJRefresh.h>
+#import "OrderDetialViewController.h"
+#import "PayOrderViewController.h"
 
 
 @interface OrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 /** 订单数据源 */
-@property (copy,nonatomic) NSArray *array;
+@property (strong,nonatomic) NSMutableArray *array;
 /** 列表 */
 @property (strong,nonatomic) UITableView *tableView;
 
@@ -27,7 +29,7 @@
 {
     self = [super init];
     if (self) {
-        self.array = orderArray;
+        self.array = orderArray.mutableCopy;
     }
     return self;
 }
@@ -51,9 +53,11 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         [[TTLFManager sharedManager].networkManager orderListSuccess:^(NSArray *array) {
+            
+            [self.array removeAllObjects];
             [self hideMessageAction];
             [self.tableView.mj_header endRefreshing];
-            self.array = array;
+            [self.array addObjectsFromArray:array];
             if (self.NewestOrderBlock) {
                 _NewestOrderBlock(self.array);
             }
@@ -91,7 +95,48 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    GoodsOrderModel *model = self.array[indexPath.row];
+    if (model.status == 0) {
+        PayOrderViewController *payOrder = [[PayOrderViewController alloc]initWithModel:model.goods OrderType:NO];
+        [self.navigationController pushViewController:payOrder animated:YES];
+    }else{
+        OrderDetialViewController *order = [[OrderDetialViewController alloc]initWithModel:model];
+        [self.navigationController pushViewController:order animated:YES];
+    }
+}
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    GoodsOrderModel *model = self.array[indexPath.row];
+    if (model.status == 0) {
+        return UITableViewCellEditingStyleDelete;
+    }else{
+        return UITableViewCellEditingStyleNone;
+    }
+}
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
     
+    NSInteger index = indexPath.row;
+    GoodsOrderModel *model = self.array[indexPath.row];
+    if (model.status == 0) {
+        UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+            
+            [[TTLFManager sharedManager].networkManager deleteUnPayOrder:model Success:^{
+                [self.array removeObjectAtIndex:index];
+                [self.tableView reloadData];
+                if (self.NewestOrderBlock) {
+                    _NewestOrderBlock(self.array);
+                }
+            } Fail:^(NSString *errorMsg) {
+                [self sendAlertAction:errorMsg];
+            }];
+            
+        }];
+        action.backgroundColor = WarningColor;
+        return @[action];
+    }else{
+        return NULL;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -109,5 +154,11 @@
     return footView;
 }
 
-
+- (NSMutableArray *)array
+{
+    if (!_array) {
+        _array = [NSMutableArray array];
+    }
+    return _array;
+}
 @end

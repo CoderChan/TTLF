@@ -227,6 +227,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 管理员获取全部订单列表
 - (void)getAllOrderListWithDate:(NSString *)date Success:(SuccessModelBlock)success Fail:(FailBlock)fail;
+// 删除未支付状态订单
+- (void)deleteUnPayOrder:(GoodsOrderModel *)orderModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 
 
 @end

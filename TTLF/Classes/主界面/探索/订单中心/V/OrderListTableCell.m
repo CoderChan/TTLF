@@ -21,6 +21,8 @@
 @property (strong,nonatomic) UILabel *orderIDLabel;
 /** 状态 */
 @property (strong,nonatomic) UILabel *statusLabel;
+/** 查看物流 */
+@property (strong, nonatomic) UIButton *wuliuButton;
 
 // 没有订单时的提示
 @property (strong,nonatomic) UILabel *emptyLabel;
@@ -55,6 +57,7 @@
         // 没有订单的UI显示
         self.goodImgView.image = nil;
         self.emptyLabel.hidden = NO;
+        self.wuliuButton.hidden = YES;
         self.nameLabel.text = nil;
         self.dateLabel.text = nil;
         self.orderIDLabel.text = nil;
@@ -64,6 +67,7 @@
     }else{
         // 有订单的UI界面
         _model = model;
+        _wuliuButton.hidden = YES;
         self.emptyLabel.hidden = YES;
         [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.goods_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
         _nameLabel.text = [NSString stringWithFormat:@"%@--%@",model.goods.goods_name,model.goods.goods_name_desc];
@@ -72,8 +76,25 @@
         if (model.status == 0) {
             // 未支付
             _statusLabel.text = @"状态：待支付";
+            _statusLabel.textColor = WarningColor;
+        }else if (model.status == 1){
+            // 已支付，准备发货中
+            _wuliuButton.hidden = NO;
+            _statusLabel.text = @"状态：已支付，准备发货中";
+            _statusLabel.textColor = GreenColor;
+        }else if(model.status == 2){
+            // 商品运输中，显示查看物流按钮
+            _wuliuButton.hidden = NO;
+            _statusLabel.text = @"状态：商品运输中";
+            _statusLabel.textColor = GreenColor;
+        }else if (model.status == 3){
+            // 已完成
+            _statusLabel.text = @"状态：已完成";
+            _statusLabel.textColor = GreenColor;
         }else{
-            _statusLabel.text = @"看看看";
+            // 未知
+            _statusLabel.text = @"未知状态";
+            _statusLabel.textColor = WarningColor;
         }
     }
 }
@@ -114,8 +135,22 @@
     self.statusLabel.font = [UIFont systemFontOfSize:16];
     [self.contentView addSubview:self.statusLabel];
     
+    // 查看物流
+//    self.wuliuButton = [UIButton buttonWithType:UIButtonTypeCustom];
+//    self.wuliuButton.frame = CGRectMake(SCREEN_WIDTH - 70, 160*CKproportion - 35, 65, 30);
+//    [self.wuliuButton setTitle:@"查看物流" forState:UIControlStateNormal];
+//    self.wuliuButton.backgroundColor = GreenColor;
+//    [self.wuliuButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    self.layer.cornerRadius = 4;
+//    self.wuliuButton.titleLabel.font = [UIFont systemFontOfSize:15];
+//    [self.wuliuButton addTarget:self action:@selector(wuliuInfoAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.contentView addSubview:self.wuliuButton];
+    
 }
-
+- (void)wuliuInfoAction
+{
+    
+}
 - (UILabel *)emptyLabel
 {
     if (!_emptyLabel) {

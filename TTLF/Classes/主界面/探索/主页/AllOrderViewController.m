@@ -9,9 +9,12 @@
 #import "AllOrderViewController.h"
 #import <MJRefresh/MJRefresh.h>
 #import "OrderListTableCell.h"
+#import <PDTSimpleCalendar.h>
+#import "OrderDetialViewController.h"
 
 
-@interface AllOrderViewController ()<UITableViewDelegate,UITableViewDataSource>
+
+@interface AllOrderViewController ()<UITableViewDelegate,UITableViewDataSource,PDTSimpleCalendarViewDelegate>
 
 @property (strong,nonatomic) UITableView *tableView;
 
@@ -25,7 +28,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"全部订单";
+    self.title = @"今日订单";
     [self setupSubViews];
 }
 
@@ -48,25 +51,23 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
         
-        self.dateStr = @"2017-06-12";
-        
+        // 获取全部当天订单
         [[TTLFManager sharedManager].networkManager getAllOrderListWithDate:self.dateStr Success:^(NSArray *array) {
+            self.tableView.hidden = NO;
             [self.tableView.mj_header endRefreshing];
+            [self hideMessageAction];
             self.array = array;
             [self.tableView reloadData];
         } Fail:^(NSString *errorMsg) {
             [self.tableView.mj_header endRefreshing];
-            [self sendAlertAction:errorMsg];
+            self.tableView.hidden = YES;
+            [self showEmptyViewWithMessage:errorMsg];
         }];
         
     }];
     [self.tableView.mj_header beginRefreshing];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemBookmarks target:self action:@selector(selectDateAction)];
-    
-}
-- (void)selectDateAction
-{
     
 }
 
@@ -90,7 +91,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    GoodsOrderModel *model = self.array[indexPath.row];
+    OrderDetialViewController *orderDetial = [[OrderDetialViewController alloc]initWithModel:model];
+    [self.navigationController pushViewController:orderDetial animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -108,7 +111,28 @@
     return footView;
 }
 
-
+#pragma mark - 选择日期
+- (void)selectDateAction
+{
+    
+    PDTSimpleCalendarViewController *calendar = [[PDTSimpleCalendarViewController alloc]init];
+    NSDate *selectDate = [[NSDate date] dateByAddingHours:8];
+    [calendar setSelectedDate:selectDate];
+    calendar.delegate = self;
+    calendar.weekdayHeaderEnabled = YES;
+    calendar.weekdayTextType = PDTSimpleCalendarViewWeekdayTextTypeStandAlone;
+    calendar.title = @"选择日期";
+    [self.navigationController pushViewController:calendar animated:YES];
+}
+- (void)simpleCalendarViewController:(PDTSimpleCalendarViewController *)controller didSelectDate:(NSDate *)date
+{
+    date = [date dateByAddingHours:21];
+    NSString *localDateStr = [NSString stringWithFormat:@"%@",date];
+    self.dateStr = [localDateStr substringWithRange:NSMakeRange(0, 10)];
+    self.title = self.dateStr;
+    [self.tableView.mj_header beginRefreshing];
+    [controller.navigationController popViewControllerAnimated:YES];
+}
 
 
 @end

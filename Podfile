@@ -16,6 +16,7 @@ target 'TTLF' do
     pod 'FreeStreamer'
     pod 'PYPhotoBrowser'
     pod 'FDFullscreenPopGesture'
+    pod 'PDTSimpleCalendar'
     pod 'LCActionSheet'
     pod 'YYKeyboardManager'
     pod 'SDCycleScrollView'

@@ -24,6 +24,8 @@
 @property (copy,nonatomic) NSArray *array;
 /** 商品模型 */
 @property (strong,nonatomic) GoodsInfoModel *model;
+/** 是否为新订单 */
+@property (assign, nonatomic) BOOL isNewOrder;
 /** 商品详情 */
 @property (strong,nonatomic) UIImageView *goodsImgView;
 /** 商品名称 */
@@ -62,11 +64,12 @@
 
 @implementation PayOrderViewController
 
-- (instancetype)initWithModel:(GoodsInfoModel *)model
+- (instancetype)initWithModel:(GoodsInfoModel *)model OrderType:(BOOL)isNewOrder
 {
     self = [super init];
     if (self) {
         self.model = model;
+        self.isNewOrder = isNewOrder;
     }
     return self;
 }
@@ -140,14 +143,25 @@
         [self.navigationController popToRootViewControllerAnimated:NO];
         
     } Fail:^(NSString *errorMsg) {
+        [YLNotificationCenter postNotificationName:PaySuccessNoti object:nil];
         [MBProgressHUD hideHUD];
         [self sendAlertAction:errorMsg];
     }];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [MBProgressHUD hideHUD];
+    });
 }
 #pragma mark - 支付订单
 - (void)payOrderAction
 {
     [self.view endEditing:YES];
+    
+    if (!self.addressModel) {
+        [MBProgressHUD showError:@"请填写收货地址"];
+        return;
+    }
+    
     [MBProgressHUD showMessage:@"获取支付信息"];
     [[TTLFManager sharedManager].networkManager addGoodsToOrderListWithModel:self.model Nums:self.numLabel.text Remark:self.msgField.text PayType:WechatPayType PlaceModel:self.addressModel Success:^(WechatPayInfoModel *wechatPayModel) {
         [MBProgressHUD hideHUD];

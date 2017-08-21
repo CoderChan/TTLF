@@ -131,7 +131,7 @@
     [buyButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     buyButton.titleLabel.font = [UIFont boldSystemFontOfSize:17];
     [buyButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
-        PayOrderViewController *pay = [[PayOrderViewController alloc]initWithModel:self.model];
+        PayOrderViewController *pay = [[PayOrderViewController alloc]initWithModel:self.model OrderType:YES];
         [self.navigationController pushViewController:pay animated:YES];
     }];
     [self.view addSubview:buyButton];

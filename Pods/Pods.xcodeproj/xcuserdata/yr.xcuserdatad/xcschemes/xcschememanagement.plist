@@ -54,6 +54,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>PDTSimpleCalendar.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>PYPhotoBrowser.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -117,16 +122,6 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>53599F20BB45067047ED261F8EF4ED90</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>53CD8D841BEAE106A124811F85D5F909</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>54D9F8FAAE1F97004C71D24051B057A6</key>
 		<dict>
 			<key>primary</key>
@@ -137,17 +132,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>66AC5301A17C0083C85FA1B0E752F399</key>
+		<key>599879AAA382357D9F0DD5FADE754A85</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5BDD51C6330452A0CD38A0ED131756E4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>8642CC820CE8C5B88C113D7F47AF4BC3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>9A4574029309668D4ED8E9ED085B6D13</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -172,6 +167,11 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>BBF6E85B67B3C8558F7BEA4268F764C3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>C791F0A928C1A8FE97074DFC9ACF4E75</key>
 		<dict>
 			<key>primary</key>
@@ -182,7 +182,7 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>DF3992E3AC29A4DDF9A66C720279F416</key>
+		<key>E9FF3DA3732F305C9E7AEEC0ACD0C4CD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -192,7 +192,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>F92ABC02877AD56E981A54029EC9B1C6</key>
+		<key>F1DE0D346F53EDF0407C906E2CF0E3EB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F36DE2CB106BA89FACDEAAF636401D7A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>FD39007F784DEE978A3FC108538A3D89</key>
 		<dict>
 			<key>primary</key>
 			<true/>

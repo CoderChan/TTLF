@@ -18,7 +18,7 @@
 @property (copy,nonatomic) NSString *ordernum;
 // 开单用户
 @property (copy,nonatomic) NSString *uid;
-// 状态
+// 状态(-1：取消订单；0：待支付；1：已支付，准备发货；2：商品运输中；3：已完成。)
 @property (assign,nonatomic) int status;
 // 数量
 @property (assign,nonatomic) int num;
@@ -28,8 +28,14 @@
 @property (copy,nonatomic) NSString *remark;
 // 操作时间
 @property (copy,nonatomic) NSString *status_time;
-// check_time
+// 确认日期
 @property (copy,nonatomic) NSString *check_time;
+/** 物流商家 */
+@property (copy, nonatomic) NSString *wuliu_type;
+/** 物流订单号 */
+@property (copy, nonatomic) NSString *wuliu_order;
+/** 地址 */
+@property (strong, nonatomic) AddressModel *address;
 
 // 商品详情
 @property (strong,nonatomic) GoodsInfoModel *goods;

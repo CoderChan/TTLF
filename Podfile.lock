@@ -38,6 +38,7 @@ PODS:
   - MJExtension (3.0.13)
   - MJRefresh (3.1.12)
   - MOBFoundation_IDFA (2.2.17)
+  - PDTSimpleCalendar (0.9.1)
   - PYPhotoBrowser (1.2.5):
     - DACircularProgress
     - MBProgressHUD
@@ -69,6 +70,7 @@ DEPENDENCIES:
   - MJExtension
   - MJRefresh (~> 3.1.12)
   - MOBFoundation_IDFA
+  - PDTSimpleCalendar
   - PYPhotoBrowser
   - SDCycleScrollView
   - SDWebImage (~> 4.0)
@@ -95,6 +97,7 @@ SPEC CHECKSUMS:
   MJExtension: 5932755f451458eefa24239358817f8d291240c7
   MJRefresh: b96cdb21c4aa75a7b07654311ab2f315c497e806
   MOBFoundation_IDFA: ce39a93c7163b2877615d3a6acd1276a6a0132e6
+  PDTSimpleCalendar: d1c03387678422715dc021aa1a85d70f4d1014f2
   PYPhotoBrowser: 832154ec5e61c2c321d9be0e69af1fda8731e5ac
   Reachability: 33e18b67625424e47b6cde6d202dce689ad7af96
   SDCycleScrollView: 90e43636fcc8e6a7f74e8b64d87418a8e96549b4
@@ -104,6 +107,6 @@ SPEC CHECKSUMS:
   YYKeyboardManager: ff53d2e80d1808567a7f004028bd200d9469a89f
   YYKit: 7cda43304a8dc3696c449041e2cb3107b4e236e7
 
-PODFILE CHECKSUM: 765c54fb7f13fe6ec2ca2460312c1a73904e0c5c
+PODFILE CHECKSUM: bd0dce3831efcbd1200d3e7fcc206ceec08741ee
 
-COCOAPODS: 1.2.0.beta.1
+COCOAPODS: 1.2.1
