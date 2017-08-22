@@ -46,7 +46,7 @@
     }else if (userModel.type == 7){
         _nameLabel.textColor = MainColor;
         _typeLabel.textColor = RGBACOLOR(253, 199, 40, 1);;
-        _typeLabel.text = @"普通管理员";
+        _typeLabel.text = @"管理员";
     }else if (userModel.type == 8){
         //        _typeLabel.text = @"普通用户";
         [_typeLabel removeFromSuperview];

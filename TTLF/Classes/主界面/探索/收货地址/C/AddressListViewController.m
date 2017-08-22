@@ -151,6 +151,9 @@
         [[TTLFManager sharedManager].networkManager deleteAddressWithModel:addressModel Success:^{
             [self.array removeObjectAtIndex:indexPath.section];
             [self.tableView reloadData];
+            if (self.array.count == 0) {
+                [[AddressCacheManager sharedManager] deleteAddressCache];
+            }
         } Fail:^(NSString *errorMsg) {
             [self sendAlertAction:errorMsg];
         }];

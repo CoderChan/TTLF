@@ -13,6 +13,7 @@ NSString *const CreateNewVegeNoti = @"CreateNewVegeNoti";
 NSString *const WechatPayResultNoti = @"WechatPayResultNoti";
 NSString *const PaySuccessNoti = @"PaySuccessNoti";
 NSString *const DeleteUnPayOrderNoti = @"DeleteUnPayOrderNoti";
+NSString *const PayFailedNoti = @"PayFailedNoti";
 
 
 /************* NSUserDefault 关键字 **************/

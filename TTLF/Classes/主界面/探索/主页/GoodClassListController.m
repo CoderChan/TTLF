@@ -14,6 +14,7 @@
 #import <MJRefresh.h>
 
 
+
 @interface GoodClassListController ()<UITableViewDelegate,UITableViewDataSource>
 
 /** 表格 */
@@ -90,7 +91,10 @@
         }];
     }];
     [self.tableView.mj_header beginRefreshing];
+    
+    
 }
+
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

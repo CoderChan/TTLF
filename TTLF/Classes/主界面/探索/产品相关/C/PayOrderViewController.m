@@ -48,8 +48,8 @@
 @property (strong,nonatomic) UIImageView *zhifubaoPayIcon;
 /** 选择支付方式--微信支付 */
 @property (strong,nonatomic) UIImageView *wechatPayIcon;
-/** 是否为支付宝 */
-@property (assign,nonatomic) BOOL isZhifubaoPay;
+/** 是否为微信支付 */
+@property (assign,nonatomic) BOOL isWechatPay;
 @property (strong, nonatomic) UIButton *sendButton;
 
 
@@ -82,8 +82,8 @@
 
 - (void)setupSubViews
 {
-    self.isZhifubaoPay = YES;
-    self.array = @[@[@"收货地址"],@[@"商品详情",@"购买数量",@"我要留言"],@[@"支付宝",@"微信支付"]];
+    self.isWechatPay = YES;
+    self.array = @[@[@"收货地址"],@[@"商品详情",@"购买数量",@"我要留言"],@[@"微信支付"]];
     
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 124)];
     self.tableView.dataSource = self;
@@ -143,9 +143,10 @@
         [self.navigationController popToRootViewControllerAnimated:NO];
         
     } Fail:^(NSString *errorMsg) {
-        [YLNotificationCenter postNotificationName:PaySuccessNoti object:nil];
         [MBProgressHUD hideHUD];
-        [self sendAlertAction:errorMsg];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        [YLNotificationCenter postNotificationName:PayFailedNoti object:errorMsg];
+        
     }];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -158,7 +159,7 @@
     [self.view endEditing:YES];
     
     if (!self.addressModel) {
-        [MBProgressHUD showError:@"请填写收货地址"];
+        [MBProgressHUD showError:@"请完善收货地址"];
         return;
     }
     
@@ -266,29 +267,30 @@
         
     }else{
         if (indexPath.row == 0) {
-            // 支付宝
-            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.iconView.image = [UIImage imageNamed:@"pay_zhifubao"];
-            cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
-            [cell.contentView addSubview:self.zhifubaoPayIcon];
-            if (self.isZhifubaoPay) {
-                _zhifubaoPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox_ok"];
-            }else{
-                _zhifubaoPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox"];
-            }
-            return cell;
-        } else {
             // 微信支付
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
             cell.accessoryType = UITableViewCellAccessoryNone;
             cell.iconView.image = [UIImage imageNamed:@"pay_wechat"];
             cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
             [cell.contentView addSubview:self.wechatPayIcon];
-            if (self.isZhifubaoPay) {
-                _wechatPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox"];
-            }else{
+            if (self.isWechatPay) {
                 _wechatPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox_ok"];
+            }else{
+                _wechatPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox"];
+            }
+            return cell;
+            
+        } else {
+            // 支付宝
+            NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.iconView.image = [UIImage imageNamed:@"pay_zhifubao"];
+            cell.titleLabel.text = self.array[indexPath.section][indexPath.row];
+            [cell.contentView addSubview:self.zhifubaoPayIcon];
+            if (self.isWechatPay) {
+                _zhifubaoPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox"];
+            }else{
+                _zhifubaoPayIcon.image = [UIImage imageNamed:@"cm2_list_checkbox_ok"];
             }
             return cell;
         }
@@ -311,12 +313,13 @@
         
     }else {
         if (indexPath.row == 0) {
-            // 支付宝
-            self.isZhifubaoPay = YES;
-            [self.tableView reloadData];
-        }else{
             // 微信支付
-            self.isZhifubaoPay = NO;
+            self.isWechatPay = YES;
+            [self.tableView reloadData];
+            
+        }else{
+            // 支付宝
+            self.isWechatPay = NO;
             [self.tableView reloadData];
         }
     }

@@ -71,8 +71,9 @@
         self.emptyLabel.hidden = YES;
         [_goodImgView sd_setImageWithURL:[NSURL URLWithString:model.goods.goods_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
         _nameLabel.text = [NSString stringWithFormat:@"%@--%@",model.goods.goods_name,model.goods.goods_name_desc];
-        _dateLabel.text = model.check_time;
+        _dateLabel.text = model.status_time;
         _orderIDLabel.text = [NSString stringWithFormat:@"订单号#：%@",model.ordernum];
+        
         if (model.status == 0) {
             // 未支付
             _statusLabel.text = @"状态：待支付";

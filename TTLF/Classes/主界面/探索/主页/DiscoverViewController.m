@@ -43,16 +43,34 @@
     self.title = @"发现";
     [self setupSubViews];
     
-    [YLNotificationCenter addObserver:self selector:@selector(presentPaySuccessAction) name:PaySuccessNoti object:nil];
+    [YLNotificationCenter addObserver:self selector:@selector(presentPaySuccessAction:) name:PaySuccessNoti object:nil];
+    [YLNotificationCenter addObserver:self selector:@selector(presentPaySuccessAction:) name:PayFailedNoti object:nil];
 }
 
-- (void)presentPaySuccessAction
+#pragma mark - 微信支付后的验证反馈
+- (void)presentPaySuccessAction:(NSNotification *)noti
 {
-    PaySuccessController *paySuccess = [[PaySuccessController alloc]init];
-    RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:paySuccess];
-    [self presentViewController:nav animated:YES completion:^{
-        
+    
+    if (noti.object) {
+        NSString *errorMsg = noti.object;
+        [self sendAlertAction:errorMsg];
+    }else{
+        PaySuccessController *paySuccess = [[PaySuccessController alloc]init];
+        RootNavgationController *nav = [[RootNavgationController alloc]initWithRootViewController:paySuccess];
+        [self presentViewController:nav animated:YES completion:^{
+            
+        }];
+    }
+    
+    // 获取我的订单列表
+    [[TTLFManager sharedManager].networkManager orderListSuccess:^(NSArray *array) {
+        self.orderArray = array;
+        [self.tableView reloadData];
+    } Fail:^(NSString *errorMsg) {
+        self.orderArray = @[];
+        [self.tableView reloadData];
     }];
+    
 }
 
 #pragma mark - 绘制表格
@@ -60,6 +78,7 @@
 {
 //    self.array = @[@[@"订单中心",@"收货地址"],@[@"小叶紫檀",@"黄花梨",@"禅茶一味",@"红木饰品",@"幸运吊坠",@"佛像雕塑",@"精选配饰"]];
     self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, self.view.height - 64)];
+    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     self.tableView.backgroundColor = self.view.backgroundColor;
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
@@ -117,6 +136,7 @@
 {
     AllOrderViewController *allOrder = [AllOrderViewController new];
     [self.navigationController pushViewController:allOrder animated:YES];
+    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -126,7 +146,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 2;
+        if (self.orderArray.count >= 1) {
+            return 2;
+        }else{
+            return 1;
+        }
     }else{
         return self.array.count;
     }
@@ -134,16 +158,24 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            // 订单中心
-            OrderListTableCell *cell = [OrderListTableCell sharedOrderListCell:tableView];
-            if (self.orderArray.count >= 1) {
-                GoodsOrderModel *model = [self.orderArray firstObject];
-                cell.model = model;
+        if (self.orderArray.count >= 1) {
+            if (indexPath.row == 0) {
+                // 订单中心
+                OrderListTableCell *cell = [OrderListTableCell sharedOrderListCell:tableView];
+                if (self.orderArray.count >= 1) {
+                    GoodsOrderModel *model = [self.orderArray firstObject];
+                    cell.model = model;
+                }else{
+                    cell.model = nil;
+                }
+                return cell;
             }else{
-                cell.model = nil;
+                // 地址管理
+                NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
+                cell.iconView.image = [UIImage imageNamed:@"good_address"];
+                cell.titleLabel.text = @"地址管理";
+                return cell;
             }
-            return cell;
         }else{
             // 地址管理
             NormalTableViewCell *cell = [NormalTableViewCell sharedNormalCell:tableView];
@@ -151,6 +183,7 @@
             cell.titleLabel.text = @"地址管理";
             return cell;
         }
+        
     }else{
         // 商品分类
         GoodsListTableCell *cell = [GoodsListTableCell sharedGoodsListTableCell:tableView];
@@ -165,14 +198,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            // 订单中心
-            OrderListViewController *orderList = [[OrderListViewController alloc]initWithOrderList:self.orderArray];
-            orderList.NewestOrderBlock = ^(NSArray *orderArray) {
-                self.orderArray = orderArray;
-                [self.tableView reloadData];
-            };
-            [self.navigationController pushViewController:orderList animated:YES];
+        if (self.orderArray.count >= 1) {
+            if (indexPath.row == 0) {
+                // 订单中心
+                OrderListViewController *orderList = [[OrderListViewController alloc]initWithOrderList:self.orderArray];
+                orderList.NewestOrderBlock = ^(NSArray *orderArray) {
+                    self.orderArray = orderArray;
+                    [self.tableView reloadData];
+                };
+                [self.navigationController pushViewController:orderList animated:YES];
+            }else{
+                // 收货地址
+                AddressListViewController *address = [[AddressListViewController alloc]init];
+                [self.navigationController pushViewController:address animated:YES];
+            }
         }else{
             // 收货地址
             AddressListViewController *address = [[AddressListViewController alloc]init];
@@ -189,8 +228,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 160*CKproportion;
+        if (self.orderArray.count >= 1) {
+            if (indexPath.row == 0) {
+                return 160*CKproportion;
+            }else{
+                return 50;
+            }
         }else{
             return 50;
         }

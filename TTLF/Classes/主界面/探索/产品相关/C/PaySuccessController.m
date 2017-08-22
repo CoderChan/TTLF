@@ -49,9 +49,9 @@
     [self.view addSubview:button];
     [button mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view.mas_centerX);
-        make.top.equalTo(iconView.mas_bottom).offset(20);
+        make.top.equalTo(iconView.mas_bottom).offset(40);
         make.height.equalTo(@40);
-        make.width.equalTo(@(180*CKproportion));
+        make.width.equalTo(@(240*CKproportion));
     }];
     
     

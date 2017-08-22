@@ -12,7 +12,6 @@
 #import "NormalWebViewController.h"
 #import "ServersViewController.h"
 #import "GoodsDetialTableCell.h"
-#import <SDCycleScrollView.h>
 #import "PYPhotoBrowser.h"
 #import "GoodsInfoModel.h"
 #import "RightMoreView.h"
@@ -21,7 +20,7 @@
 
 
 
-@interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,RightMoreViewDelegate,UIWebViewDelegate>
+@interface GoodsDetialController ()<UITableViewDelegate,UITableViewDataSource,RightMoreViewDelegate,UIWebViewDelegate>
 
 // 商品模型
 @property (strong,nonatomic) GoodsInfoModel *model;
@@ -29,8 +28,8 @@
 @property (strong,nonatomic) UITableView *tableView;
 /** 数据源 */
 @property (copy,nonatomic) NSArray *array;
-/** 轮播图 */
-@property (strong,nonatomic) SDCycleScrollView *scrollView;
+/** 封面图 */
+@property (strong,nonatomic) UIImageView *headImgView;
 /** 商品详细名称 */
 @property (strong,nonatomic) UILabel *nameLabel;
 /** 商品售价 */
@@ -179,7 +178,7 @@
         [cell.titleLabel removeFromSuperview];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.accessoryType = UITableViewCellAccessoryNone;
-        [cell.contentView addSubview:self.scrollView];
+        [cell.contentView addSubview:self.headImgView];
         return cell;
     }else{
         if (indexPath.row == 0) {
@@ -326,34 +325,16 @@
         
     }
 }
-#pragma mark - 相关代理
-- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
-{
-    NSArray *imageArray = cycleScrollView.imageURLStringsGroup;
-    
-    PYPhotoBrowseView *browerView = [[PYPhotoBrowseView alloc]init];
-    browerView.imagesURL = imageArray;
-    browerView.currentIndex = index;
-    browerView.showDuration = 0.25;
-    browerView.hiddenDuration = 0.25;
-    browerView.frameToWindow = CGRectMake(0, 64, self.view.width, self.scrollView.height);
-    browerView.frameFormWindow = CGRectMake(0, 64, self.view.width, self.scrollView.height);
-    [browerView show];
-    
-}
 
 
-- (SDCycleScrollView *)scrollView
+- (UIImageView *)headImgView
 {
-    if (!_scrollView) {
-        _scrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70) imageURLStringsGroup:@[self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo]];
-        _scrollView.delegate = self;
-        _scrollView.placeholderImage = [UIImage imageNamed:@"good_place"];
-        _scrollView.autoScroll = NO;
-        _scrollView.imageURLStringsGroup = @[self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo,self.model.goods_logo];
+    if (!_headImgView) {
+        _headImgView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, self.view.width, (self.view.height - 64 - 50)*0.70)];
+        [_headImgView sd_setImageWithURL:[NSURL URLWithString:self.model.goods_logo] placeholderImage:[UIImage imageNamed:@"goods_place"]];
         
     }
-    return _scrollView;
+    return _headImgView;
 }
 - (UILabel *)nameLabel
 {

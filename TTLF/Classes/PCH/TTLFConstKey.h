@@ -48,6 +48,7 @@ extern NSString *const UuserBgImg; //  背景图片
 extern NSString *const CreateNewVegeNoti; // 新发布了素食的通知
 extern NSString *const WechatPayResultNoti; // 微信支付回调
 extern NSString *const PaySuccessNoti; // 支付成功通知
+extern NSString *const PayFailedNoti; // 支付失败通知
 
 
 NS_ASSUME_NONNULL_END

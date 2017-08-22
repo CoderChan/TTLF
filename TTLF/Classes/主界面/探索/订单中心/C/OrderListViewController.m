@@ -11,6 +11,7 @@
 #import <MJRefresh/MJRefresh.h>
 #import "OrderDetialViewController.h"
 #import "PayOrderViewController.h"
+#import "ServersViewController.h"
 
 
 @interface OrderListViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -73,8 +74,18 @@
     }else{
         [self showEmptyViewWithMessage:@"您还没有订单数据"];
     }
+    
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithTitle:@"客服" style:UIBarButtonItemStylePlain target:self action:@selector(kefuAction)];
+    [self.navigationItem.rightBarButtonItem setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15],NSForegroundColorAttributeName:[UIColor whiteColor]} forState:UIControlStateNormal];
 }
 
+- (void)kefuAction
+{
+    ServersViewController *server = [[ServersViewController alloc]init];
+    [self.navigationController pushViewController:server animated:YES];
+}
+
+#pragma mark - 表格相关
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
