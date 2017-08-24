@@ -2268,6 +2268,39 @@
     }];
 }
 
+// 处理已支付订单-编辑物流信息
+- (void)editOrderStatusWithModel:(GoodsOrderModel *)orderModel WuliuType:(NSString *)wuliuType WuliuOrderID:(NSString *)wuliuOrder Success:(SuccessBlock)success Fail:(FailBlock)fail
+{
+    Account *account = [AccountTool account];
+    if (!account) {
+        fail(@"用户未登录");
+        return;
+    }
+    
+    NSString *url = @"http://app.yangruyi.com/home/Order/addLogistics";
+    NSMutableDictionary *param = [NSMutableDictionary dictionary];
+    [param setValue:account.userID.base64EncodedString forKey:@"userID"];
+    [param setValue:orderModel.order_id.base64EncodedString forKey:@"order_id"];
+    [param setValue:wuliuType.base64EncodedString forKey:@"wuliu_type"];
+    [param setValue:wuliuOrder.base64EncodedString forKey:@"wuliu_order"];
+    
+    
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/addLogistics?userID=%@&order_id=%@&wuliu_type=%@&wuliu_order=%@",account.userID.base64EncodedString,orderModel.order_id.base64EncodedString,wuliuType.base64EncodedString,wuliuOrder.base64EncodedString];
+    NSLog(@"订单操作 = %@",allurl);
+    
+    [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {
+        int code = [[[responseObject objectForKey:@"code"] description] intValue];
+        NSString *message = [[responseObject objectForKey:@"message"] description];
+        if (code == 1) {
+            success();
+        }else{
+            fail(message);
+        }
+    } fail:^(NSURLSessionDataTask *task, NSError *error) {
+        fail(error.localizedDescription);
+    }];
+}
+
 // 获取用户订单列表
 - (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail
 {

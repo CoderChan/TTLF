@@ -223,6 +223,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)addGoodsToOrderListWithModel:(GoodsInfoModel *)goodsModel Nums:(NSString *)nums Remark:(NSString *)remark PayType:(int)payType PlaceModel:(AddressModel *)addressModel Success:(void (^)(WechatPayInfoModel *wechatPayModel))success Fail:(FailBlock)fail;
 // 验证微信支付
 - (void)checkWechatPayWithModel:(WechatPayInfoModel *)payModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 处理已支付订单-编辑物流信息
+- (void)editOrderStatusWithModel:(GoodsOrderModel *)orderModel WuliuType:(NSString *)wuliuType WuliuOrderID:(NSString *)wuliuOrder Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 获取用户订单列表
 - (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 管理员获取全部订单列表
