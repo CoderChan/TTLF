@@ -86,16 +86,16 @@
         }else if(model.status == 2){
             // 商品运输中，显示查看物流按钮
             _wuliuButton.hidden = NO;
-            _statusLabel.text = @"状态：商品运输中";
-            _statusLabel.textColor = GreenColor;
+            _statusLabel.text = @"状态：商品运输中···";
+            _statusLabel.textColor = [UIColor brownColor];
         }else if (model.status == 3){
             // 已完成
             _statusLabel.text = @"状态：已完成";
-            _statusLabel.textColor = GreenColor;
+            _statusLabel.textColor = [UIColor blackColor];
         }else{
             // 未知
             _statusLabel.text = @"未知状态";
-            _statusLabel.textColor = WarningColor;
+            _statusLabel.textColor = [UIColor grayColor];
         }
     }
 }

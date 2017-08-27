@@ -112,6 +112,9 @@
         [self.navigationController pushViewController:payOrder animated:YES];
     }else{
         OrderDetialViewController *order = [[OrderDetialViewController alloc]initWithModel:model];
+        order.OrderStatusChangedBlock = ^{
+            [self.tableView.mj_header beginRefreshing];
+        };
         [self.navigationController pushViewController:order animated:YES];
     }
 }

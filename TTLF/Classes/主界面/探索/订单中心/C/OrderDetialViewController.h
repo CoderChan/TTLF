@@ -19,4 +19,6 @@
  */
 - (instancetype)initWithModel:(GoodsOrderModel *)orderModel;
 
+@property (copy,nonatomic) void (^OrderStatusChangedBlock)();
+
 @end

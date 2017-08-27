@@ -225,6 +225,8 @@ typedef void (^SuccessStringBlock)(NSString *string);
 - (void)checkWechatPayWithModel:(WechatPayInfoModel *)payModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 处理已支付订单-编辑物流信息
 - (void)editOrderStatusWithModel:(GoodsOrderModel *)orderModel WuliuType:(NSString *)wuliuType WuliuOrderID:(NSString *)wuliuOrder Success:(SuccessBlock)success Fail:(FailBlock)fail;
+// 商品已签收，订单已完成
+- (void)finishOrder:(GoodsOrderModel *)orderModel Success:(SuccessBlock)success Fail:(FailBlock)fail;
 // 获取用户订单列表
 - (void)orderListSuccess:(SuccessModelBlock)success Fail:(FailBlock)fail;
 // 管理员获取全部订单列表
