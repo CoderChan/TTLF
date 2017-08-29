@@ -352,7 +352,7 @@
 - (UILabel *)salePriceLabel
 {
     if (!_salePriceLabel) {
-        _salePriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(_nameLabel.x, CGRectGetMaxY(_nameLabel.frame) + 3, 70, 30)];
+        _salePriceLabel = [[UILabel alloc]initWithFrame:CGRectMake(_nameLabel.x, CGRectGetMaxY(_nameLabel.frame) + 3, 120, 30)];
         _salePriceLabel.textColor = WarningColor;
         _salePriceLabel.backgroundColor = [UIColor clearColor];
         _salePriceLabel.font = [UIFont systemFontOfSize:16];

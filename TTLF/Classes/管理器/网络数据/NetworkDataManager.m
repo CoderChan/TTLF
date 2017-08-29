@@ -2314,13 +2314,13 @@
     [param setValue:account.userID.base64EncodedString forKey:@"userID"];
     [param setValue:orderModel.order_id.base64EncodedString forKey:@"order_id"];
     if (orderModel.status == 2) {
-        [param setValue:[NSString stringWithFormat:@"%d",orderModel.status].base64EncodedString forKey:@"status"];
+        [param setValue:@"3".base64EncodedString forKey:@"status"];
     }else{
         fail(@"订单状态有误");
         return;
     }
     
-    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/editStatus?userID=%@order_id=%@&status=%@",account.userID.base64EncodedString,orderModel.order_id.base64EncodedString,[NSString stringWithFormat:@"%d",orderModel.status].base64EncodedString];
+    NSString *allurl = [NSString stringWithFormat:@"http://app.yangruyi.com/home/Order/editStatus?userID=%@&order_id=%@&status=%@",account.userID.base64EncodedString,@"3".base64EncodedString,[NSString stringWithFormat:@"%d",orderModel.status].base64EncodedString];
     NSLog(@"设定订单状态已完成 = %@",allurl);
     
     [HTTPManager POST:url params:param success:^(NSURLSessionDataTask *task, id responseObject) {

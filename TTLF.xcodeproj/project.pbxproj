@@ -2883,7 +2883,7 @@
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
-				GCC_PREFIX_HEADER = "$SRCROOT/TTLF/Classes/PCH/TTLFHeader.h";
+				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -2912,7 +2912,7 @@
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK",
 					"$(PROJECT_DIR)/TTLF/Classes/其他类库/Libs/QQSDK/SDK",
 				);
-				GCC_PREFIX_HEADER = "$SRCROOT/TTLF/Classes/PCH/TTLFHeader.h";
+				GCC_PREFIX_HEADER = $SRCROOT/TTLF/Classes/PCH/TTLFHeader.h;
 				INFOPLIST_FILE = TTLF/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
